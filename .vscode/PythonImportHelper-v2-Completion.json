@@ -1,0 +1,1304 @@
+[
+    {
+        "label": "dataclass",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
+        "isExtraImport": true,
+        "detail": "dataclasses",
+        "documentation": {}
+    },
+    {
+        "label": "dataclass",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
+        "isExtraImport": true,
+        "detail": "dataclasses",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "urllib.request",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "urllib.request",
+        "description": "urllib.request",
+        "detail": "urllib.request",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTMLResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
+        "label": "FileResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
+        "label": "JSONResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
+        "label": "RedirectResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
+        "label": "json,",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json.",
+        "description": "json.",
+        "detail": "json.",
+        "documentation": {}
+    },
+    {
+        "label": "argparse,",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "argparse.",
+        "description": "argparse.",
+        "detail": "argparse.",
+        "documentation": {}
+    },
+    {
+        "label": "cv2",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "cv2",
+        "description": "cv2",
+        "detail": "cv2",
+        "documentation": {}
+    },
+    {
+        "label": "qrcode",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "qrcode",
+        "description": "qrcode",
+        "detail": "qrcode",
+        "documentation": {}
+    },
+    {
+        "label": "mean",
+        "importPath": "statistics",
+        "description": "statistics",
+        "isExtraImport": true,
+        "detail": "statistics",
+        "documentation": {}
+    },
+    {
+        "label": "pstdev",
+        "importPath": "statistics",
+        "description": "statistics",
+        "isExtraImport": true,
+        "detail": "statistics",
+        "documentation": {}
+    },
+    {
+        "label": "mean",
+        "importPath": "statistics",
+        "description": "statistics",
+        "isExtraImport": true,
+        "detail": "statistics",
+        "documentation": {}
+    },
+    {
+        "label": "pstdev",
+        "importPath": "statistics",
+        "description": "statistics",
+        "isExtraImport": true,
+        "detail": "statistics",
+        "documentation": {}
+    },
+    {
+        "label": "math",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "math",
+        "description": "math",
+        "detail": "math",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "subprocess",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "subprocess",
+        "description": "subprocess",
+        "detail": "subprocess",
+        "documentation": {}
+    },
+    {
+        "label": "yaml",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "yaml",
+        "description": "yaml",
+        "detail": "yaml",
+        "documentation": {}
+    },
+    {
+        "label": "select_character",
+        "importPath": "backend.characters",
+        "description": "backend.characters",
+        "isExtraImport": true,
+        "detail": "backend.characters",
+        "documentation": {}
+    },
+    {
+        "label": "deque",
+        "importPath": "collections",
+        "description": "collections",
+        "isExtraImport": true,
+        "detail": "collections",
+        "documentation": {}
+    },
+    {
+        "label": "EventEngine",
+        "importPath": "vision.event_engine",
+        "description": "vision.event_engine",
+        "isExtraImport": true,
+        "detail": "vision.event_engine",
+        "documentation": {}
+    },
+    {
+        "label": "CharacterResult",
+        "kind": 6,
+        "importPath": "backend.characters",
+        "description": "backend.characters",
+        "peekOfCode": "class CharacterResult:\n    character: str\n    score: int\n    label: str\n    rationale: List[str]\n    context: Dict\ndef _clamp(x: int, lo=0, hi=100) -> int:\n    return max(lo, min(hi, int(x)))\ndef _label(score: int) -> str:\n    if score >= 80: return \"안정적\"",
+        "detail": "backend.characters",
+        "documentation": {}
+    },
+    {
+        "label": "extract_context",
+        "kind": 2,
+        "importPath": "backend.characters",
+        "description": "backend.characters",
+        "peekOfCode": "def extract_context(metrics: Dict) -> Dict:\n    \"\"\"\n    '상황 특징(Feature)' 추출 단계 (특허의 상황 분석에 해당)\n    \"\"\"\n    avg_motion = metrics.get(\"avg_motion\", 0.0) or 0.0\n    bvi = metrics.get(\"behavior_variance_index\", 0.0) or 0.0\n    avg_flow = metrics.get(\"avg_flow\", None)\n    avg_comp = metrics.get(\"avg_compactness\", None)\n    roi_peak_avg = metrics.get(\"roi_peak_avg\", None)\n    # 신호(0~1-ish)로 정규화 느낌만 주기 (MVP라 단순화)",
+        "detail": "backend.characters",
+        "documentation": {}
+    },
+    {
+        "label": "character_cluster",
+        "kind": 2,
+        "importPath": "backend.characters",
+        "description": "backend.characters",
+        "peekOfCode": "def character_cluster(ctx: Dict, metrics: Dict) -> CharacterResult:\n    # 군집/공간 특화: spread(응집도 낮음)일 때 강하게 패널티\n    score = 100\n    comp = ctx.get(\"avg_compactness\")\n    roi_peak = ctx.get(\"roi_peak_avg\")\n    rationale = [\"[Cluster 캐릭터] 군집(공간) 패턴을 중심으로 평가합니다.\"]\n    if comp is not None:\n        if comp < 0.10:\n            score -= 25; rationale.append(\"군집이 크게 퍼지는(spread) 경향 → 감점.\")\n        elif comp < 0.30:",
+        "detail": "backend.characters",
+        "documentation": {}
+    },
+    {
+        "label": "character_flow",
+        "kind": 2,
+        "importPath": "backend.characters",
+        "description": "backend.characters",
+        "peekOfCode": "def character_flow(ctx: Dict, metrics: Dict) -> CharacterResult:\n    # 이동/방향 특화: flow가 높은데 불안정하면 경고\n    score = 100\n    avg_flow = ctx.get(\"avg_flow\")\n    bvi = ctx.get(\"bvi\", 0.0)\n    rationale = [\"[Flow 캐릭터] 이동 흐름(Flow) 패턴을 중심으로 평가합니다.\"]\n    if avg_flow is None:\n        score -= 10\n        rationale.append(\"Flow 데이터가 부족 → 감점.\")\n    else:",
+        "detail": "backend.characters",
+        "documentation": {}
+    },
+    {
+        "label": "character_variance",
+        "kind": 2,
+        "importPath": "backend.characters",
+        "description": "backend.characters",
+        "peekOfCode": "def character_variance(ctx: Dict, metrics: Dict) -> CharacterResult:\n    # 시간/변동성 특화: BVI 중심\n    score = 100\n    bvi = ctx.get(\"bvi\", 0.0)\n    rationale = [\"[Variance 캐릭터] 시간 변동성(BVI)과 리듬 안정성을 중심으로 평가합니다.\"]\n    if bvi >= 0.14:\n        score -= 30; rationale.append(\"BVI 매우 높음 → 강한 감점.\")\n    elif bvi >= 0.12:\n        score -= 20; rationale.append(\"BVI 높음 → 감점.\")\n    elif bvi >= 0.08:",
+        "detail": "backend.characters",
+        "documentation": {}
+    },
+    {
+        "label": "character_balanced",
+        "kind": 2,
+        "importPath": "backend.characters",
+        "description": "backend.characters",
+        "peekOfCode": "def character_balanced(ctx: Dict, metrics: Dict) -> CharacterResult:\n    # 기본 캐릭터(안전망)\n    score = 100\n    bvi = ctx.get(\"bvi\", 0.0)\n    comp = ctx.get(\"avg_compactness\")\n    rationale = [\"[Balanced 캐릭터] 기본 규칙 기반으로 종합 평가합니다.\"]\n    if bvi > 0.12: score -= 20; rationale.append(\"BVI 높음 → 감점.\")\n    elif bvi > 0.08: score -= 10; rationale.append(\"BVI 보통 → 소폭 감점.\")\n    if comp is not None and comp < 0.10: score -= 10; rationale.append(\"군집 spread → 감점.\")\n    score = _clamp(score)",
+        "detail": "backend.characters",
+        "documentation": {}
+    },
+    {
+        "label": "select_character",
+        "kind": 2,
+        "importPath": "backend.characters",
+        "description": "backend.characters",
+        "peekOfCode": "def select_character(metrics: Dict) -> CharacterResult:\n    ctx = extract_context(metrics)\n    flow_sig = ctx[\"signal_flow\"]\n    var_sig  = ctx[\"signal_variance\"]\n    clu_sig  = ctx[\"signal_cluster\"]\n    # MVP용 간단한 게이팅(= 상황 분류 → 캐릭터 라우팅)\n    # 1) Flow가 가장 강하면 FLOW\n    if flow_sig >= 0.65 and flow_sig >= var_sig and flow_sig >= clu_sig:\n        return character_flow(ctx, metrics)\n    # 2) Cluster(ROI 집중/공간) 신호가 강하면 CLUSTER",
+        "detail": "backend.characters",
+        "documentation": {}
+    },
+    {
+        "label": "rule_based_summary",
+        "kind": 2,
+        "importPath": "backend.llm_summary",
+        "description": "backend.llm_summary",
+        "peekOfCode": "def rule_based_summary(title: str, score: int, label: str, metrics: Dict) -> Tuple[str, List[str]]:\n    bvi = metrics.get(\"behavior_variance_index\")\n    night = metrics.get(\"night_stability_score\")\n    avg_flow = metrics.get(\"avg_flow\")\n    avg_comp = metrics.get(\"avg_compactness\")\n    def level_bvi(x):\n        if x is None: return \"N/A\"\n        if x <= 0.06: return \"낮음(안정)\"\n        if x <= 0.12: return \"보통\"\n        return \"높음(변동 큼)\"",
+        "detail": "backend.llm_summary",
+        "documentation": {}
+    },
+    {
+        "label": "llm_summary_with_ollama",
+        "kind": 2,
+        "importPath": "backend.llm_summary",
+        "description": "backend.llm_summary",
+        "peekOfCode": "def llm_summary_with_ollama(title: str, score: int, label: str, metrics: Dict) -> Tuple[str, List[str]]:\n    model = os.getenv(\"OLLAMA_MODEL\")\n    if not model:\n        raise RuntimeError(\"OLLAMA_MODEL is not set\")\n    base_head, base_bullets = rule_based_summary(title, score, label, metrics)\n    # LLM에는 '사실(지표)'만 주고, 과장/추측 금지 지시\n    facts = {\n        \"title\": title,\n        \"score\": score,\n        \"label\": label,",
+        "detail": "backend.llm_summary",
+        "documentation": {}
+    },
+    {
+        "label": "generate_summary",
+        "kind": 2,
+        "importPath": "backend.llm_summary",
+        "description": "backend.llm_summary",
+        "peekOfCode": "def generate_summary(title: str, score: int, label: str, metrics: Dict) -> Tuple[str, List[str]]:\n    # 1) Ollama 있으면 사용\n    try:\n        if os.getenv(\"OLLAMA_MODEL\"):\n            return llm_summary_with_ollama(title, score, label, metrics)\n    except Exception:\n        # LLM 실패해도 서비스는 살아야 함\n        pass\n    # 2) fallback\n    return rule_based_summary(title, score, label, metrics)",
+        "detail": "backend.llm_summary",
+        "documentation": {}
+    },
+    {
+        "label": "load_events",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def load_events() -> List[Dict[str, Any]]:\n    if not EVENTS_PATH.exists():\n        return []\n    lines = EVENTS_PATH.read_text(encoding=\"utf-8\").splitlines()\n    out: List[Dict[str, Any]] = []\n    for l in lines:\n        l = l.strip()\n        if not l:\n            continue\n        try:",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "filter_events",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def filter_events(\n    events: List[Dict[str, Any]],\n    days: int = 30,\n    farm_id: Optional[str] = None,\n    lot_id: Optional[str] = None,\n    code: Optional[str] = None,\n) -> List[Dict[str, Any]]:\n    cut = _now() - float(days) * 86400.0\n    out = []\n    for e in events:",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "integrity_status",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def integrity_status(events: List[Dict[str, Any]]) -> Tuple[bool, str]:\n    \"\"\"\n    해시체인 전체 검증을 완벽히 하진 않고,\n    촬영/데모용으로 \"봉인(seal) 흔적이 있는가\"를 빠르게 확인.\n    - hash/prev_hash/seq가 일정 개수 이상 있으면 OK\n    \"\"\"\n    if not events:\n        return True, \"no events\"\n    has = sum(1 for e in events if \"hash\" in e and \"prev_hash\" in e and \"seq\" in e)\n    if has == len(events):",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "tag_badge",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def tag_badge(e: Dict[str, Any]) -> str:\n    tags = e.get(\"tags\") or []\n    sev = (e.get(\"severity\") or \"mid\").lower()\n    sev_txt = SEV_LABELS.get(sev, \"주의\")\n    color = SEV_COLOR.get(sev, \"#111827\")\n    if not tags:\n        return \"<span class='muted'>-</span>\"\n    tag_txt = \", \".join(TAG_LABELS.get(t, t) for t in tags)\n    icon = \"🚨\" if sev == \"high\" else (\"⚠️\" if sev == \"mid\" else \"✅\")\n    return (",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "evidence_buttons",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def evidence_buttons(e: Dict[str, Any]) -> str:\n    def btn(label: str, href: str) -> str:\n        return f\"<a class='btn' href='{href}' target='_blank'>▶ {label}</a>\"\n    parts = []\n    clip = e.get(\"clip_path\")\n    thumb = e.get(\"thumb_path\")\n    heat = e.get(\"heatmap_path\")\n    if clip:\n        parts.append(btn(\"clip\", f\"/file/{clip}\"))\n    if thumb:",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "build_cards",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def build_cards(events: List[Dict[str, Any]]) -> str:\n    cards = []\n    for e in events:\n        char = e.get(\"character\", \"N/A\")\n        char_k = CHAR_LABELS.get(char, char)\n        cards.append(\n            f\"\"\"\n            <div class=\"card\">\n              <div class=\"card-top\">\n                <div class=\"card-time\">{_fmt_ts(e.get(\"time\"))}</div>",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "calc_metrics",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def calc_metrics(events: List[Dict[str, Any]]) -> Dict[str, Any]:\n    if not events:\n        return {\n            \"count\": 0,\n            \"avg_motion\": None,\n            \"avg_flow\": None,\n            \"avg_compact\": None,\n            \"avg_roi_peak\": None,\n            \"bvi\": None,\n            \"night_score\": None,",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "trust_score",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def trust_score(metrics: Dict[str, Any], integrity_ok: bool) -> Tuple[int, str]:\n    # 촬영/데모용 간단 점수: 데이터/무결성/변동성 기반\n    base = 60\n    if not integrity_ok:\n        base -= 20\n    cnt = metrics.get(\"count\") or 0\n    if cnt < 3:\n        base -= 10\n    elif cnt >= 10:\n        base += 10",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "page_shell",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def page_shell(title: str, body: str) -> str:\n    return f\"\"\"\n    <html>\n      <head>\n        <meta charset=\"utf-8\"/>\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\n        <title>{title}</title>\n        {STYLE}\n      </head>\n      <body>",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "root",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def root():\n    return RedirectResponse(url=\"/demo\")\n@app.get(\"/demo\", response_class=HTMLResponse, include_in_schema=False)\ndef demo():\n    # 촬영용: 바로 상품페이지로\n    return RedirectResponse(url=\"/p/EGG-0001\")\n@app.get(\"/events\", response_class=JSONResponse)\ndef api_events(days: int = 30, farm_id: str = \"farm1\", lot_id: str = \"lotA\"):\n    events = filter_events(load_events(), days=days, farm_id=farm_id, lot_id=lot_id)\n    return {\"count\": len(events), \"events\": events}",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "demo",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def demo():\n    # 촬영용: 바로 상품페이지로\n    return RedirectResponse(url=\"/p/EGG-0001\")\n@app.get(\"/events\", response_class=JSONResponse)\ndef api_events(days: int = 30, farm_id: str = \"farm1\", lot_id: str = \"lotA\"):\n    events = filter_events(load_events(), days=days, farm_id=farm_id, lot_id=lot_id)\n    return {\"count\": len(events), \"events\": events}\n@app.get(\"/file/{path:path}\", include_in_schema=False)\ndef file_any(path: str):\n    # allow absolute path from old logs OR relative under project",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "api_events",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def api_events(days: int = 30, farm_id: str = \"farm1\", lot_id: str = \"lotA\"):\n    events = filter_events(load_events(), days=days, farm_id=farm_id, lot_id=lot_id)\n    return {\"count\": len(events), \"events\": events}\n@app.get(\"/file/{path:path}\", include_in_schema=False)\ndef file_any(path: str):\n    # allow absolute path from old logs OR relative under project\n    p = Path(path)\n    if p.is_absolute():\n        if not p.exists():\n            raise HTTPException(status_code=404, detail=\"Not Found\")",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "file_any",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def file_any(path: str):\n    # allow absolute path from old logs OR relative under project\n    p = Path(path)\n    if p.is_absolute():\n        if not p.exists():\n            raise HTTPException(status_code=404, detail=\"Not Found\")\n        return FileResponse(str(p))\n    # relative: interpret from project root\n    abs_p = (ROOT / p).resolve()\n    if not abs_p.exists():",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "qrcode",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def qrcode(name: str):\n    # name can be \"EGG-0001.png\"\n    target = _safe_join(QRCODES_DIR, name)\n    if not target.exists():\n        raise HTTPException(status_code=404, detail=\"Not Found\")\n    return FileResponse(str(target))\n@app.get(\"/p/{code}\", response_class=HTMLResponse)\ndef product_page(code: str, window: str = \"7\"):\n    meta = PRODUCTS.get(code) or {\"title\": f\"제품 {code}\", \"farm_id\": \"farm1\", \"lot_id\": \"lotA\"}\n    days = 30 if window == \"all\" else 7",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "product_page",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def product_page(code: str, window: str = \"7\"):\n    meta = PRODUCTS.get(code) or {\"title\": f\"제품 {code}\", \"farm_id\": \"farm1\", \"lot_id\": \"lotA\"}\n    days = 30 if window == \"all\" else 7\n    farm_id = meta.get(\"farm_id\", \"farm1\")\n    lot_id = meta.get(\"lot_id\", \"lotA\")\n    events_all = filter_events(load_events(), days=30, farm_id=farm_id, lot_id=lot_id)\n    events = filter_events(load_events(), days=days, farm_id=farm_id, lot_id=lot_id)\n    ok, why = integrity_status(events_all)\n    metrics = calc_metrics(events)\n    score, label = trust_score(metrics, ok)",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "report",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def report(days: int = 7, farm_id: str = \"farm1\", lot_id: str = \"lotA\"):\n    events_all = filter_events(load_events(), days=30, farm_id=farm_id, lot_id=lot_id)\n    events = filter_events(load_events(), days=days, farm_id=farm_id, lot_id=lot_id)\n    ok, why = integrity_status(events_all)\n    metrics = calc_metrics(events)\n    score, label = trust_score(metrics, ok)\n    tagged = [e for e in events if (e.get(\"tags\") or [])]\n    cards_html = build_cards(tagged[:30])\n    rows = \"\"\n    for e in tagged[:30]:",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "app = FastAPI()\n# --- Paths\nROOT = Path(__file__).resolve().parent.parent\nDATA_DIR = ROOT / \"data\"\nEVENTS_PATH = DATA_DIR / \"events.jsonl\"\nCLIPS_DIR = DATA_DIR / \"clips\"\nTHUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nQRCODES_DIR = DATA_DIR / \"qrcodes\"\n# --- Labels (Korean)",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "ROOT",
+        "kind": 5,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "ROOT = Path(__file__).resolve().parent.parent\nDATA_DIR = ROOT / \"data\"\nEVENTS_PATH = DATA_DIR / \"events.jsonl\"\nCLIPS_DIR = DATA_DIR / \"clips\"\nTHUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nQRCODES_DIR = DATA_DIR / \"qrcodes\"\n# --- Labels (Korean)\nSEV_LABELS = {\"low\": \"경미\", \"mid\": \"주의\", \"high\": \"위험\"}\nSEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "DATA_DIR",
+        "kind": 5,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "DATA_DIR = ROOT / \"data\"\nEVENTS_PATH = DATA_DIR / \"events.jsonl\"\nCLIPS_DIR = DATA_DIR / \"clips\"\nTHUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nQRCODES_DIR = DATA_DIR / \"qrcodes\"\n# --- Labels (Korean)\nSEV_LABELS = {\"low\": \"경미\", \"mid\": \"주의\", \"high\": \"위험\"}\nSEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}\nTAG_LABELS = {",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "EVENTS_PATH",
+        "kind": 5,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "EVENTS_PATH = DATA_DIR / \"events.jsonl\"\nCLIPS_DIR = DATA_DIR / \"clips\"\nTHUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nQRCODES_DIR = DATA_DIR / \"qrcodes\"\n# --- Labels (Korean)\nSEV_LABELS = {\"low\": \"경미\", \"mid\": \"주의\", \"high\": \"위험\"}\nSEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}\nTAG_LABELS = {\n    \"HIGH_ACTIVITY\": \"활동량 급증\",",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "CLIPS_DIR",
+        "kind": 5,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "CLIPS_DIR = DATA_DIR / \"clips\"\nTHUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nQRCODES_DIR = DATA_DIR / \"qrcodes\"\n# --- Labels (Korean)\nSEV_LABELS = {\"low\": \"경미\", \"mid\": \"주의\", \"high\": \"위험\"}\nSEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}\nTAG_LABELS = {\n    \"HIGH_ACTIVITY\": \"활동량 급증\",\n    \"MOVE_FLOW\": \"이동 흐름 증가\",",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "THUMBS_DIR",
+        "kind": 5,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "THUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nQRCODES_DIR = DATA_DIR / \"qrcodes\"\n# --- Labels (Korean)\nSEV_LABELS = {\"low\": \"경미\", \"mid\": \"주의\", \"high\": \"위험\"}\nSEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}\nTAG_LABELS = {\n    \"HIGH_ACTIVITY\": \"활동량 급증\",\n    \"MOVE_FLOW\": \"이동 흐름 증가\",\n    \"CLUSTER_SPREAD\": \"군집 분산 확대\",",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "HEATMAPS_DIR",
+        "kind": 5,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "HEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nQRCODES_DIR = DATA_DIR / \"qrcodes\"\n# --- Labels (Korean)\nSEV_LABELS = {\"low\": \"경미\", \"mid\": \"주의\", \"high\": \"위험\"}\nSEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}\nTAG_LABELS = {\n    \"HIGH_ACTIVITY\": \"활동량 급증\",\n    \"MOVE_FLOW\": \"이동 흐름 증가\",\n    \"CLUSTER_SPREAD\": \"군집 분산 확대\",\n    \"ROI_PEAK\": \"특정 구역 집중 활동\",",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "QRCODES_DIR",
+        "kind": 5,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "QRCODES_DIR = DATA_DIR / \"qrcodes\"\n# --- Labels (Korean)\nSEV_LABELS = {\"low\": \"경미\", \"mid\": \"주의\", \"high\": \"위험\"}\nSEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}\nTAG_LABELS = {\n    \"HIGH_ACTIVITY\": \"활동량 급증\",\n    \"MOVE_FLOW\": \"이동 흐름 증가\",\n    \"CLUSTER_SPREAD\": \"군집 분산 확대\",\n    \"ROI_PEAK\": \"특정 구역 집중 활동\",\n    \"MID_ACTIVITY\": \"중간 수준 활동\",",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "SEV_LABELS",
+        "kind": 5,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "SEV_LABELS = {\"low\": \"경미\", \"mid\": \"주의\", \"high\": \"위험\"}\nSEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}\nTAG_LABELS = {\n    \"HIGH_ACTIVITY\": \"활동량 급증\",\n    \"MOVE_FLOW\": \"이동 흐름 증가\",\n    \"CLUSTER_SPREAD\": \"군집 분산 확대\",\n    \"ROI_PEAK\": \"특정 구역 집중 활동\",\n    \"MID_ACTIVITY\": \"중간 수준 활동\",\n    # 이미 한글로 저장된 태그도 그대로 표시\n}",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "SEV_COLOR",
+        "kind": 5,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "SEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}\nTAG_LABELS = {\n    \"HIGH_ACTIVITY\": \"활동량 급증\",\n    \"MOVE_FLOW\": \"이동 흐름 증가\",\n    \"CLUSTER_SPREAD\": \"군집 분산 확대\",\n    \"ROI_PEAK\": \"특정 구역 집중 활동\",\n    \"MID_ACTIVITY\": \"중간 수준 활동\",\n    # 이미 한글로 저장된 태그도 그대로 표시\n}\nCHAR_LABELS = {",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "TAG_LABELS",
+        "kind": 5,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "TAG_LABELS = {\n    \"HIGH_ACTIVITY\": \"활동량 급증\",\n    \"MOVE_FLOW\": \"이동 흐름 증가\",\n    \"CLUSTER_SPREAD\": \"군집 분산 확대\",\n    \"ROI_PEAK\": \"특정 구역 집중 활동\",\n    \"MID_ACTIVITY\": \"중간 수준 활동\",\n    # 이미 한글로 저장된 태그도 그대로 표시\n}\nCHAR_LABELS = {\n    \"BALANCED\": \"균형\",",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "CHAR_LABELS",
+        "kind": 5,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "CHAR_LABELS = {\n    \"BALANCED\": \"균형\",\n    \"FLOW\": \"이동\",\n    \"SPREAD\": \"분산\",\n    \"ACTIVE\": \"활동\",\n    \"N/A\": \"N/A\",\n}\n# --- Demo Products (촬영/데모용)\nPRODUCTS: Dict[str, Dict[str, str]] = {\n    \"EGG-0001\": {\"title\": \"J Crova 달걀 10구 (IoT A)\", \"farm_id\": \"farm1\", \"lot_id\": \"lotA\"},",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "STYLE",
+        "kind": 5,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "STYLE = \"\"\"\n<style>\n  :root { --bg:#f5f7fb; --card:#fff; --muted:#6b7280; --line:#e5e7eb; }\n  body { font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', Segoe UI, Roboto, Helvetica, Arial, sans-serif;\n         margin:0; background:var(--bg); color:#111827; }\n  a { color: inherit; }\n  .wrap { max-width: 1060px; margin: 0 auto; padding: 22px; }\n  .topnav { display:flex; gap:10px; margin-bottom: 14px; flex-wrap: wrap; }\n  .tab { padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:#fff; text-decoration:none; font-weight:800; font-size:13px; }\n  .title { font-size: 26px; font-weight: 900; margin: 6px 0 12px; }",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "score_label",
+        "kind": 2,
+        "importPath": "tools.assign_character",
+        "description": "tools.assign_character",
+        "peekOfCode": "def score_label(score:int):\n    if score >= 80: return \"안정적\"\n    if score >= 60: return \"보통\"\n    return \"주의\"\ndef signals_from_event(e: dict):\n    # 이벤트 자체에서 신호 추출 (특허의 \"상황 특징\")\n    roi_peak = float(e.get(\"roi_peak\", 0) or 0)\n    flow = e.get(\"flow_mean_mag\")\n    flow = float(flow) if flow is not None else 0.0\n    motion = float(e.get(\"motion_ratio\", 0) or 0)",
+        "detail": "tools.assign_character",
+        "documentation": {}
+    },
+    {
+        "label": "signals_from_event",
+        "kind": 2,
+        "importPath": "tools.assign_character",
+        "description": "tools.assign_character",
+        "peekOfCode": "def signals_from_event(e: dict):\n    # 이벤트 자체에서 신호 추출 (특허의 \"상황 특징\")\n    roi_peak = float(e.get(\"roi_peak\", 0) or 0)\n    flow = e.get(\"flow_mean_mag\")\n    flow = float(flow) if flow is not None else 0.0\n    motion = float(e.get(\"motion_ratio\", 0) or 0)\n    # 간단 정규화(0~1)\n    sig_cluster = min(1.0, roi_peak / 0.60)          # ROI 집중/군집 신호\n    sig_flow    = min(1.0, flow / 12.0)              # 이동 신호\n    sig_motion  = min(1.0, motion / 0.45)            # 활동량 신호(보조)",
+        "detail": "tools.assign_character",
+        "documentation": {}
+    },
+    {
+        "label": "choose_character",
+        "kind": 2,
+        "importPath": "tools.assign_character",
+        "description": "tools.assign_character",
+        "peekOfCode": "def choose_character(sig: dict):\n    c = sig[\"signal_cluster\"]\n    f = sig[\"signal_flow\"]\n    m = sig[\"signal_motion\"]\n    # 특허의 \"캐릭터 선택(라우팅)\" - MVP 게이팅\n    if f >= 0.65 and f >= c:\n        return \"FLOW\"\n    if c >= 0.65:\n        return \"CLUSTER\"\n    if m >= 0.75 and m > max(c, f):",
+        "detail": "tools.assign_character",
+        "documentation": {}
+    },
+    {
+        "label": "classify",
+        "kind": 2,
+        "importPath": "tools.assign_character",
+        "description": "tools.assign_character",
+        "peekOfCode": "def classify(character: str, sig: dict):\n    # 선택된 캐릭터가 최종 점수 산출(특허의 \"선택 캐릭터가 분류\")\n    score = 100\n    rationale = [f\"[{character}] 캐릭터가 이벤트를 평가했습니다.\"]\n    if character == \"CLUSTER\":\n        if sig[\"roi_peak\"] >= 0.60:\n            score -= 18; rationale.append(\"ROI 피크가 매우 큼(특정 구역 집중) → 감점.\")\n        elif sig[\"roi_peak\"] >= 0.45:\n            score -= 10; rationale.append(\"ROI 피크가 큼(집중 경향) → 소폭 감점.\")\n        else:",
+        "detail": "tools.assign_character",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "tools.assign_character",
+        "description": "tools.assign_character",
+        "peekOfCode": "def main():\n    path = Path(\"data/events.jsonl\")\n    if not path.exists():\n        print(\"[ERR] data/events.jsonl not found\")\n        return 1\n    lines = path.read_text(encoding=\"utf-8\").strip().splitlines()\n    if not lines:\n        print(\"[INFO] empty events.jsonl\")\n        return 0\n    out = []",
+        "detail": "tools.assign_character",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "tools.backfill_farm_lot",
+        "description": "tools.backfill_farm_lot",
+        "peekOfCode": "def main():\n    ap = argparse.ArgumentParser()\n    ap.add_argument(\"--farm_id\", default=\"farm1\")\n    ap.add_argument(\"--lot_id\", default=\"lotA\")\n    ap.add_argument(\"--path\", default=\"data/events.jsonl\")\n    args = ap.parse_args()\n    p = Path(args.path)\n    if not p.exists():\n        print(f\"[ERR] not found: {p}\")\n        return 1",
+        "detail": "tools.backfill_farm_lot",
+        "documentation": {}
+    },
+    {
+        "label": "ensure_dirs",
+        "kind": 2,
+        "importPath": "tools.demo_generate",
+        "description": "tools.demo_generate",
+        "peekOfCode": "def ensure_dirs():\n    CLIPS.mkdir(parents=True, exist_ok=True)\n    THUMBS.mkdir(parents=True, exist_ok=True)\n    DATA.mkdir(parents=True, exist_ok=True)\ndef reset_data():\n    for p in [EVENTS]:\n        if p.exists(): p.unlink()\n    for d in [CLIPS, THUMBS]:\n        if d.exists():\n            for f in d.glob(\"*\"):",
+        "detail": "tools.demo_generate",
+        "documentation": {}
+    },
+    {
+        "label": "reset_data",
+        "kind": 2,
+        "importPath": "tools.demo_generate",
+        "description": "tools.demo_generate",
+        "peekOfCode": "def reset_data():\n    for p in [EVENTS]:\n        if p.exists(): p.unlink()\n    for d in [CLIPS, THUMBS]:\n        if d.exists():\n            for f in d.glob(\"*\"):\n                try: f.unlink()\n                except: pass\ndef save_clip(cap, fps, start_frame, end_frame, out_path):\n    fourcc = cv2.VideoWriter_fourcc(*\"mp4v\")",
+        "detail": "tools.demo_generate",
+        "documentation": {}
+    },
+    {
+        "label": "save_clip",
+        "kind": 2,
+        "importPath": "tools.demo_generate",
+        "description": "tools.demo_generate",
+        "peekOfCode": "def save_clip(cap, fps, start_frame, end_frame, out_path):\n    fourcc = cv2.VideoWriter_fourcc(*\"mp4v\")\n    w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))\n    h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))\n    writer = cv2.VideoWriter(str(out_path), fourcc, fps, (w, h))\n    cap.set(cv2.CAP_PROP_POS_FRAMES, start_frame)\n    n = 0\n    for _ in range(end_frame - start_frame):\n        ok, frame = cap.read()\n        if not ok:",
+        "detail": "tools.demo_generate",
+        "documentation": {}
+    },
+    {
+        "label": "save_thumb",
+        "kind": 2,
+        "importPath": "tools.demo_generate",
+        "description": "tools.demo_generate",
+        "peekOfCode": "def save_thumb(frame, out_path):\n    cv2.imwrite(str(out_path), frame)\ndef main():\n    ensure_dirs()\n    if not VIDEO.exists():\n        raise SystemExit(f\"sample video not found: {VIDEO}\")\n    cap = cv2.VideoCapture(str(VIDEO))\n    if not cap.isOpened():\n        raise SystemExit(\"failed to open video\")\n    fps = cap.get(cv2.CAP_PROP_FPS) or 25.0",
+        "detail": "tools.demo_generate",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "tools.demo_generate",
+        "description": "tools.demo_generate",
+        "peekOfCode": "def main():\n    ensure_dirs()\n    if not VIDEO.exists():\n        raise SystemExit(f\"sample video not found: {VIDEO}\")\n    cap = cv2.VideoCapture(str(VIDEO))\n    if not cap.isOpened():\n        raise SystemExit(\"failed to open video\")\n    fps = cap.get(cv2.CAP_PROP_FPS) or 25.0\n    total = int(cap.get(cv2.CAP_PROP_FRAME_COUNT) or 0)\n    dur = total / fps if total else 0",
+        "detail": "tools.demo_generate",
+        "documentation": {}
+    },
+    {
+        "label": "BASE",
+        "kind": 5,
+        "importPath": "tools.demo_generate",
+        "description": "tools.demo_generate",
+        "peekOfCode": "BASE = Path(__file__).resolve().parents[1]\nDATA = BASE / \"data\"\nVIDEO = DATA / \"sample.mp4\"\nEVENTS = DATA / \"events.jsonl\"\nCLIPS = DATA / \"clips\"\nTHUMBS = DATA / \"thumbs\"\nFARM_ID=\"farm1\"\nLOT_ID=\"lotA\"\n# 촬영용 세팅\nEVERY_SEC = 3          # 몇 초마다 이벤트 만들지",
+        "detail": "tools.demo_generate",
+        "documentation": {}
+    },
+    {
+        "label": "DATA",
+        "kind": 5,
+        "importPath": "tools.demo_generate",
+        "description": "tools.demo_generate",
+        "peekOfCode": "DATA = BASE / \"data\"\nVIDEO = DATA / \"sample.mp4\"\nEVENTS = DATA / \"events.jsonl\"\nCLIPS = DATA / \"clips\"\nTHUMBS = DATA / \"thumbs\"\nFARM_ID=\"farm1\"\nLOT_ID=\"lotA\"\n# 촬영용 세팅\nEVERY_SEC = 3          # 몇 초마다 이벤트 만들지\nCLIP_PRE_SEC = 2       # 이벤트 전 몇초",
+        "detail": "tools.demo_generate",
+        "documentation": {}
+    },
+    {
+        "label": "VIDEO",
+        "kind": 5,
+        "importPath": "tools.demo_generate",
+        "description": "tools.demo_generate",
+        "peekOfCode": "VIDEO = DATA / \"sample.mp4\"\nEVENTS = DATA / \"events.jsonl\"\nCLIPS = DATA / \"clips\"\nTHUMBS = DATA / \"thumbs\"\nFARM_ID=\"farm1\"\nLOT_ID=\"lotA\"\n# 촬영용 세팅\nEVERY_SEC = 3          # 몇 초마다 이벤트 만들지\nCLIP_PRE_SEC = 2       # 이벤트 전 몇초\nCLIP_POST_SEC = 3      # 이벤트 후 몇초",
+        "detail": "tools.demo_generate",
+        "documentation": {}
+    },
+    {
+        "label": "EVENTS",
+        "kind": 5,
+        "importPath": "tools.demo_generate",
+        "description": "tools.demo_generate",
+        "peekOfCode": "EVENTS = DATA / \"events.jsonl\"\nCLIPS = DATA / \"clips\"\nTHUMBS = DATA / \"thumbs\"\nFARM_ID=\"farm1\"\nLOT_ID=\"lotA\"\n# 촬영용 세팅\nEVERY_SEC = 3          # 몇 초마다 이벤트 만들지\nCLIP_PRE_SEC = 2       # 이벤트 전 몇초\nCLIP_POST_SEC = 3      # 이벤트 후 몇초\nMAX_EVENTS = 12        # 최대 몇개 만들지",
+        "detail": "tools.demo_generate",
+        "documentation": {}
+    },
+    {
+        "label": "CLIPS",
+        "kind": 5,
+        "importPath": "tools.demo_generate",
+        "description": "tools.demo_generate",
+        "peekOfCode": "CLIPS = DATA / \"clips\"\nTHUMBS = DATA / \"thumbs\"\nFARM_ID=\"farm1\"\nLOT_ID=\"lotA\"\n# 촬영용 세팅\nEVERY_SEC = 3          # 몇 초마다 이벤트 만들지\nCLIP_PRE_SEC = 2       # 이벤트 전 몇초\nCLIP_POST_SEC = 3      # 이벤트 후 몇초\nMAX_EVENTS = 12        # 최대 몇개 만들지\ndef ensure_dirs():",
+        "detail": "tools.demo_generate",
+        "documentation": {}
+    },
+    {
+        "label": "THUMBS",
+        "kind": 5,
+        "importPath": "tools.demo_generate",
+        "description": "tools.demo_generate",
+        "peekOfCode": "THUMBS = DATA / \"thumbs\"\nFARM_ID=\"farm1\"\nLOT_ID=\"lotA\"\n# 촬영용 세팅\nEVERY_SEC = 3          # 몇 초마다 이벤트 만들지\nCLIP_PRE_SEC = 2       # 이벤트 전 몇초\nCLIP_POST_SEC = 3      # 이벤트 후 몇초\nMAX_EVENTS = 12        # 최대 몇개 만들지\ndef ensure_dirs():\n    CLIPS.mkdir(parents=True, exist_ok=True)",
+        "detail": "tools.demo_generate",
+        "documentation": {}
+    },
+    {
+        "label": "EVERY_SEC",
+        "kind": 5,
+        "importPath": "tools.demo_generate",
+        "description": "tools.demo_generate",
+        "peekOfCode": "EVERY_SEC = 3          # 몇 초마다 이벤트 만들지\nCLIP_PRE_SEC = 2       # 이벤트 전 몇초\nCLIP_POST_SEC = 3      # 이벤트 후 몇초\nMAX_EVENTS = 12        # 최대 몇개 만들지\ndef ensure_dirs():\n    CLIPS.mkdir(parents=True, exist_ok=True)\n    THUMBS.mkdir(parents=True, exist_ok=True)\n    DATA.mkdir(parents=True, exist_ok=True)\ndef reset_data():\n    for p in [EVENTS]:",
+        "detail": "tools.demo_generate",
+        "documentation": {}
+    },
+    {
+        "label": "CLIP_PRE_SEC",
+        "kind": 5,
+        "importPath": "tools.demo_generate",
+        "description": "tools.demo_generate",
+        "peekOfCode": "CLIP_PRE_SEC = 2       # 이벤트 전 몇초\nCLIP_POST_SEC = 3      # 이벤트 후 몇초\nMAX_EVENTS = 12        # 최대 몇개 만들지\ndef ensure_dirs():\n    CLIPS.mkdir(parents=True, exist_ok=True)\n    THUMBS.mkdir(parents=True, exist_ok=True)\n    DATA.mkdir(parents=True, exist_ok=True)\ndef reset_data():\n    for p in [EVENTS]:\n        if p.exists(): p.unlink()",
+        "detail": "tools.demo_generate",
+        "documentation": {}
+    },
+    {
+        "label": "CLIP_POST_SEC",
+        "kind": 5,
+        "importPath": "tools.demo_generate",
+        "description": "tools.demo_generate",
+        "peekOfCode": "CLIP_POST_SEC = 3      # 이벤트 후 몇초\nMAX_EVENTS = 12        # 최대 몇개 만들지\ndef ensure_dirs():\n    CLIPS.mkdir(parents=True, exist_ok=True)\n    THUMBS.mkdir(parents=True, exist_ok=True)\n    DATA.mkdir(parents=True, exist_ok=True)\ndef reset_data():\n    for p in [EVENTS]:\n        if p.exists(): p.unlink()\n    for d in [CLIPS, THUMBS]:",
+        "detail": "tools.demo_generate",
+        "documentation": {}
+    },
+    {
+        "label": "MAX_EVENTS",
+        "kind": 5,
+        "importPath": "tools.demo_generate",
+        "description": "tools.demo_generate",
+        "peekOfCode": "MAX_EVENTS = 12        # 최대 몇개 만들지\ndef ensure_dirs():\n    CLIPS.mkdir(parents=True, exist_ok=True)\n    THUMBS.mkdir(parents=True, exist_ok=True)\n    DATA.mkdir(parents=True, exist_ok=True)\ndef reset_data():\n    for p in [EVENTS]:\n        if p.exists(): p.unlink()\n    for d in [CLIPS, THUMBS]:\n        if d.exists():",
+        "detail": "tools.demo_generate",
+        "documentation": {}
+    },
+    {
+        "label": "canonical_json",
+        "kind": 2,
+        "importPath": "tools.hashchain",
+        "description": "tools.hashchain",
+        "peekOfCode": "def canonical_json(obj: dict) -> str:\n    clean = {k: v for k, v in obj.items() if k not in HASH_FIELDS}\n    return json.dumps(clean, ensure_ascii=False, sort_keys=True, separators=(\",\", \":\"))\ndef sha256_hex(s: str) -> str:\n    return hashlib.sha256(s.encode(\"utf-8\")).hexdigest()\ndef seal(path: Path, genesis: str = \"GENESIS\"):\n    if not path.exists():\n        print(f\"[ERR] not found: {path}\")\n        return 1\n    lines = path.read_text(encoding=\"utf-8\").splitlines()",
+        "detail": "tools.hashchain",
+        "documentation": {}
+    },
+    {
+        "label": "sha256_hex",
+        "kind": 2,
+        "importPath": "tools.hashchain",
+        "description": "tools.hashchain",
+        "peekOfCode": "def sha256_hex(s: str) -> str:\n    return hashlib.sha256(s.encode(\"utf-8\")).hexdigest()\ndef seal(path: Path, genesis: str = \"GENESIS\"):\n    if not path.exists():\n        print(f\"[ERR] not found: {path}\")\n        return 1\n    lines = path.read_text(encoding=\"utf-8\").splitlines()\n    if not lines:\n        print(\"[INFO] empty file\")\n        return 0",
+        "detail": "tools.hashchain",
+        "documentation": {}
+    },
+    {
+        "label": "seal",
+        "kind": 2,
+        "importPath": "tools.hashchain",
+        "description": "tools.hashchain",
+        "peekOfCode": "def seal(path: Path, genesis: str = \"GENESIS\"):\n    if not path.exists():\n        print(f\"[ERR] not found: {path}\")\n        return 1\n    lines = path.read_text(encoding=\"utf-8\").splitlines()\n    if not lines:\n        print(\"[INFO] empty file\")\n        return 0\n    out = []\n    prev = genesis",
+        "detail": "tools.hashchain",
+        "documentation": {}
+    },
+    {
+        "label": "verify",
+        "kind": 2,
+        "importPath": "tools.hashchain",
+        "description": "tools.hashchain",
+        "peekOfCode": "def verify(path: Path, genesis: str = \"GENESIS\"):\n    if not path.exists():\n        print(f\"[ERR] not found: {path}\")\n        return 2\n    txt = path.read_text(encoding=\"utf-8\").strip()\n    if not txt:\n        print(\"[OK] verified (empty)\")\n        return 0\n    prev = genesis\n    last_hash = None",
+        "detail": "tools.hashchain",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "tools.hashchain",
+        "description": "tools.hashchain",
+        "peekOfCode": "def main():\n    ap = argparse.ArgumentParser()\n    ap.add_argument(\"cmd\", choices=[\"seal\", \"verify\"])\n    ap.add_argument(\"--path\", default=\"data/events.jsonl\")\n    ap.add_argument(\"--genesis\", default=\"GENESIS\")\n    args = ap.parse_args()\n    p = Path(args.path)\n    if args.cmd == \"seal\":\n        return seal(p, args.genesis)\n    return verify(p, args.genesis)",
+        "detail": "tools.hashchain",
+        "documentation": {}
+    },
+    {
+        "label": "HASH_FIELDS",
+        "kind": 5,
+        "importPath": "tools.hashchain",
+        "description": "tools.hashchain",
+        "peekOfCode": "HASH_FIELDS = {\"hash\", \"prev_hash\", \"seq\", \"sealed_at\"}\ndef canonical_json(obj: dict) -> str:\n    clean = {k: v for k, v in obj.items() if k not in HASH_FIELDS}\n    return json.dumps(clean, ensure_ascii=False, sort_keys=True, separators=(\",\", \":\"))\ndef sha256_hex(s: str) -> str:\n    return hashlib.sha256(s.encode(\"utf-8\")).hexdigest()\ndef seal(path: Path, genesis: str = \"GENESIS\"):\n    if not path.exists():\n        print(f\"[ERR] not found: {path}\")\n        return 1",
+        "detail": "tools.hashchain",
+        "documentation": {}
+    },
+    {
+        "label": "BASE",
+        "kind": 5,
+        "importPath": "tools.make_qr",
+        "description": "tools.make_qr",
+        "peekOfCode": "BASE = Path(__file__).resolve().parents[1]\nPRODUCTS = BASE / \"configs\" / \"products.json\"\nOUTDIR = BASE / \"data\" / \"qrcodes\"\nOUTDIR.mkdir(parents=True, exist_ok=True)\nif not PRODUCTS.exists():\n    print(\"products.json not found\")\n    exit(1)\nproducts = json.loads(PRODUCTS.read_text(encoding=\"utf-8\"))\nBASE_URL = \"http://192.168.45.37:8000/p\"\nfor code in products.keys():",
+        "detail": "tools.make_qr",
+        "documentation": {}
+    },
+    {
+        "label": "PRODUCTS",
+        "kind": 5,
+        "importPath": "tools.make_qr",
+        "description": "tools.make_qr",
+        "peekOfCode": "PRODUCTS = BASE / \"configs\" / \"products.json\"\nOUTDIR = BASE / \"data\" / \"qrcodes\"\nOUTDIR.mkdir(parents=True, exist_ok=True)\nif not PRODUCTS.exists():\n    print(\"products.json not found\")\n    exit(1)\nproducts = json.loads(PRODUCTS.read_text(encoding=\"utf-8\"))\nBASE_URL = \"http://192.168.45.37:8000/p\"\nfor code in products.keys():\n    url = f\"{BASE_URL}/{code}\"",
+        "detail": "tools.make_qr",
+        "documentation": {}
+    },
+    {
+        "label": "OUTDIR",
+        "kind": 5,
+        "importPath": "tools.make_qr",
+        "description": "tools.make_qr",
+        "peekOfCode": "OUTDIR = BASE / \"data\" / \"qrcodes\"\nOUTDIR.mkdir(parents=True, exist_ok=True)\nif not PRODUCTS.exists():\n    print(\"products.json not found\")\n    exit(1)\nproducts = json.loads(PRODUCTS.read_text(encoding=\"utf-8\"))\nBASE_URL = \"http://192.168.45.37:8000/p\"\nfor code in products.keys():\n    url = f\"{BASE_URL}/{code}\"\n    img = qrcode.make(url)",
+        "detail": "tools.make_qr",
+        "documentation": {}
+    },
+    {
+        "label": "products",
+        "kind": 5,
+        "importPath": "tools.make_qr",
+        "description": "tools.make_qr",
+        "peekOfCode": "products = json.loads(PRODUCTS.read_text(encoding=\"utf-8\"))\nBASE_URL = \"http://192.168.45.37:8000/p\"\nfor code in products.keys():\n    url = f\"{BASE_URL}/{code}\"\n    img = qrcode.make(url)\n    out = OUTDIR / f\"{code}.png\"\n    img.save(out)\n    print(\"saved:\", out, \"->\", url)",
+        "detail": "tools.make_qr",
+        "documentation": {}
+    },
+    {
+        "label": "BASE_URL",
+        "kind": 5,
+        "importPath": "tools.make_qr",
+        "description": "tools.make_qr",
+        "peekOfCode": "BASE_URL = \"http://192.168.45.37:8000/p\"\nfor code in products.keys():\n    url = f\"{BASE_URL}/{code}\"\n    img = qrcode.make(url)\n    out = OUTDIR / f\"{code}.png\"\n    img.save(out)\n    print(\"saved:\", out, \"->\", url)",
+        "detail": "tools.make_qr",
+        "documentation": {}
+    },
+    {
+        "label": "BASE_URL",
+        "kind": 5,
+        "importPath": "tools.make_qr_demo",
+        "description": "tools.make_qr_demo",
+        "peekOfCode": "BASE_URL = \"http://192.168.0.6:8000/demo\"  # 현재 IP 기준\nout = Path(\"data/qrcodes\")\nout.mkdir(parents=True, exist_ok=True)\nimg = qrcode.make(BASE_URL)\nfn = out / \"EGG-0001.png\"\nimg.save(fn)\nprint(\"saved:\", fn, \"->\", BASE_URL)",
+        "detail": "tools.make_qr_demo",
+        "documentation": {}
+    },
+    {
+        "label": "out",
+        "kind": 5,
+        "importPath": "tools.make_qr_demo",
+        "description": "tools.make_qr_demo",
+        "peekOfCode": "out = Path(\"data/qrcodes\")\nout.mkdir(parents=True, exist_ok=True)\nimg = qrcode.make(BASE_URL)\nfn = out / \"EGG-0001.png\"\nimg.save(fn)\nprint(\"saved:\", fn, \"->\", BASE_URL)",
+        "detail": "tools.make_qr_demo",
+        "documentation": {}
+    },
+    {
+        "label": "img",
+        "kind": 5,
+        "importPath": "tools.make_qr_demo",
+        "description": "tools.make_qr_demo",
+        "peekOfCode": "img = qrcode.make(BASE_URL)\nfn = out / \"EGG-0001.png\"\nimg.save(fn)\nprint(\"saved:\", fn, \"->\", BASE_URL)",
+        "detail": "tools.make_qr_demo",
+        "documentation": {}
+    },
+    {
+        "label": "fn",
+        "kind": 5,
+        "importPath": "tools.make_qr_demo",
+        "description": "tools.make_qr_demo",
+        "peekOfCode": "fn = out / \"EGG-0001.png\"\nimg.save(fn)\nprint(\"saved:\", fn, \"->\", BASE_URL)",
+        "detail": "tools.make_qr_demo",
+        "documentation": {}
+    },
+    {
+        "label": "BASE_URL",
+        "kind": 5,
+        "importPath": "tools.make_qr_ip",
+        "description": "tools.make_qr_ip",
+        "peekOfCode": "BASE_URL = \"http://192.168.0.40:8000/p\"  # ✅ 지금 IP로 업데이트\nout = Path(\"data/qrcodes\")\nout.mkdir(parents=True, exist_ok=True)\ncode = \"EGG-0001\"\nurl = f\"{BASE_URL}/{code}\"\nimg = qrcode.make(url)\nfn = out / f\"{code}.png\"\nimg.save(fn)\nprint(\"saved:\", fn, \"->\", url)",
+        "detail": "tools.make_qr_ip",
+        "documentation": {}
+    },
+    {
+        "label": "out",
+        "kind": 5,
+        "importPath": "tools.make_qr_ip",
+        "description": "tools.make_qr_ip",
+        "peekOfCode": "out = Path(\"data/qrcodes\")\nout.mkdir(parents=True, exist_ok=True)\ncode = \"EGG-0001\"\nurl = f\"{BASE_URL}/{code}\"\nimg = qrcode.make(url)\nfn = out / f\"{code}.png\"\nimg.save(fn)\nprint(\"saved:\", fn, \"->\", url)",
+        "detail": "tools.make_qr_ip",
+        "documentation": {}
+    },
+    {
+        "label": "code",
+        "kind": 5,
+        "importPath": "tools.make_qr_ip",
+        "description": "tools.make_qr_ip",
+        "peekOfCode": "code = \"EGG-0001\"\nurl = f\"{BASE_URL}/{code}\"\nimg = qrcode.make(url)\nfn = out / f\"{code}.png\"\nimg.save(fn)\nprint(\"saved:\", fn, \"->\", url)",
+        "detail": "tools.make_qr_ip",
+        "documentation": {}
+    },
+    {
+        "label": "url",
+        "kind": 5,
+        "importPath": "tools.make_qr_ip",
+        "description": "tools.make_qr_ip",
+        "peekOfCode": "url = f\"{BASE_URL}/{code}\"\nimg = qrcode.make(url)\nfn = out / f\"{code}.png\"\nimg.save(fn)\nprint(\"saved:\", fn, \"->\", url)",
+        "detail": "tools.make_qr_ip",
+        "documentation": {}
+    },
+    {
+        "label": "img",
+        "kind": 5,
+        "importPath": "tools.make_qr_ip",
+        "description": "tools.make_qr_ip",
+        "peekOfCode": "img = qrcode.make(url)\nfn = out / f\"{code}.png\"\nimg.save(fn)\nprint(\"saved:\", fn, \"->\", url)",
+        "detail": "tools.make_qr_ip",
+        "documentation": {}
+    },
+    {
+        "label": "fn",
+        "kind": 5,
+        "importPath": "tools.make_qr_ip",
+        "description": "tools.make_qr_ip",
+        "peekOfCode": "fn = out / f\"{code}.png\"\nimg.save(fn)\nprint(\"saved:\", fn, \"->\", url)",
+        "detail": "tools.make_qr_ip",
+        "documentation": {}
+    },
+    {
+        "label": "load_events",
+        "kind": 2,
+        "importPath": "tools.tag_events",
+        "description": "tools.tag_events",
+        "peekOfCode": "def load_events(p: Path):\n    if not p.exists():\n        return []\n    txt = p.read_text(encoding=\"utf-8\").strip()\n    if not txt:\n        return []\n    return [json.loads(l) for l in txt.splitlines()]\ndef save_events(p: Path, events):\n    p.write_text(\"\\n\".join(json.dumps(e, ensure_ascii=False) for e in events) + \"\\n\", encoding=\"utf-8\")\ndef tag_one(e, base):",
+        "detail": "tools.tag_events",
+        "documentation": {}
+    },
+    {
+        "label": "save_events",
+        "kind": 2,
+        "importPath": "tools.tag_events",
+        "description": "tools.tag_events",
+        "peekOfCode": "def save_events(p: Path, events):\n    p.write_text(\"\\n\".join(json.dumps(e, ensure_ascii=False) for e in events) + \"\\n\", encoding=\"utf-8\")\ndef tag_one(e, base):\n    \"\"\"\n    base: baseline dict\n    tags rule (MVP):\n    - motion spike\n    - flow spike\n    - compactness spread\n    - roi peak high",
+        "detail": "tools.tag_events",
+        "documentation": {}
+    },
+    {
+        "label": "tag_one",
+        "kind": 2,
+        "importPath": "tools.tag_events",
+        "description": "tools.tag_events",
+        "peekOfCode": "def tag_one(e, base):\n    \"\"\"\n    base: baseline dict\n    tags rule (MVP):\n    - motion spike\n    - flow spike\n    - compactness spread\n    - roi peak high\n    \"\"\"\n    tags = []",
+        "detail": "tools.tag_events",
+        "documentation": {}
+    },
+    {
+        "label": "build_baseline",
+        "kind": 2,
+        "importPath": "tools.tag_events",
+        "description": "tools.tag_events",
+        "peekOfCode": "def build_baseline(events):\n    motions = [float(e.get(\"motion_ratio\", 0) or 0) for e in events]\n    flows = [float(e.get(\"flow_mean_mag\", 0) or 0) for e in events if e.get(\"flow_mean_mag\") is not None]\n    comps = [float(e.get(\"cluster_compactness\", 0) or 0) for e in events if e.get(\"cluster_compactness\") is not None]\n    motion_mu = mean(motions) if motions else 0.0\n    motion_sd = pstdev(motions) if len(motions) >= 2 else 0.0\n    flow_mu = mean(flows) if flows else 0.0\n    flow_sd = pstdev(flows) if len(flows) >= 2 else 0.0\n    comp_mu = mean(comps) if comps else 0.0\n    return {",
+        "detail": "tools.tag_events",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "tools.tag_events",
+        "description": "tools.tag_events",
+        "peekOfCode": "def main():\n    ap = argparse.ArgumentParser()\n    ap.add_argument(\"--path\", default=\"data/events.jsonl\")\n    ap.add_argument(\"--farm_id\", default=None)\n    ap.add_argument(\"--lot_id\", default=None)\n    ap.add_argument(\"--overwrite\", action=\"store_true\", help=\"overwrite existing tags\")\n    args = ap.parse_args()\n    p = Path(args.path)\n    events = load_events(p)\n    if not events:",
+        "detail": "tools.tag_events",
+        "documentation": {}
+    },
+    {
+        "label": "load_events",
+        "kind": 2,
+        "importPath": "tools.tag_events",
+        "description": "tools.tag_events",
+        "peekOfCode": "def load_events(p: Path):\n    if not p.exists():\n        return []\n    txt = p.read_text(encoding=\"utf-8\").strip()\n    if not txt:\n        return []\n    return [json.loads(l) for l in txt.splitlines()]\ndef save_events(p: Path, events):\n    p.write_text(\"\\n\".join(json.dumps(e, ensure_ascii=False) for e in events) + \"\\n\", encoding=\"utf-8\")\ndef tag_one(e, base):",
+        "detail": "tools.tag_events",
+        "documentation": {}
+    },
+    {
+        "label": "save_events",
+        "kind": 2,
+        "importPath": "tools.tag_events",
+        "description": "tools.tag_events",
+        "peekOfCode": "def save_events(p: Path, events):\n    p.write_text(\"\\n\".join(json.dumps(e, ensure_ascii=False) for e in events) + \"\\n\", encoding=\"utf-8\")\ndef tag_one(e, base):\n    \"\"\"\n    base: baseline dict\n    tags rule (MVP):\n    - motion spike\n    - flow spike\n    - compactness spread\n    - roi peak high",
+        "detail": "tools.tag_events",
+        "documentation": {}
+    },
+    {
+        "label": "tag_one",
+        "kind": 2,
+        "importPath": "tools.tag_events",
+        "description": "tools.tag_events",
+        "peekOfCode": "def tag_one(e, base):\n    \"\"\"\n    base: baseline dict\n    tags rule (MVP):\n    - motion spike\n    - flow spike\n    - compactness spread\n    - roi peak high\n    \"\"\"\n    tags = []",
+        "detail": "tools.tag_events",
+        "documentation": {}
+    },
+    {
+        "label": "build_baseline",
+        "kind": 2,
+        "importPath": "tools.tag_events",
+        "description": "tools.tag_events",
+        "peekOfCode": "def build_baseline(events):\n    motions = [float(e.get(\"motion_ratio\", 0) or 0) for e in events]\n    flows = [float(e.get(\"flow_mean_mag\", 0) or 0) for e in events if e.get(\"flow_mean_mag\") is not None]\n    comps = [float(e.get(\"cluster_compactness\", 0) or 0) for e in events if e.get(\"cluster_compactness\") is not None]\n    motion_mu = mean(motions) if motions else 0.0\n    motion_sd = pstdev(motions) if len(motions) >= 2 else 0.0\n    flow_mu = mean(flows) if flows else 0.0\n    flow_sd = pstdev(flows) if len(flows) >= 2 else 0.0\n    comp_mu = mean(comps) if comps else 0.0\n    return {",
+        "detail": "tools.tag_events",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "tools.tag_events",
+        "description": "tools.tag_events",
+        "peekOfCode": "def main():\n    ap = argparse.ArgumentParser()\n    ap.add_argument(\"--path\", default=\"data/events.jsonl\")\n    ap.add_argument(\"--farm_id\", default=None)\n    ap.add_argument(\"--lot_id\", default=None)\n    ap.add_argument(\"--overwrite\", action=\"store_true\", help=\"overwrite existing tags\")\n    args = ap.parse_args()\n    p = Path(args.path)\n    events = load_events(p)\n    if not events:",
+        "detail": "tools.tag_events",
+        "documentation": {}
+    },
+    {
+        "label": "EventEngine",
+        "kind": 6,
+        "importPath": "vision.event_engine",
+        "description": "vision.event_engine",
+        "peekOfCode": "class EventEngine:\n    def __init__(self, rois, cfg):\n        self.cfg = cfg\n        self.prev_gray = None\n        self.last_fire = 0.0\n        self.motion_threshold = float(cfg.get(\"motion_threshold\", 0.01))\n        self.cooldown_sec = float(cfg.get(\"cooldown_sec\", 3))\n        self.roi_mode = str(cfg.get(\"roi_mode\", \"grid\"))\n        self.grid_rows = int(cfg.get(\"grid_rows\", 2))\n        self.grid_cols = int(cfg.get(\"grid_cols\", 2))",
+        "detail": "vision.event_engine",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "vision.roi_tool",
+        "description": "vision.roi_tool",
+        "peekOfCode": "def main():\n    base = Path(__file__).resolve().parents[1]\n    video_path = base / \"data\" / \"sample.mp4\"\n    out_path = base / \"configs\" / \"roi.json\"\n    cap = cv2.VideoCapture(str(video_path))\n    if not cap.isOpened():\n        raise RuntimeError(f\"Cannot open video: {video_path}\")\n    ok, frame = cap.read()\n    cap.release()\n    if not ok:",
+        "detail": "vision.roi_tool",
+        "documentation": {}
+    },
+    {
+        "label": "ROI_ORDER",
+        "kind": 5,
+        "importPath": "vision.roi_tool",
+        "description": "vision.roi_tool",
+        "peekOfCode": "ROI_ORDER = [\"feed\", \"water\", \"door\"]\ndef main():\n    base = Path(__file__).resolve().parents[1]\n    video_path = base / \"data\" / \"sample.mp4\"\n    out_path = base / \"configs\" / \"roi.json\"\n    cap = cv2.VideoCapture(str(video_path))\n    if not cap.isOpened():\n        raise RuntimeError(f\"Cannot open video: {video_path}\")\n    ok, frame = cap.read()\n    cap.release()",
+        "detail": "vision.roi_tool",
+        "documentation": {}
+    },
+    {
+        "label": "load_yaml",
+        "kind": 2,
+        "importPath": "vision.run_video",
+        "description": "vision.run_video",
+        "peekOfCode": "def load_yaml(path: Path):\n    if not path.exists():\n        return {}\n    with open(path, \"r\", encoding=\"utf-8\") as f:\n        return yaml.safe_load(f) or {}\ndef save_clip_mp4(frames, out_path: Path, fps: int):\n    if not frames:\n        return False\n    h, w = frames[0].shape[:2]\n    fourcc = cv2.VideoWriter_fourcc(*\"mp4v\")",
+        "detail": "vision.run_video",
+        "documentation": {}
+    },
+    {
+        "label": "save_clip_mp4",
+        "kind": 2,
+        "importPath": "vision.run_video",
+        "description": "vision.run_video",
+        "peekOfCode": "def save_clip_mp4(frames, out_path: Path, fps: int):\n    if not frames:\n        return False\n    h, w = frames[0].shape[:2]\n    fourcc = cv2.VideoWriter_fourcc(*\"mp4v\")\n    writer = cv2.VideoWriter(str(out_path), fourcc, fps, (w, h))\n    if not writer.isOpened():\n        return False\n    for fr in frames:\n        writer.write(fr)",
+        "detail": "vision.run_video",
+        "documentation": {}
+    },
+    {
+        "label": "transcode_h264",
+        "kind": 2,
+        "importPath": "vision.run_video",
+        "description": "vision.run_video",
+        "peekOfCode": "def transcode_h264(src_path: Path, dst_path: Path):\n    cmd = [\n        \"ffmpeg\", \"-y\",\n        \"-i\", str(src_path),\n        \"-c:v\", \"libx264\",\n        \"-pix_fmt\", \"yuv420p\",\n        str(dst_path),\n    ]\n    p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)\n    if p.returncode != 0:",
+        "detail": "vision.run_video",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "vision.run_video",
+        "description": "vision.run_video",
+        "peekOfCode": "def main():\n    print(\"RUN_VIDEO START\")\n    base = Path(__file__).resolve().parents[1]\n    video_path = base / \"data\" / \"sample.mp4\"\n    cfg_path = base / \"configs\" / \"config.yaml\"\n    out_events = base / \"data\" / \"events.jsonl\"\n    clips_dir = base / \"data\" / \"clips\"\n    thumbs_dir = base / \"data\" / \"thumbs\"\n    heatmaps_dir = base / \"data\" / \"heatmaps\"\n    clips_dir.mkdir(parents=True, exist_ok=True)",
+        "detail": "vision.run_video",
+        "documentation": {}
+    }
+]

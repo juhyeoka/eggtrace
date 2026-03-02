@@ -1,0 +1,27 @@
+
+motion_threshold: 0.01
+cooldown_sec: 3
+
+# clip evidence
+clip_pre_sec: 5
+clip_post_sec: 5
+clip_fps: 25
+motion_threshold: 0.01
+cooldown_sec: 3
+fps_sample: 5
+
+# stage2: ROI zoning (auto grid)
+roi_mode: grid
+grid_rows: 2
+grid_cols: 2
+
+heatmap_decay: 0.95
+roi_activity_threshold: 0.02
+
+# stage2 advanced: optical flow
+enable_optical_flow: true
+flow_downscale: 0.5   # 0.25~1.0 (작을수록 빠름)
+
+# stage2 advanced: cluster compactness
+enable_compactness: true
+compactness_min_area: 80      # 덩어리로 볼 최소 픽셀 면적(영상에 따라 조절)
