@@ -31,6 +31,47 @@ def _to_public_path(path: str | None) -> str | None:
     return p
 from fastapi.responses import HTMLResponse, FileResponse, JSONResponse, RedirectResponse
 
+
+def evidence_buttons(e: dict) -> str:
+    """
+    Render evidence buttons (clip/thumb/heatmap) for one event dict.
+    - Uses URL paths (not local filesystem absolute paths).
+    - Never recurses.
+    """
+    def _btn(label: str, href: str) -> str:
+        if not href:
+            return ""
+        return f"<a class='btn btn-sm' href='{href}' target='_blank' rel='noopener'>{label}</a>"
+
+    uid = str(e.get("uid") or "")
+    # backend는 static mount로 /clips, /thumbs, /heatmaps 를 제공한다고 가정
+    clip_url    = f"/clips/{uid}.mp4"    if uid else ""
+    thumb_url   = f"/thumbs/{uid}.jpg"   if uid else ""
+    heatmap_url = f"/heatmaps/{uid}.png" if uid else ""
+
+    # 혹시 기존 이벤트 dict에 *_path가 URL로 저장돼 있으면 그걸 우선 사용
+    # (로컬 절대경로면 무시)
+    def prefer_url(v, fallback):
+        v = v or ""
+        if isinstance(v, str) and (v.startswith("http://") or v.startswith("https://") or v.startswith("/")):
+            return v
+        return fallback
+
+    clip_url    = prefer_url(e.get("clip_path"), clip_url)
+    thumb_url   = prefer_url(e.get("thumb_path"), thumb_url)
+    heatmap_url = prefer_url(e.get("heatmap_path"), heatmap_url)
+
+    parts = [
+        _btn("▶ clip", clip_url),
+        _btn("🖼 thumb", thumb_url),
+        _btn("🔥 heatmap", heatmap_url),
+    ]
+    parts = [x for x in parts if x]
+    if not parts:
+        return "<span class='muted'>증거 없음</span>"
+    return "<div class='evidence'>" + " ".join(parts) + "</div>"
+
+
 app = FastAPI()
 
 # --- Paths
@@ -169,22 +210,6 @@ def tag_badge(e: Dict[str, Any]) -> str:
         f"</span>"
     )
 
-def evidence_buttons(e: Dict[str, Any]) -> str:
-    def btn(label: str, href: str) -> str:
-        return f"<a class='btn' href='{href}' target='_blank'>▶ {label}</a>"
-
-    parts = []
-    clip = _evidence_buttons(e)
-    heat = e.get("heatmap_path")
-    if clip:
-        parts.append(btn("clip", f"/file/{clip}"))
-    if thumb:
-        parts.append(btn("thumb", f"/file/{thumb}"))
-    if heat:
-        parts.append(btn("heatmap", f"/file/{heat}"))
-    if not parts:
-        return "<span class='muted'>증거 없음</span>"
-    return "<div class='actions'>" + "".join(parts) + "</div>"
 
 def build_cards(events: List[Dict[str, Any]]) -> str:
     cards = []
@@ -580,22 +605,4 @@ def report(days: int = 7, farm_id: str = "farm1", lot_id: str = "lotA"):
     return page_shell("Report", body)
 
 
-
-def _evidence_buttons(e: dict) -> str:
-    clip = _evidence_buttons(e)
-    heat = e.get("heatmap_path")
-
-    # 파일이 실제로 존재하는 경우에만 노출 (배포 서버에서 404 폭탄 방지)
-    btns = []
-    if clip and _file_exists(clip):
-        btns.append(f"<a class='btn' href='/file/{clip}' target='_blank'>▶ clip</a>")
-    if thumb and _file_exists(thumb):
-        btns.append(f"<a class='btn' href='/file/{thumb}' target='_blank'>🖼 thumb</a>")
-    if heat and _file_exists(heat):
-        btns.append(f"<a class='btn' href='/file/{heat}' target='_blank'>🔥 heatmap</a>")
-
-    if not btns:
-        # 데모에서도 '멈춘 느낌' 안나게
-        return "<span class='muted'>증거 파일 없음(데모)</span>"
-    return " ".join(btns)
 
