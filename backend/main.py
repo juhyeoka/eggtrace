@@ -7,6 +7,28 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 from fastapi import FastAPI, HTTPException
+
+from pathlib import Path as _Path
+
+def _file_exists(path: str | None) -> bool:
+    if not path:
+        return False
+    try:
+        # 절대경로(/Users/...)도 들어올 수 있으니 그대로 검사
+        return _Path(path).exists()
+    except Exception:
+        return False
+
+def _to_public_path(path: str | None) -> str | None:
+    # 배포에서 절대경로는 의미 없으니 data/... 상대경로만 공개용으로 변환 시도
+    if not path:
+        return None
+    p = str(path)
+    if "/data/" in p:
+        return "data/" + p.split("/data/", 1)[1]
+    if p.startswith("data/"):
+        return p
+    return p
 from fastapi.responses import HTMLResponse, FileResponse, JSONResponse, RedirectResponse
 
 app = FastAPI()
@@ -152,8 +174,7 @@ def evidence_buttons(e: Dict[str, Any]) -> str:
         return f"<a class='btn' href='{href}' target='_blank'>▶ {label}</a>"
 
     parts = []
-    clip = e.get("clip_path")
-    thumb = e.get("thumb_path")
+    clip = _evidence_buttons(e)
     heat = e.get("heatmap_path")
     if clip:
         parts.append(btn("clip", f"/file/{clip}"))
@@ -557,3 +578,24 @@ def report(days: int = 7, farm_id: str = "farm1", lot_id: str = "lotA"):
     </div>
     """
     return page_shell("Report", body)
+
+
+
+def _evidence_buttons(e: dict) -> str:
+    clip = _evidence_buttons(e)
+    heat = e.get("heatmap_path")
+
+    # 파일이 실제로 존재하는 경우에만 노출 (배포 서버에서 404 폭탄 방지)
+    btns = []
+    if clip and _file_exists(clip):
+        btns.append(f"<a class='btn' href='/file/{clip}' target='_blank'>▶ clip</a>")
+    if thumb and _file_exists(thumb):
+        btns.append(f"<a class='btn' href='/file/{thumb}' target='_blank'>🖼 thumb</a>")
+    if heat and _file_exists(heat):
+        btns.append(f"<a class='btn' href='/file/{heat}' target='_blank'>🔥 heatmap</a>")
+
+    if not btns:
+        # 데모에서도 '멈춘 느낌' 안나게
+        return "<span class='muted'>증거 파일 없음(데모)</span>"
+    return " ".join(btns)
+
