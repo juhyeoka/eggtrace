@@ -382,7 +382,29 @@ def page_shell(title: str, body: str) -> str:
         {STYLE}
       </head>
       <body>
-        <div class="wrap">
+        
+<a href="https://junada040828.cafe24.com/"
+   style="
+     position:fixed;
+     top:16px;
+     left:16px;
+     z-index:2147483647;
+     background:rgba(255,255,255,0.96);
+     border:1px solid rgba(0,0,0,0.12);
+     padding:10px 14px;
+     border-radius:999px;
+     box-shadow:0 8px 24px rgba(0,0,0,0.18);
+     font-weight:700;
+     font-size:14px;
+     line-height:1;
+     text-decoration:none;
+     color:#111;
+     backdrop-filter: blur(6px);
+     -webkit-backdrop-filter: blur(6px);
+   ">
+  ← J CROVA 홈으로
+</a>
+<div class="wrap">
           {body}
         </div>
       </body>
