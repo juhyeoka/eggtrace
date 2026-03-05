@@ -244,6 +244,14 @@
         "documentation": {}
     },
     {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
         "label": "FastAPI",
         "importPath": "fastapi",
         "description": "fastapi",
@@ -510,6 +518,15 @@
         "documentation": {}
     },
     {
+        "label": "evidence_buttons",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def evidence_buttons(e: dict) -> str:\n    \"\"\"\n    Render evidence buttons (clip/thumb/heatmap) for one event dict.\n    - Uses URL paths (not local filesystem absolute paths).\n    - Never recurses.\n    \"\"\"\n    def _btn(label: str, href: str) -> str:\n        if not href:\n            return \"\"\n        return f\"<a class='btn btn-sm' href='{href}' target='_blank' rel='noopener'>{label}</a>\"",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
         "label": "load_events",
         "kind": 2,
         "importPath": "backend.main",
@@ -542,15 +559,6 @@
         "importPath": "backend.main",
         "description": "backend.main",
         "peekOfCode": "def tag_badge(e: Dict[str, Any]) -> str:\n    tags = e.get(\"tags\") or []\n    sev = (e.get(\"severity\") or \"mid\").lower()\n    sev_txt = SEV_LABELS.get(sev, \"주의\")\n    color = SEV_COLOR.get(sev, \"#111827\")\n    if not tags:\n        return \"<span class='muted'>-</span>\"\n    tag_txt = \", \".join(TAG_LABELS.get(t, t) for t in tags)\n    icon = \"🚨\" if sev == \"high\" else (\"⚠️\" if sev == \"mid\" else \"✅\")\n    return (",
-        "detail": "backend.main",
-        "documentation": {}
-    },
-    {
-        "label": "evidence_buttons",
-        "kind": 2,
-        "importPath": "backend.main",
-        "description": "backend.main",
-        "peekOfCode": "def evidence_buttons(e: Dict[str, Any]) -> str:\n    def btn(label: str, href: str) -> str:\n        return f\"<a class='btn' href='{href}' target='_blank'>▶ {label}</a>\"\n    parts = []\n    clip = e.get(\"clip_path\")\n    thumb = e.get(\"thumb_path\")\n    heat = e.get(\"heatmap_path\")\n    if clip:\n        parts.append(btn(\"clip\", f\"/file/{clip}\"))\n    if thumb:",
         "detail": "backend.main",
         "documentation": {}
     },
