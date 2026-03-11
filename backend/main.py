@@ -1,630 +1,430 @@
 from __future__ import annotations
 
-import json
-import time
-from dataclasses import dataclass
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
+from fastapi.staticfiles import StaticFiles
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+import os, json, time, hashlib, html, traceback
+from typing import Any
 
-from fastapi import FastAPI, HTTPException
+# ----------------------------
+# Paths / Storage
+# ----------------------------
+APP_DIR = Path(__file__).resolve().parent
+ROOT_DIR = APP_DIR.parent
+DATA_DIR = ROOT_DIR / "data"
+DATA_DIR.mkdir(exist_ok=True)
 
-from pathlib import Path as _Path
-
-def _file_exists(path: str | None) -> bool:
-    if not path:
-        return False
-    try:
-        # 절대경로(/Users/...)도 들어올 수 있으니 그대로 검사
-        return _Path(path).exists()
-    except Exception:
-        return False
-
-def _to_public_path(path: str | None) -> str | None:
-    # 배포에서 절대경로는 의미 없으니 data/... 상대경로만 공개용으로 변환 시도
-    if not path:
-        return None
-    p = str(path)
-    if "/data/" in p:
-        return "data/" + p.split("/data/", 1)[1]
-    if p.startswith("data/"):
-        return p
-    return p
-from fastapi.responses import HTMLResponse, FileResponse, JSONResponse, RedirectResponse
-
-
-def evidence_buttons(e: dict) -> str:
-    """
-    Render evidence buttons (clip/thumb/heatmap) for one event dict.
-    - Uses URL paths (not local filesystem absolute paths).
-    - Never recurses.
-    """
-    def _btn(label: str, href: str) -> str:
-        if not href:
-            return ""
-        return f"<a class='btn btn-sm' href='{href}' target='_blank' rel='noopener'>{label}</a>"
-
-    uid = str(e.get("uid") or "")
-    # backend는 static mount로 /clips, /thumbs, /heatmaps 를 제공한다고 가정
-    clip_url    = f"/clips/{uid}.mp4"    if uid else ""
-    thumb_url   = f"/thumbs/{uid}.jpg"   if uid else ""
-    heatmap_url = f"/heatmaps/{uid}.png" if uid else ""
-
-    # 혹시 기존 이벤트 dict에 *_path가 URL로 저장돼 있으면 그걸 우선 사용
-    # (로컬 절대경로면 무시)
-    def prefer_url(v, fallback):
-        v = v or ""
-        if isinstance(v, str) and (v.startswith("http://") or v.startswith("https://") or v.startswith("/")):
-            return v
-        return fallback
-
-    clip_url    = prefer_url(e.get("clip_path"), clip_url)
-    thumb_url   = prefer_url(e.get("thumb_path"), thumb_url)
-    heatmap_url = prefer_url(e.get("heatmap_path"), heatmap_url)
-
-    parts = [
-        _btn("▶ clip", clip_url),
-        _btn("🖼 thumb", thumb_url),
-        _btn("🔥 heatmap", heatmap_url),
-    ]
-    parts = [x for x in parts if x]
-    if not parts:
-        return "<span class='muted'>증거 없음</span>"
-    return "<div class='evidence'>" + " ".join(parts) + "</div>"
-
-
-app = FastAPI()
-
-# --- Paths
-ROOT = Path(__file__).resolve().parent.parent
-DATA_DIR = ROOT / "data"
-EVENTS_PATH = DATA_DIR / "events.jsonl"
+EVENTS_JSONL = DATA_DIR / "events.jsonl"
+PRODUCTS_JSON = ROOT_DIR / "products.json"
+QR_DIR = DATA_DIR / "qrcodes"
 CLIPS_DIR = DATA_DIR / "clips"
 THUMBS_DIR = DATA_DIR / "thumbs"
 HEATMAPS_DIR = DATA_DIR / "heatmaps"
-QRCODES_DIR = DATA_DIR / "qrcodes"
 
-# --- Labels (Korean)
-SEV_LABELS = {"low": "경미", "mid": "주의", "high": "위험"}
-SEV_COLOR = {"low": "#16a34a", "mid": "#d97706", "high": "#dc2626"}
+for d in [QR_DIR, CLIPS_DIR, THUMBS_DIR, HEATMAPS_DIR]:
+    d.mkdir(parents=True, exist_ok=True)
 
-TAG_LABELS = {
-    "HIGH_ACTIVITY": "활동량 급증",
-    "MOVE_FLOW": "이동 흐름 증가",
-    "CLUSTER_SPREAD": "군집 분산 확대",
-    "ROI_PEAK": "특정 구역 집중 활동",
-    "MID_ACTIVITY": "중간 수준 활동",
-    # 이미 한글로 저장된 태그도 그대로 표시
-}
+if not EVENTS_JSONL.exists():
+    EVENTS_JSONL.write_text("", encoding="utf-8")
 
-CHAR_LABELS = {
-    "BALANCED": "균형",
-    "FLOW": "이동",
-    "SPREAD": "분산",
-    "ACTIVE": "활동",
-    "N/A": "N/A",
-}
+# Render/클라우드에서 로컬 절대경로(/Users/...)가 섞여도 깨지지 않게 정규화
+def _basename(p: str) -> str:
+    return Path(p).name
 
-# --- Demo Products (촬영/데모용)
-PRODUCTS: Dict[str, Dict[str, str]] = {
-    "EGG-0001": {"title": "J Crova 달걀 10구 (IoT A)", "farm_id": "farm1", "lot_id": "lotA"},
-    "EGG-0002": {"title": "J Crova 달걀 10구 (IoT B)", "farm_id": "farm1", "lot_id": "lotA"},
-}
-
-# ---------- Utils ----------
-def _safe_join(base: Path, rel: str) -> Path:
-    # disallow absolute, .., etc
-    p = (base / rel).resolve()
-    if not str(p).startswith(str(base.resolve())):
-        raise HTTPException(status_code=400, detail="Invalid path")
-    return p
-
-def _fmt_num(v, digits=3):
-    try:
-        x = float(v)
-    except Exception:
-        return "N/A"
-    # 0에 가까운 값은 조금 더 보여주기
-    if abs(x) < 0.01:
-        return f"{x:.4f}"
-    return f"{x:.{digits}f}"
-
-def _fmt_ts(ts: Any) -> str:
-    try:
-        t = float(ts)
-    except Exception:
-        return "-"
-    return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(t))
-
-def _now() -> float:
-    return time.time()
-
-def load_events() -> List[Dict[str, Any]]:
-    if not EVENTS_PATH.exists():
-        return []
-    lines = EVENTS_PATH.read_text(encoding="utf-8").splitlines()
-    out: List[Dict[str, Any]] = []
-    for l in lines:
-        l = l.strip()
-        if not l:
-            continue
-        try:
-            out.append(json.loads(l))
-        except Exception:
-            # ignore broken line
-            continue
-    return out
-
-def filter_events(
-    events: List[Dict[str, Any]],
-    days: int = 30,
-    farm_id: Optional[str] = None,
-    lot_id: Optional[str] = None,
-    code: Optional[str] = None,
-) -> List[Dict[str, Any]]:
-    cut = _now() - float(days) * 86400.0
-    out = []
-    for e in events:
-        t = float(e.get("time", 0) or 0)
-        if t < cut:
-            continue
-        if farm_id and e.get("farm_id") != farm_id:
-            continue
-        if lot_id and e.get("lot_id") != lot_id:
-            continue
-        if code and e.get("code") != code:
-            # code 필드가 없으면 무시(기존 데이터 호환)
-            pass
-        out.append(e)
-    out.sort(key=lambda x: float(x.get("time", 0) or 0), reverse=True)
-    return out
-
-def integrity_status(events: List[Dict[str, Any]]) -> Tuple[bool, str]:
+def normalize_media_path(p: str | None, kind: str) -> str | None:
     """
-    해시체인 전체 검증을 완벽히 하진 않고,
-    촬영/데모용으로 "봉인(seal) 흔적이 있는가"를 빠르게 확인.
-    - hash/prev_hash/seq가 일정 개수 이상 있으면 OK
+    kind: clips|thumbs|heatmaps
+    - 로컬 절대경로면 파일명만 뽑아 /clips/xxx.mp4 형태로 변환
+    - 이미 /clips/... 같은 상대 URL이면 그대로
     """
-    if not events:
-        return True, "no events"
-    has = sum(1 for e in events if "hash" in e and "prev_hash" in e and "seq" in e)
-    if has == len(events):
-        return True, "sealed"
-    if has == 0:
-        return False, "not sealed"
-    return False, f"partial sealed ({has}/{len(events)})"
+    if not p:
+        return None
+    p = str(p).strip()
+    if p.startswith("/"):
+        # /clips/.. 처럼 이미 URL 형태면 그대로
+        if p.startswith(f"/{kind}/"):
+            return p
+        # /Users/... 같은 절대경로면 basename으로
+        return f"/{kind}/{_basename(p)}"
+    # 상대경로(예: data/clips/xxx.mp4)도 basename으로
+    if "clips" in p and kind == "clips":
+        return f"/clips/{_basename(p)}"
+    if "thumbs" in p and kind == "thumbs":
+        return f"/thumbs/{_basename(p)}"
+    if "heatmaps" in p and kind == "heatmaps":
+        return f"/heatmaps/{_basename(p)}"
+    # 파일명만 있으면 kind 붙여줌
+    return f"/{kind}/{_basename(p)}"
 
-def tag_badge(e: Dict[str, Any]) -> str:
-    tags = e.get("tags") or []
-    sev = (e.get("severity") or "mid").lower()
-    sev_txt = SEV_LABELS.get(sev, "주의")
-    color = SEV_COLOR.get(sev, "#111827")
-
-    if not tags:
-        return "<span class='muted'>-</span>"
-
-    tag_txt = ", ".join(TAG_LABELS.get(t, t) for t in tags)
-    icon = "🚨" if sev == "high" else ("⚠️" if sev == "mid" else "✅")
-    return (
-        f"<span class='badge' style='border-color:{color};color:{color}'>"
-        f"{icon} {sev_txt}: {tag_txt}"
-        f"</span>"
-    )
-
-
-def build_cards(events: List[Dict[str, Any]]) -> str:
-    cards = []
-    for e in events:
-        char = e.get("character", "N/A")
-        char_k = CHAR_LABELS.get(char, char)
-        cards.append(
-            f"""
-            <div class="card">
-              <div class="card-top">
-                <div class="card-time">{_fmt_ts(e.get("time"))}</div>
-                <span class="chip">{char_k}</span>
-              </div>
-              <div class="card-mid">
-                <div class="label">태그</div>
-                {tag_badge(e)}
-              </div>
-              <div class="card-line">
-                <div class="label">증거</div>
-                {evidence_buttons(e)}
-              </div>
-            </div>
-            """
-        )
-    return "".join(cards) if cards else "<div class='muted'>태그된 이벤트가 없습니다.</div>"
-
-def calc_metrics(events: List[Dict[str, Any]]) -> Dict[str, Any]:
-    if not events:
-        return {
-            "count": 0,
-            "avg_motion": None,
-            "avg_flow": None,
-            "avg_compact": None,
-            "avg_roi_peak": None,
-            "bvi": None,
-            "night_score": None,
-        }
-
-    def avg(key: str) -> Optional[float]:
-        vals = []
-        for e in events:
-            v = e.get(key)
-            try:
-                v = float(v)
-            except Exception:
-                continue
-            vals.append(v)
-        return (sum(vals) / len(vals)) if vals else None
-
-    avg_motion = avg("motion_ratio")
-    avg_flow = avg("flow_mean_mag")
-    avg_compact = avg("cluster_compactness")
-    avg_roi_peak = avg("roi_peak")
-
-    # 변동성(BVI) = motion_ratio 표준편차(아주 단순)
-    vals = []
-    for e in events:
-        try:
-            vals.append(float(e.get("motion_ratio", 0) or 0))
-        except Exception:
-            pass
-    if len(vals) >= 2:
-        m = sum(vals) / len(vals)
-        var = sum((x - m) ** 2 for x in vals) / (len(vals) - 1)
-        bvi = var ** 0.5
-    else:
-        bvi = None
-
-    # 야간 안정성(데모): 0~100, 이벤트 수가 적으면 50
-    night_score = 50
+def read_products() -> dict[str, Any]:
+    if PRODUCTS_JSON.exists():
+        return json.loads(PRODUCTS_JSON.read_text(encoding="utf-8"))
+    # 기본값(없어도 페이지는 뜨게)
     return {
-        "count": len(events),
-        "avg_motion": avg_motion,
-        "avg_flow": avg_flow,
-        "avg_compact": avg_compact,
-        "avg_roi_peak": avg_roi_peak,
-        "bvi": bvi,
-        "night_score": night_score,
+        "EGG-0001": {
+            "name": "J Crova 달걀 10구 (IoT A)",
+            "farm_id": "farm1",
+            "lot_id": "lotA",
+        }
     }
 
-def trust_score(metrics: Dict[str, Any], integrity_ok: bool) -> Tuple[int, str]:
-    # 촬영/데모용 간단 점수: 데이터/무결성/변동성 기반
-    base = 60
+def load_events() -> list[dict[str, Any]]:
+    out=[]
+    for line in EVENTS_JSONL.read_text(encoding="utf-8").splitlines():
+        line=line.strip()
+        if not line: 
+            continue
+        try:
+            out.append(json.loads(line))
+        except:
+            continue
+    return out
+
+# ----------------------------
+# Integrity / Hashchain (simple)
+# ----------------------------
+def compute_chain_hash(prev_hash: str, payload: dict[str, Any]) -> str:
+    s = json.dumps(payload, ensure_ascii=False, sort_keys=True)
+    return hashlib.sha256((prev_hash + s).encode("utf-8")).hexdigest()
+
+def verify_integrity(events: list[dict[str, Any]]) -> tuple[bool, str]:
+    if not events:
+        return True, "no events"
+    prev = "GENESIS"
+    for i, e in enumerate(events):
+        ph = e.get("prev_hash", "GENESIS")
+        h  = e.get("hash")
+        if ph != prev:
+            return False, f"prev_hash mismatch at seq={e.get('seq', i)}"
+        payload = {k:v for k,v in e.items() if k not in ("hash",)}
+        expect = compute_chain_hash(prev, payload)
+        if h != expect:
+            return False, f"hash mismatch at seq={e.get('seq', i)}"
+        prev = h
+    return True, prev
+
+# ----------------------------
+# Scoring / Character (simple)
+# ----------------------------
+def clamp01(x: float) -> float:
+    return 0.0 if x < 0 else (1.0 if x > 1 else x)
+
+def compute_signals(events: list[dict[str, Any]]) -> dict[str, float]:
+    # 안전: 값 없으면 0
+    mr = [float(e.get("motion_ratio", 0) or 0) for e in events]
+    fm = [float(e.get("flow_mean_mag", 0) or 0) for e in events]
+    cc = [float(e.get("cluster_compactness", 0) or 0) for e in events]
+    rp = [float(e.get("roi_peak", 0) or 0) for e in events]
+
+    avg_motion = sum(mr)/len(mr) if mr else 0.0
+    avg_flow   = sum(fm)/len(fm) if fm else 0.0
+    avg_comp   = sum(cc)/len(cc) if cc else 0.0
+    avg_roi    = sum(rp)/len(rp) if rp else 0.0
+
+    # "분산" 느낌을 만들기 위한 간단 BVI: (flow 변동 + motion 변동) / (1 + comp 평균)
+    def var(xs):
+        if not xs: return 0.0
+        m = sum(xs)/len(xs)
+        return sum((x-m)*(x-m) for x in xs)/len(xs)
+
+    bvi = (var(fm) + var(mr)) / (1.0 + avg_comp)
+
+    # signals 0~1로 대충 normalize (데모용)
+    c = clamp01(avg_comp * 50)      # compactness는 보통 작으니 스케일
+    f = clamp01(avg_flow / 10.0)    # flow 대충 0~10
+    v = clamp01(bvi / 1.0)          # bvi는 0~1 근처로 기대(대충)
+
+    return {
+        "events": len(events),
+        "avg_motion": avg_motion,
+        "avg_flow": avg_flow,
+        "avg_compactness": avg_comp,
+        "avg_roi": avg_roi,
+        "bvi": bvi,
+        "c": c,
+        "f": f,
+        "v": v,
+    }
+
+def select_character(sig: dict[str, float]) -> str:
+    # 간단 캐릭터
+    c, f, v = sig["c"], sig["f"], sig["v"]
+    if v > 0.6 and f > 0.5:
+        return "분산"
+    if c > 0.6 and f < 0.4:
+        return "집중"
+    return "균형"
+
+def trust_score(sig: dict[str, float], integrity_ok: bool) -> int:
     if not integrity_ok:
-        base -= 20
-    cnt = metrics.get("count") or 0
-    if cnt < 3:
-        base -= 10
-    elif cnt >= 10:
-        base += 10
+        return 0
+    # 변동성이 너무 크면 감점
+    base = 85
+    if sig["v"] > 0.7: base -= 15
+    if sig["f"] > 0.8: base -= 5
+    if sig["c"] > 0.8: base -= 5
+    return max(0, min(100, base))
 
-    bvi = metrics.get("bvi")
-    if isinstance(bvi, (int, float)):
-        if bvi > 0.25:
-            base -= 10
-        elif bvi < 0.10:
-            base += 5
+# ----------------------------
+# Tagging / Evidence UI
+# ----------------------------
+TAG_KR = {
+    "CLUSTER_SPREAD": "주의: 군집 분산 확대",
+    "ROI_PEAK_MED": "주의: 특정 구역 집중 활동",
+    "ACTIVITY_SPIKE": "주의: 활동량 급증",
+}
 
-    base = max(0, min(100, int(round(base))))
-    label = "안정적" if base >= 75 else ("보통" if base >= 55 else "주의")
-    return base, label
+def tag_event(e: dict[str, Any]) -> list[str]:
+    tags=[]
+    # 아주 단순 규칙(데모)
+    mr = float(e.get("motion_ratio", 0) or 0)
+    cc = float(e.get("cluster_compactness", 0) or 0)
+    rp = float(e.get("roi_peak", 0) or 0)
+    if mr >= 0.22:
+        tags.append("ACTIVITY_SPIKE")
+    if cc >= 0.012:
+        tags.append("CLUSTER_SPREAD")
+    if rp >= 0.22:
+        tags.append("ROI_PEAK_MED")
+    return tags
 
-# ---------- HTML ----------
+def badge(text: str) -> str:
+    return f"<span class='badge'>{html.escape(text)}</span>"
+
+def evidence_buttons(e: dict[str, Any]) -> str:
+    clip = normalize_media_path(e.get("clip_path"), "clips")
+    thumb = normalize_media_path(e.get("thumb_path"), "thumbs")
+    heat = normalize_media_path(e.get("heatmap_path"), "heatmaps")
+
+    btns=[]
+    if clip:
+        btns.append(f"<a class='pillbtn' href='{clip}' target='_blank' rel='noopener'>▶ clip</a>")
+    if thumb:
+        btns.append(f"<a class='pillbtn' href='{thumb}' target='_blank' rel='noopener'>🖼 thumb</a>")
+    if heat:
+        btns.append(f"<a class='pillbtn' href='{heat}' target='_blank' rel='noopener'>🔥 heatmap</a>")
+    return " ".join(btns) if btns else "<span class='muted'>증거 없음</span>"
+
+def build_cards(tagged: list[dict[str, Any]]) -> str:
+    rows=[]
+    for e in tagged[:10]:
+        t = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(float(e.get("time", 0) or 0)))
+        tags = e.get("tags") or []
+        tags_html = " ".join(badge(TAG_KR.get(x, x)) for x in tags) if tags else "<span class='muted'>태그 없음</span>"
+        char = html.escape(str(e.get("character","")))
+        rows.append(f"""
+        <tr>
+          <td class='td'>{t}</td>
+          <td class='td'>{tags_html}</td>
+          <td class='td'>{badge(char) if char else "<span class='muted'>N/A</span>"}</td>
+          <td class='td'>{evidence_buttons(e)}</td>
+        </tr>
+        """)
+    if not rows:
+        return "<div class='muted'>이상치 태그가 없습니다.</div>"
+    return f"""
+    <table class='table'>
+      <thead>
+        <tr><th class='th'>시간</th><th class='th'>태그</th><th class='th'>캐릭터</th><th class='th'>증거</th></tr>
+      </thead>
+      <tbody>
+        {''.join(rows)}
+      </tbody>
+    </table>
+    """
+
+# ----------------------------
+# App
+# ----------------------------
+app = FastAPI()
+
+# 정적 제공: data 아래를 URL로 노출
+app.mount("/qrcodes", StaticFiles(directory=str(QR_DIR)), name="qrcodes")
+app.mount("/clips", StaticFiles(directory=str(CLIPS_DIR)), name="clips")
+app.mount("/thumbs", StaticFiles(directory=str(THUMBS_DIR)), name="thumbs")
+app.mount("/heatmaps", StaticFiles(directory=str(HEATMAPS_DIR)), name="heatmaps")
+
 STYLE = """
 <style>
-  :root { --bg:#f5f7fb; --card:#fff; --muted:#6b7280; --line:#e5e7eb; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-         margin:0; background:var(--bg); color:#111827; }
-  a { color: inherit; }
-  .wrap { max-width: 1060px; margin: 0 auto; padding: 22px; }
-  .topnav { display:flex; gap:10px; margin-bottom: 14px; flex-wrap: wrap; }
-  .tab { padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:#fff; text-decoration:none; font-weight:800; font-size:13px; }
-  .title { font-size: 26px; font-weight: 900; margin: 6px 0 12px; }
-  .sub { color: var(--muted); font-weight: 700; margin-bottom: 14px; }
-
-  .hero { display:flex; gap: 14px; align-items: stretch; flex-wrap: wrap; }
-  .panel { background: var(--card); border:1px solid var(--line); border-radius: 18px; padding: 16px; flex:1; min-width: 280px; }
-  .panel h3 { margin:0 0 10px; font-size: 15px; letter-spacing: -0.2px; }
-  .kpi { display:flex; gap:10px; flex-wrap: wrap; }
-  .k { background:#fff; border:1px solid var(--line); border-radius: 14px; padding: 12px; min-width: 140px; flex: 1; }
-  .k .lab { color:var(--muted); font-weight:800; font-size:12px; }
-  .k .val { font-size: 20px; font-weight: 900; margin-top: 4px; }
-
-  .scorewrap{ display:flex; gap:14px; align-items:center; justify-content: space-between; flex-wrap: wrap; }
-  .ring { width: 86px; height: 86px; border-radius: 999px; border: 10px solid #e5e7eb; position: relative; }
-  .ring > .fill { position:absolute; inset: -10px; border-radius: 999px; border: 10px solid #dc2626; clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0); }
-  .ring .num { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-weight:900; }
-  .badges { display:flex; gap:10px; flex-wrap: wrap; align-items:center; }
-  .pill { padding:8px 12px; border-radius: 999px; border:1px solid var(--line); background:#fff; font-weight:900; }
-  .ok { color:#16a34a; font-weight:900; }
-  .fail { color:#dc2626; font-weight:900; }
-
-  table { width: 100%; border-collapse: collapse; background:#fff; border:1px solid var(--line); border-radius: 18px; overflow:hidden; }
-  th, td { padding: 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
-  th { background:#f8fafc; font-size: 13px; color:#334155; }
-  tr:last-child td { border-bottom: none; }
-
-  .badge { display:inline-block; padding: 8px 12px; border: 2px solid; border-radius: 999px;
-           font-weight: 900; max-width: 100%; white-space: normal; line-height: 1.2; }
-  .muted { color: var(--muted); font-weight: 700; }
-
-  .btn { display:inline-block; padding: 8px 12px; border-radius: 12px; border:1px solid var(--line);
-         background:#fff; font-weight: 900; text-decoration:none; }
-  .actions { display:flex; gap:8px; flex-wrap: wrap; }
-
-  /* mobile cards */
-  .cards { display:none; margin-top: 12px; }
-  .card { background:#fff; border:1px solid var(--line); border-radius: 18px; padding: 14px; margin-bottom: 10px; }
-  .card-top { display:flex; justify-content: space-between; align-items:center; gap:10px; flex-wrap: wrap; }
-  .card-time { font-weight: 900; }
-  .chip { display:inline-block; padding:6px 10px; border:1px solid var(--line); border-radius: 999px; background:#f8fafc; font-weight: 900; font-size: 12px; }
-  .label { margin-top: 10px; color: var(--muted); font-weight: 900; font-size: 12px; }
-
-  @media (max-width: 760px){
-    table { display:none; }
-    .cards { display:block; }
-    .wrap { padding: 16px; }
-    .title { font-size: 22px; }
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;margin:0;background:#f6f7fb;color:#111;}
+  .wrap{max-width:1100px;margin:0 auto;padding:22px;}
+  .toplinks{display:flex;gap:10px;align-items:center;margin:8px 0 18px;}
+  .pill{display:inline-block;padding:8px 12px;border:1px solid #e5e7eb;border-radius:999px;background:#fff;color:#111;text-decoration:none;font-weight:700}
+  .pill:hover{border-color:#111}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .card{background:#fff;border:1px solid #eee;border-radius:18px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.03);}
+  .title{font-size:28px;font-weight:900;margin:6px 0 6px;}
+  .sub{color:#6b7280;font-weight:600;margin:0 0 8px;}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;}
+  .badge{display:inline-block;border:1px solid #d1d5db;border-radius:999px;padding:6px 10px;background:#fff;font-weight:800}
+  .ok{border-color:#16a34a;color:#16a34a}
+  .bad{border-color:#dc2626;color:#dc2626}
+  .muted{color:#6b7280}
+  .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+  .k{background:#fafafa;border:1px solid #eee;border-radius:14px;padding:10px}
+  .k .h{color:#6b7280;font-size:12px;font-weight:800}
+  .k .v{font-size:20px;font-weight:900;margin-top:4px}
+  .table{width:100%;border-collapse:separate;border-spacing:0 10px;margin-top:10px}
+  .th{font-size:12px;color:#6b7280;text-align:left;padding:6px 10px}
+  .td{background:#fff;border:1px solid #eee;padding:12px 10px}
+  tr td:first-child{border-radius:12px 0 0 12px}
+  tr td:last-child{border-radius:0 12px 12px 0}
+  .pillbtn{display:inline-block;padding:8px 10px;border:1px solid #e5e7eb;border-radius:999px;background:#fff;color:#111;text-decoration:none;font-weight:800;margin-right:6px}
+  .pillbtn:hover{border-color:#111}
+  .qrimg{max-width:260px;border-radius:14px;border:1px solid #eee}
+  @media (max-width:900px){
+    .grid{grid-template-columns:1fr}
+    .wrap{padding:14px}
   }
 </style>
 """
 
-def page_shell(title: str, body: str) -> str:
-    return f"""
-    <html>
-      <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>{title}</title>
-        {STYLE}
-      </head>
-      <body>
-        
-<a href="https://junada040828.cafe24.com/"
-   style="
-     position:fixed;
-     top:16px;
-     left:16px;
-     z-index:2147483647;
-     background:rgba(255,255,255,0.96);
-     border:1px solid rgba(0,0,0,0.12);
-     padding:10px 14px;
-     border-radius:999px;
-     box-shadow:0 8px 24px rgba(0,0,0,0.18);
-     font-weight:700;
-     font-size:14px;
-     line-height:1;
-     text-decoration:none;
-     color:#111;
-     backdrop-filter: blur(6px);
-     -webkit-backdrop-filter: blur(6px);
-   ">
-  ← J CROVA 홈으로
-</a>
-<div class="wrap">
-          {body}
-        </div>
-      </body>
-    </html>
-    """
-
-# ---------- Routes ----------
-@app.get("/", include_in_schema=False)
+@app.get("/", response_class=HTMLResponse)
 def root():
     return RedirectResponse(url="/demo")
 
-@app.get("/demo", response_class=HTMLResponse, include_in_schema=False)
+@app.get("/demo", response_class=HTMLResponse)
 def demo():
-    # 촬영용: 바로 상품페이지로
+    # demo는 바로 상품페이지로 보내도 됨
     return RedirectResponse(url="/p/EGG-0001")
-
-@app.get("/events", response_class=JSONResponse)
-def api_events(days: int = 30, farm_id: str = "farm1", lot_id: str = "lotA"):
-    events = filter_events(load_events(), days=days, farm_id=farm_id, lot_id=lot_id)
-    return {"count": len(events), "events": events}
-
-@app.get("/file/{path:path}", include_in_schema=False)
-def file_any(path: str):
-    # allow absolute path from old logs OR relative under project
-    p = Path(path)
-    if p.is_absolute():
-        if not p.exists():
-            raise HTTPException(status_code=404, detail="Not Found")
-        return FileResponse(str(p))
-    # relative: interpret from project root
-    abs_p = (ROOT / p).resolve()
-    if not abs_p.exists():
-        raise HTTPException(status_code=404, detail="Not Found")
-    return FileResponse(str(abs_p))
-
-@app.get("/qrcodes/{name}", include_in_schema=False)
-def qrcode(name: str):
-    # name can be "EGG-0001.png"
-    target = _safe_join(QRCODES_DIR, name)
-    if not target.exists():
-        raise HTTPException(status_code=404, detail="Not Found")
-    return FileResponse(str(target))
-
-@app.get("/p/{code}", response_class=HTMLResponse)
-def product_page(code: str, window: str = "7"):
-    meta = PRODUCTS.get(code) or {"title": f"제품 {code}", "farm_id": "farm1", "lot_id": "lotA"}
-    days = 30 if window == "all" else 7
-    farm_id = meta.get("farm_id", "farm1")
-    lot_id = meta.get("lot_id", "lotA")
-
-    events_all = filter_events(load_events(), days=30, farm_id=farm_id, lot_id=lot_id)
-    events = filter_events(load_events(), days=days, farm_id=farm_id, lot_id=lot_id)
-
-    ok, why = integrity_status(events_all)
-    metrics = calc_metrics(events)
-    score, label = trust_score(metrics, ok)
-
-    # "이상치"는 tags가 있는 이벤트만
-    tagged = [e for e in events if (e.get("tags") or [])]
-    cards_html = build_cards(tagged[:10])
-
-    # table rows
-    rows = ""
-    for e in tagged[:10]:
-        char = e.get("character", "N/A")
-        char_k = CHAR_LABELS.get(char, char)
-        rows += f"""
-        <tr>
-          <td>{_fmt_ts(e.get("time"))}</td>
-          <td>{tag_badge(e)}</td>
-          <td><span class="chip">{char_k}</span></td>
-          <td>{evidence_buttons(e)}</td>
-        </tr>
-        """
-    if not rows:
-        rows = "<tr><td colspan='4' class='muted'>태그된 이벤트가 없습니다. (tag 생성/필터 확인)</td></tr>"
-
-    qr_hint = f"/qrcodes/{code}.png"
-    body = f"""
-    <div class="topnav">
-      <a class="tab" href="/report?days=7&farm_id={farm_id}&lot_id={lot_id}">7일 리포트</a>
-      <a class="tab" href="/report?days=30&farm_id={farm_id}&lot_id={lot_id}">30일 리포트</a>
-      <a class="tab" href="/p/{code}?window=all">상품 페이지(all)</a>
-    </div>
-
-    <div class="title">{meta.get("title","상품")}</div>
-    <div class="sub">제품 코드: <b>{code}</b> · farm_id={farm_id}, lot_id={lot_id}</div>
-
-    <div class="hero">
-      <div class="panel" style="max-width:340px">
-        <h3>QR</h3>
-        <div class="sub">촬영용: 아래 QR 이미지를 폰으로 찍으면 이 페이지로 연결됩니다.</div>
-        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-          <img src="{qr_hint}" alt="qr" style="width:160px;height:160px;border-radius:12px;border:1px solid #e5e7eb;background:white"/>
-          <div class="muted" style="font-size:12px;line-height:1.5">
-            · QR 이미지: <a href="{qr_hint}" target="_blank">{qr_hint}</a><br/>
-            · 촬영 팁: 폰에서 /p/{code} 화면을 먼저 보여주고, 아래 “증거” 버튼 클릭까지 이어가면 MVP 느낌이 확 살아납니다.
-          </div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="scorewrap">
-          <div>
-            <h3>농장 신뢰 리포트</h3>
-            <div class="badges">
-              <span class="pill">신뢰 점수: <b>{score}/100</b> ({label})</span>
-              <span class="pill">무결성: {"<span class='ok'>Integrity OK</span>" if ok else "<span class='fail'>Integrity FAIL</span>"}</span>
-              <span class="pill">선택 캐릭터: <b>{CHAR_LABELS.get((tagged[0].get("character") if tagged else "N/A"), (tagged[0].get("character") if tagged else "N/A"))}</b></span>
-            </div>
-            <div class="muted" style="margin-top:8px">integrity={why} · events(기간 {days}일)={metrics["count"]}</div>
-          </div>
-
-          <div class="ring" title="점수">
-            <div class="fill" style="border-color:{'#dc2626' if score<55 else ('#d97706' if score<75 else '#16a34a')};"></div>
-            <div class="num">{score}</div>
-          </div>
-        </div>
-
-        <div class="kpi" style="margin-top:12px">
-          <div class="k"><div class="lab">이벤트 수</div><div class="val">{metrics["count"]}</div></div>
-          <div class="k"><div class="lab">평균 활동</div><div class="val">{_fmt_num(metrics["avg_motion"])}</div></div>
-          <div class="k"><div class="lab">평균 Flow</div><div class="val">{_fmt_num(metrics["avg_flow"])}</div></div>
-          <div class="k"><div class="lab">평균 Compactness</div><div class="val">{_fmt_num(metrics["avg_compact"])}</div></div>
-          <div class="k"><div class="lab">BVI(변동성)</div><div class="val">{_fmt_num(metrics["bvi"])}</div></div>
-          <div class="k"><div class="lab">야간 안정성</div><div class="val">{_fmt_num(metrics["night_score"], digits=0)}</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel" style="margin-top:14px">
-      <h3>이상치 이벤트 (태그) · 증거 클릭</h3>
-      <div class="cards">{cards_html}</div>
-      <table>
-        <thead>
-          <tr><th style="width:190px">시간</th><th>태그</th><th style="width:90px">캐릭터</th><th style="width:240px">증거</th></tr>
-        </thead>
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
-      <div class="muted" style="margin-top:10px">
-        · 개발자용 JSON: <a href="/events?days={days}&farm_id={farm_id}&lot_id={lot_id}" target="_blank">/events</a>
-      </div>
-    </div>
-    """
-    return page_shell(meta.get("title", "Product"), body)
 
 @app.get("/report", response_class=HTMLResponse)
 def report(days: int = 7, farm_id: str = "farm1", lot_id: str = "lotA"):
-    events_all = filter_events(load_events(), days=30, farm_id=farm_id, lot_id=lot_id)
-    events = filter_events(load_events(), days=days, farm_id=farm_id, lot_id=lot_id)
+    # 리포트는 상품 페이지로 유도
+    return RedirectResponse(url=f"/p/EGG-0001?days={days}&farm_id={farm_id}&lot_id={lot_id}")
 
-    ok, why = integrity_status(events_all)
-    metrics = calc_metrics(events)
-    score, label = trust_score(metrics, ok)
+@app.get("/p/{code}", response_class=HTMLResponse)
+def product_page(code: str, days: int = 7, farm_id: str = "farm1", lot_id: str = "lotA"):
+    products = read_products()
+    meta = products.get(code, {"name": code, "farm_id": farm_id, "lot_id": lot_id})
+    farm_id = meta.get("farm_id", farm_id)
+    lot_id  = meta.get("lot_id", lot_id)
 
-    tagged = [e for e in events if (e.get("tags") or [])]
-    cards_html = build_cards(tagged[:30])
+    all_events = load_events()
+    now = time.time()
+    cut = now - days*86400
+    filtered = [e for e in all_events if (e.get("farm_id")==farm_id and e.get("lot_id")==lot_id and float(e.get("time",0) or 0) >= cut)]
 
-    rows = ""
-    for e in tagged[:30]:
-        char = e.get("character", "N/A")
-        char_k = CHAR_LABELS.get(char, char)
-        rows += f"""
-        <tr>
-          <td>{_fmt_ts(e.get("time"))}</td>
-          <td>{tag_badge(e)}</td>
-          <td><span class="chip">{char_k}</span></td>
-          <td>{evidence_buttons(e)}</td>
-        </tr>
-        """
-    if not rows:
-        rows = "<tr><td colspan='4' class='muted'>태그된 이벤트가 없습니다.</td></tr>"
+    # 서버에서 태그/캐릭터 보정
+    for e in filtered:
+        if not e.get("tags"):
+            e["tags"] = tag_event(e)
+        if not e.get("character"):
+            sig_one = compute_signals([e])
+            e["character"] = select_character(sig_one)
 
-    body = f"""
-    <div class="topnav">
-      <a class="tab" href="/report?days=7&farm_id={farm_id}&lot_id={lot_id}">7일</a>
-      <a class="tab" href="/report?days=30&farm_id={farm_id}&lot_id={lot_id}">30일</a>
-      <a class="tab" href="/p/EGG-0001?window=all">상품 페이지</a>
-    </div>
+    tagged = [e for e in filtered if e.get("tags")]
+    sig = compute_signals(filtered)
+    integrity_ok, integrity_detail = verify_integrity(filtered)
+    char = select_character(sig) if filtered else "N/A"
+    score = trust_score(sig, integrity_ok)
+    label = "안정적" if score >= 75 else ("보통" if score >= 50 else "주의")
 
-    <div class="title">리포트 ({days}일) — {farm_id} / {lot_id}</div>
-    <div class="sub">영상 기반 이벤트 로그를 통계로 요약하고, 이상치 이벤트는 증거(클립/썸네일/히트맵)로 확인합니다.</div>
+    integrity_badge = f"<span class='badge ok'>무결성: Integrity OK</span>" if integrity_ok else f"<span class='badge bad'>무결성: Integrity FAIL</span>"
+    score_badge = f"<span class='badge'>신뢰 점수: {score}/100 ({label})</span>"
+    char_badge = f"<span class='badge'>선택 캐릭터: {html.escape(char)}</span>"
 
-    <div class="panel">
-      <div class="badges">
-        <span class="pill">신뢰 점수: <b>{score}/100</b> ({label})</span>
-        <span class="pill">무결성: {"<span class='ok'>Integrity OK</span>" if ok else "<span class='fail'>Integrity FAIL</span>"}</span>
-        <span class="pill">integrity={why}</span>
+    qr_path = f"/qrcodes/{code}.png"
+    title = html.escape(meta.get("name", code))
+
+    cards_html = build_cards(tagged)
+
+    return HTMLResponse(f"""
+    <html><head><meta charset="utf-8">{STYLE}</head>
+    <body>
+      <div class="wrap">
+        <div class="toplinks">
+          <a class="pill" href="/report?days=7&farm_id={farm_id}&lot_id={lot_id}">7일 리포트</a>
+          <a class="pill" href="/report?days=30&farm_id={farm_id}&lot_id={lot_id}">30일 리포트</a>
+          <a class="pill" href="/p/{code}?days={days}&farm_id={farm_id}&lot_id={lot_id}&window=all">상품 페이지(all)</a>
+        </div>
+
+        <div class="title">{title}</div>
+        <div class="sub">제품 코드: {html.escape(code)} · farm_id={html.escape(farm_id)}, lot_id={html.escape(lot_id)}</div>
+
+        <div class="grid">
+          <div class="card">
+            <div class="row"><span class="badge">QR</span></div>
+            <div class="muted" style="margin-bottom:10px;font-weight:700">
+              촬영용: 아래 QR 이미지를 폰으로 찍으면 이 페이지로 연결됩니다.
+            </div>
+            <img class="qrimg" src="{qr_path}" alt="QR">
+            <div class="muted" style="margin-top:8px">QR 이미지: <a href="{qr_path}">{qr_path}</a></div>
+          </div>
+
+          <div class="card">
+            <div class="row">{score_badge} {integrity_badge} {char_badge}</div>
+            <div class="muted" style="font-weight:800">integrity={ "sealed" if integrity_ok else "broken" } · events(기간 {days}일)={len(filtered)}</div>
+
+            <div class="kpi">
+              <div class="k"><div class="h">이벤트 수</div><div class="v">{sig["events"]}</div></div>
+              <div class="k"><div class="h">평균 활동</div><div class="v">{sig["avg_motion"]:.3f}</div></div>
+              <div class="k"><div class="h">평균 Flow</div><div class="v">{sig["avg_flow"]:.3f}</div></div>
+              <div class="k"><div class="h">평균 Compactness</div><div class="v">{sig["avg_compactness"]:.3f}</div></div>
+              <div class="k"><div class="h">BVI(변동성)</div><div class="v">{sig["bvi"]:.3f}</div></div>
+              <div class="k"><div class="h">야간 안정성</div><div class="v">{50}</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <div class="row"><span class="badge">이상치 이벤트(태그) · 증거 클릭</span></div>
+          {cards_html}
+          <div class="muted" style="margin-top:10px;font-size:12px">
+            filtered_events={len(filtered)}, all_events={len(all_events)}, integrity_detail={html.escape(str(integrity_detail))}
+          </div>
+        </div>
       </div>
+    </body></html>
+    """)
 
-      <div class="kpi" style="margin-top:12px">
-        <div class="k"><div class="lab">이벤트 수</div><div class="val">{metrics["count"]}</div></div>
-        <div class="k"><div class="lab">평균 활동</div><div class="val">{_fmt_num(metrics["avg_motion"])}</div></div>
-        <div class="k"><div class="lab">평균 Flow</div><div class="val">{_fmt_num(metrics["avg_flow"])}</div></div>
-        <div class="k"><div class="lab">평균 Compactness</div><div class="val">{_fmt_num(metrics["avg_compact"])}</div></div>
-        <div class="k"><div class="lab">ROI 피크 평균</div><div class="val">{_fmt_num(metrics["avg_roi_peak"])}</div></div>
-        <div class="k"><div class="lab">BVI(변동성)</div><div class="val">{_fmt_num(metrics["bvi"])}</div></div>
-      </div>
-    </div>
+@app.get("/events", response_class=JSONResponse)
+def events(days: int = 7, farm_id: str = "farm1", lot_id: str = "lotA"):
+    all_events = load_events()
+    now = time.time()
+    cut = now - days*86400
+    filtered = [e for e in all_events if (e.get("farm_id")==farm_id and e.get("lot_id")==lot_id and float(e.get("time",0) or 0) >= cut)]
+    return JSONResponse({"count": len(filtered), "events": filtered})
 
-    <div class="panel" style="margin-top:14px">
-      <h3>이상치 이벤트(태그) — 클릭해서 증거 보기</h3>
-      <div class="cards">{cards_html}</div>
-      <table>
-        <thead>
-          <tr><th style="width:190px">시간</th><th>태그</th><th style="width:90px">캐릭터</th><th style="width:240px">증거</th></tr>
-        </thead>
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
+# 간단 Ingest API (Edge가 행동데이터만 보내는 구조)
+@app.post("/ingest/event")
+async def ingest_event(req: Request):
+    e = await req.json()
+    # 최소 필드 보정
+    e.setdefault("time", time.time())
+    e.setdefault("farm_id", "farm1")
+    e.setdefault("lot_id", "lotA")
 
-      <div class="muted" style="margin-top:10px">
-        · 개발자용 JSON: <a href="/events?days={days}&farm_id={farm_id}&lot_id={lot_id}" target="_blank">/events</a>
-      </div>
-    </div>
-    """
-    return page_shell("Report", body)
+    # media 경로 정규화
+    e["clip_path"] = normalize_media_path(e.get("clip_path"), "clips")
+    e["thumb_path"] = normalize_media_path(e.get("thumb_path"), "thumbs")
+    e["heatmap_path"] = normalize_media_path(e.get("heatmap_path"), "heatmaps")
 
+    # 태그/캐릭터 서버 보정
+    e.setdefault("tags", tag_event(e))
+    e.setdefault("character", select_character(compute_signals([e])))
 
+    # hashchain 보정(뒤에 이어쓰기)
+    events = load_events()
+    prev_hash = "GENESIS" if not events else events[-1].get("hash","GENESIS")
+    seq = 1 if not events else int(events[-1].get("seq", len(events))) + 1
+    e["seq"] = seq
+    e["prev_hash"] = prev_hash
+    payload = {k:v for k,v in e.items() if k not in ("hash",)}
+    e["hash"] = compute_chain_hash(prev_hash, payload)
 
+    with EVENTS_JSONL.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(e, ensure_ascii=False) + "\n")
+
+    return {"ok": True, "seq": seq}
+
+# 에러 페이지(디버그용)
+@app.exception_handler(Exception)
+async def all_exception_handler(request: Request, exc: Exception):
+    # Render에서 원인 파악 쉽게
+    tb = traceback.format_exc()
+    return HTMLResponse(
+        f"<h1>Internal Server Error</h1><pre>{html.escape(str(exc))}</pre><pre>{html.escape(tb)}</pre>",
+        status_code=500
+    )
