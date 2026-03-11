@@ -342,7 +342,7 @@ def product_page(code: str, days: int = 7, farm_id: str = "farm1", lot_id: str =
         <div class="card">
           <div class="section-title">농장 영상</div>
           <video width="100%" controls autoplay muted loop playsinline style="border-radius:14px; background:#000;">
-            <source src="/videos/farm.mp4" type="video/mp4">
+            <source src="/videos/farm_web.mp4" type="video/mp4">
           </video>
           <div class="muted tiny" style="margin-top:10px">농장 관찰 영상이 웹에서 바로 재생됩니다.</div>
         </div>
