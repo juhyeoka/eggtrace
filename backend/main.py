@@ -170,9 +170,9 @@ def trust_score(sig: dict[str, float], integrity_ok: bool) -> int:
 # Tagging / Evidence UI
 # ----------------------------
 TAG_KR = {
-    "CLUSTER_SPREAD": "주의: 군집 분산 확대",
-    "ROI_PEAK_MED": "주의: 특정 구역 집중 활동",
-    "ACTIVITY_SPIKE": "주의: 활동량 급증",
+    "CLUSTER_SPREAD": "군집 분포 변화 관찰",
+    "ROI_PEAK_MED": "특정 구역 활동 집중",
+    "ACTIVITY_SPIKE": "활동 증가 관찰",
 }
 
 def tag_event(e: dict[str, Any]) -> list[str]:
@@ -222,7 +222,7 @@ def build_cards(tagged: list[dict[str, Any]]) -> str:
         </tr>
         """)
     if not rows:
-        return "<div class='muted'>이상치 태그가 없습니다.</div>"
+        return "<div class='muted'>표시할 관찰 기록이 없습니다.</div>"
     return f"""
     <table class='table'>
       <thead>
@@ -322,8 +322,8 @@ def product_page(code: str, days: int = 7, farm_id: str = "farm1", lot_id: str =
     label = "안정적" if score >= 75 else ("보통" if score >= 50 else "주의")
 
     integrity_badge = f"<span class='badge ok'>무결성: Integrity OK</span>" if integrity_ok else f"<span class='badge bad'>무결성: Integrity FAIL</span>"
-    score_badge = f"<span class='badge'>신뢰 점수: {score}/100 ({label})</span>"
-    char_badge = f"<span class='badge'>선택 캐릭터: {html.escape(char)}</span>"
+    score_badge = f"<span class='badge ok'>신뢰 점수: {score}/100 ({label})</span>"
+    char_badge = f"<span class='badge info'>분석 패턴: {html.escape(char)}</span>"
 
     qr_path = f"/qrcodes/{code}.png"
     title = html.escape(meta.get("name", code))
@@ -355,7 +355,7 @@ def product_page(code: str, days: int = 7, farm_id: str = "farm1", lot_id: str =
 
           <div class="card">
             <div class="row">{score_badge} {integrity_badge} {char_badge}</div>
-            <div class="muted" style="font-weight:800">integrity={ "sealed" if integrity_ok else "broken" } · events(기간 {days}일)={len(filtered)}</div>
+            <div class="muted" style="font-weight:800">최근 {days}일 기준 요약 결과</div>
 
             <div class="kpi">
               <div class="k"><div class="h">이벤트 수</div><div class="v">{sig["events"]}</div></div>
@@ -369,7 +369,7 @@ def product_page(code: str, days: int = 7, farm_id: str = "farm1", lot_id: str =
         </div>
 
         <div class="card" style="margin-top:14px">
-          <div class="row"><span class="badge">이상치 이벤트(태그) · 증거 클릭</span></div>
+          <div class="row"><span class="badge">최근 관찰 기록 · 증거 보기</span></div>
           {cards_html}
           <div class="muted" style="margin-top:10px;font-size:12px">
             filtered_events={len(filtered)}, all_events={len(all_events)}, integrity_detail={html.escape(str(integrity_detail))}
