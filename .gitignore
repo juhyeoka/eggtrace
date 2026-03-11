@@ -3,3 +3,29 @@
 static/videos/*.mp4
 static/videos/*.mov
 static/videos/*.avi
+
+# mac / editor
+.DS_Store
+.vscode/PythonImportHelper-v2-Completion.json
+
+# python cache
+backend/__pycache__/
+*.pyc
+
+# generated backups
+backend/main.py.bak_*
+
+# generated runtime data
+data/events.jsonl
+data/archive/
+data/plots/
+data/ai_eval_report.json
+data/report_timeseries.json
+data/thumbs/
+data/heatmaps/
+data/videos/
+
+# local/static video files
+static/videos/*.mp4
+static/videos/*.mov
+static/videos/*.avi
