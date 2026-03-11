@@ -304,7 +304,7 @@ def generate_ai_summary(score, sig):
         return "최근 농장에서 일부 활동 변화가 관찰되었습니다. 지속적인 모니터링이 진행 중입니다."
 
 @app.get("/p/{code}", response_class=HTMLResponse)
-def product_page(code: str, days: int = 7, farm_id: str = "farm1", lot_id: str = "lotA"):
+def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str = "lotA"):
     products = read_products()
     meta = products.get(code, {"name": code, "farm_id": farm_id, "lot_id": lot_id})
     farm_id = meta.get("farm_id", farm_id)
@@ -348,6 +348,16 @@ def product_page(code: str, days: int = 7, farm_id: str = "farm1", lot_id: str =
         </div>
     """
 
+
+    ai_summary_html = f"""
+        <div class="card">
+          <div class="section-title">AI 농장 요약</div>
+          <div style="font-size:15px; line-height:1.7; color:#444;">
+            {generate_ai_summary(score, sig)}
+          </div>
+        </div>
+    """
+
     cards_html = build_cards(tagged)
 
     return HTMLResponse(f"""
@@ -362,6 +372,9 @@ def product_page(code: str, days: int = 7, farm_id: str = "farm1", lot_id: str =
 
         <div class="title">{title}</div>
         <div class="sub">제품 코드: {html.escape(code)} · farm_id={html.escape(farm_id)}, lot_id={html.escape(lot_id)}</div>
+
+        {ai_summary_html}
+
 
         {video_html}
 
@@ -392,7 +405,7 @@ def product_page(code: str, days: int = 7, farm_id: str = "farm1", lot_id: str =
         </div>
 
         <div class="card" style="margin-top:14px">
-          <div class="row"><span class="badge">최근 관찰 기록 · 증거 보기</span></div>
+          <div class="row"><span class="badge">최근 관찰 기록</span></div>
           {cards_html}
           <div class="muted" style="margin-top:10px;font-size:12px">
             filtered_events={len(filtered)}, all_events={len(all_events)}, integrity_detail={html.escape(str(integrity_detail))}
