@@ -1,0 +1,5 @@
+
+# local video files
+static/videos/*.mp4
+static/videos/*.mov
+static/videos/*.avi

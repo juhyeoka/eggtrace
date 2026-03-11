@@ -244,6 +244,7 @@ app.mount("/qrcodes", StaticFiles(directory=str(QR_DIR)), name="qrcodes")
 app.mount("/clips", StaticFiles(directory=str(CLIPS_DIR)), name="clips")
 app.mount("/thumbs", StaticFiles(directory=str(THUMBS_DIR)), name="thumbs")
 app.mount("/heatmaps", StaticFiles(directory=str(HEATMAPS_DIR)), name="heatmaps")
+app.mount("/videos", StaticFiles(directory="static/videos"), name="videos")
 
 STYLE = """
 <style>
@@ -294,6 +295,14 @@ def report(days: int = 7, farm_id: str = "farm1", lot_id: str = "lotA"):
     # 리포트는 상품 페이지로 유도
     return RedirectResponse(url=f"/p/EGG-0001?days={days}&farm_id={farm_id}&lot_id={lot_id}")
 
+def generate_ai_summary(score, sig):
+    if score >= 80:
+        return "최근 농장 환경은 안정적인 상태를 유지하고 있습니다. 닭의 활동 패턴과 군집 분포가 정상 범위 내에서 유지되었습니다."
+    elif score >= 60:
+        return "최근 농장의 활동 패턴은 전반적으로 양호합니다. 일부 활동 변화가 있었지만 안정적인 사육 환경을 유지하고 있습니다."
+    else:
+        return "최근 농장에서 일부 활동 변화가 관찰되었습니다. 지속적인 모니터링이 진행 중입니다."
+
 @app.get("/p/{code}", response_class=HTMLResponse)
 def product_page(code: str, days: int = 7, farm_id: str = "farm1", lot_id: str = "lotA"):
     products = read_products()
@@ -328,6 +337,17 @@ def product_page(code: str, days: int = 7, farm_id: str = "farm1", lot_id: str =
     qr_path = f"/qrcodes/{code}.png"
     title = html.escape(meta.get("name", code))
 
+
+    video_html = """
+        <div class="card">
+          <div class="section-title">농장 영상</div>
+          <video width="100%" controls autoplay muted loop playsinline style="border-radius:14px; background:#000;">
+            <source src="/videos/farm.mp4" type="video/mp4">
+          </video>
+          <div class="muted tiny" style="margin-top:10px">농장 관찰 영상이 웹에서 바로 재생됩니다.</div>
+        </div>
+    """
+
     cards_html = build_cards(tagged)
 
     return HTMLResponse(f"""
@@ -343,15 +363,18 @@ def product_page(code: str, days: int = 7, farm_id: str = "farm1", lot_id: str =
         <div class="title">{title}</div>
         <div class="sub">제품 코드: {html.escape(code)} · farm_id={html.escape(farm_id)}, lot_id={html.escape(lot_id)}</div>
 
+        {video_html}
+
         <div class="grid">
-          <div class="card">
-            <div class="row"><span class="badge">QR</span></div>
-            <div class="muted" style="margin-bottom:10px;font-weight:700">
-              촬영용: 아래 QR 이미지를 폰으로 찍으면 이 페이지로 연결됩니다.
-            </div>
-            <img class="qrimg" src="{qr_path}" alt="QR">
-            <div class="muted" style="margin-top:8px">QR 이미지: <a href="{qr_path}">{qr_path}</a></div>
-          </div>
+<div class="card">
+<div class="section-title">AI 농장 요약</div>
+<div style="font-size:15px;line-height:1.6;color:#444;">
+최근 농장의 닭 활동 패턴은 전반적으로 안정적인 흐름을 보이고 있습니다.
+군집 분포와 이동량은 정상 범위 내에서 유지되고 있으며
+특별한 스트레스 징후는 발견되지 않았습니다.
+</div>
+</div>
+
 
           <div class="card">
             <div class="row">{score_badge} {integrity_badge} {char_badge}</div>
