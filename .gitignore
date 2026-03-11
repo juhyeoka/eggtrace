@@ -29,3 +29,5 @@ data/videos/
 static/videos/*.mp4
 static/videos/*.mov
 static/videos/*.avi
+
+.vscode/PythonImportHelper-v2-Completion.json
