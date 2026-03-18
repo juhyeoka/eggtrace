@@ -3,10 +3,12 @@ from pathlib import Path
 from statistics import mean, pstdev
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from backend.llm_summary import generate_summary
 
 app = FastAPI()
+app.mount("/videos", StaticFiles(directory="static/videos"), name="videos")
 
 BASE = Path(__file__).resolve().parents[1]
 EVENTS = BASE / "data" / "events.jsonl"
