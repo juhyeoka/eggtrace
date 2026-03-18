@@ -8,14 +8,6 @@
         "documentation": {}
     },
     {
-        "label": "dataclass",
-        "importPath": "dataclasses",
-        "description": "dataclasses",
-        "isExtraImport": true,
-        "detail": "dataclasses",
-        "documentation": {}
-    },
-    {
         "label": "Dict",
         "importPath": "typing",
         "description": "typing",
@@ -49,46 +41,6 @@
     },
     {
         "label": "List",
-        "importPath": "typing",
-        "description": "typing",
-        "isExtraImport": true,
-        "detail": "typing",
-        "documentation": {}
-    },
-    {
-        "label": "Tuple",
-        "importPath": "typing",
-        "description": "typing",
-        "isExtraImport": true,
-        "detail": "typing",
-        "documentation": {}
-    },
-    {
-        "label": "Any",
-        "importPath": "typing",
-        "description": "typing",
-        "isExtraImport": true,
-        "detail": "typing",
-        "documentation": {}
-    },
-    {
-        "label": "Dict",
-        "importPath": "typing",
-        "description": "typing",
-        "isExtraImport": true,
-        "detail": "typing",
-        "documentation": {}
-    },
-    {
-        "label": "List",
-        "importPath": "typing",
-        "description": "typing",
-        "isExtraImport": true,
-        "detail": "typing",
-        "documentation": {}
-    },
-    {
-        "label": "Optional",
         "importPath": "typing",
         "description": "typing",
         "isExtraImport": true,
@@ -131,20 +83,12 @@
         "documentation": {}
     },
     {
-        "label": "annotations",
-        "importPath": "__future__",
-        "description": "__future__",
-        "isExtraImport": true,
-        "detail": "__future__",
-        "documentation": {}
-    },
-    {
-        "label": "time",
+        "label": "json,",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "time",
-        "description": "time",
-        "detail": "time",
+        "importPath": "json.",
+        "description": "json.",
+        "detail": "json.",
         "documentation": {}
     },
     {
@@ -249,6 +193,62 @@
         "description": "pathlib",
         "isExtraImport": true,
         "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "mean",
+        "importPath": "statistics",
+        "description": "statistics",
+        "isExtraImport": true,
+        "detail": "statistics",
+        "documentation": {}
+    },
+    {
+        "label": "pstdev",
+        "importPath": "statistics",
+        "description": "statistics",
+        "isExtraImport": true,
+        "detail": "statistics",
+        "documentation": {}
+    },
+    {
+        "label": "mean",
+        "importPath": "statistics",
+        "description": "statistics",
+        "isExtraImport": true,
+        "detail": "statistics",
+        "documentation": {}
+    },
+    {
+        "label": "pstdev",
+        "importPath": "statistics",
+        "description": "statistics",
+        "isExtraImport": true,
+        "detail": "statistics",
+        "documentation": {}
+    },
+    {
+        "label": "mean",
+        "importPath": "statistics",
+        "description": "statistics",
+        "isExtraImport": true,
+        "detail": "statistics",
+        "documentation": {}
+    },
+    {
+        "label": "pstdev",
+        "importPath": "statistics",
+        "description": "statistics",
+        "isExtraImport": true,
+        "detail": "statistics",
         "documentation": {}
     },
     {
@@ -284,28 +284,11 @@
         "documentation": {}
     },
     {
-        "label": "JSONResponse",
-        "importPath": "fastapi.responses",
-        "description": "fastapi.responses",
+        "label": "generate_summary",
+        "importPath": "backend.llm_summary",
+        "description": "backend.llm_summary",
         "isExtraImport": true,
-        "detail": "fastapi.responses",
-        "documentation": {}
-    },
-    {
-        "label": "RedirectResponse",
-        "importPath": "fastapi.responses",
-        "description": "fastapi.responses",
-        "isExtraImport": true,
-        "detail": "fastapi.responses",
-        "documentation": {}
-    },
-    {
-        "label": "json,",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "json.",
-        "description": "json.",
-        "detail": "json.",
+        "detail": "backend.llm_summary",
         "documentation": {}
     },
     {
@@ -336,35 +319,12 @@
         "documentation": {}
     },
     {
-        "label": "mean",
-        "importPath": "statistics",
-        "description": "statistics",
+        "label": "time",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "statistics",
-        "documentation": {}
-    },
-    {
-        "label": "pstdev",
-        "importPath": "statistics",
-        "description": "statistics",
-        "isExtraImport": true,
-        "detail": "statistics",
-        "documentation": {}
-    },
-    {
-        "label": "mean",
-        "importPath": "statistics",
-        "description": "statistics",
-        "isExtraImport": true,
-        "detail": "statistics",
-        "documentation": {}
-    },
-    {
-        "label": "pstdev",
-        "importPath": "statistics",
-        "description": "statistics",
-        "isExtraImport": true,
-        "detail": "statistics",
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
         "documentation": {}
     },
     {
@@ -377,21 +337,21 @@
         "documentation": {}
     },
     {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
         "label": "numpy",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "numpy",
         "description": "numpy",
         "detail": "numpy",
-        "documentation": {}
-    },
-    {
-        "label": "subprocess",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "subprocess",
-        "description": "subprocess",
-        "detail": "subprocess",
         "documentation": {}
     },
     {
@@ -404,27 +364,11 @@
         "documentation": {}
     },
     {
-        "label": "select_character",
-        "importPath": "backend.characters",
-        "description": "backend.characters",
-        "isExtraImport": true,
-        "detail": "backend.characters",
-        "documentation": {}
-    },
-    {
-        "label": "deque",
-        "importPath": "collections",
-        "description": "collections",
-        "isExtraImport": true,
-        "detail": "collections",
-        "documentation": {}
-    },
-    {
         "label": "EventEngine",
-        "importPath": "vision.event_engine",
-        "description": "vision.event_engine",
+        "importPath": "event_engine",
+        "description": "event_engine",
         "isExtraImport": true,
-        "detail": "vision.event_engine",
+        "detail": "event_engine",
         "documentation": {}
     },
     {
@@ -518,128 +462,83 @@
         "documentation": {}
     },
     {
-        "label": "evidence_buttons",
+        "label": "clip_file",
         "kind": 2,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "def evidence_buttons(e: dict) -> str:\n    \"\"\"\n    Render evidence buttons (clip/thumb/heatmap) for one event dict.\n    - Uses URL paths (not local filesystem absolute paths).\n    - Never recurses.\n    \"\"\"\n    def _btn(label: str, href: str) -> str:\n        if not href:\n            return \"\"\n        return f\"<a class='btn btn-sm' href='{href}' target='_blank' rel='noopener'>{label}</a>\"",
+        "peekOfCode": "def clip_file(filename: str):\n    p = CLIPS_DIR / filename\n    if not p.exists():\n        raise HTTPException(status_code=404, detail=\"clip not found\")\n    return FileResponse(p, media_type=\"video/mp4\")\n@app.get(\"/thumbs/{filename}\")\ndef thumb_file(filename: str):\n    p = THUMBS_DIR / filename\n    if not p.exists():\n        raise HTTPException(status_code=404, detail=\"thumb not found\")",
         "detail": "backend.main",
         "documentation": {}
     },
     {
-        "label": "load_events",
+        "label": "thumb_file",
         "kind": 2,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "def load_events() -> List[Dict[str, Any]]:\n    if not EVENTS_PATH.exists():\n        return []\n    lines = EVENTS_PATH.read_text(encoding=\"utf-8\").splitlines()\n    out: List[Dict[str, Any]] = []\n    for l in lines:\n        l = l.strip()\n        if not l:\n            continue\n        try:",
+        "peekOfCode": "def thumb_file(filename: str):\n    p = THUMBS_DIR / filename\n    if not p.exists():\n        raise HTTPException(status_code=404, detail=\"thumb not found\")\n    return FileResponse(p, media_type=\"image/jpeg\")\n@app.get(\"/heatmaps/{filename}\")\ndef heatmap_file(filename: str):\n    p = HEATMAPS_DIR / filename\n    if not p.exists():\n        raise HTTPException(status_code=404, detail=\"heatmap not found\")",
         "detail": "backend.main",
         "documentation": {}
     },
     {
-        "label": "filter_events",
+        "label": "heatmap_file",
         "kind": 2,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "def filter_events(\n    events: List[Dict[str, Any]],\n    days: int = 30,\n    farm_id: Optional[str] = None,\n    lot_id: Optional[str] = None,\n    code: Optional[str] = None,\n) -> List[Dict[str, Any]]:\n    cut = _now() - float(days) * 86400.0\n    out = []\n    for e in events:",
+        "peekOfCode": "def heatmap_file(filename: str):\n    p = HEATMAPS_DIR / filename\n    if not p.exists():\n        raise HTTPException(status_code=404, detail=\"heatmap not found\")\n    return FileResponse(p, media_type=\"image/png\")\ndef _file_url(path_str: str | None):\n    if not path_str:\n        return None\n    s = str(path_str).replace(\"\\\\\", \"/\")\n    # 절대경로/상대경로 모두 처리",
         "detail": "backend.main",
         "documentation": {}
     },
     {
-        "label": "integrity_status",
+        "label": "read_events",
         "kind": 2,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "def integrity_status(events: List[Dict[str, Any]]) -> Tuple[bool, str]:\n    \"\"\"\n    해시체인 전체 검증을 완벽히 하진 않고,\n    촬영/데모용으로 \"봉인(seal) 흔적이 있는가\"를 빠르게 확인.\n    - hash/prev_hash/seq가 일정 개수 이상 있으면 OK\n    \"\"\"\n    if not events:\n        return True, \"no events\"\n    has = sum(1 for e in events if \"hash\" in e and \"prev_hash\" in e and \"seq\" in e)\n    if has == len(events):",
+        "peekOfCode": "def read_events():\n    if not EVENTS.exists():\n        return []\n    txt = EVENTS.read_text(encoding=\"utf-8\").strip()\n    if not txt:\n        return []\n    return [json.loads(l) for l in txt.splitlines()]\ndef read_products():\n    if not PRODUCTS.exists():\n        return {}",
         "detail": "backend.main",
         "documentation": {}
     },
     {
-        "label": "tag_badge",
+        "label": "read_products",
         "kind": 2,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "def tag_badge(e: Dict[str, Any]) -> str:\n    tags = e.get(\"tags\") or []\n    sev = (e.get(\"severity\") or \"mid\").lower()\n    sev_txt = SEV_LABELS.get(sev, \"주의\")\n    color = SEV_COLOR.get(sev, \"#111827\")\n    if not tags:\n        return \"<span class='muted'>-</span>\"\n    tag_txt = \", \".join(TAG_LABELS.get(t, t) for t in tags)\n    icon = \"🚨\" if sev == \"high\" else (\"⚠️\" if sev == \"mid\" else \"✅\")\n    return (",
+        "peekOfCode": "def read_products():\n    if not PRODUCTS.exists():\n        return {}\n    return json.loads(PRODUCTS.read_text(encoding=\"utf-8\"))\n# ----------------------------\n# 무결성(해시체인) 검증\n# ----------------------------\ndef _canonical_for_hash(e: dict) -> str:\n    clean = {k: v for k, v in e.items() if k not in HASH_FIELDS}\n    return json.dumps(clean, ensure_ascii=False, sort_keys=True, separators=(\",\", \":\"))",
         "detail": "backend.main",
         "documentation": {}
     },
     {
-        "label": "build_cards",
+        "label": "verify_integrity",
         "kind": 2,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "def build_cards(events: List[Dict[str, Any]]) -> str:\n    cards = []\n    for e in events:\n        char = e.get(\"character\", \"N/A\")\n        char_k = CHAR_LABELS.get(char, char)\n        cards.append(\n            f\"\"\"\n            <div class=\"card\">\n              <div class=\"card-top\">\n                <div class=\"card-time\">{_fmt_ts(e.get(\"time\"))}</div>",
+        "peekOfCode": "def verify_integrity(events: list, genesis: str = \"GENESIS\"):\n    if not events:\n        return {\"ok\": True, \"last_hash\": None, \"reason\": \"no events\"}\n    prev = genesis\n    last_hash = None\n    for idx, e in enumerate(events, start=1):\n        expected = _sha256_hex(prev + \"|\" + _canonical_for_hash(e))\n        if e.get(\"seq\") != idx:\n            return {\"ok\": False, \"last_hash\": None, \"reason\": f\"seq mismatch at {idx}\"}\n        if e.get(\"prev_hash\") != prev:",
         "detail": "backend.main",
         "documentation": {}
     },
     {
-        "label": "calc_metrics",
+        "label": "compute_metrics",
         "kind": 2,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "def calc_metrics(events: List[Dict[str, Any]]) -> Dict[str, Any]:\n    if not events:\n        return {\n            \"count\": 0,\n            \"avg_motion\": None,\n            \"avg_flow\": None,\n            \"avg_compact\": None,\n            \"avg_roi_peak\": None,\n            \"bvi\": None,\n            \"night_score\": None,",
+        "peekOfCode": "def compute_metrics(events):\n    if not events:\n        return {}\n    motions = [float(e.get(\"motion_ratio\", 0) or 0) for e in events]\n    flows = [float(e.get(\"flow_mean_mag\", 0) or 0) for e in events if e.get(\"flow_mean_mag\") is not None]\n    comps = [float(e.get(\"cluster_compactness\", 0) or 0) for e in events if e.get(\"cluster_compactness\") is not None]\n    return {\n        \"avg_motion\": round(mean(motions), 3),\n        \"avg_flow\": round(mean(flows), 3) if flows else None,\n        \"avg_compactness\": round(mean(comps), 3) if comps else None,",
         "detail": "backend.main",
         "documentation": {}
     },
     {
-        "label": "trust_score",
+        "label": "compute_score",
         "kind": 2,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "def trust_score(metrics: Dict[str, Any], integrity_ok: bool) -> Tuple[int, str]:\n    # 촬영/데모용 간단 점수: 데이터/무결성/변동성 기반\n    base = 60\n    if not integrity_ok:\n        base -= 20\n    cnt = metrics.get(\"count\") or 0\n    if cnt < 3:\n        base -= 10\n    elif cnt >= 10:\n        base += 10",
+        "peekOfCode": "def compute_score(metrics):\n    score = 100\n    bvi = metrics.get(\"behavior_variance_index\", 0.0)\n    comp = metrics.get(\"avg_compactness\")\n    if bvi > 0.12:\n        score -= 20\n    elif bvi > 0.08:\n        score -= 10\n    if comp is not None and comp < 0.10:\n        score -= 10",
         "detail": "backend.main",
         "documentation": {}
     },
     {
-        "label": "page_shell",
+        "label": "filter_window",
         "kind": 2,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "def page_shell(title: str, body: str) -> str:\n    return f\"\"\"\n    <html>\n      <head>\n        <meta charset=\"utf-8\"/>\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\n        <title>{title}</title>\n        {STYLE}\n      </head>\n      <body>",
-        "detail": "backend.main",
-        "documentation": {}
-    },
-    {
-        "label": "root",
-        "kind": 2,
-        "importPath": "backend.main",
-        "description": "backend.main",
-        "peekOfCode": "def root():\n    return RedirectResponse(url=\"/demo\")\n@app.get(\"/demo\", response_class=HTMLResponse, include_in_schema=False)\ndef demo():\n    # 촬영용: 바로 상품페이지로\n    return RedirectResponse(url=\"/p/EGG-0001\")\n@app.get(\"/events\", response_class=JSONResponse)\ndef api_events(days: int = 30, farm_id: str = \"farm1\", lot_id: str = \"lotA\"):\n    events = filter_events(load_events(), days=days, farm_id=farm_id, lot_id=lot_id)\n    return {\"count\": len(events), \"events\": events}",
-        "detail": "backend.main",
-        "documentation": {}
-    },
-    {
-        "label": "demo",
-        "kind": 2,
-        "importPath": "backend.main",
-        "description": "backend.main",
-        "peekOfCode": "def demo():\n    # 촬영용: 바로 상품페이지로\n    return RedirectResponse(url=\"/p/EGG-0001\")\n@app.get(\"/events\", response_class=JSONResponse)\ndef api_events(days: int = 30, farm_id: str = \"farm1\", lot_id: str = \"lotA\"):\n    events = filter_events(load_events(), days=days, farm_id=farm_id, lot_id=lot_id)\n    return {\"count\": len(events), \"events\": events}\n@app.get(\"/file/{path:path}\", include_in_schema=False)\ndef file_any(path: str):\n    # allow absolute path from old logs OR relative under project",
-        "detail": "backend.main",
-        "documentation": {}
-    },
-    {
-        "label": "api_events",
-        "kind": 2,
-        "importPath": "backend.main",
-        "description": "backend.main",
-        "peekOfCode": "def api_events(days: int = 30, farm_id: str = \"farm1\", lot_id: str = \"lotA\"):\n    events = filter_events(load_events(), days=days, farm_id=farm_id, lot_id=lot_id)\n    return {\"count\": len(events), \"events\": events}\n@app.get(\"/file/{path:path}\", include_in_schema=False)\ndef file_any(path: str):\n    # allow absolute path from old logs OR relative under project\n    p = Path(path)\n    if p.is_absolute():\n        if not p.exists():\n            raise HTTPException(status_code=404, detail=\"Not Found\")",
-        "detail": "backend.main",
-        "documentation": {}
-    },
-    {
-        "label": "file_any",
-        "kind": 2,
-        "importPath": "backend.main",
-        "description": "backend.main",
-        "peekOfCode": "def file_any(path: str):\n    # allow absolute path from old logs OR relative under project\n    p = Path(path)\n    if p.is_absolute():\n        if not p.exists():\n            raise HTTPException(status_code=404, detail=\"Not Found\")\n        return FileResponse(str(p))\n    # relative: interpret from project root\n    abs_p = (ROOT / p).resolve()\n    if not abs_p.exists():",
-        "detail": "backend.main",
-        "documentation": {}
-    },
-    {
-        "label": "qrcode",
-        "kind": 2,
-        "importPath": "backend.main",
-        "description": "backend.main",
-        "peekOfCode": "def qrcode(name: str):\n    # name can be \"EGG-0001.png\"\n    target = _safe_join(QRCODES_DIR, name)\n    if not target.exists():\n        raise HTTPException(status_code=404, detail=\"Not Found\")\n    return FileResponse(str(target))\n@app.get(\"/p/{code}\", response_class=HTMLResponse)\ndef product_page(code: str, window: str = \"7\"):\n    meta = PRODUCTS.get(code) or {\"title\": f\"제품 {code}\", \"farm_id\": \"farm1\", \"lot_id\": \"lotA\"}\n    days = 30 if window == \"all\" else 7",
+        "peekOfCode": "def filter_window(events, days: int):\n    now = time.time()\n    cutoff = now - days * 86400\n    return [e for e in events if float(e.get(\"time\", 0) or 0) >= cutoff]\ndef _tag_badge(e):\n    tags = e.get(\"tags\") or []\n    sev = e.get(\"severity\") or \"low\"\n    if not tags:\n        return \"\"\n    color = {\"low\":\"#16a34a\",\"mid\":\"#d97706\",\"high\":\"#dc2626\"}.get(sev, \"#111\")",
         "detail": "backend.main",
         "documentation": {}
     },
@@ -648,7 +547,7 @@
         "kind": 2,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "def product_page(code: str, window: str = \"7\"):\n    meta = PRODUCTS.get(code) or {\"title\": f\"제품 {code}\", \"farm_id\": \"farm1\", \"lot_id\": \"lotA\"}\n    days = 30 if window == \"all\" else 7\n    farm_id = meta.get(\"farm_id\", \"farm1\")\n    lot_id = meta.get(\"lot_id\", \"lotA\")\n    events_all = filter_events(load_events(), days=30, farm_id=farm_id, lot_id=lot_id)\n    events = filter_events(load_events(), days=days, farm_id=farm_id, lot_id=lot_id)\n    ok, why = integrity_status(events_all)\n    metrics = calc_metrics(events)\n    score, label = trust_score(metrics, ok)",
+        "peekOfCode": "def product_page(code: str):\n    products = read_products()\n    if code not in products:\n        return HTMLResponse(\"<h2>Invalid code</h2>\")\n    meta = products[code]\n    farm_id = meta[\"farm_id\"]\n    lot_id = meta[\"lot_id\"]\n    title = meta.get(\"title\") or f\"J Crova 달걀 10구 ({lot_id})\"\n    all_events = read_events()\n    events = [e for e in all_events if e.get(\"farm_id\")==farm_id and e.get(\"lot_id\")==lot_id]",
         "detail": "backend.main",
         "documentation": {}
     },
@@ -657,7 +556,16 @@
         "kind": 2,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "def report(days: int = 7, farm_id: str = \"farm1\", lot_id: str = \"lotA\"):\n    events_all = filter_events(load_events(), days=30, farm_id=farm_id, lot_id=lot_id)\n    events = filter_events(load_events(), days=days, farm_id=farm_id, lot_id=lot_id)\n    ok, why = integrity_status(events_all)\n    metrics = calc_metrics(events)\n    score, label = trust_score(metrics, ok)\n    tagged = [e for e in events if (e.get(\"tags\") or [])]\n    cards_html = build_cards(tagged[:30])\n    rows = \"\"\n    for e in tagged[:30]:",
+        "peekOfCode": "def report(days: int = 7, farm_id: str | None = None, lot_id: str | None = None):\n    days = 7 if days not in (7, 30) else days\n    all_events = read_events()\n    integrity = verify_integrity(all_events)\n    integrity_badge = \"✅ Integrity OK\" if integrity[\"ok\"] else \"❌ Integrity FAIL\"\n    e = all_events\n    if farm_id:\n        e = [x for x in e if x.get(\"farm_id\")==farm_id]\n    if lot_id:\n        e = [x for x in e if x.get(\"lot_id\")==lot_id]",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "compute_trend",
+        "kind": 2,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "def compute_trend(all_events, farm_id, lot_id):\n    # 7일 데이터\n    e7 = [e for e in all_events if e.get(\"farm_id\")==farm_id and e.get(\"lot_id\")==lot_id]\n    e7 = filter_window(e7, 7)\n    m7 = compute_metrics(e7)\n    s7, _ = compute_score(m7)\n    # 30일 데이터\n    e30 = [e for e in all_events if e.get(\"farm_id\")==farm_id and e.get(\"lot_id\")==lot_id]\n    e30 = filter_window(e30, 30)\n    m30 = compute_metrics(e30)",
         "detail": "backend.main",
         "documentation": {}
     },
@@ -666,16 +574,34 @@
         "kind": 5,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "app = FastAPI()\n# --- Paths\nROOT = Path(__file__).resolve().parent.parent\nDATA_DIR = ROOT / \"data\"\nEVENTS_PATH = DATA_DIR / \"events.jsonl\"\nCLIPS_DIR = DATA_DIR / \"clips\"\nTHUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nQRCODES_DIR = DATA_DIR / \"qrcodes\"\n# --- Labels (Korean)",
+        "peekOfCode": "app = FastAPI()\nBASE = Path(__file__).resolve().parents[1]\nEVENTS = BASE / \"data\" / \"events.jsonl\"\nPRODUCTS = BASE / \"configs\" / \"products.json\"\nDATA_DIR = BASE / \"data\"\nCLIPS_DIR = DATA_DIR / \"clips\"\nTHUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nHASH_FIELDS = {\"hash\", \"prev_hash\", \"seq\", \"sealed_at\"}\n# ----------------------------",
         "detail": "backend.main",
         "documentation": {}
     },
     {
-        "label": "ROOT",
+        "label": "BASE",
         "kind": 5,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "ROOT = Path(__file__).resolve().parent.parent\nDATA_DIR = ROOT / \"data\"\nEVENTS_PATH = DATA_DIR / \"events.jsonl\"\nCLIPS_DIR = DATA_DIR / \"clips\"\nTHUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nQRCODES_DIR = DATA_DIR / \"qrcodes\"\n# --- Labels (Korean)\nSEV_LABELS = {\"low\": \"경미\", \"mid\": \"주의\", \"high\": \"위험\"}\nSEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}",
+        "peekOfCode": "BASE = Path(__file__).resolve().parents[1]\nEVENTS = BASE / \"data\" / \"events.jsonl\"\nPRODUCTS = BASE / \"configs\" / \"products.json\"\nDATA_DIR = BASE / \"data\"\nCLIPS_DIR = DATA_DIR / \"clips\"\nTHUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nHASH_FIELDS = {\"hash\", \"prev_hash\", \"seq\", \"sealed_at\"}\n# ----------------------------\n# 파일 서빙(증거)",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "EVENTS",
+        "kind": 5,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "EVENTS = BASE / \"data\" / \"events.jsonl\"\nPRODUCTS = BASE / \"configs\" / \"products.json\"\nDATA_DIR = BASE / \"data\"\nCLIPS_DIR = DATA_DIR / \"clips\"\nTHUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nHASH_FIELDS = {\"hash\", \"prev_hash\", \"seq\", \"sealed_at\"}\n# ----------------------------\n# 파일 서빙(증거)\n# ----------------------------",
+        "detail": "backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "PRODUCTS",
+        "kind": 5,
+        "importPath": "backend.main",
+        "description": "backend.main",
+        "peekOfCode": "PRODUCTS = BASE / \"configs\" / \"products.json\"\nDATA_DIR = BASE / \"data\"\nCLIPS_DIR = DATA_DIR / \"clips\"\nTHUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nHASH_FIELDS = {\"hash\", \"prev_hash\", \"seq\", \"sealed_at\"}\n# ----------------------------\n# 파일 서빙(증거)\n# ----------------------------\n@app.get(\"/clips/{filename}\")",
         "detail": "backend.main",
         "documentation": {}
     },
@@ -684,16 +610,7 @@
         "kind": 5,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "DATA_DIR = ROOT / \"data\"\nEVENTS_PATH = DATA_DIR / \"events.jsonl\"\nCLIPS_DIR = DATA_DIR / \"clips\"\nTHUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nQRCODES_DIR = DATA_DIR / \"qrcodes\"\n# --- Labels (Korean)\nSEV_LABELS = {\"low\": \"경미\", \"mid\": \"주의\", \"high\": \"위험\"}\nSEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}\nTAG_LABELS = {",
-        "detail": "backend.main",
-        "documentation": {}
-    },
-    {
-        "label": "EVENTS_PATH",
-        "kind": 5,
-        "importPath": "backend.main",
-        "description": "backend.main",
-        "peekOfCode": "EVENTS_PATH = DATA_DIR / \"events.jsonl\"\nCLIPS_DIR = DATA_DIR / \"clips\"\nTHUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nQRCODES_DIR = DATA_DIR / \"qrcodes\"\n# --- Labels (Korean)\nSEV_LABELS = {\"low\": \"경미\", \"mid\": \"주의\", \"high\": \"위험\"}\nSEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}\nTAG_LABELS = {\n    \"HIGH_ACTIVITY\": \"활동량 급증\",",
+        "peekOfCode": "DATA_DIR = BASE / \"data\"\nCLIPS_DIR = DATA_DIR / \"clips\"\nTHUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nHASH_FIELDS = {\"hash\", \"prev_hash\", \"seq\", \"sealed_at\"}\n# ----------------------------\n# 파일 서빙(증거)\n# ----------------------------\n@app.get(\"/clips/{filename}\")\ndef clip_file(filename: str):",
         "detail": "backend.main",
         "documentation": {}
     },
@@ -702,7 +619,7 @@
         "kind": 5,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "CLIPS_DIR = DATA_DIR / \"clips\"\nTHUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nQRCODES_DIR = DATA_DIR / \"qrcodes\"\n# --- Labels (Korean)\nSEV_LABELS = {\"low\": \"경미\", \"mid\": \"주의\", \"high\": \"위험\"}\nSEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}\nTAG_LABELS = {\n    \"HIGH_ACTIVITY\": \"활동량 급증\",\n    \"MOVE_FLOW\": \"이동 흐름 증가\",",
+        "peekOfCode": "CLIPS_DIR = DATA_DIR / \"clips\"\nTHUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nHASH_FIELDS = {\"hash\", \"prev_hash\", \"seq\", \"sealed_at\"}\n# ----------------------------\n# 파일 서빙(증거)\n# ----------------------------\n@app.get(\"/clips/{filename}\")\ndef clip_file(filename: str):\n    p = CLIPS_DIR / filename",
         "detail": "backend.main",
         "documentation": {}
     },
@@ -711,7 +628,7 @@
         "kind": 5,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "THUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nQRCODES_DIR = DATA_DIR / \"qrcodes\"\n# --- Labels (Korean)\nSEV_LABELS = {\"low\": \"경미\", \"mid\": \"주의\", \"high\": \"위험\"}\nSEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}\nTAG_LABELS = {\n    \"HIGH_ACTIVITY\": \"활동량 급증\",\n    \"MOVE_FLOW\": \"이동 흐름 증가\",\n    \"CLUSTER_SPREAD\": \"군집 분산 확대\",",
+        "peekOfCode": "THUMBS_DIR = DATA_DIR / \"thumbs\"\nHEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nHASH_FIELDS = {\"hash\", \"prev_hash\", \"seq\", \"sealed_at\"}\n# ----------------------------\n# 파일 서빙(증거)\n# ----------------------------\n@app.get(\"/clips/{filename}\")\ndef clip_file(filename: str):\n    p = CLIPS_DIR / filename\n    if not p.exists():",
         "detail": "backend.main",
         "documentation": {}
     },
@@ -720,52 +637,16 @@
         "kind": 5,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "HEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nQRCODES_DIR = DATA_DIR / \"qrcodes\"\n# --- Labels (Korean)\nSEV_LABELS = {\"low\": \"경미\", \"mid\": \"주의\", \"high\": \"위험\"}\nSEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}\nTAG_LABELS = {\n    \"HIGH_ACTIVITY\": \"활동량 급증\",\n    \"MOVE_FLOW\": \"이동 흐름 증가\",\n    \"CLUSTER_SPREAD\": \"군집 분산 확대\",\n    \"ROI_PEAK\": \"특정 구역 집중 활동\",",
+        "peekOfCode": "HEATMAPS_DIR = DATA_DIR / \"heatmaps\"\nHASH_FIELDS = {\"hash\", \"prev_hash\", \"seq\", \"sealed_at\"}\n# ----------------------------\n# 파일 서빙(증거)\n# ----------------------------\n@app.get(\"/clips/{filename}\")\ndef clip_file(filename: str):\n    p = CLIPS_DIR / filename\n    if not p.exists():\n        raise HTTPException(status_code=404, detail=\"clip not found\")",
         "detail": "backend.main",
         "documentation": {}
     },
     {
-        "label": "QRCODES_DIR",
+        "label": "HASH_FIELDS",
         "kind": 5,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "QRCODES_DIR = DATA_DIR / \"qrcodes\"\n# --- Labels (Korean)\nSEV_LABELS = {\"low\": \"경미\", \"mid\": \"주의\", \"high\": \"위험\"}\nSEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}\nTAG_LABELS = {\n    \"HIGH_ACTIVITY\": \"활동량 급증\",\n    \"MOVE_FLOW\": \"이동 흐름 증가\",\n    \"CLUSTER_SPREAD\": \"군집 분산 확대\",\n    \"ROI_PEAK\": \"특정 구역 집중 활동\",\n    \"MID_ACTIVITY\": \"중간 수준 활동\",",
-        "detail": "backend.main",
-        "documentation": {}
-    },
-    {
-        "label": "SEV_LABELS",
-        "kind": 5,
-        "importPath": "backend.main",
-        "description": "backend.main",
-        "peekOfCode": "SEV_LABELS = {\"low\": \"경미\", \"mid\": \"주의\", \"high\": \"위험\"}\nSEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}\nTAG_LABELS = {\n    \"HIGH_ACTIVITY\": \"활동량 급증\",\n    \"MOVE_FLOW\": \"이동 흐름 증가\",\n    \"CLUSTER_SPREAD\": \"군집 분산 확대\",\n    \"ROI_PEAK\": \"특정 구역 집중 활동\",\n    \"MID_ACTIVITY\": \"중간 수준 활동\",\n    # 이미 한글로 저장된 태그도 그대로 표시\n}",
-        "detail": "backend.main",
-        "documentation": {}
-    },
-    {
-        "label": "SEV_COLOR",
-        "kind": 5,
-        "importPath": "backend.main",
-        "description": "backend.main",
-        "peekOfCode": "SEV_COLOR = {\"low\": \"#16a34a\", \"mid\": \"#d97706\", \"high\": \"#dc2626\"}\nTAG_LABELS = {\n    \"HIGH_ACTIVITY\": \"활동량 급증\",\n    \"MOVE_FLOW\": \"이동 흐름 증가\",\n    \"CLUSTER_SPREAD\": \"군집 분산 확대\",\n    \"ROI_PEAK\": \"특정 구역 집중 활동\",\n    \"MID_ACTIVITY\": \"중간 수준 활동\",\n    # 이미 한글로 저장된 태그도 그대로 표시\n}\nCHAR_LABELS = {",
-        "detail": "backend.main",
-        "documentation": {}
-    },
-    {
-        "label": "TAG_LABELS",
-        "kind": 5,
-        "importPath": "backend.main",
-        "description": "backend.main",
-        "peekOfCode": "TAG_LABELS = {\n    \"HIGH_ACTIVITY\": \"활동량 급증\",\n    \"MOVE_FLOW\": \"이동 흐름 증가\",\n    \"CLUSTER_SPREAD\": \"군집 분산 확대\",\n    \"ROI_PEAK\": \"특정 구역 집중 활동\",\n    \"MID_ACTIVITY\": \"중간 수준 활동\",\n    # 이미 한글로 저장된 태그도 그대로 표시\n}\nCHAR_LABELS = {\n    \"BALANCED\": \"균형\",",
-        "detail": "backend.main",
-        "documentation": {}
-    },
-    {
-        "label": "CHAR_LABELS",
-        "kind": 5,
-        "importPath": "backend.main",
-        "description": "backend.main",
-        "peekOfCode": "CHAR_LABELS = {\n    \"BALANCED\": \"균형\",\n    \"FLOW\": \"이동\",\n    \"SPREAD\": \"분산\",\n    \"ACTIVE\": \"활동\",\n    \"N/A\": \"N/A\",\n}\n# --- Demo Products (촬영/데모용)\nPRODUCTS: Dict[str, Dict[str, str]] = {\n    \"EGG-0001\": {\"title\": \"J Crova 달걀 10구 (IoT A)\", \"farm_id\": \"farm1\", \"lot_id\": \"lotA\"},",
+        "peekOfCode": "HASH_FIELDS = {\"hash\", \"prev_hash\", \"seq\", \"sealed_at\"}\n# ----------------------------\n# 파일 서빙(증거)\n# ----------------------------\n@app.get(\"/clips/{filename}\")\ndef clip_file(filename: str):\n    p = CLIPS_DIR / filename\n    if not p.exists():\n        raise HTTPException(status_code=404, detail=\"clip not found\")\n    return FileResponse(p, media_type=\"video/mp4\")",
         "detail": "backend.main",
         "documentation": {}
     },
@@ -774,7 +655,7 @@
         "kind": 5,
         "importPath": "backend.main",
         "description": "backend.main",
-        "peekOfCode": "STYLE = \"\"\"\n<style>\n  :root { --bg:#f5f7fb; --card:#fff; --muted:#6b7280; --line:#e5e7eb; }\n  body { font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', Segoe UI, Roboto, Helvetica, Arial, sans-serif;\n         margin:0; background:var(--bg); color:#111827; }\n  a { color: inherit; }\n  .wrap { max-width: 1060px; margin: 0 auto; padding: 22px; }\n  .topnav { display:flex; gap:10px; margin-bottom: 14px; flex-wrap: wrap; }\n  .tab { padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:#fff; text-decoration:none; font-weight:800; font-size:13px; }\n  .title { font-size: 26px; font-weight: 900; margin: 6px 0 12px; }",
+        "peekOfCode": "STYLE = \"\"\"\n<style>\n  body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 30px; max-width: 980px; margin: 0 auto; background:#fafafa; }\n  a { color:#2563eb; text-decoration:none; }\n  .toplinks { display:flex; gap:12px; margin-bottom:14px; }\n  .pill { display:inline-block; padding:6px 10px; border:1px solid #ddd; border-radius:999px; background:#fff; }\n  .row { display:flex; gap:12px; align-items:center; margin:10px 0 18px 0; flex-wrap:wrap; }\n  .box { padding:8px 12px; border:1px solid #ddd; border-radius:10px; background:#fff; }\n  .btn { display:inline-block; padding:6px 10px; border:1px solid #ddd; border-radius:10px; background:#fff; color:#111; font-size:13px; }\n  .btn:hover { background:#f3f4f6; }",
         "detail": "backend.main",
         "documentation": {}
     },
@@ -1157,6 +1038,195 @@
         "documentation": {}
     },
     {
+        "label": "save_thumb",
+        "kind": 2,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "def save_thumb(frame, uid):\n    out = THUMBS / f\"{uid}.jpg\"\n    cv2.imwrite(str(out), frame)\n    return f\"/thumbs/{uid}.jpg\"\ndef save_heatmap(binary_mask, uid):\n    heat = cv2.applyColorMap(binary_mask, cv2.COLORMAP_JET)\n    out = HEATMAPS / f\"{uid}.png\"\n    cv2.imwrite(str(out), heat)\n    return f\"/heatmaps/{uid}.png\"\ndef calc_metrics(prev_gray, gray):",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "save_heatmap",
+        "kind": 2,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "def save_heatmap(binary_mask, uid):\n    heat = cv2.applyColorMap(binary_mask, cv2.COLORMAP_JET)\n    out = HEATMAPS / f\"{uid}.png\"\n    cv2.imwrite(str(out), heat)\n    return f\"/heatmaps/{uid}.png\"\ndef calc_metrics(prev_gray, gray):\n    diff = cv2.absdiff(prev_gray, gray)\n    _, th = cv2.threshold(diff, 25, 255, cv2.THRESH_BINARY)\n    motion_ratio = float(np.count_nonzero(th)) / float(th.size)\n    flow = cv2.calcOpticalFlowFarneback(",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "calc_metrics",
+        "kind": 2,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "def calc_metrics(prev_gray, gray):\n    diff = cv2.absdiff(prev_gray, gray)\n    _, th = cv2.threshold(diff, 25, 255, cv2.THRESH_BINARY)\n    motion_ratio = float(np.count_nonzero(th)) / float(th.size)\n    flow = cv2.calcOpticalFlowFarneback(\n        prev_gray, gray, None,\n        0.5, 3, 15, 3, 5, 1.2, 0\n    )\n    mag = np.sqrt(flow[..., 0] ** 2 + flow[..., 1] ** 2)\n    flow_mean_mag = float(np.mean(mag))",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "make_tags",
+        "kind": 2,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "def make_tags(motion_ratio, flow_mean_mag, compactness, roi_peak):\n    tags = []\n    if motion_ratio >= 0.22:\n        tags.append(\"ACTIVITY_SPIKE\")\n    if compactness >= 0.012:\n        tags.append(\"CLUSTER_SPREAD\")\n    if roi_peak >= 0.22:\n        tags.append(\"ROI_PEAK_MED\")\n    return tags\ndef character_from_metrics(compactness, flow_mean_mag, roi_peak):",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "character_from_metrics",
+        "kind": 2,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "def character_from_metrics(compactness, flow_mean_mag, roi_peak):\n    if compactness > 0.014 and flow_mean_mag > 5.5:\n        return \"분산\"\n    if roi_peak > 0.22 and flow_mean_mag < 4.0:\n        return \"집중\"\n    return \"균형\"\ndef send_event(payload):\n    try:\n        r = requests.post(SERVER, json=payload, timeout=10)\n        print(\"sent:\", r.status_code, payload[\"uid\"], payload[\"tags\"])",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "send_event",
+        "kind": 2,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "def send_event(payload):\n    try:\n        r = requests.post(SERVER, json=payload, timeout=10)\n        print(\"sent:\", r.status_code, payload[\"uid\"], payload[\"tags\"])\n    except Exception as e:\n        print(\"send failed:\", e)\ndef process_video(video_path: Path, offset_seq: int = 0):\n    if not video_path.exists():\n        print(f\"[SKIP] 파일 없음: {video_path}\")\n        return 0",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "process_video",
+        "kind": 2,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "def process_video(video_path: Path, offset_seq: int = 0):\n    if not video_path.exists():\n        print(f\"[SKIP] 파일 없음: {video_path}\")\n        return 0\n    cap = cv2.VideoCapture(str(video_path))\n    if not cap.isOpened():\n        print(f\"[SKIP] 열 수 없음: {video_path}\")\n        return 0\n    fps = cap.get(cv2.CAP_PROP_FPS) or 25.0\n    frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT) or 0)",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "def main():\n    total = 0\n    seq_offset = 0\n    for vp in VIDEO_LIST:\n        n = process_video(vp, offset_seq=seq_offset)\n        total += n\n        seq_offset += 100000\n    print(f\"\\n✅ 전체 완료: total_events_sent={total}\")\n    print(\"이제 브라우저에서 http://127.0.0.1:8000/p/EGG-0001 새로고침\")\nif __name__ == \"__main__\":",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "ROOT",
+        "kind": 5,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "ROOT = Path(__file__).resolve().parents[1]\nDATA = ROOT / \"data\"\nVIDEOS = DATA / \"videos\"\nTHUMBS = DATA / \"thumbs\"\nHEATMAPS = DATA / \"heatmaps\"\nTHUMBS.mkdir(parents=True, exist_ok=True)\nHEATMAPS.mkdir(parents=True, exist_ok=True)\nSERVER = \"https://eggtrace-82hy.onrender.com/ingest/event\" \nFARM_ID = \"farm1\"\nLOT_ID = \"lotA\"",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "DATA",
+        "kind": 5,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "DATA = ROOT / \"data\"\nVIDEOS = DATA / \"videos\"\nTHUMBS = DATA / \"thumbs\"\nHEATMAPS = DATA / \"heatmaps\"\nTHUMBS.mkdir(parents=True, exist_ok=True)\nHEATMAPS.mkdir(parents=True, exist_ok=True)\nSERVER = \"https://eggtrace-82hy.onrender.com/ingest/event\" \nFARM_ID = \"farm1\"\nLOT_ID = \"lotA\"\nVIDEO_LIST = [",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "VIDEOS",
+        "kind": 5,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "VIDEOS = DATA / \"videos\"\nTHUMBS = DATA / \"thumbs\"\nHEATMAPS = DATA / \"heatmaps\"\nTHUMBS.mkdir(parents=True, exist_ok=True)\nHEATMAPS.mkdir(parents=True, exist_ok=True)\nSERVER = \"https://eggtrace-82hy.onrender.com/ingest/event\" \nFARM_ID = \"farm1\"\nLOT_ID = \"lotA\"\nVIDEO_LIST = [\n    VIDEOS / \"farm_video_1.mp4\",",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "THUMBS",
+        "kind": 5,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "THUMBS = DATA / \"thumbs\"\nHEATMAPS = DATA / \"heatmaps\"\nTHUMBS.mkdir(parents=True, exist_ok=True)\nHEATMAPS.mkdir(parents=True, exist_ok=True)\nSERVER = \"https://eggtrace-82hy.onrender.com/ingest/event\" \nFARM_ID = \"farm1\"\nLOT_ID = \"lotA\"\nVIDEO_LIST = [\n    VIDEOS / \"farm_video_1.mp4\",\n    VIDEOS / \"farm_video_2.mp4\",",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "HEATMAPS",
+        "kind": 5,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "HEATMAPS = DATA / \"heatmaps\"\nTHUMBS.mkdir(parents=True, exist_ok=True)\nHEATMAPS.mkdir(parents=True, exist_ok=True)\nSERVER = \"https://eggtrace-82hy.onrender.com/ingest/event\" \nFARM_ID = \"farm1\"\nLOT_ID = \"lotA\"\nVIDEO_LIST = [\n    VIDEOS / \"farm_video_1.mp4\",\n    VIDEOS / \"farm_video_2.mp4\",\n]",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "SERVER",
+        "kind": 5,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "SERVER = \"https://eggtrace-82hy.onrender.com/ingest/event\" \nFARM_ID = \"farm1\"\nLOT_ID = \"lotA\"\nVIDEO_LIST = [\n    VIDEOS / \"farm_video_1.mp4\",\n    VIDEOS / \"farm_video_2.mp4\",\n]\nSAMPLE_EVERY_SEC = 10\ndef save_thumb(frame, uid):\n    out = THUMBS / f\"{uid}.jpg\"",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "FARM_ID",
+        "kind": 5,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "FARM_ID = \"farm1\"\nLOT_ID = \"lotA\"\nVIDEO_LIST = [\n    VIDEOS / \"farm_video_1.mp4\",\n    VIDEOS / \"farm_video_2.mp4\",\n]\nSAMPLE_EVERY_SEC = 10\ndef save_thumb(frame, uid):\n    out = THUMBS / f\"{uid}.jpg\"\n    cv2.imwrite(str(out), frame)",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "LOT_ID",
+        "kind": 5,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "LOT_ID = \"lotA\"\nVIDEO_LIST = [\n    VIDEOS / \"farm_video_1.mp4\",\n    VIDEOS / \"farm_video_2.mp4\",\n]\nSAMPLE_EVERY_SEC = 10\ndef save_thumb(frame, uid):\n    out = THUMBS / f\"{uid}.jpg\"\n    cv2.imwrite(str(out), frame)\n    return f\"/thumbs/{uid}.jpg\"",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "VIDEO_LIST",
+        "kind": 5,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "VIDEO_LIST = [\n    VIDEOS / \"farm_video_1.mp4\",\n    VIDEOS / \"farm_video_2.mp4\",\n]\nSAMPLE_EVERY_SEC = 10\ndef save_thumb(frame, uid):\n    out = THUMBS / f\"{uid}.jpg\"\n    cv2.imwrite(str(out), frame)\n    return f\"/thumbs/{uid}.jpg\"\ndef save_heatmap(binary_mask, uid):",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "SAMPLE_EVERY_SEC",
+        "kind": 5,
+        "importPath": "tools.process_farm_videos",
+        "description": "tools.process_farm_videos",
+        "peekOfCode": "SAMPLE_EVERY_SEC = 10\ndef save_thumb(frame, uid):\n    out = THUMBS / f\"{uid}.jpg\"\n    cv2.imwrite(str(out), frame)\n    return f\"/thumbs/{uid}.jpg\"\ndef save_heatmap(binary_mask, uid):\n    heat = cv2.applyColorMap(binary_mask, cv2.COLORMAP_JET)\n    out = HEATMAPS / f\"{uid}.png\"\n    cv2.imwrite(str(out), heat)\n    return f\"/heatmaps/{uid}.png\"",
+        "detail": "tools.process_farm_videos",
+        "documentation": {}
+    },
+    {
+        "label": "EVENTS",
+        "kind": 5,
+        "importPath": "tools.push_events_to_render",
+        "description": "tools.push_events_to_render",
+        "peekOfCode": "EVENTS = Path(\"data/events.jsonl\")\nSERVER = \"https://eggtrace-82hy.onrender.com/ingest/event\"\nif not EVENTS.exists():\n    raise SystemExit(\"❌ data/events.jsonl 없음\")\ncount = 0\nfor line in EVENTS.read_text(encoding=\"utf-8\").splitlines():\n    line = line.strip()\n    if not line:\n        continue\n    e = json.loads(line)",
+        "detail": "tools.push_events_to_render",
+        "documentation": {}
+    },
+    {
+        "label": "SERVER",
+        "kind": 5,
+        "importPath": "tools.push_events_to_render",
+        "description": "tools.push_events_to_render",
+        "peekOfCode": "SERVER = \"https://eggtrace-82hy.onrender.com/ingest/event\"\nif not EVENTS.exists():\n    raise SystemExit(\"❌ data/events.jsonl 없음\")\ncount = 0\nfor line in EVENTS.read_text(encoding=\"utf-8\").splitlines():\n    line = line.strip()\n    if not line:\n        continue\n    e = json.loads(line)\n    # Render에는 우선 이벤트/지표만 올림",
+        "detail": "tools.push_events_to_render",
+        "documentation": {}
+    },
+    {
+        "label": "count",
+        "kind": 5,
+        "importPath": "tools.push_events_to_render",
+        "description": "tools.push_events_to_render",
+        "peekOfCode": "count = 0\nfor line in EVENTS.read_text(encoding=\"utf-8\").splitlines():\n    line = line.strip()\n    if not line:\n        continue\n    e = json.loads(line)\n    # Render에는 우선 이벤트/지표만 올림\n    payload = {\n        \"time\": e.get(\"time\"),\n        \"uid\": e.get(\"uid\"),",
+        "detail": "tools.push_events_to_render",
+        "documentation": {}
+    },
+    {
         "label": "load_events",
         "kind": 2,
         "importPath": "tools.tag_events",
@@ -1251,7 +1321,7 @@
         "kind": 6,
         "importPath": "vision.event_engine",
         "description": "vision.event_engine",
-        "peekOfCode": "class EventEngine:\n    def __init__(self, rois, cfg):\n        self.cfg = cfg\n        self.prev_gray = None\n        self.last_fire = 0.0\n        self.motion_threshold = float(cfg.get(\"motion_threshold\", 0.01))\n        self.cooldown_sec = float(cfg.get(\"cooldown_sec\", 3))\n        self.roi_mode = str(cfg.get(\"roi_mode\", \"grid\"))\n        self.grid_rows = int(cfg.get(\"grid_rows\", 2))\n        self.grid_cols = int(cfg.get(\"grid_cols\", 2))",
+        "peekOfCode": "class EventEngine:\n    def __init__(self, rois, cfg):\n        self.cfg = cfg\n        self.prev_gray = None\n        self.last_fire = 0.0\n        self.motion_threshold = float(cfg.get(\"motion_threshold\", 0.01))\n        self.cooldown_sec = float(cfg.get(\"cooldown_sec\", 2))\n    def update(self, ts, frame):\n        events = []\n        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)",
         "detail": "vision.event_engine",
         "documentation": {}
     },
@@ -1278,25 +1348,7 @@
         "kind": 2,
         "importPath": "vision.run_video",
         "description": "vision.run_video",
-        "peekOfCode": "def load_yaml(path: Path):\n    if not path.exists():\n        return {}\n    with open(path, \"r\", encoding=\"utf-8\") as f:\n        return yaml.safe_load(f) or {}\ndef save_clip_mp4(frames, out_path: Path, fps: int):\n    if not frames:\n        return False\n    h, w = frames[0].shape[:2]\n    fourcc = cv2.VideoWriter_fourcc(*\"mp4v\")",
-        "detail": "vision.run_video",
-        "documentation": {}
-    },
-    {
-        "label": "save_clip_mp4",
-        "kind": 2,
-        "importPath": "vision.run_video",
-        "description": "vision.run_video",
-        "peekOfCode": "def save_clip_mp4(frames, out_path: Path, fps: int):\n    if not frames:\n        return False\n    h, w = frames[0].shape[:2]\n    fourcc = cv2.VideoWriter_fourcc(*\"mp4v\")\n    writer = cv2.VideoWriter(str(out_path), fourcc, fps, (w, h))\n    if not writer.isOpened():\n        return False\n    for fr in frames:\n        writer.write(fr)",
-        "detail": "vision.run_video",
-        "documentation": {}
-    },
-    {
-        "label": "transcode_h264",
-        "kind": 2,
-        "importPath": "vision.run_video",
-        "description": "vision.run_video",
-        "peekOfCode": "def transcode_h264(src_path: Path, dst_path: Path):\n    cmd = [\n        \"ffmpeg\", \"-y\",\n        \"-i\", str(src_path),\n        \"-c:v\", \"libx264\",\n        \"-pix_fmt\", \"yuv420p\",\n        str(dst_path),\n    ]\n    p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)\n    if p.returncode != 0:",
+        "peekOfCode": "def load_yaml(path):\n    if not path.exists():\n        return {}\n    with open(path, \"r\", encoding=\"utf-8\") as f:\n        return yaml.safe_load(f) or {}\ndef main():\n    print(\"RUN_VIDEO START\")\n    base = Path(__file__).resolve().parents[1]\n    video_path = base / \"data\" / \"sample.mp4\"\n    cfg_path = base / \"configs\" / \"config.yaml\"",
         "detail": "vision.run_video",
         "documentation": {}
     },
@@ -1305,7 +1357,7 @@
         "kind": 2,
         "importPath": "vision.run_video",
         "description": "vision.run_video",
-        "peekOfCode": "def main():\n    print(\"RUN_VIDEO START\")\n    base = Path(__file__).resolve().parents[1]\n    video_path = base / \"data\" / \"sample.mp4\"\n    cfg_path = base / \"configs\" / \"config.yaml\"\n    out_events = base / \"data\" / \"events.jsonl\"\n    clips_dir = base / \"data\" / \"clips\"\n    thumbs_dir = base / \"data\" / \"thumbs\"\n    heatmaps_dir = base / \"data\" / \"heatmaps\"\n    clips_dir.mkdir(parents=True, exist_ok=True)",
+        "peekOfCode": "def main():\n    print(\"RUN_VIDEO START\")\n    base = Path(__file__).resolve().parents[1]\n    video_path = base / \"data\" / \"sample.mp4\"\n    cfg_path = base / \"configs\" / \"config.yaml\"\n    out_path = base / \"data\" / \"events.jsonl\"\n    if not video_path.exists():\n        print(\"❌ video not found:\", video_path)\n        return\n    cfg = load_yaml(cfg_path)",
         "detail": "vision.run_video",
         "documentation": {}
     }
