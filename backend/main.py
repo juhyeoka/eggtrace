@@ -8,7 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from backend.llm_summary import generate_summary
 
 app = FastAPI()
-app.mount("/videos", StaticFiles(directory="static/videos"), name="videos")
+app.mount("/videos", StaticFiles(directory="./static/videos"), name="videos")
 
 BASE = Path(__file__).resolve().parents[1]
 EVENTS = BASE / "data" / "events.jsonl"
