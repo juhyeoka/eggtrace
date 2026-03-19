@@ -232,6 +232,17 @@ def product_page(code: str):
       </table>
     """
 
+
+    video_html = """
+    <div style="background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:16px;margin:16px 0;">
+      <div style="font-size:24px;font-weight:800;margin-bottom:12px;">농장 영상</div>
+      <video width="100%" controls playsinline style="border-radius:12px;background:#000;">
+        <source src="/videos/demo.mp4" type="video/mp4">
+      </video>
+      <div style="color:#666;margin-top:8px;">농장 관찰 영상이 웹에서 바로 재생됩니다.</div>
+    </div>
+    """
+
     return HTMLResponse(f"""
     <html><head><meta charset="utf-8"/>{STYLE}</head>
     <body>
