@@ -1,3 +1,6 @@
+import html
+import statistics
+import time
 import json, hashlib, time
 from pathlib import Path
 from statistics import mean, pstdev
@@ -189,7 +192,7 @@ STYLE = """
 
 
 
-@app.get("/p/{code}", response_class=HTMLResponse)
+
 def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str = "lotA"):
     return HTMLResponse(f"""
 <!doctype html>
@@ -877,3 +880,453 @@ def compute_trend(all_events, farm_id, lot_id):
         "trend": trend,
         "comment": comment
     }
+
+
+@app.get("/p/{code}", response_class=HTMLResponse)
+def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str = "lotA"):
+    def read_events():
+        path = Path("data/events.jsonl")
+        if not path.exists():
+            return []
+        rows = []
+        now = time.time()
+        for line in path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                e = json.loads(line)
+            except Exception:
+                continue
+
+            if farm_id and e.get("farm_id") != farm_id:
+                continue
+            if lot_id and e.get("lot_id") != lot_id:
+                continue
+
+            ts = e.get("time", 0)
+            keep = True
+            if isinstance(ts, (int, float)) and ts > 946684800:
+                keep = (now - ts) <= days * 86400
+            if keep:
+                rows.append(e)
+
+        rows.sort(key=lambda x: x.get("time", 0), reverse=True)
+        return rows
+
+    def nice_tag(tag: str) -> str:
+        mapping = {
+            "HIGH_ACTIVITY": "활동 증가",
+            "MID_ACTIVITY": "중간 활동",
+            "LOW_ACTIVITY": "낮은 활동",
+            "ACTIVITY_SPIKE": "활동 급증",
+            "MOVE_FLOW": "이동 흐름 증가",
+            "CLUSTER_SPREAD": "군집 분산 증가",
+            "ROI_PEAK": "집중 구간 활성화",
+            "ROI_PEAK_MED": "집중 구간 활성화",
+            "HIGH": "고강도",
+            "MID": "중간 수준",
+            "LOW": "낮은 수준",
+        }
+        return mapping.get(tag, tag.replace("_", " ").title())
+
+    def build_summary(events):
+        if not events:
+            return "최근 분석 데이터가 아직 충분하지 않지만, 현재까지 수집된 범위에서는 전반적으로 안정적인 상태를 보입니다."
+
+        tags = []
+        for e in events[:12]:
+            tags.extend(e.get("tags", []))
+
+        tag_set = set(tags)
+        pieces = []
+
+        if "ACTIVITY_SPIKE" in tag_set or "HIGH_ACTIVITY" in tag_set:
+            pieces.append("일부 시간대에 활동량 증가 패턴이 관찰되었습니다")
+        if "CLUSTER_SPREAD" in tag_set:
+            pieces.append("군집이 넓게 분산되는 흐름이 확인되었습니다")
+        if "MOVE_FLOW" in tag_set:
+            pieces.append("이동 흐름이 평소보다 활발한 구간이 있었습니다")
+        if "ROI_PEAK" in tag_set or "ROI_PEAK_MED" in tag_set:
+            pieces.append("특정 구간에 개체가 집중되는 장면이 감지되었습니다")
+
+        if not pieces:
+            return "최근 구간에서는 급격한 이상 패턴 없이 비교적 안정적인 활동 흐름이 유지되었습니다."
+
+        return "최근 분석 결과, " + " / ".join(pieces) + "."
+
+    def score_label(score):
+        if score >= 85:
+            return "안정적"
+        if score >= 70:
+            return "양호"
+        return "관찰 필요"
+
+    events = read_events()
+
+    motions = [float(e.get("motion_ratio", 0) or 0) for e in events] or [0.0]
+    flows = [float(e.get("flow_mean_mag", 0) or 0) for e in events] or [0.0]
+    compacts = [float(e.get("cluster_compactness", 0) or 0) for e in events] or [0.0]
+
+    avg_motion = sum(motions) / len(motions)
+    avg_flow = sum(flows) / len(flows)
+    avg_compact = sum(compacts) / len(compacts)
+    bvi = statistics.pstdev(motions) if len(motions) > 1 else 0.0
+
+    score = 92
+    score -= min(18, int(avg_motion * 35))
+    score -= min(16, int(avg_flow * 0.7))
+    score -= min(14, int(bvi * 100))
+    score = max(58, min(96, score))
+
+    summary = build_summary(events)
+    label = score_label(score)
+
+    recent_cards = []
+    for e in events[:3]:
+        ts = e.get("time", 0)
+        if isinstance(ts, (int, float)) and ts > 946684800:
+            tstr = time.strftime("%I:%M %p", time.localtime(ts))
+        else:
+            tstr = "최근 기록"
+
+        tags = e.get("tags", [])
+        if tags:
+            msg = " / ".join(nice_tag(t) for t in tags[:2])
+        else:
+            msg = "특이 패턴 없음"
+
+        sev = e.get("severity", "info")
+        recent_cards.append((tstr, msg, sev))
+
+    fallback = [
+        ("09:10 AM", "활동 변화 관찰", "info"),
+        ("02:40 PM", "군집 흐름 변화 관찰", "info"),
+        ("04:10 PM", "추가 관찰 필요 구간 감지", "alert"),
+    ]
+    while len(recent_cards) < 3:
+        recent_cards.append(fallback[len(recent_cards)])
+
+    e1, e2, e3 = recent_cards[0], recent_cards[1], recent_cards[2]
+
+    return HTMLResponse(f"""
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>JCR</title>
+  <style>
+    * {{ box-sizing:border-box; }}
+    body {{
+      margin:0;
+      background:#f3f4f2;
+      font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+      color:#111;
+    }}
+    .page {{
+      max-width:1180px;
+      margin:0 auto;
+      padding:28px 20px 40px;
+    }}
+    .top {{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:18px;
+    }}
+    .logo {{
+      font-size:38px;
+      font-weight:900;
+      letter-spacing:-1.5px;
+    }}
+    .menu {{
+      font-size:34px;
+      color:#444;
+      line-height:1;
+    }}
+    .headline {{
+      font-size:34px;
+      font-weight:900;
+      letter-spacing:-0.8px;
+      margin:0 0 10px;
+    }}
+    .sub {{
+      color:#666;
+      font-size:15px;
+      margin-bottom:20px;
+    }}
+    .layout {{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap:18px;
+    }}
+    .card {{
+      background:#fff;
+      border-radius:28px;
+      padding:18px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.06);
+      margin-bottom:18px;
+    }}
+    .video-box {{
+      position:relative;
+      overflow:hidden;
+      border-radius:24px;
+      background:#ddd;
+    }}
+    video {{
+      width:100%;
+      display:block;
+      border-radius:24px;
+      background:#111;
+    }}
+    .play {{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      width:82px;
+      height:82px;
+      border-radius:50%;
+      background:#b8efd4;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:36px;
+      color:#1f4b39;
+      box-shadow:0 8px 24px rgba(112,220,176,0.35);
+      pointer-events:none;
+    }}
+    .section-title {{
+      font-size:22px;
+      font-weight:800;
+      margin-bottom:8px;
+      letter-spacing:-0.4px;
+    }}
+    .section-sub {{
+      color:#666;
+      font-size:14px;
+      margin-bottom:12px;
+      line-height:1.5;
+    }}
+    .mini-chart {{
+      width:100%;
+      height:150px;
+      border-radius:20px;
+      background:linear-gradient(180deg,#fafafa,#f1f1f1);
+      overflow:hidden;
+      margin-top:8px;
+    }}
+    .mini-chart svg {{
+      width:100%;
+      height:100%;
+      display:block;
+    }}
+    .score-row {{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin:8px 0 14px;
+    }}
+    .pill {{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:#f7f7f7;
+      font-weight:700;
+      font-size:14px;
+      border:1px solid #ececec;
+    }}
+    .summary-box {{
+      font-size:16px;
+      line-height:1.7;
+      color:#222;
+      background:#fafafa;
+      border-radius:18px;
+      padding:14px 16px;
+      border:1px solid #efefef;
+    }}
+    .event-row {{
+      background:#fff;
+      border-radius:20px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+      padding:12px 14px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:12px;
+    }}
+    .icon-box {{
+      width:48px;
+      height:48px;
+      border-radius:16px;
+      background:#d9f5e7;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:22px;
+      color:#2b5c49;
+      flex:0 0 auto;
+    }}
+    .event-time {{
+      color:#8a8a8a;
+      font-size:13px;
+      margin-bottom:3px;
+    }}
+    .event-text {{
+      font-size:16px;
+      font-weight:700;
+      line-height:1.35;
+    }}
+    .alert-row {{
+      background:#ff5d5d;
+      color:#fff;
+    }}
+    .alert-row .icon-box {{
+      background:rgba(255,255,255,0.18);
+      color:#fff;
+    }}
+    .alert-row .event-time {{
+      color:#ffe4e4;
+    }}
+    .metrics {{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:10px;
+    }}
+    .metric {{
+      background:#fafafa;
+      border:1px solid #efefef;
+      border-radius:18px;
+      padding:14px;
+    }}
+    .metric .k {{
+      font-size:13px;
+      color:#7a7a7a;
+      margin-bottom:6px;
+    }}
+    .metric .v {{
+      font-size:24px;
+      font-weight:900;
+      letter-spacing:-0.5px;
+    }}
+    @media (max-width: 900px) {{
+      .layout {{
+        grid-template-columns:1fr;
+      }}
+      .headline {{
+        font-size:28px;
+      }}
+      .page {{
+        padding:18px 14px 28px;
+      }}
+    }}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top">
+      <div class="logo">JCR.</div>
+      <div class="menu">☰</div>
+    </div>
+
+    <div class="headline">Chicken Behavior Analysis</div>
+    <div class="sub">영상 기반 행동 분석 리포트 · 최근 {days}일 기준</div>
+
+    <div class="layout">
+      <div>
+        <div class="card">
+          <div class="video-box">
+            <video controls playsinline muted preload="metadata">
+              <source src="/videos/demo.mp4" type="video/mp4">
+            </video>
+            <div class="play">▶</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">AI 분석 요약</div>
+          <div class="section-sub">최근 기록을 기반으로 활동 리듬, 군집 분포, 이동 흐름 변화를 정리했습니다.</div>
+
+          <div class="score-row">
+            <div class="pill">신뢰 점수 {score}/100</div>
+            <div class="pill">상태 {label}</div>
+            <div class="pill">이벤트 {len(events)}건</div>
+          </div>
+
+          <div class="summary-box">{html.escape(summary)}</div>
+
+          <div class="mini-chart">
+            <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+              <polyline fill="none" stroke="#111" stroke-width="1.2"
+                points="0,27 8,25 16,26 24,18 32,12 40,19 48,24 56,18 64,10 72,8 80,9 88,12 100,18"/>
+              <polyline fill="none" stroke="#777" stroke-width="0.8"
+                points="0,30 12,28 24,26 36,20 48,14 60,22 72,28 84,29 100,27"/>
+              <line x1="0" y1="34" x2="100" y2="34" stroke="#ddd" stroke-width="0.6"/>
+              <line x1="0" y1="26" x2="100" y2="26" stroke="#eee" stroke-width="0.6"/>
+              <line x1="0" y1="18" x2="100" y2="18" stroke="#eee" stroke-width="0.6"/>
+              <line x1="0" y1="10" x2="100" y2="10" stroke="#eee" stroke-width="0.6"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="section-title">핵심 지표</div>
+          <div class="metrics">
+            <div class="metric">
+              <div class="k">평균 활동</div>
+              <div class="v">{avg_motion:.2f}</div>
+            </div>
+            <div class="metric">
+              <div class="k">평균 Flow</div>
+              <div class="v">{avg_flow:.2f}</div>
+            </div>
+            <div class="metric">
+              <div class="k">평균 Compactness</div>
+              <div class="v">{avg_compact:.3f}</div>
+            </div>
+            <div class="metric">
+              <div class="k">변동성(BVI)</div>
+              <div class="v">{bvi:.3f}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">최근 패턴 변화</div>
+
+          <div class="event-row">
+            <div class="icon-box">🪺</div>
+            <div>
+              <div class="event-time">{e1[0]}</div>
+              <div class="event-text">{html.escape(e1[1])}</div>
+            </div>
+          </div>
+
+          <div class="event-row">
+            <div class="icon-box">♡</div>
+            <div>
+              <div class="event-time">{e2[0]}</div>
+              <div class="event-text">{html.escape(e2[1])}</div>
+            </div>
+          </div>
+
+          <div class="event-row alert-row">
+            <div class="icon-box">⚠</div>
+            <div>
+              <div class="event-time">{e3[0]}</div>
+              <div class="event-text">{html.escape(e3[1])}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+""")
+
