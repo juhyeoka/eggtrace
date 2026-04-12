@@ -881,9 +881,11 @@ def compute_trend(all_events, farm_id, lot_id):
         "comment": comment
     }
 
-
 @app.get("/p/{code}", response_class=HTMLResponse)
 def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str = "lotA"):
+    import json, time, statistics, html
+    from pathlib import Path
+
     def read_events():
         path = Path("data/events.jsonl")
         if not path.exists():
@@ -1329,4 +1331,3 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 </body>
 </html>
 """)
-
