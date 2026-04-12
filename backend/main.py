@@ -188,7 +188,250 @@ STYLE = """
 """
 
 
+
 @app.get("/p/{code}", response_class=HTMLResponse)
+def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str = "lotA"):
+    return HTMLResponse(f"""
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>JCR</title>
+  <style>
+    * {{ box-sizing:border-box; }}
+    body {{
+      margin:0;
+      background:#f4f4f1;
+      font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+      color:#111;
+    }}
+    .app {{
+      max-width:430px;
+      margin:0 auto;
+      min-height:100vh;
+      padding:18px 14px 28px;
+      background:#f4f4f1;
+    }}
+    .top {{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:10px;
+    }}
+    .logo {{
+      font-size:34px;
+      font-weight:900;
+      letter-spacing:-1.5px;
+    }}
+    .menu {{
+      font-size:34px;
+      line-height:1;
+      color:#444;
+    }}
+    .title {{
+      font-size:24px;
+      font-weight:900;
+      margin:8px 0 14px;
+      letter-spacing:-0.6px;
+    }}
+    .card {{
+      background:#fff;
+      border-radius:24px;
+      padding:14px;
+      margin-bottom:14px;
+      box-shadow:0 2px 10px rgba(0,0,0,0.06);
+    }}
+    .video-box {{
+      position:relative;
+      overflow:hidden;
+      border-radius:22px;
+      background:#ddd;
+    }}
+    video {{
+      width:100%;
+      display:block;
+      border-radius:22px;
+      background:#111;
+    }}
+    .play {{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      width:74px;
+      height:74px;
+      border-radius:50%;
+      background:#aeeccf;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:34px;
+      color:#1f4b39;
+      box-shadow:0 8px 24px rgba(112,220,176,0.35);
+      pointer-events:none;
+    }}
+    .analysis-title {{
+      font-size:18px;
+      font-weight:800;
+      margin-bottom:2px;
+    }}
+    .analysis-sub {{
+      color:#555;
+      font-size:14px;
+      margin-bottom:10px;
+    }}
+    .mini-chart {{
+      width:100%;
+      height:120px;
+      border-radius:18px;
+      background:linear-gradient(180deg,#fafafa,#f2f2f2);
+      overflow:hidden;
+    }}
+    .mini-chart svg {{
+      width:100%;
+      height:100%;
+      display:block;
+    }}
+    .score {{
+      margin-top:8px;
+      color:#444;
+      font-size:14px;
+      font-weight:700;
+      line-height:1.5;
+    }}
+    .event-row {{
+      background:#fff;
+      border-radius:18px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+      padding:10px 12px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:10px;
+    }}
+    .icon-box {{
+      width:44px;
+      height:44px;
+      border-radius:14px;
+      background:#d9f5e7;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:22px;
+      color:#2b5c49;
+      flex:0 0 auto;
+    }}
+    .event-time {{
+      color:#8a8a8a;
+      font-size:13px;
+      margin-bottom:2px;
+    }}
+    .event-text {{
+      font-size:15px;
+      font-weight:700;
+      line-height:1.3;
+    }}
+    .alert-row {{
+      background:#ff5d5d;
+      color:#fff;
+    }}
+    .alert-row .icon-box {{
+      background:rgba(255,255,255,0.2);
+      color:#fff;
+    }}
+    .alert-row .event-time {{
+      color:#ffe4e4;
+    }}
+    .bottom-nav {{
+      position:sticky;
+      bottom:0;
+      margin-top:8px;
+      background:rgba(255,255,255,0.86);
+      backdrop-filter:blur(14px);
+      border-radius:24px;
+      box-shadow:0 4px 16px rgba(0,0,0,0.08);
+      display:flex;
+      justify-content:space-around;
+      padding:10px 6px;
+    }}
+    .nav-item {{
+      font-size:24px;
+      color:#666;
+    }}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="top">
+      <div class="logo">JCR.</div>
+      <div class="menu">☰</div>
+    </div>
+
+    <div class="title">월암농장 2026.04.01</div>
+
+    <div class="card">
+      <div class="video-box">
+        <video controls playsinline muted preload="metadata">
+          <source src="/videos/demo.mp4" type="video/mp4">
+        </video>
+        <div class="play">▶</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="analysis-title">Chicken Behavior Analysis</div>
+      <div class="analysis-sub">A-2구역 행동 지표</div>
+      <div class="mini-chart">
+        <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+          <polyline fill="none" stroke="#111" stroke-width="1.2"
+            points="0,27 8,25 16,26 24,18 32,12 40,19 48,24 56,18 64,10 72,8 80,9 88,12 100,18"/>
+          <polyline fill="none" stroke="#777" stroke-width="0.8"
+            points="0,30 12,28 24,26 36,20 48,14 60,22 72,28 84,29 100,27"/>
+          <line x1="0" y1="34" x2="100" y2="34" stroke="#ddd" stroke-width="0.6"/>
+          <line x1="0" y1="26" x2="100" y2="26" stroke="#eee" stroke-width="0.6"/>
+          <line x1="0" y1="18" x2="100" y2="18" stroke="#eee" stroke-width="0.6"/>
+          <line x1="0" y1="10" x2="100" y2="10" stroke="#eee" stroke-width="0.6"/>
+        </svg>
+      </div>
+      <div class="score">신뢰 점수 90/100 · 최근 농장 환경은 전반적으로 안정적으로 유지되고 있습니다.</div>
+    </div>
+
+    <div class="event-row">
+      <div class="icon-box">🪺</div>
+      <div>
+        <div class="event-time">09:10 AM</div>
+        <div class="event-text">산란 구역 체류 패턴 증가</div>
+      </div>
+    </div>
+
+    <div class="event-row">
+      <div class="icon-box">♡</div>
+      <div>
+        <div class="event-time">02:40 PM</div>
+        <div class="event-text">군집 밀집 활성화</div>
+      </div>
+    </div>
+
+    <div class="event-row alert-row">
+      <div class="icon-box">⚠</div>
+      <div>
+        <div class="event-time">04:10 PM</div>
+        <div class="event-text">사료 급여 이후 활동 변화 감지</div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item">⚙︎</div>
+      <div class="nav-item">⌘</div>
+      <div class="nav-item">◯</div>
+    </div>
+  </div>
+</body>
+</html>
+""")
+
+
 def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str = "lotA"):
     return HTMLResponse(f"""
 <!doctype html>
