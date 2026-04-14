@@ -345,6 +345,34 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
     metrics = compute_metrics(events)
     summary = build_summary(events)
 
+    if metrics["avg_flow"] >= 4:
+        flow_state = "활발함"
+    elif metrics["avg_flow"] >= 2:
+        flow_state = "보통"
+    else:
+        flow_state = "차분함"
+
+    if metrics["avg_compact"] >= 1.2:
+        compact_state = "적절한 분산"
+    elif metrics["avg_compact"] >= 0.7:
+        compact_state = "약간 밀집"
+    else:
+        compact_state = "집중됨"
+
+    if metrics["score"] >= 90:
+        stable_state = "매우 안정적"
+    elif metrics["score"] >= 75:
+        stable_state = "안정적"
+    else:
+        stable_state = "관찰 필요"
+
+    if metrics["bvi"] < 0.03:
+        bvi_state = "큰 변화 없음"
+    elif metrics["bvi"] < 0.08:
+        bvi_state = "약간 변화"
+    else:
+        bvi_state = "변화 큼"
+
     recent_cards = []
     for e in events[:3]:
         ts = e.get("time", 0)
@@ -746,9 +774,9 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
         <div class="card">
           <div class="section-title">숫자로 보는 오늘</div>
           <div class="metrics">
-            <div class="metric"><div class="k">움직임 수치</div><div class="v">{metrics["avg_motion"]:.2f}</div></div>
-            <div class="metric"><div class="k">이동 흐름 수치</div><div class="v">{metrics["avg_flow"]:.2f}</div></div>
-            <div class="metric"><div class="k">군집 분산 수치</div><div class="v">{metrics["avg_compact"]:.3f}</div></div>
+            <div class="metric"><div class="k">움직임 상태</div><div class="v">{flow_state}</div></div>
+            <div class="metric"><div class="k">군집 상태</div><div class="v">{compact_state}</div></div>
+            <div class="metric"><div class="k">안정성</div><div class="v">{stable_state}</div></div>
             <div class="metric"><div class="k">패턴 흔들림</div><div class="v">{metrics["bvi"]:.3f}</div></div>
           </div>
         </div>
