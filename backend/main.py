@@ -341,6 +341,8 @@ def events(days: int = 30, farm_id: str = "farm1", lot_id: str = "lotA"):
 
 @app.get("/p/{code}", response_class=HTMLResponse)
 def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str = "lotA"):
+    safe_text = ""
+    stable_state = ""
     events = read_events(farm_id=farm_id, lot_id=lot_id, days=days)
     metrics = compute_metrics(events)
     summary = build_summary(events)
