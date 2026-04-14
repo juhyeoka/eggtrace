@@ -378,6 +378,36 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
         </div>
         """
 
+    # 소비자용 문장 변환
+    if metrics["score"] >= 85:
+        one_line = "오늘 닭들은 넓게 움직이며 안정적인 환경에서 활동했습니다 🟢"
+        move_text = "움직임: 활발함"
+        dense_text = "밀집도: 적절함"
+        safe_text = "안정성: 안정적"
+    elif metrics["score"] >= 70:
+        one_line = "오늘 닭들은 전반적으로 안정적이지만, 일부 시간대에 활동량이 증가했어요 🟡"
+        move_text = "움직임: 보통보다 많음"
+        dense_text = "밀집도: 약간 몰림"
+        safe_text = "안정성: 양호"
+    else:
+        one_line = "오늘 닭들은 일부 구간에서 평소보다 많이 몰리거나 활발하게 움직였어요 🟠"
+        move_text = "움직임: 변화 큼"
+        dense_text = "밀집도: 몰림 있음"
+        safe_text = "안정성: 관찰 필요"
+
+    def human_event_text(msg: str) -> str:
+        text = msg
+        text = text.replace("활동 증가", "닭들이 평소보다 더 활발하게 움직이고 있어요")
+        text = text.replace("이동 흐름 증가", "닭들의 움직임이 평소보다 커졌어요")
+        text = text.replace("군집 분산 증가", "닭들이 한 곳에 몰리지 않고 넓게 움직이고 있어요")
+        text = text.replace("집중 구간 활성화", "특정 구역에 닭들이 모이는 경향이 있어요")
+        text = text.replace("특이 패턴 없음", "큰 이상 없이 안정적인 흐름을 보이고 있어요")
+        return text
+
+    e1_h = human_event_text(e1[1])
+    e2_h = human_event_text(e2[1])
+    e3_h = human_event_text(e3[1])
+
     page = f"""
 <!doctype html>
 <html lang="ko">
@@ -465,6 +495,10 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       color:#1f4b39;
       box-shadow:0 8px 24px rgba(112,220,176,0.35);
       pointer-events:none;
+      transition:opacity .2s ease;
+    }}
+    .play.hidden {{
+      opacity:0;
     }}
     .section-title {{
       font-size:22px;
@@ -478,18 +512,24 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       margin-bottom:12px;
       line-height:1.5;
     }}
-    .mini-chart {{
-      width:100%;
-      height:150px;
-      border-radius:20px;
-      background:linear-gradient(180deg,#fafafa,#f1f1f1);
-      overflow:hidden;
-      margin-top:8px;
+    .summary-hero {{
+      background:#f7fbf8;
+      border:1px solid #dceee2;
+      border-radius:22px;
+      padding:18px;
+      margin-bottom:14px;
     }}
-    .mini-chart svg {{
-      width:100%;
-      height:100%;
-      display:block;
+    .summary-hero .big {{
+      font-size:24px;
+      font-weight:900;
+      line-height:1.45;
+      letter-spacing:-0.5px;
+      margin-bottom:8px;
+    }}
+    .summary-hero .small {{
+      color:#5f6b63;
+      font-size:15px;
+      line-height:1.7;
     }}
     .score-row {{
       display:flex;
@@ -508,14 +548,61 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       font-size:14px;
       border:1px solid #ececec;
     }}
-    .summary-box {{
-      font-size:16px;
-      line-height:1.7;
-      color:#222;
+    .human-metrics {{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:10px;
+      margin-top:10px;
+    }}
+    .human-box {{
       background:#fafafa;
-      border-radius:18px;
-      padding:14px 16px;
       border:1px solid #efefef;
+      border-radius:18px;
+      padding:14px;
+    }}
+    .human-box .label {{
+      font-size:13px;
+      color:#7a7a7a;
+      margin-bottom:8px;
+    }}
+    .human-box .value {{
+      font-size:20px;
+      font-weight:900;
+      letter-spacing:-0.4px;
+    }}
+    .mini-chart {{
+      width:100%;
+      height:150px;
+      border-radius:20px;
+      background:linear-gradient(180deg,#fafafa,#f1f1f1);
+      overflow:hidden;
+      margin-top:14px;
+    }}
+    .mini-chart svg {{
+      width:100%;
+      height:100%;
+      display:block;
+    }}
+    .metrics {{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:10px;
+    }}
+    .metric {{
+      background:#fafafa;
+      border:1px solid #efefef;
+      border-radius:18px;
+      padding:14px;
+    }}
+    .metric .k {{
+      font-size:13px;
+      color:#7a7a7a;
+      margin-bottom:6px;
+    }}
+    .metric .v {{
+      font-size:24px;
+      font-weight:900;
+      letter-spacing:-0.5px;
     }}
     .event-row {{
       background:#fff;
@@ -547,8 +634,9 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
     .event-text {{
       font-size:16px;
       font-weight:700;
-      line-height:1.35;
+      line-height:1.55;
       margin-bottom:8px;
+      word-break:keep-all;
     }}
     .alert-row {{
       background:#ff5d5d;
@@ -582,31 +670,11 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       color:#fff;
       border:1px solid rgba(255,255,255,0.28);
     }}
-    .metrics {{
-      display:grid;
-      grid-template-columns:repeat(2, 1fr);
-      gap:10px;
-    }}
-    .metric {{
-      background:#fafafa;
-      border:1px solid #efefef;
-      border-radius:18px;
-      padding:14px;
-    }}
-    .metric .k {{
-      font-size:13px;
-      color:#7a7a7a;
-      margin-bottom:6px;
-    }}
-    .metric .v {{
-      font-size:24px;
-      font-weight:900;
-      letter-spacing:-0.5px;
-    }}
     @media (max-width:900px) {{
       .layout {{ grid-template-columns:1fr; }}
       .headline {{ font-size:28px; }}
       .page {{ padding:18px 14px 28px; }}
+      .human-metrics {{ grid-template-columns:1fr; }}
     }}
   </style>
 </head>
@@ -617,31 +685,47 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       <div class="menu">☰</div>
     </div>
 
-    <div class="headline">Chicken Behavior Analysis</div>
-    <div class="sub">영상 기반 행동 분석 리포트 · 최근 {days}일 기준</div>
+    <div class="headline">닭의 하루 요약</div>
+    <div class="sub">AI가 실제 영상 흐름을 바탕으로 오늘의 환경을 쉽게 정리했어요.</div>
 
     <div class="layout">
       <div>
         <div class="card">
           <div class="video-box">
-            <video controls playsinline muted preload="metadata">
+            <video id="mainVideo" controls playsinline muted preload="metadata">
               <source src="/videos/demo.mp4" type="video/mp4">
             </video>
-            <div class="play">▶</div>
+            <div id="playBadge" class="play">▶</div>
           </div>
         </div>
 
         <div class="card">
-          <div class="section-title">AI 분석 요약</div>
-          <div class="section-sub">실제 영상에서 추출된 움직임, 군집, 집중 구간 패턴을 기반으로 요약했습니다.</div>
+          <div class="section-title">오늘 한 줄 요약</div>
 
-          <div class="score-row">
-            <div class="pill">신뢰 점수 {metrics["score"]}/100</div>
-            <div class="pill">상태 {metrics["label"]}</div>
-            <div class="pill">이벤트 {len(events)}건</div>
+          <div class="summary-hero">
+            <div class="big">{html.escape(one_line)}</div>
+            <div class="small">{html.escape(summary)}</div>
           </div>
 
-          <div class="summary-box">{html.escape(summary)}</div>
+          <div class="human-metrics">
+            <div class="human-box">
+              <div class="label">움직임</div>
+              <div class="value">{html.escape(move_text)}</div>
+            </div>
+            <div class="human-box">
+              <div class="label">밀집도</div>
+              <div class="value">{html.escape(dense_text)}</div>
+            </div>
+            <div class="human-box">
+              <div class="label">안정성</div>
+              <div class="value">{html.escape(safe_text)}</div>
+            </div>
+          </div>
+
+          <div class="score-row">
+            <div class="pill">AI 점수 {metrics["score"]}/100</div>
+            <div class="pill">이벤트 {len(events)}건</div>
+          </div>
 
           <div class="mini-chart">
             <svg viewBox="0 0 100 40" preserveAspectRatio="none">
@@ -660,24 +744,44 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 
       <div>
         <div class="card">
-          <div class="section-title">핵심 지표</div>
+          <div class="section-title">숫자로 보는 오늘</div>
           <div class="metrics">
-            <div class="metric"><div class="k">평균 활동</div><div class="v">{metrics["avg_motion"]:.2f}</div></div>
-            <div class="metric"><div class="k">평균 Flow</div><div class="v">{metrics["avg_flow"]:.2f}</div></div>
-            <div class="metric"><div class="k">평균 Compactness</div><div class="v">{metrics["avg_compact"]:.3f}</div></div>
-            <div class="metric"><div class="k">변동성(BVI)</div><div class="v">{metrics["bvi"]:.3f}</div></div>
+            <div class="metric"><div class="k">움직임 수치</div><div class="v">{metrics["avg_motion"]:.2f}</div></div>
+            <div class="metric"><div class="k">이동 흐름 수치</div><div class="v">{metrics["avg_flow"]:.2f}</div></div>
+            <div class="metric"><div class="k">군집 분산 수치</div><div class="v">{metrics["avg_compact"]:.3f}</div></div>
+            <div class="metric"><div class="k">패턴 흔들림</div><div class="v">{metrics["bvi"]:.3f}</div></div>
           </div>
         </div>
 
         <div class="card">
           <div class="section-title">최근 패턴 변화</div>
-          {card_html(e1, "🪺")}
-          {card_html(e2, "♡")}
-          {card_html(e3, "⚠")}
+          {card_html((e1[0], e1_h, e1[2], e1[3], e1[4], e1[5]), "🪺")}
+          {card_html((e2[0], e2_h, e2[2], e2[3], e2[4], e2[5]), "♡")}
+          {card_html((e3[0], e3_h, e3[2], e3[3], e3[4], e3[5]), "⚠")}
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    const video = document.getElementById("mainVideo");
+    const badge = document.getElementById("playBadge");
+
+    function hideBadge() {{
+      badge.classList.add("hidden");
+    }}
+
+    function showBadge() {{
+      if (video.paused) {{
+        badge.classList.remove("hidden");
+      }}
+    }}
+
+    video.addEventListener("play", hideBadge);
+    video.addEventListener("playing", hideBadge);
+    video.addEventListener("pause", showBadge);
+    video.addEventListener("ended", showBadge);
+  </script>
 </body>
 </html>
 """
