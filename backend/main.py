@@ -708,6 +708,17 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 </head>
 <body>
   <div class="page">
+    <a href="https://smartstore.naver.com/" style="
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      text-decoration:none;
+      color:#111;
+      font-size:14px;
+      font-weight:700;
+      margin-bottom:14px;
+    ">← 구매 페이지로 돌아가기</a>
+
     <div class="top">
       <div class="logo">JCR.</div>
       <div class="menu">☰</div>
@@ -751,7 +762,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
           </div>
 
           <div class="score-row">
-            <div class="pill">AI 점수 {metrics["score"]}/100</div>
+            
             <div class="pill">이벤트 {len(events)}건</div>
           </div>
 
