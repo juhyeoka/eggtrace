@@ -708,13 +708,13 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 
     <div class="top">
       <div class="logo">JCR.</div>
-      <div class="menu">☰</div>
+      
     </div>
 
     <div class="headline">닭의 하루 요약</div>
     <div class="sub">AI가 오늘 닭들의 움직임과 환경 흐름을 쉽게 요약했어요.</div>
 
-    <div class="layout">
+    <div class="hero-grid">
       <div>
         <div class="card">
           <div class="video-box">
@@ -733,7 +733,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
             <div class="small">{html.escape(summary)}</div>
           </div>
 
-          <div class="human-metrics">
+          <div class="status-grid">
             <div class="human-box">
               <div class="label">움직임</div>
               <div class="value">{html.escape(move_text)}</div>
