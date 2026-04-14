@@ -426,9 +426,9 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
     def human_event_text(msg: str) -> str:
         text = msg
         text = text.replace("활동 증가", "닭들이 평소보다 더 활발하게 움직이고 있어요")
-        text = text.replace("이동 흐름 증가", "닭들의 움직임이 평소보다 커졌어요")
-        text = text.replace("군집 분산 증가", "닭들이 한 곳에 몰리지 않고 넓게 움직이고 있어요")
-        text = text.replace("집중 구간 활성화", "특정 구역에 닭들이 모이는 경향이 있어요")
+        text = text.replace("이동 흐름 증가", "오늘은 움직임이 조금 더 활발하게 느껴졌어요")
+        text = text.replace("군집 분산 증가", "농장 전체를 고르게 움직이는 모습이 보여요")
+        text = text.replace("집중 구간 활성화", "한쪽 공간에 자연스럽게 모여 쉬는 흐름이 보였어요")
         text = text.replace("특이 패턴 없음", "큰 이상 없이 안정적인 흐름을 보이고 있어요")
         return text
 
@@ -654,15 +654,15 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       word-break:keep-all;
     }}
     .alert-row {{
-      background:#ff5d5d;
-      color:#fff;
+      background:#e8f7ec;
+      color:#234030;
     }}
     .alert-row .icon-box {{
       background:rgba(255,255,255,0.18);
-      color:#fff;
+      color:#234030;
     }}
     .alert-row .event-time {{
-      color:#ffe4e4;
+      color:#6b8a74;
     }}
     .link-row {{
       display:flex;
@@ -682,7 +682,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
     }}
     .alert-row .mini-btn {{
       background:rgba(255,255,255,0.18);
-      color:#fff;
+      color:#234030;
       border:1px solid rgba(255,255,255,0.28);
     }}
     @media (max-width:900px) {{
@@ -766,7 +766,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
                 padding:18px 20px;
                 border-radius:18px;
                 background:#111;
-                color:#fff;
+                color:#234030;
                 font-size:18px;
                 font-weight:800;
                 letter-spacing:-0.3px;
@@ -785,7 +785,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
             <div class="metric"><div class="k">움직임</div><div class="v">{flow_state}</div></div>
             <div class="metric"><div class="k">모여 있는 정도</div><div class="v">{compact_state}</div></div>
             
-            <div class="metric"><div class="k">오늘 흐름</div><div class="v">{bvi_state}</div></div>
+            <div class="metric"><div class="k">오늘의 변화</div><div class="v">{bvi_state}</div></div>
           </div>
         </div>
 
