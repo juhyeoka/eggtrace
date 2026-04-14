@@ -346,32 +346,32 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
     summary = build_summary(events)
 
     if metrics["avg_flow"] >= 4:
-        flow_state = "활발함"
+        flow_state = "활발해요"
     elif metrics["avg_flow"] >= 2:
-        flow_state = "보통"
+        flow_state = "보통이에요"
     else:
-        flow_state = "차분함"
+        flow_state = "차분해요"
 
     if metrics["avg_compact"] >= 1.2:
-        compact_state = "적절한 분산"
+        compact_state = "적절해요"
     elif metrics["avg_compact"] >= 0.7:
-        compact_state = "약간 밀집"
+        compact_state = "조금 몰려 있어요"
     else:
-        compact_state = "집중됨"
+        compact_state = "한쪽에 몰려 있어요"
 
     if metrics["score"] >= 90:
-        stable_state = "매우 안정적"
+        stable_state = "안정적이에요"
     elif metrics["score"] >= 75:
-        stable_state = "안정적"
+        stable_state = "대체로 괜찮아요"
     else:
-        stable_state = "관찰 필요"
+        stable_state = "조금 더 볼 필요가 있어요"
 
     if metrics["bvi"] < 0.03:
-        bvi_state = "큰 변화 없음"
+        bvi_state = "크지 않았어요"
     elif metrics["bvi"] < 0.08:
-        bvi_state = "약간 변화"
+        bvi_state = "조금 있었어요"
     else:
-        bvi_state = "변화 큼"
+        bvi_state = "비교적 컸어요"
 
     recent_cards = []
     for e in events[:3]:
@@ -774,9 +774,9 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
         <div class="card">
           <div class="section-title">숫자로 보는 오늘</div>
           <div class="metrics">
-            <div class="metric"><div class="k">움직임 상태</div><div class="v">{flow_state}</div></div>
-            <div class="metric"><div class="k">군집 상태</div><div class="v">{compact_state}</div></div>
-            <div class="metric"><div class="k">안정성</div><div class="v">{stable_state}</div></div>
+            <div class="metric"><div class="k">움직임</div><div class="v">{flow_state}</div></div>
+            <div class="metric"><div class="k">모여 있는 정도</div><div class="v">{compact_state}</div></div>
+            <div class="metric"><div class="k">전체 상태</div><div class="v">{stable_state}</div></div>
             <div class="metric"><div class="k">패턴 흔들림</div><div class="v">{metrics["bvi"]:.3f}</div></div>
           </div>
         </div>
