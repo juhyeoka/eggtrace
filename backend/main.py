@@ -711,8 +711,8 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       
     </div>
 
-    <div class="headline">닭의 하루 요약</div>
-    <div class="sub">AI가 오늘 닭들의 움직임과 환경 흐름을 쉽게 요약했어요.</div>
+    <div class="headline">농장 하루 요약</div>
+    <div class="sub">AI가 오늘 농장의 움직임을 살펴보고 편안하게 읽을 수 있게 정리했어요 🌿</div>
 
     <div class="hero-grid">
       <div>
@@ -780,12 +780,12 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 
       <div>
         <div class="card">
-          <div class="section-title">숫자로 보는 오늘</div>
+          <div class="section-title">오늘의 흐름</div>
           <div class="metrics">
             <div class="metric"><div class="k">움직임</div><div class="v">{flow_state}</div></div>
             <div class="metric"><div class="k">모여 있는 정도</div><div class="v">{compact_state}</div></div>
-            <div class="metric"><div class="k">전체 상태</div><div class="v">{stable_state}</div></div>
-            <div class="metric"><div class="k">오늘 변화</div><div class="v">{bvi_state}</div></div>
+            
+            <div class="metric"><div class="k">오늘 흐름</div><div class="v">{bvi_state}</div></div>
           </div>
         </div>
 
