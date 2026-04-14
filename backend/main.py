@@ -548,7 +548,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       margin-bottom:14px;
     }}
     .summary-hero .big {{
-      font-size:24px;
+      font-size:20px;
       font-weight:900;
       line-height:1.45;
       letter-spacing:-0.5px;
@@ -598,19 +598,6 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       font-weight:900;
       letter-spacing:-0.4px;
     }}
-    .mini-chart {{
-      width:100%;
-      height:150px;
-      border-radius:20px;
-      background:linear-gradient(180deg,#fafafa,#f1f1f1);
-      overflow:hidden;
-      margin-top:14px;
-    }}
-    .mini-chart svg {{
-      width:100%;
-      height:100%;
-      display:block;
-    }}
     .metrics {{
       display:grid;
       grid-template-columns:repeat(2, 1fr);
@@ -628,7 +615,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       margin-bottom:6px;
     }}
     .metric .v {{
-      font-size:24px;
+      font-size:20px;
       font-weight:900;
       letter-spacing:-0.5px;
     }}
@@ -725,7 +712,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
     </div>
 
     <div class="headline">닭의 하루 요약</div>
-    <div class="sub">AI가 실제 영상 흐름을 바탕으로 오늘의 환경을 쉽게 정리했어요.</div>
+    <div class="sub">AI가 오늘 닭들의 움직임과 환경 흐름을 쉽게 요약했어요.</div>
 
     <div class="layout">
       <div>
@@ -766,19 +753,29 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
             <div class="pill">이벤트 {len(events)}건</div>
           </div>
 
-          <div class="mini-chart">
-            <svg viewBox="0 0 100 40" preserveAspectRatio="none">
-              <polyline fill="none" stroke="#111" stroke-width="1.2"
-                points="0,27 8,25 16,26 24,18 32,12 40,19 48,24 56,18 64,10 72,8 80,9 88,12 100,18"/>
-              <polyline fill="none" stroke="#777" stroke-width="0.8"
-                points="0,30 12,28 24,26 36,20 48,14 60,22 72,28 84,29 100,27"/>
-              <line x1="0" y1="34" x2="100" y2="34" stroke="#ddd" stroke-width="0.6"/>
-              <line x1="0" y1="26" x2="100" y2="26" stroke="#eee" stroke-width="0.6"/>
-              <line x1="0" y1="18" x2="100" y2="18" stroke="#eee" stroke-width="0.6"/>
-              <line x1="0" y1="10" x2="100" y2="10" stroke="#eee" stroke-width="0.6"/>
-            </svg>
+          
+          <div style="margin-top:18px;">
+            <a
+              href="https://junada040828.cafe24.com/skin-skin7"
+              target="_blank"
+              style="
+                display:block;
+                width:100%;
+                text-align:center;
+                text-decoration:none;
+                padding:18px 20px;
+                border-radius:18px;
+                background:#111;
+                color:#fff;
+                font-size:18px;
+                font-weight:800;
+                letter-spacing:-0.3px;
+              "
+            >
+              JCR 계란 구독하기
+            </a>
           </div>
-        </div>
+        
       </div>
 
       <div>
@@ -788,7 +785,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
             <div class="metric"><div class="k">움직임</div><div class="v">{flow_state}</div></div>
             <div class="metric"><div class="k">모여 있는 정도</div><div class="v">{compact_state}</div></div>
             <div class="metric"><div class="k">전체 상태</div><div class="v">{stable_state}</div></div>
-            <div class="metric"><div class="k">패턴 흔들림</div><div class="v">{metrics["bvi"]:.3f}</div></div>
+            <div class="metric"><div class="k">오늘 변화</div><div class="v">{bvi_state}</div></div>
           </div>
         </div>
 
