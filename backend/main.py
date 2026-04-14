@@ -277,7 +277,7 @@ def build_summary(events: list[dict]) -> str:
     if not parts:
         return "최근 구간에서는 급격한 이상 패턴 없이 비교적 안정적인 활동 흐름이 유지되었습니다."
 
-    return "최근 분석 결과, " + " / ".join(parts) + "."
+    return "최근 분석 결과, " + ", ".join(parts) + "."
 
 
 def compute_metrics(events: list[dict]) -> dict:
@@ -359,13 +359,6 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
     else:
         compact_state = "한쪽에 몰려 있어요"
 
-    if metrics["score"] >= 90:
-        stable_state = "안정적이에요"
-    elif metrics["score"] >= 75:
-        stable_state = "대체로 괜찮아요"
-    else:
-        stable_state = "조금 더 볼 필요가 있어요"
-
     if metrics["bvi"] < 0.03:
         bvi_state = "크지 않았어요"
     elif metrics["bvi"] < 0.08:
@@ -378,7 +371,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
         ts = e.get("time", 0)
         tstr = time.strftime("%I:%M %p", time.localtime(ts)) if isinstance(ts, (int, float)) and ts > 946684800 else "최근 기록"
         tags = e.get("tags", [])
-        msg = " / ".join(nice_tag(t) for t in tags[:2]) if tags else "특이 패턴 없음"
+        msg = ", ".join(nice_tag(t) for t in tags[:2]) if tags else "특이 패턴 없음"
         sev = e.get("severity", "info")
         recent_cards.append((tstr, msg, sev, e.get("thumb_path"), e.get("heatmap_path"), e.get("video_path", "/videos/demo.mp4")))
 
@@ -408,20 +401,11 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 
     # 소비자용 문장 변환
     if metrics["score"] >= 85:
-        one_line = "오늘 닭들은 넓게 움직이며 안정적인 환경에서 활동했습니다 🟢"
-        move_text = "움직임: 활발함"
-        dense_text = "밀집도: 적절함"
-        safe_text = "안정성: 안정적"
+        one_line = "🐣 오늘 농장은 전반적으로 차분하고 편안한 흐름을 보여주고 있어요."
     elif metrics["score"] >= 70:
-        one_line = "오늘 닭들은 전반적으로 안정적이지만, 일부 시간대에 활동량이 증가했어요 🟡"
-        move_text = "움직임: 보통보다 많음"
-        dense_text = "밀집도: 약간 몰림"
-        safe_text = "안정성: 양호"
+        one_line = "🐥 오늘은 움직임이 자연스럽게 이어지면서 비교적 안정적인 흐름이 보였어요."
     else:
-        one_line = "오늘 닭들은 일부 구간에서 평소보다 많이 몰리거나 활발하게 움직였어요 🟠"
-        move_text = "움직임: 변화 큼"
-        dense_text = "밀집도: 몰림 있음"
-        safe_text = "안정성: 관찰 필요"
+        one_line = "🌿 오늘은 일부 구간에서 움직임 변화가 있었지만 전반적인 흐름은 무난했어요."
 
     def human_event_text(msg: str) -> str:
         text = msg
@@ -515,12 +499,12 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       width:82px;
       height:82px;
       border-radius:50%;
-      background:#b8efd4;
+      background:#111;
       display:flex;
       align-items:center;
       justify-content:center;
       font-size:36px;
-      color:#1f4b39;
+      color:#fff;
       box-shadow:0 8px 24px rgba(112,220,176,0.35);
       pointer-events:none;
       transition:opacity .2s ease;
@@ -743,8 +727,8 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
               <div class="value">{html.escape(dense_text)}</div>
             </div>
             <div class="human-box">
-              <div class="label">안정성</div>
-              <div class="value">{html.escape(safe_text)}</div>
+              <div class="label"> </div>
+              
             </div>
           </div>
 
