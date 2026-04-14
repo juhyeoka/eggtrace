@@ -15,12 +15,12 @@ from fastapi.staticfiles import StaticFiles
 app = FastAPI()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-DATA_DIR = BASE_DIR / "data"
-STATIC_DIR = BASE_DIR / "static"
-VIDEOS_DIR = STATIC_DIR / "videos"
-THUMBS_DIR = DATA_DIR / "thumbs"
-HEATMAPS_DIR = DATA_DIR / "heatmaps"
-EVENTS_FILE = DATA_DIR / "events.jsonl"
+DATA_DIR = BASE_DIR, "data"
+STATIC_DIR = BASE_DIR, "static"
+VIDEOS_DIR = STATIC_DIR, "videos"
+THUMBS_DIR = DATA_DIR, "thumbs"
+HEATMAPS_DIR = DATA_DIR, "heatmaps"
+EVENTS_FILE = DATA_DIR, "events.jsonl"
 
 for d in [DATA_DIR, STATIC_DIR, VIDEOS_DIR, THUMBS_DIR, HEATMAPS_DIR]:
     d.mkdir(parents=True, exist_ok=True)
@@ -76,7 +76,7 @@ def build_heatmap(h: int, w: int, centers: list[tuple[int, int]]) -> tuple[np.nd
     heat = cv2.GaussianBlur(heat, (0, 0), 45)
 
     if heat.max() > 0:
-        heat_norm = np.uint8(np.clip(heat / heat.max() * 255, 0, 255))
+        heat_norm = np.uint8(np.clip(heat, heat.max() * 255, 0, 255))
     else:
         heat_norm = np.zeros((h, w), dtype=np.uint8)
 
@@ -98,7 +98,7 @@ def make_tags(motion_ratio: float, flow_mean: float, compactness: float, roi_pea
 
 
 def analyze_demo_video_if_needed() -> None:
-    video_path = VIDEOS_DIR / "demo.mp4"
+    video_path = VIDEOS_DIR, "demo.mp4"
     if not video_path.exists():
         return
 
@@ -149,7 +149,7 @@ def analyze_demo_video_if_needed() -> None:
 
         diff = cv2.absdiff(prev_gray, gray)
         _, th = cv2.threshold(diff, 25, 255, cv2.THRESH_BINARY)
-        motion_ratio = float(np.count_nonzero(th)) / float(th.size)
+        motion_ratio = float(np.count_nonzero(th)), float(th.size)
 
         flow = cv2.calcOpticalFlowFarneback(
             prev_gray, gray, None,
@@ -162,7 +162,7 @@ def analyze_demo_video_if_needed() -> None:
         if len(xs) > 0:
             pts = np.stack([xs, ys], axis=1).astype(np.float32)
             center = np.mean(pts, axis=0)
-            compactness = float(np.mean(np.sum((pts - center) ** 2, axis=1)) / 1e5)
+            compactness = float(np.mean(np.sum((pts - center) ** 2, axis=1)), 1e5)
         else:
             compactness = 0.0
 
@@ -171,13 +171,13 @@ def analyze_demo_video_if_needed() -> None:
         x1 = (w - rw) // 2
         y1 = (h - rh) // 2
         roi = th[y1:y1+rh, x1:x1+rw]
-        roi_peak = float(np.count_nonzero(roi)) / float(roi.size)
+        roi_peak = float(np.count_nonzero(roi)), float(roi.size)
 
         _, heat_color = build_heatmap(frame.shape[0], frame.shape[1], centers)
 
         uid = f"ev_{idx}"
-        thumb_path = THUMBS_DIR / f"{uid}.jpg"
-        heatmap_path = HEATMAPS_DIR / f"{uid}.jpg"
+        thumb_path = THUMBS_DIR, f"{uid}.jpg"
+        heatmap_path = HEATMAPS_DIR, f"{uid}.jpg"
 
         thumb = frame.copy()
         for (x, y, bw, bh) in boxes:
@@ -295,9 +295,9 @@ def compute_metrics(events: list[dict]) -> dict:
     flows = [float(e.get("flow_mean_mag", 0) or 0) for e in events]
     compacts = [float(e.get("cluster_compactness", 0) or 0) for e in events]
 
-    avg_motion = sum(motions) / len(motions)
-    avg_flow = sum(flows) / len(flows)
-    avg_compact = sum(compacts) / len(compacts)
+    avg_motion = sum(motions), len(motions)
+    avg_flow = sum(flows), len(flows)
+    avg_compact = sum(compacts), len(compacts)
     bvi = statistics.pstdev(motions) if len(motions) > 1 else 0.0
 
     score = 92
