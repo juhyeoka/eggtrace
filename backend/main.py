@@ -201,7 +201,6 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
         )
 
     e1, e2, e3 = recent_cards[0], recent_cards[1], recent_cards[2]
-
     video_source = "/videos/demo.mp4" if (VIDEOS_DIR / "demo.mp4").exists() else ""
 
     def card_html(ev, icon: str) -> str:
@@ -560,11 +559,3 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 </html>
 """
     return HTMLResponse(page)
-'''
-
-new_s, n = pattern.subn(new_func, s, count=1)
-if n != 1:
-    raise SystemExit("product_page replace failed")
-
-p.write_text(new_s, encoding="utf-8")
-print("DONE")
