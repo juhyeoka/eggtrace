@@ -341,57 +341,95 @@ def events(days: int = 30, farm_id: str = "farm1", lot_id: str = "lotA"):
 
 @app.get("/p/{code}", response_class=HTMLResponse)
 def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str = "lotA"):
-    safe_text = ""
-    stable_state = ""
+    import html
+    import time
+
     events = read_events(farm_id=farm_id, lot_id=lot_id, days=days)
     metrics = compute_metrics(events)
-    summary = build_summary(events)
 
-    if metrics["avg_flow"] >= 4:
-        flow_state = "활발해요"
-    elif metrics["avg_flow"] >= 2:
-        flow_state = "보통이에요"
-    else:
-        flow_state = "차분해요"
+    def human_event_text(tags):
+        if not tags:
+            return "큰 이상 없이 차분한 흐름을 보이고 있어요."
+        if "ACTIVITY_SPIKE" in tags and "CLUSTER_SPREAD" in tags:
+            return "닭들이 농장 곳곳을 비교적 고르게 움직이며 활동하고 있어요."
+        if "ACTIVITY_SPIKE" in tags:
+            return "오늘은 평소보다 움직임이 조금 더 활발하게 보였어요."
+        if "MOVE_FLOW" in tags:
+            return "움직임이 자연스럽게 이어지면서 전체 흐름이 살아 있었어요."
+        if "CLUSTER_SPREAD" in tags:
+            return "한 곳에 몰리기보다 넓게 퍼져 움직이는 모습이 보였어요."
+        if "ROI_PEAK" in tags:
+            return "특정 공간에 자연스럽게 모여 쉬는 흐름이 보였어요."
+        return "전반적으로 무리 없이 편안한 흐름을 보이고 있어요."
 
-    if metrics["avg_compact"] >= 1.2:
-        compact_state = "적절해요"
-    elif metrics["avg_compact"] >= 0.7:
-        compact_state = "조금 몰려 있어요"
-    else:
-        compact_state = "한쪽에 몰려 있어요"
+    def build_one_line(events):
+        if not events:
+            return "🐣 오늘 농장은 전반적으로 차분하고 편안한 흐름을 보여주고 있어요."
 
-    if metrics["bvi"] < 0.03:
-        bvi_state = "크지 않았어요"
-    elif metrics["bvi"] < 0.08:
-        bvi_state = "조금 있었어요"
-    else:
-        bvi_state = "비교적 컸어요"
+        recent_tags = []
+        for e in events[:5]:
+            recent_tags.extend(e.get("tags", []))
+
+        if "ACTIVITY_SPIKE" in recent_tags and "CLUSTER_SPREAD" in recent_tags:
+            return "🐥 오늘은 닭들이 한곳에 치우치지 않고, 농장 전체를 자연스럽게 움직이며 지냈어요."
+        if "ROI_PEAK" in recent_tags and "MOVE_FLOW" in recent_tags:
+            return "🌿 오늘은 쉬는 구역과 움직이는 흐름이 균형 있게 이어지는 모습이 보였어요."
+        if "ACTIVITY_SPIKE" in recent_tags:
+            return "🐤 오늘은 평소보다 조금 더 활발한 분위기가 느껴졌어요."
+        if "CLUSTER_SPREAD" in recent_tags:
+            return "🍃 오늘은 닭들이 넓게 퍼져 편안하게 움직이는 흐름이 보였어요."
+        return "🐣 오늘 농장은 전반적으로 무리 없이 편안한 흐름을 보여주고 있어요."
+
+    def motion_text():
+        avg_flow = metrics.get("avg_flow", 0.0)
+        if avg_flow >= 4:
+            return "활발해요"
+        if avg_flow >= 2:
+            return "보통이에요"
+        return "차분해요"
+
+    def density_text():
+        avg_compact = metrics.get("avg_compact", 0.0)
+        if avg_compact >= 1.2:
+            return "적절해요"
+        if avg_compact >= 0.7:
+            return "조금 몰려 있어요"
+        return "한쪽에 모여 있어요"
+
+    def change_text():
+        bvi = metrics.get("bvi", 0.0)
+        if bvi < 0.03:
+            return "크지 않았어요"
+        if bvi < 0.08:
+            return "조금 있었어요"
+        return "비교적 컸어요"
+
+    one_line = build_one_line(events)
+    summary = human_event_text([t for e in events[:5] for t in e.get("tags", [])])
 
     recent_cards = []
     for e in events[:3]:
         ts = e.get("time", 0)
         tstr = time.strftime("%I:%M %p", time.localtime(ts)) if isinstance(ts, (int, float)) and ts > 946684800 else "최근 기록"
-        tags = e.get("tags", [])
-        msg = ", ".join(nice_tag(t) for t in tags[:2]) if tags else "특이 패턴 없음"
+        msg = human_event_text(e.get("tags", []))
         sev = e.get("severity", "info")
         recent_cards.append((tstr, msg, sev, e.get("thumb_path"), e.get("heatmap_path"), e.get("video_path", "/videos/demo.mp4")))
 
     while len(recent_cards) < 3:
-        recent_cards.append(("최근 기록", "특이 패턴 없음", "info", None, None, "/videos/demo.mp4"))
+        recent_cards.append(("최근 기록", "큰 이상 없이 차분한 흐름을 보이고 있어요.", "info", None, None, "/videos/demo.mp4"))
 
     e1, e2, e3 = recent_cards[0], recent_cards[1], recent_cards[2]
 
     def card_html(ev, icon):
         t, msg, sev, thumb, heat, video = ev
-        alert_cls = " alert-row" if sev == "alert" else ""
+        row_cls = "event-row alert-row" if sev == "alert" else "event-row"
         links = [f'<a class="mini-btn" href="{video}" target="_blank">영상 보기</a>']
         if thumb:
             links.append(f'<a class="mini-btn" href="{thumb}" target="_blank">탐지 화면</a>')
         if heat:
             links.append(f'<a class="mini-btn" href="{heat}" target="_blank">히트맵</a>')
         return f"""
-        <div class="event-row{alert_cls}">
+        <div class="{row_cls}">
           <div class="icon-box">{icon}</div>
           <div style="flex:1">
             <div class="event-time">{html.escape(t)}</div>
@@ -400,27 +438,6 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
           </div>
         </div>
         """
-
-    # 소비자용 문장 변환
-    if metrics["score"] >= 85:
-        one_line = "🐣 오늘 농장은 전반적으로 차분하고 편안한 흐름을 보여주고 있어요."
-    elif metrics["score"] >= 70:
-        one_line = "🐥 오늘은 움직임이 자연스럽게 이어지면서 비교적 안정적인 흐름이 보였어요."
-    else:
-        one_line = "🌿 오늘은 일부 구간에서 움직임 변화가 있었지만 전반적인 흐름은 무난했어요."
-
-    def human_event_text(msg: str) -> str:
-        text = msg
-        text = text.replace("활동 증가", "닭들이 평소보다 더 활발하게 움직이고 있어요")
-        text = text.replace("이동 흐름 증가", "오늘은 움직임이 조금 더 활발하게 느껴졌어요")
-        text = text.replace("군집 분산 증가", "농장 전체를 고르게 움직이는 모습이 보여요")
-        text = text.replace("집중 구간 활성화", "한쪽 공간에 자연스럽게 모여 쉬는 흐름이 보였어요")
-        text = text.replace("특이 패턴 없음", "큰 이상 없이 안정적인 흐름을 보이고 있어요")
-        return text
-
-    e1_h = human_event_text(e1[1])
-    e2_h = human_event_text(e2[1])
-    e3_h = human_event_text(e3[1])
 
     page = f"""
 <!doctype html>
@@ -442,9 +459,18 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       margin:0 auto;
       padding:28px 20px 40px;
     }}
+    .back-link {{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      text-decoration:none;
+      color:#111;
+      font-size:14px;
+      font-weight:700;
+      margin-bottom:14px;
+    }}
     .top {{
       display:flex;
-      justify-content:space-between;
       align-items:center;
       margin-bottom:18px;
     }}
@@ -452,11 +478,6 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       font-size:38px;
       font-weight:900;
       letter-spacing:-1.5px;
-    }}
-    .menu {{
-      font-size:34px;
-      color:#444;
-      line-height:1;
     }}
     .headline {{
       font-size:34px;
@@ -469,10 +490,12 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       font-size:15px;
       margin-bottom:20px;
     }}
-    .layout {{
+    .hero-grid {{
       display:grid;
-      grid-template-columns:1.2fr 0.8fr;
+      grid-template-columns:1.1fr 0.9fr;
       gap:18px;
+      align-items:start;
+      margin-bottom:18px;
     }}
     .card {{
       background:#fff;
@@ -501,12 +524,12 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       width:82px;
       height:82px;
       border-radius:50%;
-      background:#111;
+      background:#b8efd4;
       display:flex;
       align-items:center;
       justify-content:center;
       font-size:36px;
-      color:#fff;
+      color:#1f4b39;
       box-shadow:0 8px 24px rgba(112,220,176,0.35);
       pointer-events:none;
       transition:opacity .2s ease;
@@ -520,12 +543,6 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       margin-bottom:8px;
       letter-spacing:-0.4px;
     }}
-    .section-sub {{
-      color:#666;
-      font-size:14px;
-      margin-bottom:12px;
-      line-height:1.5;
-    }}
     .summary-hero {{
       background:#f7fbf8;
       border:1px solid #dceee2;
@@ -535,9 +552,9 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
     }}
     .summary-hero .big {{
       font-size:20px;
-      font-weight:900;
-      line-height:1.45;
-      letter-spacing:-0.5px;
+      font-weight:800;
+      line-height:1.5;
+      letter-spacing:-0.3px;
       margin-bottom:8px;
     }}
     .summary-hero .small {{
@@ -545,26 +562,9 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       font-size:15px;
       line-height:1.7;
     }}
-    .score-row {{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin:8px 0 14px;
-    }}
-    .pill {{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding:10px 14px;
-      border-radius:999px;
-      background:#f7f7f7;
-      font-weight:700;
-      font-size:14px;
-      border:1px solid #ececec;
-    }}
-    .human-metrics {{
+    .status-grid {{
       display:grid;
-      grid-template-columns:repeat(3, 1fr);
+      grid-template-columns:repeat(3,1fr);
       gap:10px;
       margin-top:10px;
     }}
@@ -583,27 +583,6 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       font-size:20px;
       font-weight:900;
       letter-spacing:-0.4px;
-    }}
-    .metrics {{
-      display:grid;
-      grid-template-columns:repeat(2, 1fr);
-      gap:10px;
-    }}
-    .metric {{
-      background:#fafafa;
-      border:1px solid #efefef;
-      border-radius:18px;
-      padding:14px;
-    }}
-    .metric .k {{
-      font-size:13px;
-      color:#7a7a7a;
-      margin-bottom:6px;
-    }}
-    .metric .v {{
-      font-size:20px;
-      font-weight:900;
-      letter-spacing:-0.5px;
     }}
     .event-row {{
       background:#fff;
@@ -628,7 +607,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       flex:0 0 auto;
     }}
     .event-time {{
-      color:#8a8a8a;
+      color:#6b8a74;
       font-size:13px;
       margin-bottom:3px;
     }}
@@ -638,14 +617,16 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       line-height:1.55;
       margin-bottom:8px;
       word-break:keep-all;
+      color:#234030;
     }}
     .alert-row {{
       background:#e8f7ec;
       color:#234030;
+      border:1px solid #d6eedc;
     }}
     .alert-row .icon-box {{
-      background:rgba(255,255,255,0.18);
-      color:#234030;
+      background:#d8f0df;
+      color:#2b5c49;
     }}
     .alert-row .event-time {{
       color:#6b8a74;
@@ -666,35 +647,36 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
       color:#111;
       border:1px solid #e5e5e5;
     }}
-    .alert-row .mini-btn {{
-      background:rgba(255,255,255,0.18);
-      color:#234030;
-      border:1px solid rgba(255,255,255,0.28);
+    .cta-wrap {{
+      margin-top:18px;
+    }}
+    .cta-btn {{
+      display:block;
+      width:100%;
+      text-align:center;
+      text-decoration:none;
+      padding:18px 20px;
+      border-radius:18px;
+      background:#111;
+      color:#fff;
+      font-size:18px;
+      font-weight:800;
+      letter-spacing:-0.3px;
     }}
     @media (max-width:900px) {{
-      .layout {{ grid-template-columns:1fr; }}
+      .hero-grid {{ grid-template-columns:1fr; }}
+      .status-grid {{ grid-template-columns:1fr; }}
       .headline {{ font-size:28px; }}
       .page {{ padding:18px 14px 28px; }}
-      .human-metrics {{ grid-template-columns:1fr; }}
     }}
   </style>
 </head>
 <body>
   <div class="page">
-    <a href="https://smartstore.naver.com/" style="
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      text-decoration:none;
-      color:#111;
-      font-size:14px;
-      font-weight:700;
-      margin-bottom:14px;
-    ">← 구매 페이지로 돌아가기</a>
+    <a href="https://junada040828.cafe24.com/skin-skin7" target="_blank" class="back-link">← 구매 페이지로 돌아가기</a>
 
     <div class="top">
       <div class="logo">JCR.</div>
-      
     </div>
 
     <div class="headline">농장 하루 요약</div>
@@ -710,7 +692,9 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
             <div id="playBadge" class="play">▶</div>
           </div>
         </div>
+      </div>
 
+      <div>
         <div class="card">
           <div class="section-title">오늘 한 줄 요약</div>
 
@@ -722,66 +706,32 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
           <div class="status-grid">
             <div class="human-box">
               <div class="label">움직임</div>
-              <div class="value">{html.escape(move_text)}</div>
+              <div class="value">{motion_text()}</div>
             </div>
             <div class="human-box">
-              <div class="label">밀집도</div>
-              <div class="value">{html.escape(dense_text)}</div>
+              <div class="label">모여 있는 정도</div>
+              <div class="value">{density_text()}</div>
             </div>
             <div class="human-box">
-              <div class="label"> </div>
-              
+              <div class="label">오늘의 변화</div>
+              <div class="value">{change_text()}</div>
             </div>
           </div>
 
-          <div class="score-row">
-            
-            <div class="pill">이벤트 {len(events)}건</div>
-          </div>
-
-          
-          <div style="margin-top:18px;">
-            <a
-              href="https://junada040828.cafe24.com/skin-skin7"
-              target="_blank"
-              style="
-                display:block;
-                width:100%;
-                text-align:center;
-                text-decoration:none;
-                padding:18px 20px;
-                border-radius:18px;
-                background:#111;
-                color:#234030;
-                font-size:18px;
-                font-weight:800;
-                letter-spacing:-0.3px;
-              "
-            >
+          <div class="cta-wrap">
+            <a href="https://junada040828.cafe24.com/skin-skin7" target="_blank" class="cta-btn">
               JCR 계란 구독하기
             </a>
           </div>
-        
-      </div>
-
-      <div>
-        <div class="card">
-          <div class="section-title">오늘의 흐름</div>
-          <div class="metrics">
-            <div class="metric"><div class="k">움직임</div><div class="v">{flow_state}</div></div>
-            <div class="metric"><div class="k">모여 있는 정도</div><div class="v">{compact_state}</div></div>
-            
-            <div class="metric"><div class="k">오늘의 변화</div><div class="v">{bvi_state}</div></div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="section-title">최근 패턴 변화</div>
-          {card_html((e1[0], e1_h, e1[2], e1[3], e1[4], e1[5]), "🪺")}
-          {card_html((e2[0], e2_h, e2[2], e2[3], e2[4], e2[5]), "♡")}
-          {card_html((e3[0], e3_h, e3[2], e3[3], e3[4], e3[5]), "⚠")}
         </div>
       </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">최근 패턴 변화</div>
+      {card_html(e1, "🪺")}
+      {card_html(e2, "♡")}
+      {card_html(e3, "⚠")}
     </div>
   </div>
 
