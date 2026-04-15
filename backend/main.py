@@ -15,14 +15,14 @@ from fastapi.staticfiles import StaticFiles
 app = FastAPI()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-DATA_DIR = BASE_DIR, "data"
-STATIC_DIR = BASE_DIR, "static"
-VIDEOS_DIR = STATIC_DIR, "videos"
-THUMBS_DIR = DATA_DIR, "thumbs"
-HEATMAPS_DIR = DATA_DIR, "heatmaps"
-EVENTS_FILE = DATA_DIR, "events.jsonl"
+DATA_DIR = BASE_DIR / "data"
+STATIC_DIR = BASE_DIR / "static"
+VIDEOS_DIR = STATIC_DIR / "videos"
+THUMBS_DIR = DATA_DIR / "thumbs"
+HEATMAPS_DIR = DATA_DIR / "heatmaps"
+EVENTS_FILE = DATA_DIR / "events.jsonl"
 
-for d in [DATA_DIR, STATIC_DIR, VIDEOS_DIR, THUMBS_DIR, HEATMAPS_DIR]:
+for d in (DATA_DIR, STATIC_DIR, VIDEOS_DIR, THUMBS_DIR, HEATMAPS_DIR):
     d.mkdir(parents=True, exist_ok=True)
 
 app.mount("/videos", StaticFiles(directory=str(VIDEOS_DIR)), name="videos")
