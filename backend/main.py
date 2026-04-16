@@ -263,7 +263,6 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
   --mint:#dff4e6;
   --mint2:#c8ecd5;
   --deep:#215c3a;
-  --yellow:#f3c34f;
   --shadow:0 12px 28px rgba(46,96,62,0.10);
   --radius:26px;
 }}
@@ -276,7 +275,7 @@ body {{
 }}
 
 .page {{
-  max-width:1120px;
+  max-width:1180px;
   margin:0 auto;
   padding:24px 18px 48px;
 }}
@@ -310,11 +309,12 @@ body {{
   box-shadow:0 6px 16px rgba(46,96,62,0.06);
 }}
 
-.layout {{
+.hero-grid {{
   display:grid;
-  grid-template-columns:1.05fr 0.95fr;
+  grid-template-columns:1.02fr 0.98fr;
   gap:18px;
-  align-items:start;
+  align-items:stretch;
+  margin-bottom:18px;
 }}
 
 .card {{
@@ -322,27 +322,21 @@ body {{
   border:1px solid var(--line);
   border-radius:var(--radius);
   box-shadow:var(--shadow);
-  overflow:hidden;
 }}
 
-.hero {{
-  padding:24px 22px 20px;
-  background:
-    radial-gradient(circle at top right, rgba(255,255,255,0.95), rgba(255,255,255,0.75) 42%, transparent 43%),
-    linear-gradient(180deg,#ecf8ef 0%, #ffffff 100%);
-}}
-
-.hero-badges {{
+.hero-copy-card {{
+  padding:28px 24px;
   display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-bottom:14px;
+  flex-direction:column;
+  justify-content:center;
+  background:linear-gradient(180deg,#ecf8ef 0%, #ffffff 100%);
 }}
 
-.badge {{
+.hero-badge {{
   display:inline-flex;
   align-items:center;
   gap:6px;
+  width:max-content;
   padding:8px 12px;
   border-radius:999px;
   background:#f7fcf8;
@@ -350,6 +344,7 @@ body {{
   font-size:12px;
   font-weight:900;
   color:#56735e;
+  margin-bottom:14px;
 }}
 
 .hero-title {{
@@ -361,57 +356,38 @@ body {{
   color:#183524;
 }}
 
-.hero-copy {{
+.hero-sub {{
   font-size:16px;
-  line-height:1.7;
+  line-height:1.75;
   color:var(--sub);
-  margin:0 0 18px;
+  margin:0 0 20px;
 }}
 
 .hero-cta {{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  text-decoration:none;
+  width:max-content;
+  min-width:220px;
   padding:16px 22px;
   border-radius:18px;
-  background:linear-gradient(180deg,#d7f0df,#bfe6cd);
-  color:#173323;
+  background:#1e6a42;
+  color:#fff;
+  text-decoration:none;
   font-weight:900;
   font-size:16px;
-  min-width:260px;
-  box-shadow:0 10px 24px rgba(86,155,106,0.18);
-}}
-
-.hero-visual {{
-  margin-top:18px;
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  gap:12px;
-}}
-
-.hero-egg {{
-  font-size:74px;
-  line-height:1;
-  filter:drop-shadow(0 10px 14px rgba(0,0,0,0.08));
+  box-shadow:0 10px 20px rgba(31,93,58,0.18);
 }}
 
 .hero-note {{
-  flex:1;
-  background:#f7fcf8;
-  border:1px solid var(--line);
-  border-radius:22px;
+  margin-top:18px;
   padding:14px 16px;
-  font-size:14px;
-  line-height:1.65;
+  background:#f6fbf7;
+  border:1px solid var(--line);
+  border-radius:18px;
   color:var(--sub);
-}}
-
-.right-stack {{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
+  font-size:14px;
+  line-height:1.7;
 }}
 
 .video-card {{
@@ -434,12 +410,15 @@ body {{
   overflow:hidden;
   border-radius:22px;
   background:#d6ddd7;
-  max-height:360px;
+  min-height:340px;
+  max-height:420px;
 }}
 
 video {{
   width:100%;
-  max-height:360px;
+  height:100%;
+  min-height:340px;
+  max-height:420px;
   object-fit:cover;
   display:block;
   border-radius:22px;
@@ -470,12 +449,12 @@ video {{
 }}
 
 .summary-card {{
-  padding:20px;
-  background:linear-gradient(180deg,#ffffff,#f9fcf9);
+  padding:22px;
+  margin-bottom:18px;
 }}
 
 .section-title {{
-  font-size:26px;
+  font-size:28px;
   font-weight:900;
   letter-spacing:-0.8px;
   margin:0 0 12px;
@@ -529,20 +508,19 @@ video {{
   color:var(--sub);
 }}
 
-.lower {{
+.lower-grid {{
   display:grid;
   grid-template-columns:0.95fr 1.05fr;
   gap:18px;
-  margin-top:18px;
 }}
 
 .info-card {{
-  padding:20px;
+  padding:22px;
 }}
 
 .info-head {{
-  font-size:28px;
-  line-height:1.15;
+  font-size:30px;
+  line-height:1.12;
   font-weight:900;
   letter-spacing:-1px;
   margin:0 0 10px;
@@ -555,38 +533,40 @@ video {{
   margin:0 0 16px;
 }}
 
-.benefit {{
+.feature-list {{
+  display:grid;
+  gap:12px;
+}}
+
+.feature {{
   display:flex;
   gap:12px;
   align-items:flex-start;
-  padding:14px 0;
-  border-top:1px dashed #d8e6dc;
+  padding:14px;
+  background:#f8fcf9;
+  border:1px solid var(--line);
+  border-radius:18px;
 }}
 
-.benefit:first-of-type {{
-  border-top:0;
-  padding-top:0;
-}}
-
-.benefit-icon {{
-  width:44px;
-  height:44px;
+.feature-icon {{
+  width:42px;
+  height:42px;
   border-radius:14px;
   background:var(--mint);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:22px;
+  font-size:20px;
   flex:0 0 auto;
 }}
 
-.benefit-title {{
+.feature-title {{
   font-size:16px;
   font-weight:900;
   margin:0 0 4px;
 }}
 
-.benefit-copy {{
+.feature-copy {{
   font-size:13px;
   line-height:1.7;
   color:var(--sub);
@@ -594,20 +574,21 @@ video {{
 }}
 
 .subscribe-card {{
-  padding:20px;
+  padding:22px;
+  margin-bottom:18px;
   background:linear-gradient(180deg,#ecf8ef,#ffffff);
 }}
 
-.subscribe-top {{
+.subscribe-head {{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
+  gap:10px;
   margin-bottom:8px;
 }}
 
 .subscribe-emoji {{
-  font-size:46px;
+  font-size:40px;
   line-height:1;
 }}
 
@@ -634,7 +615,7 @@ video {{
 }}
 
 .events-card {{
-  padding:20px;
+  padding:22px;
 }}
 
 .event-row {{
@@ -715,8 +696,8 @@ video {{
     padding:18px 14px 34px;
   }}
 
-  .layout,
-  .lower {{
+  .hero-grid,
+  .lower-grid {{
     grid-template-columns:1fr;
   }}
 
@@ -728,13 +709,9 @@ video {{
     grid-template-columns:1fr;
   }}
 
-  .hero-visual {{
-    flex-direction:column;
-    align-items:flex-start;
-  }}
-
   .video-box,
   video {{
+    min-height:240px;
     max-height:300px;
   }}
 }}
@@ -747,89 +724,80 @@ video {{
     <a href="https://junada040828.cafe24.com/skin-skin7" target="_blank" class="back-link">🛒 구매 페이지</a>
   </div>
 
-  <div class="layout">
-    <div class="card hero">
-      <div class="hero-badges">
-        <div class="badge">🌿 Cage Free</div>
-        <div class="badge">📹 Farm Story</div>
-        <div class="badge">🥚 JCR Egg</div>
-      </div>
-
-      <h1 class="hero-title">농장의 하루를<br>직접 확인해보세요</h1>
-      <p class="hero-copy">내가 먹는 계란이 어떤 환경에서 왔는지, 농장의 흐름과 분위기를 직접 보고 확인할 수 있어요. 눈으로 보고 믿을 수 있는 브랜드 경험을 전하고 싶었습니다.</p>
-      <a href="#farm-video" class="hero-cta">🐔 농장 실시간 기록 보러가기</a>
-
-      <div class="hero-visual">
-        <div class="hero-egg">🐔 🥚</div>
-        <div class="hero-note">오늘 농장 기록과 최근 흐름을 한 화면에서 바로 확인해보세요. 어렵고 딱딱한 보고서보다, 더 쉽고 편안한 방식으로 보여드릴게요 ✨</div>
-      </div>
+  <div class="hero-grid">
+    <div class="card hero-copy-card">
+      <div class="hero-badge">🌿 Cage Free Farm Story</div>
+      <h1 class="hero-title">내가 먹는 계란,<br>농장의 하루를 보고 고르세요</h1>
+      <p class="hero-sub">단순히 계란을 판매하는 것이 아니라, 소비자가 직접 농장의 흐름과 분위기를 보고 안심하고 선택할 수 있는 경험을 만들고 싶었습니다.</p>
+      <a href="https://junada040828.cafe24.com/skin-skin7" target="_blank" class="hero-cta">🥚 지금 구독하러 가기</a>
+      <div class="hero-note">오늘 농장 기록, 최근 흐름, 변화 요약까지 한 화면에서 편하게 확인할 수 있어요. 보고 고르는 경험이 JCR의 핵심입니다 ✨</div>
     </div>
 
-    <div class="right-stack">
-      <div class="card video-card" id="farm-video">
-        <div class="video-label">🎥 오늘 농장 영상</div>
-        {video_html}
+    <div class="card video-card" id="farm-video">
+      <div class="video-label">🎥 오늘 농장 영상</div>
+      {video_html}
+    </div>
+  </div>
+
+  <div class="card summary-card">
+    <div class="section-title">🐣 오늘 한 줄 요약</div>
+    <div class="summary-main">{html.escape(one_line)}</div>
+    <p class="summary-sub">{html.escape(summary)}</p>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="k">움직임</div>
+        <div class="v">{motion_text(metrics)}</div>
+        <div class="d">오늘 농장 안에서 보이는 움직임의 리듬을 쉽게 풀어낸 결과예요.</div>
       </div>
-
-      <div class="card summary-card">
-        <div class="section-title">🐣 오늘 한 줄 요약</div>
-        <div class="summary-main">{html.escape(one_line)}</div>
-        <p class="summary-sub">{html.escape(summary)}</p>
-
-        <div class="metrics">
-          <div class="metric">
-            <div class="k">움직임</div>
-            <div class="v">{motion_text(metrics)}</div>
-            <div class="d">오늘 농장 안에서 보이는 움직임의 리듬을 쉽게 풀어낸 결과예요.</div>
-          </div>
-          <div class="metric">
-            <div class="k">모여 있는 정도</div>
-            <div class="v">{density_text(metrics)}</div>
-            <div class="d">한 공간에 과하게 몰리지 않는지, 농장 전체 흐름을 보여줘요.</div>
-          </div>
-          <div class="metric">
-            <div class="k">오늘의 변화</div>
-            <div class="v">{change_text(metrics)}</div>
-            <div class="d">평소보다 흐름이 흔들렸는지, 큰 변화 없이 안정적인지 살펴본 내용이에요.</div>
-          </div>
-        </div>
+      <div class="metric">
+        <div class="k">모여 있는 정도</div>
+        <div class="v">{density_text(metrics)}</div>
+        <div class="d">한 공간에 과하게 몰리지 않는지, 농장 전체 흐름을 보여줘요.</div>
+      </div>
+      <div class="metric">
+        <div class="k">오늘의 변화</div>
+        <div class="v">{change_text(metrics)}</div>
+        <div class="d">평소보다 흐름이 흔들렸는지, 큰 변화 없이 안정적인지 살펴본 내용이에요.</div>
       </div>
     </div>
   </div>
 
-  <div class="lower">
+  <div class="lower-grid">
     <div class="card info-card">
       <div class="info-head">왜 더 믿을 수 있을까요? 🌿</div>
-      <p class="info-copy">JCR은 단순히 계란만 판매하는 것이 아니라, 소비자가 직접 농장의 흐름을 보고 안심하고 선택할 수 있도록 투명한 브랜드 경험을 제공합니다.</p>
+      <p class="info-copy">JCR은 소비자가 직접 보고 선택할 수 있는 투명한 브랜드 경험을 제공합니다. 계란의 출발점인 농장 환경을 먼저 보여주는 게 맞다고 생각했습니다.</p>
 
-      <div class="benefit">
-        <div class="benefit-icon">🎥</div>
-        <div>
-          <div class="benefit-title">농장 기록을 직접 확인</div>
-          <p class="benefit-copy">단순한 문장이 아니라 실제 움직임과 기록을 보면서 계란이 온 환경을 확인할 수 있어요.</p>
+      <div class="feature-list">
+        <div class="feature">
+          <div class="feature-icon">🎥</div>
+          <div>
+            <div class="feature-title">농장 기록을 직접 확인</div>
+            <p class="feature-copy">문장으로만 설명하지 않고, 실제 영상과 흐름을 함께 보여드려요.</p>
+          </div>
         </div>
-      </div>
 
-      <div class="benefit">
-        <div class="benefit-icon">🐓</div>
-        <div>
-          <div class="benefit-title">더 자연스러운 흐름</div>
-          <p class="benefit-copy">닭들이 어떻게 움직이고 쉬는지, 한눈에 이해할 수 있는 방식으로 정리해드려요.</p>
+        <div class="feature">
+          <div class="feature-icon">🐓</div>
+          <div>
+            <div class="feature-title">더 자연스러운 농장 흐름</div>
+            <p class="feature-copy">닭들이 어떻게 움직이고 쉬는지 직관적으로 이해할 수 있도록 정리했어요.</p>
+          </div>
         </div>
-      </div>
 
-      <div class="benefit">
-        <div class="benefit-icon">🥚</div>
-        <div>
-          <div class="benefit-title">보고 나서 선택하는 경험</div>
-          <p class="benefit-copy">그냥 믿는 게 아니라 직접 보고 안심하고 고를 수 있는 페이지를 지향합니다.</p>
+        <div class="feature">
+          <div class="feature-icon">🥚</div>
+          <div>
+            <div class="feature-title">보고 나서 선택하는 경험</div>
+            <p class="feature-copy">그냥 믿는 것이 아니라, 직접 보고 안심하고 고를 수 있는 페이지를 지향합니다.</p>
+          </div>
         </div>
       </div>
     </div>
 
     <div>
       <div class="card subscribe-card">
-        <div class="subscribe-top">
+        <div class="subscribe-head">
           <div class="section-title" style="margin:0;">정기 구독</div>
           <div class="subscribe-emoji">📦</div>
         </div>
@@ -872,5 +840,6 @@ if (video && badge) {{
 </html>
 """
     return HTMLResponse(page)
+
 
 
