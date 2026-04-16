@@ -247,315 +247,147 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>JCR</title>
-  <style>
-    * {{ box-sizing:border-box; }}
-    body {{
-      margin:0;
-      background:#f3f4f2;
-      font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
-      color:#111;
-    }}
-    .page {{
-      max-width:1180px;
-      margin:0 auto;
-      padding:28px 20px 40px;
-    }}
-    .back-link {{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      text-decoration:none;
-      color:#111;
-      font-size:14px;
-      font-weight:700;
-      margin-bottom:14px;
-    }}
-    .top {{
-      display:flex;
-      align-items:center;
-      margin-bottom:18px;
-    }}
-    .logo {{
-      font-size:38px;
-      font-weight:900;
-      letter-spacing:-1.5px;
-    }}
-    .headline {{
-      font-size:34px;
-      font-weight:900;
-      letter-spacing:-0.8px;
-      margin:0 0 10px;
-    }}
-    .sub {{
-      color:#666;
-      font-size:15px;
-      margin-bottom:20px;
-    }}
-    .hero-grid {{
-      display:grid;
-      grid-template-columns:1.1fr 0.9fr;
-      gap:18px;
-      align-items:start;
-      margin-bottom:18px;
-    }}
-    .card {{
-      background:#fff;
-      border-radius:28px;
-      padding:18px;
-      box-shadow:0 6px 18px rgba(0,0,0,0.06);
-      margin-bottom:18px;
-    }}
-    .video-box {{
-      position:relative;
-      overflow:hidden;
-      border-radius:24px;
-      background:#ddd;
-    }}
-    video {{
-      width:100%;
-      display:block;
-      border-radius:24px;
-      background:#111;
-    }}
-    .play {{
-      position:absolute;
-      left:50%;
-      top:50%;
-      transform:translate(-50%,-50%);
-      width:82px;
-      height:82px;
-      border-radius:50%;
-      background:#b8efd4;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:36px;
-      color:#1f4b39;
-      box-shadow:0 8px 24px rgba(112,220,176,0.35);
-      pointer-events:none;
-      transition:opacity .2s ease;
-    }}
-    .play.hidden {{
-      opacity:0;
-    }}
-    .section-title {{
-      font-size:22px;
-      font-weight:800;
-      margin-bottom:8px;
-      letter-spacing:-0.4px;
-    }}
-    .summary-hero {{
-      background:#f7fbf8;
-      border:1px solid #dceee2;
-      border-radius:22px;
-      padding:18px;
-      margin-bottom:14px;
-    }}
-    .summary-hero .big {{
-      font-size:20px;
-      font-weight:800;
-      line-height:1.5;
-      letter-spacing:-0.3px;
-      margin-bottom:8px;
-    }}
-    .summary-hero .small {{
-      color:#5f6b63;
-      font-size:15px;
-      line-height:1.7;
-    }}
-    .status-grid {{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:10px;
-      margin-top:10px;
-    }}
-    .human-box {{
-      background:#fafafa;
-      border:1px solid #efefef;
-      border-radius:18px;
-      padding:14px;
-    }}
-    .human-box .label {{
-      font-size:13px;
-      color:#7a7a7a;
-      margin-bottom:8px;
-    }}
-    .human-box .value {{
-      font-size:20px;
-      font-weight:900;
-      letter-spacing:-0.4px;
-    }}
-    .event-row {{
-      background:#fff;
-      border-radius:20px;
-      box-shadow:0 2px 8px rgba(0,0,0,0.05);
-      padding:12px 14px;
-      display:flex;
-      align-items:flex-start;
-      gap:12px;
-      margin-bottom:12px;
-    }}
-    .icon-box {{
-      width:48px;
-      height:48px;
-      border-radius:16px;
-      background:#d9f5e7;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:22px;
-      color:#2b5c49;
-      flex:0 0 auto;
-    }}
-    .event-time {{
-      color:#6b8a74;
-      font-size:13px;
-      margin-bottom:3px;
-    }}
-    .event-text {{
-      font-size:16px;
-      font-weight:700;
-      line-height:1.55;
-      margin-bottom:8px;
-      word-break:keep-all;
-      color:#234030;
-    }}
-    .alert-row {{
-      background:#e8f7ec;
-      color:#234030;
-      border:1px solid #d6eedc;
-    }}
-    .alert-row .icon-box {{
-      background:#d8f0df;
-      color:#2b5c49;
-    }}
-    .alert-row .event-time {{
-      color:#6b8a74;
-    }}
-    .link-row {{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }}
-    .mini-btn {{
-      display:inline-block;
-      padding:8px 12px;
-      border-radius:999px;
-      text-decoration:none;
-      font-size:13px;
-      font-weight:700;
-      background:#f2f2f2;
-      color:#111;
-      border:1px solid #e5e5e5;
-    }}
-    .cta-wrap {{
-      margin-top:18px;
-    }}
-    .cta-btn {{
-      display:block;
-      width:100%;
-      text-align:center;
-      text-decoration:none;
-      padding:18px 20px;
-      border-radius:18px;
-      background:#111;
-      color:#fff;
-      font-size:18px;
-      font-weight:800;
-      letter-spacing:-0.3px;
-    }}
-    @media (max-width:900px) {{
-      .hero-grid {{ grid-template-columns:1fr; }}
-      .status-grid {{ grid-template-columns:1fr; }}
-      .headline {{ font-size:28px; }}
-      .page {{ padding:18px 14px 28px; }}
-    }}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JCR</title>
+<style>
+* {{ box-sizing:border-box; }}
+body {{
+  margin:0;
+  background:#f6f2ea;
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
+  color:#111;
+}}
+.page {{
+  max-width:430px;
+  margin:0 auto;
+  padding:18px 14px 40px;
+}}
+.card {{
+  background:#fff;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 10px 24px rgba(0,0,0,0.08);
+  margin-bottom:16px;
+}}
+.hero {{
+  background:linear-gradient(180deg,#fff8e8,#ffffff);
+}}
+.hero h1 {{
+  font-size:30px;
+  line-height:1.2;
+  margin:0 0 10px;
+}}
+.hero p {{
+  color:#666;
+  line-height:1.6;
+}}
+.hero-btn {{
+  display:block;
+  text-align:center;
+  padding:16px;
+  border-radius:18px;
+  background:#f5c045;
+  color:#111;
+  text-decoration:none;
+  font-weight:800;
+  margin-top:16px;
+}}
+.brand {{
+  font-size:34px;
+  font-weight:900;
+  margin-bottom:14px;
+}}
+.section-title {{
+  font-size:22px;
+  font-weight:900;
+  margin-bottom:12px;
+}}
+.metric {{
+  padding:14px;
+  background:#faf8f4;
+  border-radius:18px;
+  margin-bottom:10px;
+}}
+.metric .k {{
+  font-size:13px;
+  color:#888;
+  margin-bottom:4px;
+}}
+.metric .v {{
+  font-size:22px;
+  font-weight:900;
+}}
+.cta {{
+  display:block;
+  width:100%;
+  text-align:center;
+  text-decoration:none;
+  background:#111;
+  color:#fff;
+  padding:16px;
+  border-radius:18px;
+  font-weight:900;
+  margin-top:14px;
+}}
+</style>
 </head>
 <body>
-  <div class="page">
-    <a href="https://junada040828.cafe24.com/skin-skin7" target="_blank" class="back-link">← 구매 페이지로 돌아가기</a>
+<div class="page">
 
-    <div class="top">
-      <div class="logo">JCR.</div>
-    </div>
+<div class="brand">JCR.</div>
 
-    <div class="headline">농장 하루 요약</div>
-    <div class="sub">AI가 오늘 농장의 움직임을 살펴보고 편안하게 읽을 수 있게 정리했어요 🌿</div>
+<div class="card hero">
+  <h1>농장의 하루를<br>직접 확인해보세요</h1>
+  <p>내가 먹는 계란이 어떤 환경에서 왔는지, 농장의 흐름과 분위기를 직접 보고 확인할 수 있어요.</p>
+  <a href="#farm-video" class="hero-btn">농장 실시간 기록 보러가기</a>
+</div>
 
-    <div class="hero-grid">
-      <div>
-        <div class="card">
-          {video_html}
-        </div>
-      </div>
+<div class="card" id="farm-video">
+  {video_html}
+</div>
 
-      <div>
-        <div class="card">
-          <div class="section-title">오늘 한 줄 요약</div>
+<div class="card">
+  <div class="section-title">오늘의 농장 이야기</div>
+  <p style="font-size:20px;font-weight:800;line-height:1.5;">{html.escape(one_line)}</p>
+  <p style="line-height:1.7;color:#666;">{html.escape(summary)}</p>
+</div>
 
-          <div class="summary-hero">
-            <div class="big">{html.escape(one_line)}</div>
-            <div class="small">{html.escape(summary)}</div>
-          </div>
+<div class="card">
+  <div class="section-title">오늘의 흐름</div>
+  <div class="metric"><div class="k">움직임</div><div class="v">{motion_text(metrics)}</div></div>
+  <div class="metric"><div class="k">군집 흐름</div><div class="v">{density_text(metrics)}</div></div>
+  <div class="metric"><div class="k">변화 정도</div><div class="v">{change_text(metrics)}</div></div>
+</div>
 
-          <div class="status-grid">
-            <div class="human-box">
-              <div class="label">움직임</div>
-              <div class="value">{motion_text(metrics)}</div>
-            </div>
-            <div class="human-box">
-              <div class="label">모여 있는 정도</div>
-              <div class="value">{density_text(metrics)}</div>
-            </div>
-            <div class="human-box">
-              <div class="label">오늘의 변화</div>
-              <div class="value">{change_text(metrics)}</div>
-            </div>
-          </div>
+<div class="card">
+  <div class="section-title">왜 더 믿을 수 있을까요?</div>
+  <p style="line-height:1.7;color:#666;">
+    JCR은 단순히 계란만 판매하는 것이 아니라,
+    소비자가 직접 농장의 흐름을 보고 안심하고 선택할 수 있도록
+    투명한 브랜드 경험을 제공합니다.
+  </p>
+</div>
 
-          <div class="cta-wrap">
-            <a href="https://junada040828.cafe24.com/skin-skin7" target="_blank" class="cta-btn">
-              JCR 계란 구독하기
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="card">
+  <div class="section-title">정기 구독</div>
+  <p style="line-height:1.7;color:#666;">
+    오늘 확인한 농장 환경 그대로,
+    더 편하게 JCR 계란을 집에서 받아보세요.
+  </p>
+  <a href="https://junada040828.cafe24.com/skin-skin7" target="_blank" class="cta">JCR 계란 구독하기</a>
+</div>
 
-    <div class="card">
-      <div class="section-title">최근 패턴 변화</div>
-      {card_html(e1, "🪺")}
-      {card_html(e2, "♡")}
-      {card_html(e3, "⚠")}
-    </div>
-  </div>
+<div class="card">
+  <div class="section-title">최근 패턴 변화</div>
+  {card_html(e1, "🌿")}
+  {card_html(e2, "🐔")}
+  {card_html(e3, "🥚")}
+</div>
 
-  <script>
-    const video = document.getElementById("mainVideo");
-    const badge = document.getElementById("playBadge");
-
-    if (video && badge) {{
-      function hideBadge() {{
-        badge.classList.add("hidden");
-      }}
-
-      function showBadge() {{
-        if (video.paused) {{
-          badge.classList.remove("hidden");
-        }}
-      }}
-
-      video.addEventListener("play", hideBadge);
-      video.addEventListener("playing", hideBadge);
-      video.addEventListener("pause", showBadge);
-      video.addEventListener("ended", showBadge);
-    }}
-  </script>
+</div>
 </body>
 </html>
 """
     return HTMLResponse(page)
+
