@@ -237,7 +237,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
         '''
         if video_source
         else '''
-        <div class="video-box" style="display:flex;align-items:center;justify-content:center;min-height:320px;color:#666;font-weight:700;">
+        <div class="video-box" style="display:flex;align-items:center;justify-content:center;min-height:320px;color:#5f7466;font-weight:700;">
           아직 표시할 영상이 준비되지 않았어요.
         </div>
         '''
@@ -254,24 +254,25 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 * {{ box-sizing:border-box; }}
 body {{
   margin:0;
-  background:#f6f2ea;
+  background:linear-gradient(180deg,#eef8f1 0%,#f6fbf7 45%,#eef5ef 100%);
   font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
-  color:#111;
+  color:#173323;
 }}
 .page {{
-  max-width:430px;
+  max-width:760px;
   margin:0 auto;
   padding:18px 14px 40px;
 }}
 .card {{
-  background:#fff;
+  background:#fcfffd;
   border-radius:24px;
   padding:18px;
-  box-shadow:0 10px 24px rgba(0,0,0,0.08);
+  box-shadow:0 10px 28px rgba(56,108,73,0.10);
   margin-bottom:16px;
+  border:1px solid #e0efe4;
 }}
 .hero {{
-  background:linear-gradient(180deg,#fff8e8,#ffffff);
+  background:linear-gradient(180deg,#e5f7ea,#f9fffb);
 }}
 .hero h1 {{
   font-size:30px;
@@ -279,7 +280,7 @@ body {{
   margin:0 0 10px;
 }}
 .hero p {{
-  color:#666;
+  color:#5f7466;
   line-height:1.6;
 }}
 .hero-btn {{
@@ -287,8 +288,8 @@ body {{
   text-align:center;
   padding:16px;
   border-radius:18px;
-  background:#f5c045;
-  color:#111;
+  background:linear-gradient(180deg,#c9efd5,#aee4c1);
+  color:#173323;
   text-decoration:none;
   font-weight:800;
   margin-top:16px;
@@ -297,6 +298,7 @@ body {{
   font-size:34px;
   font-weight:900;
   margin-bottom:14px;
+  color:#163525;
 }}
 .section-title {{
   font-size:22px;
@@ -305,9 +307,10 @@ body {{
 }}
 .metric {{
   padding:14px;
-  background:#faf8f4;
+  background:#edf7f0;
   border-radius:18px;
   margin-bottom:10px;
+  border:1px solid #d9ebdf;
 }}
 .metric .k {{
   font-size:13px;
@@ -323,8 +326,8 @@ body {{
   width:100%;
   text-align:center;
   text-decoration:none;
-  background:#111;
-  color:#fff;
+  background:#1d6b42;
+  color:#ffffff;
   padding:16px;
   border-radius:18px;
   font-weight:900;
@@ -350,7 +353,7 @@ body {{
 <div class="card">
   <div class="section-title">오늘의 농장 이야기</div>
   <p style="font-size:20px;font-weight:800;line-height:1.5;">{html.escape(one_line)}</p>
-  <p style="line-height:1.7;color:#666;">{html.escape(summary)}</p>
+  <p style="line-height:1.7;color:#5f7466;">{html.escape(summary)}</p>
 </div>
 
 <div class="card">
@@ -362,7 +365,7 @@ body {{
 
 <div class="card">
   <div class="section-title">왜 더 믿을 수 있을까요?</div>
-  <p style="line-height:1.7;color:#666;">
+  <p style="line-height:1.7;color:#5f7466;">
     JCR은 단순히 계란만 판매하는 것이 아니라,
     소비자가 직접 농장의 흐름을 보고 안심하고 선택할 수 있도록
     투명한 브랜드 경험을 제공합니다.
@@ -371,7 +374,7 @@ body {{
 
 <div class="card">
   <div class="section-title">정기 구독</div>
-  <p style="line-height:1.7;color:#666;">
+  <p style="line-height:1.7;color:#5f7466;">
     오늘 확인한 농장 환경 그대로,
     더 편하게 JCR 계란을 집에서 받아보세요.
   </p>
