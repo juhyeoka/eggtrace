@@ -720,17 +720,17 @@ video {{
 <body>
 <div class="page">
   <div class="topbar">
-    <div class="brand">JCR.</div>
+    <div class="brand">아이란</div>
     <a href="https://junada040828.cafe24.com/skin-skin10" target="_blank" class="back-link">🛒 구매 페이지</a>
   </div>
 
   <div class="hero-grid">
     <div class="card hero-copy-card">
-      <div class="hero-badge">🌿 Cage Free Farm Story</div>
+      <div class="hero-badge">🐣 AIRAN Farm Story</div>
       <h1 class="hero-title">내가 먹는 계란,<br>농장의 하루를 보고 고르세요</h1>
       <p class="hero-sub">단순히 계란을 판매하는 것이 아니라, 소비자가 직접 농장의 흐름과 분위기를 보고 안심하고 선택할 수 있는 경험을 만들고 싶었습니다.</p>
-      <a href="https://junada040828.cafe24.com/skin-skin10" target="_blank" class="hero-cta">🥚 지금 구독하러 가기</a>
-      <div class="hero-note">오늘 농장 기록, 최근 흐름, 변화 요약까지 한 화면에서 편하게 확인할 수 있어요. 보고 고르는 경험이 JCR의 핵심입니다 ✨</div>
+      <a href="https://junada040828.cafe24.com/skin-skin10" target="_blank" class="hero-cta">🐣 아이란 구독하러 가기</a>
+      <div class="hero-note">오늘 농장 기록, 최근 흐름, 변화 요약까지 한 화면에서 편하게 확인할 수 있어요. 보고 고르는 경험이 아이란의 핵심입니다 ✨</div>
     </div>
 
     <div class="card video-card" id="farm-video">
