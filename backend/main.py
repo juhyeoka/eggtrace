@@ -721,7 +721,7 @@ video {{
 <div class="page">
   <div class="topbar">
     <div class="brand">JCR.</div>
-    <a href="https://junada040828.cafe24.com/skin-skin7" target="_blank" class="back-link">🛒 구매 페이지</a>
+    <a href="https://junada040828.cafe24.com/skin-skin10" target="_blank" class="back-link">🛒 구매 페이지</a>
   </div>
 
   <div class="hero-grid">
@@ -729,7 +729,7 @@ video {{
       <div class="hero-badge">🌿 Cage Free Farm Story</div>
       <h1 class="hero-title">내가 먹는 계란,<br>농장의 하루를 보고 고르세요</h1>
       <p class="hero-sub">단순히 계란을 판매하는 것이 아니라, 소비자가 직접 농장의 흐름과 분위기를 보고 안심하고 선택할 수 있는 경험을 만들고 싶었습니다.</p>
-      <a href="https://junada040828.cafe24.com/skin-skin7" target="_blank" class="hero-cta">🥚 지금 구독하러 가기</a>
+      <a href="https://junada040828.cafe24.com/skin-skin10" target="_blank" class="hero-cta">🥚 지금 구독하러 가기</a>
       <div class="hero-note">오늘 농장 기록, 최근 흐름, 변화 요약까지 한 화면에서 편하게 확인할 수 있어요. 보고 고르는 경험이 JCR의 핵심입니다 ✨</div>
     </div>
 
@@ -802,7 +802,7 @@ video {{
           <div class="subscribe-emoji">📦</div>
         </div>
         <p class="subscribe-copy">오늘 확인한 농장 환경 그대로, 더 편하게 JCR 계란을 집에서 받아보세요. 보고 끝나는 페이지가 아니라 구매까지 자연스럽게 이어지도록 만들었어요.</p>
-        <a href="https://junada040828.cafe24.com/skin-skin7" target="_blank" class="cta">JCR 계란 구독하기</a>
+        <a href="https://junada040828.cafe24.com/skin-skin10" target="_blank" class="cta">JCR 계란 구독하기</a>
       </div>
 
       <div class="card events-card">
