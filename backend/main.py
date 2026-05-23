@@ -254,16 +254,16 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 * {{ box-sizing:border-box; }}
 
 :root {{
-  --bg:#eef7f0;
-  --bg2:#f8fbf8;
+  --bg:#F3F8FF;
+  --bg2:#F8FBFF;
   --card:#ffffff;
-  --line:#dbeadf;
-  --text:#163322;
-  --sub:#5f7364;
-  --mint:#dff4e6;
-  --mint2:#c8ecd5;
-  --deep:#215c3a;
-  --shadow:0 12px 28px rgba(46,96,62,0.10);
+  --line:#DCEBFF;
+  --text:#102A43;
+  --sub:#64748B;
+  --mint:#E6F4FF;
+  --mint2:#CFEAFF;
+  --deep:#3182F6;
+  --shadow:0 12px 28px rgba(49,130,246,0.10);
   --radius:26px;
 }}
 
@@ -291,7 +291,7 @@ body {{
   font-size:42px;
   font-weight:900;
   letter-spacing:-1.6px;
-  color:#153422;
+  color:#102A43;
 }}
 
 .back-link {{
@@ -306,7 +306,7 @@ body {{
   border:1px solid var(--line);
   border-radius:999px;
   padding:11px 16px;
-  box-shadow:0 6px 16px rgba(46,96,62,0.06);
+  box-shadow:0 6px 16px rgba(49,130,246,0.06);
 }}
 
 .hero-grid {{
@@ -329,7 +329,7 @@ body {{
   display:flex;
   flex-direction:column;
   justify-content:center;
-  background:linear-gradient(180deg,#ecf8ef 0%, #ffffff 100%);
+  background:linear-gradient(180deg,#EEF7FF 0%, #ffffff 100%);
 }}
 
 .hero-badge {{
@@ -339,11 +339,11 @@ body {{
   width:max-content;
   padding:8px 12px;
   border-radius:999px;
-  background:#f7fcf8;
+  background:#F8FBFF;
   border:1px solid var(--line);
   font-size:12px;
   font-weight:900;
-  color:#56735e;
+  color:#64748B;
   margin-bottom:14px;
 }}
 
@@ -353,7 +353,7 @@ body {{
   letter-spacing:-1.4px;
   font-weight:900;
   margin:0 0 12px;
-  color:#183524;
+  color:#102A43;
 }}
 
 .hero-sub {{
@@ -371,18 +371,18 @@ body {{
   min-width:220px;
   padding:16px 22px;
   border-radius:18px;
-  background:#1e6a42;
+  background:#3182F6;
   color:#fff;
   text-decoration:none;
   font-weight:900;
   font-size:16px;
-  box-shadow:0 10px 20px rgba(31,93,58,0.18);
+  box-shadow:0 10px 20px rgba(49,130,246,0.18);
 }}
 
 .hero-note {{
   margin-top:18px;
   padding:14px 16px;
-  background:#f6fbf7;
+  background:#F8FBFF;
   border:1px solid var(--line);
   border-radius:18px;
   color:var(--sub);
@@ -392,7 +392,7 @@ body {{
 
 .video-card {{
   padding:14px;
-  background:linear-gradient(180deg,#f9fdf9,#ffffff);
+  background:linear-gradient(180deg,#FBFDFF,#ffffff);
 }}
 
 .video-label {{
@@ -401,7 +401,7 @@ body {{
   gap:8px;
   font-size:14px;
   font-weight:900;
-  color:#4c7158;
+  color:#64748B;
   margin:0 0 10px;
 }}
 
@@ -409,7 +409,7 @@ body {{
   position:relative;
   overflow:hidden;
   border-radius:22px;
-  background:#d6ddd7;
+  background:#DCEBFF;
   min-height:340px;
   max-height:420px;
 }}
@@ -433,13 +433,13 @@ video {{
   width:82px;
   height:82px;
   border-radius:50%;
-  background:rgba(214,244,225,0.97);
+  background:rgba(230,244,255,0.97);
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:34px;
-  color:#29553d;
-  box-shadow:0 10px 24px rgba(79,154,108,0.24);
+  color:#2563EB;
+  box-shadow:0 10px 24px rgba(49,130,246,0.20);
   pointer-events:none;
   transition:opacity .2s ease;
 }}
@@ -483,15 +483,15 @@ video {{
 
 .metric {{
   padding:16px;
-  background:#f1faf3;
-  border:1px solid #d7eadc;
+  background:#F3F8FF;
+  border:1px solid #DCEBFF;
   border-radius:20px;
 }}
 
 .metric .k {{
   font-size:12px;
   font-weight:900;
-  color:#76907c;
+  color:#64748B;
   margin-bottom:8px;
 }}
 
@@ -543,7 +543,7 @@ video {{
   gap:12px;
   align-items:flex-start;
   padding:14px;
-  background:#f8fcf9;
+  background:#F8FBFF;
   border:1px solid var(--line);
   border-radius:18px;
 }}
@@ -576,7 +576,7 @@ video {{
 .subscribe-card {{
   padding:22px;
   margin-bottom:18px;
-  background:linear-gradient(180deg,#ecf8ef,#ffffff);
+  background:linear-gradient(180deg,#EEF7FF,#ffffff);
 }}
 
 .subscribe-head {{
@@ -604,14 +604,14 @@ video {{
   width:100%;
   text-align:center;
   text-decoration:none;
-  background:#1e6a42;
+  background:#3182F6;
   color:#fff;
   padding:18px;
   border-radius:18px;
   font-size:17px;
   font-weight:900;
   letter-spacing:-0.3px;
-  box-shadow:0 10px 20px rgba(31,93,58,0.18);
+  box-shadow:0 10px 20px rgba(49,130,246,0.18);
 }}
 
 .events-card {{
@@ -619,14 +619,14 @@ video {{
 }}
 
 .event-row {{
-  background:#f7fcf8;
+  background:#F8FBFF;
   border-radius:20px;
   padding:14px;
   display:flex;
   align-items:flex-start;
   gap:12px;
   margin-bottom:12px;
-  border:1px solid #dfeee3;
+  border:1px solid #DCEBFF;
 }}
 
 .event-row:last-child {{
@@ -634,25 +634,25 @@ video {{
 }}
 
 .alert-row {{
-  background:#e8f7ec;
-  border:1px solid #d4ead8;
+  background:#E6F4FF;
+  border:1px solid #DCEBFF;
 }}
 
 .icon-box {{
   width:46px;
   height:46px;
   border-radius:14px;
-  background:#d8f0df;
+  background:#CFEAFF;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:21px;
-  color:#2b5c49;
+  color:#2563EB;
   flex:0 0 auto;
 }}
 
 .event-time {{
-  color:#6b8a74;
+  color:#64748B;
   font-size:12px;
   font-weight:900;
   margin-bottom:4px;
@@ -662,7 +662,7 @@ video {{
   font-size:15px;
   line-height:1.65;
   font-weight:800;
-  color:#234030;
+  color:#102A43;
   margin-bottom:10px;
   word-break:keep-all;
 }}
@@ -684,9 +684,9 @@ video {{
   text-decoration:none;
   font-size:12px;
   font-weight:900;
-  background:#f3fbf5;
-  color:#1d6a42;
-  border:1px solid #cfe5d5;
+  background:#F3F8FF;
+  color:#3182F6;
+  border:1px solid #DCEBFF;
   white-space:nowrap;
 }}
 
