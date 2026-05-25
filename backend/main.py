@@ -237,7 +237,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
         '''
         if video_source
         else '''
-        <div class="video-box" style="display:flex;align-items:center;justify-content:center;min-height:320px;color:#5f7466;font-weight:700;">
+        <div class="video-box" style="display:flex;align-items:center;justify-content:space-between;min-height:320px;color:#5f7466;font-weight:700;">
           아직 표시할 영상이 준비되지 않았어요.
         </div>
         '''
@@ -288,8 +288,8 @@ body {{
 }}
 
 .brand {{
-  font-size:42px;
-  font-weight:900;
+  font-size:48px;
+  font-weight:800;
   letter-spacing:-1.6px;
   color:#4A3B00;
 }}
@@ -301,7 +301,7 @@ body {{
   text-decoration:none;
   color:var(--deep);
   font-size:14px;
-  font-weight:900;
+  font-weight:800;
   background:rgba(255,255,255,0.8);
   border:1px solid var(--line);
   border-radius:999px;
@@ -328,7 +328,7 @@ body {{
   padding:28px 24px;
   display:flex;
   flex-direction:column;
-  justify-content:center;
+  justify-content:space-between;
   background:linear-gradient(180deg,#FFF8D9 0%, #ffffff 100%);
 }}
 
@@ -342,16 +342,16 @@ body {{
   background:#FFFDF5;
   border:1px solid var(--line);
   font-size:12px;
-  font-weight:900;
+  font-weight:800;
   color:#7A6A2F;
   margin-bottom:14px;
 }}
 
 .hero-title {{
-  font-size:42px;
+  font-size:48px;
   line-height:1.12;
-  letter-spacing:-1.4px;
-  font-weight:900;
+  letter-spacing:-2px;
+  font-weight:800;
   margin:0 0 12px;
   color:#4A3B00;
 }}
@@ -366,7 +366,7 @@ body {{
 .hero-cta {{
   display:inline-flex;
   align-items:center;
-  justify-content:center;
+  justify-content:space-between;
   width:max-content;
   min-width:220px;
   padding:16px 22px;
@@ -374,7 +374,7 @@ body {{
   background:#F5B700;
   color:#fff;
   text-decoration:none;
-  font-weight:900;
+  font-weight:800;
   font-size:16px;
   box-shadow:0 10px 20px rgba(245,183,0,0.18);
 }}
@@ -400,7 +400,7 @@ body {{
   align-items:center;
   gap:8px;
   font-size:14px;
-  font-weight:900;
+  font-weight:800;
   color:#7A6A2F;
   margin:0 0 10px;
 }}
@@ -436,7 +436,7 @@ video {{
   background:rgba(255,248,217,0.97);
   display:flex;
   align-items:center;
-  justify-content:center;
+  justify-content:space-between;
   font-size:34px;
   color:#E0A100;
   box-shadow:0 10px 24px rgba(245,183,0,0.20);
@@ -455,7 +455,7 @@ video {{
 
 .section-title {{
   font-size:28px;
-  font-weight:900;
+  font-weight:800;
   letter-spacing:-0.8px;
   margin:0 0 12px;
 }}
@@ -463,7 +463,7 @@ video {{
 .summary-main {{
   font-size:24px;
   line-height:1.5;
-  font-weight:900;
+  font-weight:800;
   letter-spacing:-0.5px;
   margin:0 0 10px;
 }}
@@ -490,14 +490,14 @@ video {{
 
 .metric .k {{
   font-size:12px;
-  font-weight:900;
+  font-weight:800;
   color:#7A6A2F;
   margin-bottom:8px;
 }}
 
 .metric .v {{
   font-size:26px;
-  font-weight:900;
+  font-weight:800;
   letter-spacing:-0.7px;
   margin-bottom:6px;
 }}
@@ -521,7 +521,7 @@ video {{
 .info-head {{
   font-size:30px;
   line-height:1.12;
-  font-weight:900;
+  font-weight:800;
   letter-spacing:-1px;
   margin:0 0 10px;
 }}
@@ -555,14 +555,14 @@ video {{
   background:var(--mint);
   display:flex;
   align-items:center;
-  justify-content:center;
+  justify-content:space-between;
   font-size:20px;
   flex:0 0 auto;
 }}
 
 .feature-title {{
   font-size:16px;
-  font-weight:900;
+  font-weight:800;
   margin:0 0 4px;
 }}
 
@@ -609,7 +609,7 @@ video {{
   padding:18px;
   border-radius:18px;
   font-size:17px;
-  font-weight:900;
+  font-weight:800;
   letter-spacing:-0.3px;
   box-shadow:0 10px 20px rgba(245,183,0,0.18);
 }}
@@ -645,7 +645,7 @@ video {{
   background:#FFE89A;
   display:flex;
   align-items:center;
-  justify-content:center;
+  justify-content:space-between;
   font-size:21px;
   color:#E0A100;
   flex:0 0 auto;
@@ -654,7 +654,7 @@ video {{
 .event-time {{
   color:#7A6A2F;
   font-size:12px;
-  font-weight:900;
+  font-weight:800;
   margin-bottom:4px;
 }}
 
@@ -677,13 +677,13 @@ video {{
 .mini-btn {{
   display:inline-flex;
   align-items:center;
-  justify-content:center;
+  justify-content:space-between;
   min-width:88px;
   padding:9px 14px;
   border-radius:999px;
   text-decoration:none;
   font-size:12px;
-  font-weight:900;
+  font-weight:800;
   background:#FFFBEA;
   color:#F5B700;
   border:1px solid #F6E7B0;
@@ -719,7 +719,7 @@ video {{
 </head>
 <body>
 <div class="page">
-  <div class="topbar"><div class="brand">Iran</div></div>
+  <div class="topbar" style="display:flex;align-items:center;justify-content:center;padding:8px 0 24px;"><div class="brand">EyeRan</div></div>
     
   </div>
 
