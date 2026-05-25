@@ -728,7 +728,7 @@ video {{
       <div class="hero-badge">🐣 IRAN Farm Story</div>
       <h1 class="hero-title">내가 먹는 계란,<br>농장의 하루를 보고 고르세요</h1>
       <p class="hero-sub">단순히 계란을 판매하는 것이 아니라, 소비자가 직접 농장의 흐름과 분위기를 보고 안심하고 선택할 수 있는 경험을 만들고 싶었습니다.</p>
-      <a href="https://www.instagram.com/naran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="hero-cta">🐣 아이란 구독하러 가기</a>
+      <a href="https://www.instagram.com/naran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="hero-cta">🐣 아이란 인스타그램</a>
       <div class="hero-note">오늘 농장 기록, 최근 흐름, 변화 요약까지 한 화면에서 편하게 확인할 수 있어요. 보고 고르는 경험이 아이란의 핵심입니다 ✨</div>
     </div>
 
@@ -801,7 +801,7 @@ video {{
           <div class="subscribe-emoji">📦</div>
         </div>
         <p class="subscribe-copy">농장을 직접 확인한 계란이니까, 믿고 꾸준히 드실 수 있어요. 정기배송으로 신청하면 매번 주문할 필요 없이 신선한 아이란이 정해진 날에 집 앞에 옵니다.</p>
-        <a href="https://www.instagram.com/naran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="cta">아이란 구독하기</a>
+        <a href="https://www.instagram.com/naran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="cta">아이란 인스타그램</a>
       </div>
 
       <div class="card events-card">
