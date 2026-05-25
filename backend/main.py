@@ -202,15 +202,10 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 
     e1, e2, e3 = recent_cards[0], recent_cards[1], recent_cards[2]
     
-    video_source = (
-        "/videos/highlight.mp4"
-        if (VIDEOS_DIR / "highlight.mp4").exists()
-        else (
-            "/videos/clip0525.mp4"
-            if (VIDEOS_DIR / "clip0525.mp4").exists()
-            else ""
-        )
-    )
+    video_source = "/videos/demo.mp4"
+
+    if (VIDEOS_DIR / "ai_event_1.mp4").exists():
+        video_source = "/videos/ai_event_1.mp4"
 
 
     def card_html(ev, icon: str) -> str:
@@ -815,6 +810,17 @@ video {{
       </div>
 
       <div class="card events-card">
+
+        <div class="feature" style="margin-bottom:16px;">
+          <div class="feature-icon">🤖</div>
+          <div>
+            <div class="feature-title">AI 영상 분석 리포트</div>
+            <p class="feature-copy">
+              AI가 영상 속 움직임 변화, 군집 흐름, 활동량이 높은 구간을 자동 분석해 주요 이벤트를 추출했습니다.
+            </p>
+          </div>
+        </div>
+
         <div class="section-title">AI 최근 패턴 분석 🍃</div>
 
         <div class="feature" style="margin-bottom:14px;">
