@@ -249,7 +249,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>EyeRan</title>
+<title>EYERAN</title>
 <style>
 * {{ box-sizing:border-box; }}
 
@@ -719,7 +719,7 @@ video {{
 </head>
 <body>
 <div class="page">
-  <div class="topbar"><div class="brand">Eye ran</div></div>
+  <div class="topbar"><div class="brand">EYERAN</div></div>
     
   </div>
 
@@ -728,8 +728,8 @@ video {{
       <div class="hero-badge">✦ EYERAN Farm Story</div>
       <h1 class="hero-title">내가 먹는 계란,<br>농장의 하루를 보고 고르세요</h1>
       <p class="hero-sub">단순히 계란을 판매하는 것이 아니라, 소비자가 직접 농장의 흐름과 분위기를 보고 안심하고 선택할 수 있는 경험을 만들고 싶었습니다.</p>
-      <a href="https://www.instagram.com/eyeran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="hero-cta">✦ EyeRan 인스타그램</a>
-      <div class="hero-note">오늘 농장 기록, 최근 흐름, 변화 요약까지 한 화면에서 편하게 확인할 수 있어요. 보고 고르는 경험이 EyeRan의 핵심입니다 ✨</div>
+      <a href="https://www.instagram.com/eyeran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="hero-cta">✦ EYERAN 인스타그램</a>
+      <div class="hero-note">오늘 농장 기록, 최근 흐름, 변화 요약까지 한 화면에서 편하게 확인할 수 있어요. 보고 고르는 경험이 EYERAN의 핵심입니다 ✨</div>
     </div>
 
     <div class="card video-card" id="farm-video">
@@ -765,7 +765,7 @@ video {{
   <div class="lower-grid">
     <div class="card info-card">
       <div class="info-head">왜 더 믿을 수 있을까요? 🌿</div>
-      <p class="info-copy">EyeRan은 소비자가 직접 보고 선택할 수 있는 투명한 브랜드 경험을 제공합니다. 계란의 출발점인 농장 환경을 먼저 보여주는 게 맞다고 생각했습니다.</p>
+      <p class="info-copy">EYERAN은 소비자가 직접 보고 선택할 수 있는 투명한 브랜드 경험을 제공합니다. 계란의 출발점인 농장 환경을 먼저 보여주는 게 맞다고 생각했습니다.</p>
 
       <div class="feature-list">
         <div class="feature">
@@ -801,7 +801,7 @@ video {{
           <div class="subscribe-emoji">📦</div>
         </div>
         <p class="subscribe-copy">농장을 직접 확인한 계란이니까, 믿고 꾸준히 드실 수 있어요. 정기배송으로 신청하면 매번 주문할 필요 없이 신선한 아이란이 정해진 날에 집 앞에 옵니다.</p>
-        <a href="https://www.instagram.com/eyeran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="cta">EyeRan 인스타그램</a>
+        <a href="https://www.instagram.com/eyeran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="cta">EYERAN 인스타그램</a>
       </div>
 
       <div class="card events-card">
