@@ -249,7 +249,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>JCR</title>
+<title>아이란</title>
 <style>
 * {{ box-sizing:border-box; }}
 
@@ -721,7 +721,7 @@ video {{
 <div class="page">
   <div class="topbar">
     <div class="brand">아이란</div>
-    <a href="https://junada040828.cafe24.com/skin-skin10" target="_blank" class="back-link">🛒 구매 페이지</a>
+    <a href="https://junada040828.cafe24.com/skin-skin10" target="_blank" class="back-link">🛒 아이란 쇼핑몰</a>
   </div>
 
   <div class="hero-grid">
@@ -730,7 +730,7 @@ video {{
       <h1 class="hero-title">내가 먹는 계란,<br>농장의 하루를 보고 고르세요</h1>
       <p class="hero-sub">단순히 계란을 판매하는 것이 아니라, 소비자가 직접 농장의 흐름과 분위기를 보고 안심하고 선택할 수 있는 경험을 만들고 싶었습니다.</p>
       <a href="https://junada040828.cafe24.com/skin-skin10" target="_blank" class="hero-cta">🐣 아이란 구독하러 가기</a>
-      <div class="hero-note">오늘 농장 기록, 최근 흐름, 변화 요약까지 한 화면에서 편하게 확인할 수 있어요. 보고 고르는 경험이 아이란의 핵심입니다 ✨</div>
+      <div class="hero-note">오늘 AI 분석과 농장 리포트를 한 화면에서 편하게 확인할 수 있어요. 투명하게 보고 선택하는 경험이 아이란의 핵심입니다 ✨</div>
     </div>
 
     <div class="card video-card" id="farm-video">
@@ -766,7 +766,7 @@ video {{
   <div class="lower-grid">
     <div class="card info-card">
       <div class="info-head">왜 더 믿을 수 있을까요? 🌿</div>
-      <p class="info-copy">JCR은 소비자가 직접 보고 선택할 수 있는 투명한 브랜드 경험을 제공합니다. 계란의 출발점인 농장 환경을 먼저 보여주는 게 맞다고 생각했습니다.</p>
+      <p class="info-copy">아이란은 소비자가 직접 보고 선택할 수 있는 투명한 브랜드 경험을 제공합니다. 계란의 출발점인 농장 환경을 먼저 보여주는 게 맞다고 생각했습니다.</p>
 
       <div class="feature-list">
         <div class="feature">
@@ -801,8 +801,8 @@ video {{
           <div class="section-title" style="margin:0;">정기 구독</div>
           <div class="subscribe-emoji">📦</div>
         </div>
-        <p class="subscribe-copy">오늘 확인한 농장 환경 그대로, 더 편하게 JCR 계란을 집에서 받아보세요. 보고 끝나는 페이지가 아니라 구매까지 자연스럽게 이어지도록 만들었어요.</p>
-        <a href="https://junada040828.cafe24.com/skin-skin10" target="_blank" class="cta">JCR 계란 구독하기</a>
+        <p class="subscribe-copy">오늘 확인한 농장 환경 그대로, 더 편하게 아이란 계란을 집에서 받아보세요. 보고 끝나는 페이지가 아니라 구매까지 자연스럽게 이어지도록 만들었어요.</p>
+        <a href="https://junada040828.cafe24.com/skin-skin10" target="_blank" class="cta">아이란 계란 구독하기</a>
       </div>
 
       <div class="card events-card">
