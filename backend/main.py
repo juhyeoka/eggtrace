@@ -720,7 +720,7 @@ video {{
 <body>
 <div class="page">
   <div class="topbar"><div class="brand">Iran</div></div>
-    <a href="https://junada040828.cafe24.com/skin-skin10/category/%EA%B3%84%EB%9E%80/42/#egg-list" target="_blank" class="back-link">🛒 구매 페이지</a>
+    
   </div>
 
   <div class="hero-grid">
