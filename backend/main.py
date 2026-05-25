@@ -721,7 +721,7 @@ video {{
 <div class="page">
   <div class="topbar">
     <div class="brand">아이란</div>
-    <a href="https://junada040828.cafe24.com/skin-skin10" target="_blank" class="back-link">🛒 구매 페이지</a>
+    <a href="https://junada040828.cafe24.com/skin-skin10/category/%EA%B3%84%EB%9E%80/42/#egg-list" target="_blank" class="back-link">🛒 구매 페이지</a>
   </div>
 
   <div class="hero-grid">
@@ -802,7 +802,7 @@ video {{
           <div class="subscribe-emoji">📦</div>
         </div>
         <p class="subscribe-copy">오늘 확인한 농장 환경 그대로, 더 편하게 아이란을 집에서 받아보세요. 보고 끝나는 페이지가 아니라 구매까지 자연스럽게 이어지도록 만들었어요.</p>
-        <a href="https://junada040828.cafe24.com/skin-skin10" target="_blank" class="cta">아이란 구독하기</a>
+        <a href="https://junada040828.cafe24.com/skin-skin10/category/%EA%B3%84%EB%9E%80/42/#egg-list" target="_blank" class="cta">아이란 구독하기</a>
       </div>
 
       <div class="card events-card">
