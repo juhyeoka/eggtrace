@@ -725,7 +725,7 @@ video {{
 
   <div class="hero-grid">
     <div class="card hero-copy-card">
-      <div class="hero-badge">✦ EyeRAN Farm Story</div>
+      <div class="hero-badge">✦ EYERAN Farm Story</div>
       <h1 class="hero-title">내가 먹는 계란,<br>농장의 하루를 보고 고르세요</h1>
       <p class="hero-sub">단순히 계란을 판매하는 것이 아니라, 소비자가 직접 농장의 흐름과 분위기를 보고 안심하고 선택할 수 있는 경험을 만들고 싶었습니다.</p>
       <a href="https://www.instagram.com/eyeran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="hero-cta">✦ EyeRan 인스타그램</a>
