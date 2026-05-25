@@ -129,7 +129,7 @@ def human_event_text(tags: list[str]) -> str:
 
 def build_one_line(events: list[dict]) -> str:
     if not events:
-        return "🐣 오늘 농장은 전반적으로 차분하고 편안한 흐름을 보여주고 있어요."
+        return "✦ 오늘 농장은 전반적으로 차분하고 편안한 흐름을 보여주고 있어요."
 
     recent_tags: list[str] = []
     for e in events[:5]:
@@ -145,7 +145,7 @@ def build_one_line(events: list[dict]) -> str:
         return "🐤 오늘은 평소보다 조금 더 활발한 분위기가 느껴졌어요."
     if "CLUSTER_SPREAD" in tag_set:
         return "🍃 오늘은 닭들이 넓게 퍼져 편안하게 움직이는 흐름이 보였어요."
-    return "🐣 오늘 농장은 전반적으로 무리 없이 편안한 흐름을 보여주고 있어요."
+    return "✦ 오늘 농장은 전반적으로 무리 없이 편안한 흐름을 보여주고 있어요."
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -255,15 +255,15 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 
 :root {{
   --bg:#FFFBEA;
-  --bg2:#FFFDF4;
+  --bg2:#FFFDF5;
   --card:#ffffff;
-  --line:#F4E7B3;
+  --line:#F6E7B0;
   --text:#4A3B00;
-  --sub:#8A7740;
-  --mint:#FFF1B8;
-  --mint2:#FFE082;
-  --deep:#D4A017;
-  --shadow:0 12px 28px rgba(46,96,62,0.10);
+  --sub:#7A6A2F;
+  --mint:#FFF3C4;
+  --mint2:#FFE89A;
+  --deep:#F5B700;
+  --shadow:0 12px 28px rgba(245,183,0,0.10);
   --radius:26px;
 }}
 
@@ -291,7 +291,7 @@ body {{
   font-size:42px;
   font-weight:900;
   letter-spacing:-1.6px;
-  color:#153422;
+  color:#4A3B00;
 }}
 
 .back-link {{
@@ -306,7 +306,7 @@ body {{
   border:1px solid var(--line);
   border-radius:999px;
   padding:11px 16px;
-  box-shadow:0 6px 16px rgba(46,96,62,0.06);
+  box-shadow:0 6px 16px rgba(245,183,0,0.06);
 }}
 
 .hero-grid {{
@@ -329,7 +329,7 @@ body {{
   display:flex;
   flex-direction:column;
   justify-content:center;
-  background:linear-gradient(180deg,#FFF7D6 0%, #ffffff 100%);
+  background:linear-gradient(180deg,#FFF8D9 0%, #ffffff 100%);
 }}
 
 .hero-badge {{
@@ -339,11 +339,11 @@ body {{
   width:max-content;
   padding:8px 12px;
   border-radius:999px;
-  background:#f7fcf8;
+  background:#FFFDF5;
   border:1px solid var(--line);
   font-size:12px;
   font-weight:900;
-  color:#56735e;
+  color:#7A6A2F;
   margin-bottom:14px;
 }}
 
@@ -353,7 +353,7 @@ body {{
   letter-spacing:-1.4px;
   font-weight:900;
   margin:0 0 12px;
-  color:#183524;
+  color:#4A3B00;
 }}
 
 .hero-sub {{
@@ -371,18 +371,18 @@ body {{
   min-width:220px;
   padding:16px 22px;
   border-radius:18px;
-  background:#E0A800;
+  background:#F5B700;
   color:#fff;
   text-decoration:none;
   font-weight:900;
   font-size:16px;
-  box-shadow:0 10px 20px rgba(31,93,58,0.18);
+  box-shadow:0 10px 20px rgba(245,183,0,0.18);
 }}
 
 .hero-note {{
   margin-top:18px;
   padding:14px 16px;
-  background:#FFFBEF;
+  background:#FFFDF5;
   border:1px solid var(--line);
   border-radius:18px;
   color:var(--sub);
@@ -392,7 +392,7 @@ body {{
 
 .video-card {{
   padding:14px;
-  background:linear-gradient(180deg,#f9fdf9,#ffffff);
+  background:linear-gradient(180deg,#FFFDF0,#ffffff);
 }}
 
 .video-label {{
@@ -401,7 +401,7 @@ body {{
   gap:8px;
   font-size:14px;
   font-weight:900;
-  color:#4c7158;
+  color:#7A6A2F;
   margin:0 0 10px;
 }}
 
@@ -409,7 +409,7 @@ body {{
   position:relative;
   overflow:hidden;
   border-radius:22px;
-  background:#d6ddd7;
+  background:#F6E7B0;
   min-height:340px;
   max-height:420px;
 }}
@@ -433,13 +433,13 @@ video {{
   width:82px;
   height:82px;
   border-radius:50%;
-  background:rgba(214,244,225,0.97);
+  background:rgba(255,248,217,0.97);
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:34px;
-  color:#29553d;
-  box-shadow:0 10px 24px rgba(79,154,108,0.24);
+  color:#E0A100;
+  box-shadow:0 10px 24px rgba(245,183,0,0.20);
   pointer-events:none;
   transition:opacity .2s ease;
 }}
@@ -483,15 +483,15 @@ video {{
 
 .metric {{
   padding:16px;
-  background:#FFF8DC;
-  border:1px solid #F3D97A;
+  background:#FFFBEA;
+  border:1px solid #F6E7B0;
   border-radius:20px;
 }}
 
 .metric .k {{
   font-size:12px;
   font-weight:900;
-  color:#76907c;
+  color:#7A6A2F;
   margin-bottom:8px;
 }}
 
@@ -543,7 +543,7 @@ video {{
   gap:12px;
   align-items:flex-start;
   padding:14px;
-  background:#f8fcf9;
+  background:#FFFDF5;
   border:1px solid var(--line);
   border-radius:18px;
 }}
@@ -576,7 +576,7 @@ video {{
 .subscribe-card {{
   padding:22px;
   margin-bottom:18px;
-  background:linear-gradient(180deg,#FFF7D6,#ffffff);
+  background:linear-gradient(180deg,#FFF8D9,#ffffff);
 }}
 
 .subscribe-head {{
@@ -604,14 +604,14 @@ video {{
   width:100%;
   text-align:center;
   text-decoration:none;
-  background:#E0A800;
+  background:#F5B700;
   color:#fff;
   padding:18px;
   border-radius:18px;
   font-size:17px;
   font-weight:900;
   letter-spacing:-0.3px;
-  box-shadow:0 10px 20px rgba(31,93,58,0.18);
+  box-shadow:0 10px 20px rgba(245,183,0,0.18);
 }}
 
 .events-card {{
@@ -619,14 +619,14 @@ video {{
 }}
 
 .event-row {{
-  background:#f7fcf8;
+  background:#FFFDF5;
   border-radius:20px;
   padding:14px;
   display:flex;
   align-items:flex-start;
   gap:12px;
   margin-bottom:12px;
-  border:1px solid #dfeee3;
+  border:1px solid #F6E7B0;
 }}
 
 .event-row:last-child {{
@@ -634,25 +634,25 @@ video {{
 }}
 
 .alert-row {{
-  background:#FFF0B3;
-  border:1px solid #d4ead8;
+  background:#FFF3C4;
+  border:1px solid #F6E7B0;
 }}
 
 .icon-box {{
   width:46px;
   height:46px;
   border-radius:14px;
-  background:#FFE066;
+  background:#FFE89A;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:21px;
-  color:#2b5c49;
+  color:#E0A100;
   flex:0 0 auto;
 }}
 
 .event-time {{
-  color:#6b8a74;
+  color:#7A6A2F;
   font-size:12px;
   font-weight:900;
   margin-bottom:4px;
@@ -662,7 +662,7 @@ video {{
   font-size:15px;
   line-height:1.65;
   font-weight:800;
-  color:#5C4700;
+  color:#4A3B00;
   margin-bottom:10px;
   word-break:keep-all;
 }}
@@ -684,9 +684,9 @@ video {{
   text-decoration:none;
   font-size:12px;
   font-weight:900;
-  background:#FFF7CC;
-  color:#B8860B;
-  border:1px solid #cfe5d5;
+  background:#FFFBEA;
+  color:#F5B700;
+  border:1px solid #F6E7B0;
   white-space:nowrap;
 }}
 
@@ -719,17 +719,16 @@ video {{
 </head>
 <body>
 <div class="page">
-  <div class="topbar">
-    <div class="brand">EyeRan.</div>
+  <div class="topbar"><div class="brand">Eye ran</div></div>
     
   </div>
 
   <div class="hero-grid">
     <div class="card hero-copy-card">
-      <div class="hero-badge">🌿 Cage Free Farm Story</div>
+      <div class="hero-badge">✦ EyeRAN Farm Story</div>
       <h1 class="hero-title">내가 먹는 계란,<br>농장의 하루를 보고 고르세요</h1>
       <p class="hero-sub">단순히 계란을 판매하는 것이 아니라, 소비자가 직접 농장의 흐름과 분위기를 보고 안심하고 선택할 수 있는 경험을 만들고 싶었습니다.</p>
-      <a href="https://junada040828.cafe24.com/skin-skin7" target="_blank" class="hero-cta">🥚 지금 구독하러 가기</a>
+      <a href="https://www.instagram.com/eyeran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="hero-cta">✦ EyeRan 인스타그램</a>
       <div class="hero-note">오늘 농장 기록, 최근 흐름, 변화 요약까지 한 화면에서 편하게 확인할 수 있어요. 보고 고르는 경험이 EyeRan의 핵심입니다 ✨</div>
     </div>
 
@@ -740,7 +739,7 @@ video {{
   </div>
 
   <div class="card summary-card">
-    <div class="section-title">🐣 오늘 한 줄 요약</div>
+    <div class="section-title">✦ 오늘 한 줄 요약</div>
     <div class="summary-main">{html.escape(one_line)}</div>
     <p class="summary-sub">{html.escape(summary)}</p>
 
@@ -801,8 +800,8 @@ video {{
           <div class="section-title" style="margin:0;">정기 구독</div>
           <div class="subscribe-emoji">📦</div>
         </div>
-        <p class="subscribe-copy">오늘 확인한 농장 환경 그대로, 더 편하게 EyeRan 계란을 집에서 받아보세요. 보고 끝나는 페이지가 아니라 구매까지 자연스럽게 이어지도록 만들었어요.</p>
-        <a href="https://junada040828.cafe24.com/skin-skin7" target="_blank" class="cta">EyeRan 계란 구독하기</a>
+        <p class="subscribe-copy">농장을 직접 확인한 계란이니까, 믿고 꾸준히 드실 수 있어요. 정기배송으로 신청하면 매번 주문할 필요 없이 신선한 아이란이 정해진 날에 집 앞에 옵니다.</p>
+        <a href="https://www.instagram.com/eyeran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="cta">EyeRan 인스타그램</a>
       </div>
 
       <div class="card events-card">
