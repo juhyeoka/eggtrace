@@ -184,7 +184,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
                 sev,
                 e.get("thumb_path"),
                 e.get("heatmap_path"),
-                e.get("video_path", "/videos/demo.mp4"),
+                e.get("video_path", "/videos/ai_event_1.mp4"),
             )
         )
 
@@ -196,7 +196,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
                 "info",
                 None,
                 None,
-                "/videos/demo.mp4",
+                f"/videos/ai_event_{len(recent_cards)+1}.mp4",
             )
         )
 
@@ -218,7 +218,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
         row_cls = "event-row alert-row" if sev == "alert" else "event-row"
 
         links = []
-        if video_source:
+        if video:
             links.append(f'<a class="mini-btn" href="{video}" target="_blank">영상 보기</a>')
         if thumb:
             links.append(f'<a class="mini-btn" href="{thumb}" target="_blank">탐지 화면</a>')
@@ -816,6 +816,15 @@ video {{
 
       <div class="card events-card">
         <div class="section-title">AI 최근 패턴 분석 🍃</div>
+
+        <div class="feature" style="margin-bottom:14px;">
+          <div class="feature-icon">🤖</div>
+          <div>
+            <div class="feature-title">AI 영상 분석 결과</div>
+            <p class="feature-copy">업로드된 농장 영상에서 움직임 변화가 큰 구간을 자동으로 분리해 주요 이벤트 영상으로 정리했습니다.</p>
+          </div>
+        </div>
+
         {card_html(e1, "🌿")}
         {card_html(e2, "🐔")}
         {card_html(e3, "🥚")}
