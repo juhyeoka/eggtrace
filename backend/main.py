@@ -129,7 +129,7 @@ def human_event_text(tags: list[str]) -> str:
 
 def build_one_line(events: list[dict]) -> str:
     if not events:
-        return "🐣 오늘 농장은 전반적으로 차분하고 편안한 흐름을 보여주고 있어요."
+        return "✦ 오늘 농장은 전반적으로 차분하고 편안한 흐름을 보여주고 있어요."
 
     recent_tags: list[str] = []
     for e in events[:5]:
@@ -145,7 +145,7 @@ def build_one_line(events: list[dict]) -> str:
         return "🐤 오늘은 평소보다 조금 더 활발한 분위기가 느껴졌어요."
     if "CLUSTER_SPREAD" in tag_set:
         return "🍃 오늘은 닭들이 넓게 퍼져 편안하게 움직이는 흐름이 보였어요."
-    return "🐣 오늘 농장은 전반적으로 무리 없이 편안한 흐름을 보여주고 있어요."
+    return "✦ 오늘 농장은 전반적으로 무리 없이 편안한 흐름을 보여주고 있어요."
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -725,10 +725,10 @@ video {{
 
   <div class="hero-grid">
     <div class="card hero-copy-card">
-      <div class="hero-badge">🐣 IRAN Farm Story</div>
+      <div class="hero-badge">✦ IRAN Farm Story</div>
       <h1 class="hero-title">내가 먹는 계란,<br>농장의 하루를 보고 고르세요</h1>
       <p class="hero-sub">단순히 계란을 판매하는 것이 아니라, 소비자가 직접 농장의 흐름과 분위기를 보고 안심하고 선택할 수 있는 경험을 만들고 싶었습니다.</p>
-      <a href="https://www.instagram.com/naran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="hero-cta">🐣 아이란 인스타그램</a>
+      <a href="https://www.instagram.com/naran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="hero-cta">✦ 아이란 인스타그램</a>
       <div class="hero-note">오늘 농장 기록, 최근 흐름, 변화 요약까지 한 화면에서 편하게 확인할 수 있어요. 보고 고르는 경험이 아이란의 핵심입니다 ✨</div>
     </div>
 
@@ -739,7 +739,7 @@ video {{
   </div>
 
   <div class="card summary-card">
-    <div class="section-title">🐣 오늘 한 줄 요약</div>
+    <div class="section-title">✦ 오늘 한 줄 요약</div>
     <div class="summary-main">{html.escape(one_line)}</div>
     <p class="summary-sub">{html.escape(summary)}</p>
 
