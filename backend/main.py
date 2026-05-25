@@ -115,7 +115,7 @@ def human_event_text(tags: list[str]) -> str:
     if not tag_set:
         return "큰 이상 없이 차분한 흐름을 보이고 있어요."
     if "ACTIVITY_SPIKE" in tag_set and "CLUSTER_SPREAD" in tag_set:
-        return "닭들이 한곳에 치우치지 않고 농장 곳곳을 자연스럽게 움직이고 있어요."
+        return "닭들의 이동 패턴과 활동 반경이 안정적으로 유지되고 있습니다."
     if "ACTIVITY_SPIKE" in tag_set:
         return "오늘은 평소보다 움직임이 조금 더 활발하게 느껴졌어요."
     if "MOVE_FLOW" in tag_set:
@@ -129,7 +129,7 @@ def human_event_text(tags: list[str]) -> str:
 
 def build_one_line(events: list[dict]) -> str:
     if not events:
-        return "✦ 오늘 농장은 전반적으로 차분하고 편안한 흐름을 보여주고 있어요."
+        return "✦ AI가 영상 속 활동량 변화와 군집 흐름을 분석하고 있습니다."
 
     recent_tags: list[str] = []
     for e in events[:5]:
@@ -145,7 +145,7 @@ def build_one_line(events: list[dict]) -> str:
         return "🐤 오늘은 평소보다 조금 더 활발한 분위기가 느껴졌어요."
     if "CLUSTER_SPREAD" in tag_set:
         return "🍃 오늘은 닭들이 넓게 퍼져 편안하게 움직이는 흐름이 보였어요."
-    return "✦ 오늘 농장은 전반적으로 무리 없이 편안한 흐름을 보여주고 있어요."
+    return "✦ 영상 내 이벤트 밀도가 높은 구간을 자동 추출해 분석합니다."
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -201,7 +201,17 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
         )
 
     e1, e2, e3 = recent_cards[0], recent_cards[1], recent_cards[2]
-    video_source = "/videos/demo.mp4" if (VIDEOS_DIR / "demo.mp4").exists() else ""
+    
+video_source = (
+    "/videos/highlight.mp4"
+    if (VIDEOS_DIR / "highlight.mp4").exists()
+    else (
+        "/videos/clip0525.mp4"
+        if (VIDEOS_DIR / "clip0525.mp4").exists()
+        else ""
+    )
+)
+
 
     def card_html(ev, icon: str) -> str:
         t, msg, sev, thumb, heat, video = ev
@@ -805,7 +815,7 @@ video {{
       </div>
 
       <div class="card events-card">
-        <div class="section-title">최근 패턴 변화 🍃</div>
+        <div class="section-title">AI 최근 패턴 분석 🍃</div>
         {card_html(e1, "🌿")}
         {card_html(e2, "🐔")}
         {card_html(e3, "🥚")}
