@@ -288,8 +288,8 @@ body {{
 }}
 
 .brand {{
-  font-size:48px;
-  font-weight:800;
+  font-size:42px;
+  font-weight:900;
   letter-spacing:-1.6px;
   color:#4A3B00;
 }}
@@ -301,7 +301,7 @@ body {{
   text-decoration:none;
   color:var(--deep);
   font-size:14px;
-  font-weight:800;
+  font-weight:900;
   background:rgba(255,255,255,0.8);
   border:1px solid var(--line);
   border-radius:999px;
@@ -342,16 +342,16 @@ body {{
   background:#FFFDF5;
   border:1px solid var(--line);
   font-size:12px;
-  font-weight:800;
+  font-weight:900;
   color:#7A6A2F;
   margin-bottom:14px;
 }}
 
 .hero-title {{
-  font-size:48px;
+  font-size:42px;
   line-height:1.12;
-  letter-spacing:-2px;
-  font-weight:800;
+  letter-spacing:-1.4px;
+  font-weight:900;
   margin:0 0 12px;
   color:#4A3B00;
 }}
@@ -374,7 +374,7 @@ body {{
   background:#F5B700;
   color:#fff;
   text-decoration:none;
-  font-weight:800;
+  font-weight:900;
   font-size:16px;
   box-shadow:0 10px 20px rgba(245,183,0,0.18);
 }}
@@ -400,7 +400,7 @@ body {{
   align-items:center;
   gap:8px;
   font-size:14px;
-  font-weight:800;
+  font-weight:900;
   color:#7A6A2F;
   margin:0 0 10px;
 }}
@@ -455,7 +455,7 @@ video {{
 
 .section-title {{
   font-size:28px;
-  font-weight:800;
+  font-weight:900;
   letter-spacing:-0.8px;
   margin:0 0 12px;
 }}
@@ -463,7 +463,7 @@ video {{
 .summary-main {{
   font-size:24px;
   line-height:1.5;
-  font-weight:800;
+  font-weight:900;
   letter-spacing:-0.5px;
   margin:0 0 10px;
 }}
@@ -490,14 +490,14 @@ video {{
 
 .metric .k {{
   font-size:12px;
-  font-weight:800;
+  font-weight:900;
   color:#7A6A2F;
   margin-bottom:8px;
 }}
 
 .metric .v {{
   font-size:26px;
-  font-weight:800;
+  font-weight:900;
   letter-spacing:-0.7px;
   margin-bottom:6px;
 }}
@@ -521,7 +521,7 @@ video {{
 .info-head {{
   font-size:30px;
   line-height:1.12;
-  font-weight:800;
+  font-weight:900;
   letter-spacing:-1px;
   margin:0 0 10px;
 }}
@@ -562,7 +562,7 @@ video {{
 
 .feature-title {{
   font-size:16px;
-  font-weight:800;
+  font-weight:900;
   margin:0 0 4px;
 }}
 
@@ -609,7 +609,7 @@ video {{
   padding:18px;
   border-radius:18px;
   font-size:17px;
-  font-weight:800;
+  font-weight:900;
   letter-spacing:-0.3px;
   box-shadow:0 10px 20px rgba(245,183,0,0.18);
 }}
@@ -654,14 +654,14 @@ video {{
 .event-time {{
   color:#7A6A2F;
   font-size:12px;
-  font-weight:800;
+  font-weight:900;
   margin-bottom:4px;
 }}
 
 .event-text {{
   font-size:15px;
   line-height:1.65;
-  font-weight:800;
+  font-weight:900;
   color:#4A3B00;
   margin-bottom:10px;
   word-break:keep-all;
@@ -683,7 +683,7 @@ video {{
   border-radius:999px;
   text-decoration:none;
   font-size:12px;
-  font-weight:800;
+  font-weight:900;
   background:#FFFBEA;
   color:#F5B700;
   border:1px solid #F6E7B0;
@@ -719,16 +719,16 @@ video {{
 </head>
 <body>
 <div class="page">
-  <div class="topbar" style="display:flex;align-items:center;justify-content:center;padding:8px 0 24px;"><div class="brand">EyeRan</div></div>
+  <div class="topbar"><div class="brand">EyeRan</div></div>
     
   </div>
 
   <div class="hero-grid">
     <div class="card hero-copy-card">
-      <div class="hero-badge">✦ IRAN Farm Story</div>
+      <div class="hero-badge">✦ EyeRan Farm Story</div>
       <h1 class="hero-title">내가 먹는 계란,<br>농장의 하루를 보고 고르세요</h1>
       <p class="hero-sub">단순히 계란을 판매하는 것이 아니라, 소비자가 직접 농장의 흐름과 분위기를 보고 안심하고 선택할 수 있는 경험을 만들고 싶었습니다.</p>
-      <a href="https://www.instagram.com/naran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="hero-cta">✦ 아이란 인스타그램</a>
+      <a href="https://www.instagram.com/naran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="hero-cta">✦ EyeRan Instagram</a>
       <div class="hero-note">오늘 농장 기록, 최근 흐름, 변화 요약까지 한 화면에서 편하게 확인할 수 있어요. 보고 고르는 경험이 아이란의 핵심입니다 ✨</div>
     </div>
 
@@ -801,7 +801,7 @@ video {{
           <div class="subscribe-emoji">📦</div>
         </div>
         <p class="subscribe-copy">농장을 직접 확인한 계란이니까, 믿고 꾸준히 드실 수 있어요. 정기배송으로 신청하면 매번 주문할 필요 없이 신선한 아이란이 정해진 날에 집 앞에 옵니다.</p>
-        <a href="https://www.instagram.com/naran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="cta">아이란 인스타그램</a>
+        <a href="https://www.instagram.com/naran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="cta">EyeRan Instagram</a>
       </div>
 
       <div class="card events-card">
