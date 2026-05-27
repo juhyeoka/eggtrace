@@ -712,7 +712,8 @@ video {{
   }}
 
   .hero-title {{
-    font-size:34px;
+    font-size:30px;
+    line-height:1.2;
   }}
 
   .metrics {{
