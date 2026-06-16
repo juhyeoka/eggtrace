@@ -150,7 +150,7 @@ def build_one_line(events: list[dict]) -> str:
 
 @app.get("/", response_class=HTMLResponse)
 def root():
-    return RedirectResponse("/p/EGG-0001")
+    return RedirectResponse("/p/EGG-0001", status_code=302)
 
 
 @app.get("/events", response_class=JSONResponse)
