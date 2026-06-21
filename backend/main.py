@@ -726,6 +726,153 @@ video {{
     max-height:300px;
   }}
 }}
+
+/* AI_ANALYSIS_REAL_PANEL_STYLE */
+.real-analysis-section {{
+  margin-top:22px;
+}}
+
+.analysis-open-button {{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:17px 19px;
+  border:1px solid #e3e8e5;
+  border-radius:17px;
+  background:#ffffff;
+  color:#202622;
+  font-family:inherit;
+  font-size:15px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 7px 22px rgba(30,45,36,0.06);
+}}
+
+.analysis-open-button:hover {{
+  background:#f8faf9;
+}}
+
+.analysis-video-panel {{
+  margin-top:12px;
+  padding:14px;
+  border:1px solid #e5e9e7;
+  border-radius:20px;
+  background:#f7f9f8;
+}}
+
+.analysis-video-panel[hidden] {{
+  display:none !important;
+}}
+
+.analysis-tabs {{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-bottom:12px;
+}}
+
+.analysis-tab {{
+  padding:11px 8px;
+  border:1px solid #e1e6e3;
+  border-radius:12px;
+  background:#ffffff;
+  color:#69726d;
+  font-family:inherit;
+  font-size:12px;
+  font-weight:900;
+  cursor:pointer;
+}}
+
+.analysis-tab.active {{
+  border-color:#d5e6dc;
+  background:#edf5f0;
+  color:#37664d;
+}}
+
+.real-analysis-video-wrap {{
+  position:relative;
+  overflow:hidden;
+  border-radius:16px;
+  background:#111111;
+}}
+
+.real-analysis-video {{
+  display:block;
+  width:100%;
+  min-height:240px;
+  max-height:440px;
+  object-fit:cover;
+  background:#111111;
+}}
+
+.analysis-live-label {{
+  position:absolute;
+  top:12px;
+  left:12px;
+  padding:7px 10px;
+  border-radius:999px;
+  background:rgba(20,25,22,0.76);
+  color:#ffffff;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1px;
+  pointer-events:none;
+}}
+
+.analysis-data-grid {{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin-top:12px;
+}}
+
+.analysis-data-card {{
+  padding:13px 8px;
+  border:1px solid #e5e9e7;
+  border-radius:14px;
+  background:#ffffff;
+  text-align:center;
+}}
+
+.analysis-data-card span {{
+  display:block;
+  margin-bottom:5px;
+  color:#747d78;
+  font-size:11px;
+  font-weight:800;
+}}
+
+.analysis-data-card strong {{
+  color:#37664d;
+  font-size:15px;
+  font-weight:900;
+}}
+
+.analysis-explanation {{
+  margin-top:12px;
+  padding:13px 14px;
+  border-radius:14px;
+  background:#ffffff;
+  color:#69726d;
+  font-size:13px;
+  line-height:1.7;
+}}
+
+@media (max-width:600px) {{
+  .analysis-tabs {{
+    grid-template-columns:1fr;
+  }}
+
+  .analysis-data-grid {{
+    grid-template-columns:1fr;
+  }}
+
+  .real-analysis-video {{
+    min-height:210px;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -803,7 +950,88 @@ video {{
           </div>
         </div>
       </div>
+    
+    <!-- AI_ANALYSIS_REAL_PANEL -->
+    <div class="real-analysis-section">
+      <button type="button" id="analysisOpenButton" class="analysis-open-button">
+        <span>AI 영상 분석 보기</span>
+        <span id="analysisArrow">↓</span>
+      </button>
+
+      <div id="analysisVideoPanel" class="analysis-video-panel" hidden>
+        <div class="analysis-tabs">
+          <button
+            type="button"
+            class="analysis-tab active"
+            data-video="/videos/ai_event_1.mp4"
+          >
+            활동량 분석
+          </button>
+
+          <button
+            type="button"
+            class="analysis-tab"
+            data-video="/videos/ai_event_2.mp4"
+          >
+            군집 흐름
+          </button>
+
+          <button
+            type="button"
+            class="analysis-tab"
+            data-video="/videos/ai_event_3.mp4"
+          >
+            패턴 변화
+          </button>
+        </div>
+
+        <div class="real-analysis-video-wrap">
+          <video
+            id="realAnalysisVideo"
+            class="real-analysis-video"
+            controls
+            playsinline
+            muted
+            preload="metadata"
+          >
+            <source
+              id="realAnalysisSource"
+              src="/videos/ai_event_1.mp4"
+              type="video/mp4"
+            >
+            영상 재생을 지원하지 않는 브라우저입니다.
+          </video>
+
+          <div class="analysis-live-label">
+            AI ANALYSIS
+          </div>
+        </div>
+
+        <div class="analysis-data-grid">
+          <div class="analysis-data-card">
+            <span>활동량</span>
+            <strong>{motion_text(metrics)}</strong>
+          </div>
+
+          <div class="analysis-data-card">
+            <span>군집 흐름</span>
+            <strong>{density_text(metrics)}</strong>
+          </div>
+
+          <div class="analysis-data-card">
+            <span>패턴 변화</span>
+            <strong>{change_text(metrics)}</strong>
+          </div>
+        </div>
+
+        <div class="analysis-explanation">
+          AI가 프레임 간 움직임 변화와 공간별 활동 집중도를 분석한 영상입니다.
+          위의 항목을 누르면 각 분석 영상을 확인할 수 있습니다.
+        </div>
+      </div>
     </div>
+
+</div>
 
     <div>
       <div class="card subscribe-card">
@@ -855,6 +1083,54 @@ if (video && badge) {{
   video.addEventListener("ended", showBadge);
 }}
 </script>
+
+<script>
+// AI_ANALYSIS_REAL_PANEL_SCRIPT
+document.addEventListener("DOMContentLoaded", function() {{
+  const openButton = document.getElementById("analysisOpenButton");
+  const panel = document.getElementById("analysisVideoPanel");
+  const arrow = document.getElementById("analysisArrow");
+  const video = document.getElementById("realAnalysisVideo");
+  const sourceElement = document.getElementById("realAnalysisSource");
+  const tabs = document.querySelectorAll(".analysis-tab");
+
+  if (openButton && panel) {{
+    openButton.addEventListener("click", function() {{
+      const willOpen = panel.hidden;
+
+      panel.hidden = !willOpen;
+      arrow.textContent = willOpen ? "↑" : "↓";
+
+      if (!willOpen && video) {{
+        video.pause();
+      }}
+    }});
+  }}
+
+  tabs.forEach(function(tab) {{
+    tab.addEventListener("click", function() {{
+      tabs.forEach(function(item) {{
+        item.classList.remove("active");
+      }});
+
+      tab.classList.add("active");
+
+      const selectedVideo = tab.dataset.video;
+
+      if (video && sourceElement && selectedVideo) {{
+        video.pause();
+        sourceElement.src = selectedVideo;
+        video.load();
+
+        video.play().catch(function() {{
+          // 모바일 자동재생 제한 시 사용자가 재생 버튼을 누르면 됨
+        }});
+      }}
+    }});
+  }});
+}});
+</script>
+
 </body>
 </html>
 """
