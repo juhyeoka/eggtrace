@@ -270,15 +270,15 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 
 :root {{
   --bg:#FFFFFF;
-  --bg2:#F8FBFA;
+  --bg2:#FAFCFB;
   --card:#FFFFFF;
-  --line:#DDEEE4;
-  --text:#10251B;
-  --sub:#5E7168;
-  --mint:#EAF7EF;
-  --mint2:#DDF2E5;
-  --deep:#0E8F5A;
-  --shadow:0 12px 28px rgba(14,143,90,0.10);
+  --line:#E5EEE9;
+  --text:#17231D;
+  --sub:#66736C;
+  --mint:#F1F8F4;
+  --mint2:#E7F3EC;
+  --deep:#267A4A;
+  --shadow:0 12px 28px rgba(20,60,40,0.06);
   --radius:26px;
 }}
 
@@ -306,7 +306,7 @@ body {{
   font-size:38px;
   font-weight:900;
   letter-spacing:-1.6px;
-  color:#10251B;
+  color:#17231D;
 }}
 
 .back-link {{
@@ -344,7 +344,7 @@ body {{
   display:flex;
   flex-direction:column;
   justify-content:center;
-  background:linear-gradient(180deg,#F5FBF7 0%, #ffffff 100%);
+  background:linear-gradient(180deg,#FAFCFB 0%, #ffffff 100%);
 }}
 
 .hero-badge {{
@@ -368,7 +368,7 @@ body {{
   letter-spacing:-1.4px;
   font-weight:900;
   margin:0 0 12px;
-  color:#10251B;
+  color:#17231D;
 }}
 
 .hero-sub {{
@@ -386,7 +386,7 @@ body {{
   min-width:220px;
   padding:16px 22px;
   border-radius:18px;
-  background:#0E8F5A;
+  background:#267A4A;
   color:#fff;
   text-decoration:none;
   font-weight:900;
@@ -424,7 +424,7 @@ body {{
   position:relative;
   overflow:hidden;
   border-radius:22px;
-  background:#DDEEE4;
+  background:#E5EEE9;
   min-height:340px;
   max-height:420px;
 }}
@@ -453,7 +453,7 @@ video {{
   align-items:center;
   justify-content:center;
   font-size:34px;
-  color:#0E8F5A;
+  color:#267A4A;
   box-shadow:0 10px 24px rgba(245,183,0,0.20);
   pointer-events:none;
   transition:opacity .2s ease;
@@ -499,7 +499,7 @@ video {{
 .metric {{
   padding:16px;
   background:#FFFFFF;
-  border:1px solid #DDEEE4;
+  border:1px solid #E5EEE9;
   border-radius:20px;
 }}
 
@@ -591,7 +591,7 @@ video {{
 .subscribe-card {{
   padding:22px;
   margin-bottom:18px;
-  background:linear-gradient(180deg,#F5FBF7,#ffffff);
+  background:linear-gradient(180deg,#FAFCFB,#ffffff);
 }}
 
 .subscribe-head {{
@@ -619,7 +619,7 @@ video {{
   width:100%;
   text-align:center;
   text-decoration:none;
-  background:#0E8F5A;
+  background:#267A4A;
   color:#fff;
   padding:18px;
   border-radius:18px;
@@ -641,7 +641,7 @@ video {{
   align-items:flex-start;
   gap:12px;
   margin-bottom:12px;
-  border:1px solid #DDEEE4;
+  border:1px solid #E5EEE9;
 }}
 
 .event-row:last-child {{
@@ -649,20 +649,20 @@ video {{
 }}
 
 .alert-row {{
-  background:#EAF7EF;
-  border:1px solid #DDEEE4;
+  background:#F1F8F4;
+  border:1px solid #E5EEE9;
 }}
 
 .icon-box {{
   width:46px;
   height:46px;
   border-radius:14px;
-  background:#DDF2E5;
+  background:#E7F3EC;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:21px;
-  color:#0E8F5A;
+  color:#267A4A;
   flex:0 0 auto;
 }}
 
@@ -677,7 +677,7 @@ video {{
   font-size:15px;
   line-height:1.65;
   font-weight:800;
-  color:#10251B;
+  color:#17231D;
   margin-bottom:10px;
   word-break:keep-all;
 }}
@@ -700,8 +700,8 @@ video {{
   font-size:12px;
   font-weight:900;
   background:#FFFFFF;
-  color:#0E8F5A;
-  border:1px solid #DDEEE4;
+  color:#267A4A;
+  border:1px solid #E5EEE9;
   white-space:nowrap;
 }}
 
@@ -870,48 +870,47 @@ gtag('config', 'G-XKZ6FWYZ9D');
   <div class="card info-card">
     <div class="section-title">🤖 AI 영상 분석 결과</div>
 
+    <p class="info-copy">
+      업로드된 농장 영상을 프레임 단위로 분석하여 움직임 변화, 군집 흐름, 공간별 활동 집중도를 요약합니다.
+    </p>
+
     <div class="ai-result-grid">
       <div class="ai-result-card">
-        <div class="label">활동량</div>
+        <div class="label">활동량 분석</div>
         <div class="value">{motion_text(metrics)}</div>
       </div>
       <div class="ai-result-card">
-        <div class="label">군집 상태</div>
+        <div class="label">군집 흐름</div>
         <div class="value">{density_text(metrics)}</div>
       </div>
       <div class="ai-result-card">
-        <div class="label">이번주 변화</div>
+        <div class="label">패턴 변화</div>
         <div class="value">{change_text(metrics)}</div>
       </div>
     </div>
 
-    <div class="ai-desc">
-      AI가 CCTV 영상에서 움직임 변화, 군집 흐름, 공간별 활동 집중도를 분석하고,
-      이벤트가 많은 구간을 중심으로 이번주 농장 상태를 요약합니다.
-    </div>
-
-    <div class="feature-list" style="margin-top:16px;">
+    <div class="feature-list" style="margin-top:18px;">
       <div class="feature">
-        <div class="feature-icon">①</div>
+        <div class="feature-icon">1</div>
         <div>
           <div class="feature-title">영상 입력</div>
-          <p class="feature-copy">농장 CCTV 영상을 불러와 프레임 단위로 분석합니다.</p>
+          <p class="feature-copy">농장 CCTV 영상을 불러와 일정 간격의 프레임으로 나눕니다.</p>
         </div>
       </div>
 
       <div class="feature">
-        <div class="feature-icon">②</div>
+        <div class="feature-icon">2</div>
         <div>
-          <div class="feature-title">움직임 감지</div>
-          <p class="feature-copy">프레임 변화량을 비교해 활동량이 높은 구간을 찾습니다.</p>
+          <div class="feature-title">움직임 변화 감지</div>
+          <p class="feature-copy">이전 프레임과 현재 프레임의 차이를 비교해 움직임이 많은 구간을 찾습니다.</p>
         </div>
       </div>
 
       <div class="feature">
-        <div class="feature-icon">③</div>
+        <div class="feature-icon">3</div>
         <div>
-          <div class="feature-title">AI 이벤트 추출</div>
-          <p class="feature-copy">움직임이 집중된 구간을 자동 선별해 하이라이트 영상과 분석 결과로 정리합니다.</p>
+          <div class="feature-title">하이라이트 추출</div>
+          <p class="feature-copy">이벤트 밀도가 높은 구간을 중심으로 소비자가 확인하기 쉬운 영상 구간을 제공합니다.</p>
         </div>
       </div>
     </div>
