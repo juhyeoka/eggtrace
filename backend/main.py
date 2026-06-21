@@ -130,7 +130,7 @@ def human_event_text(tags: list[str]) -> str:
 
 def build_one_line(events: list[dict]) -> str:
     if not events:
-        return "✦ AI가 영상 속 활동량 변화와 군집 흐름을 분석하고 있습니다."
+        return "✦ 인공지능이 영상 속 활동량 변화와 군집 흐름을 분석하고 있습니다."
 
     recent_tags: list[str] = []
     for e in events[:5]:
@@ -1667,6 +1667,275 @@ body {{
   }}
 }}
 
+
+/* JCR_MOBILE_ANALYSIS_REFINEMENT_V3 */
+
+/* 영상 안에 들어간 상세 결과는 JS 이동 전에는 숨김 */
+.jcr-analysis-video-wrap .jcr-integrated-context {{
+  display:none !important;
+}}
+
+/* 영상 아래 분석 결과 영역 */
+.jcr-integrated-context {{
+  position:static !important;
+  inset:auto !important;
+  width:100% !important;
+  margin-top:12px !important;
+  pointer-events:auto !important;
+}}
+
+.jcr-context-panel {{
+  display:none !important;
+  width:100% !important;
+  padding:17px !important;
+  border:1px solid #e5e8eb !important;
+  border-radius:18px !important;
+  background:#ffffff !important;
+  color:#191f28 !important;
+  box-shadow:0 7px 22px rgba(0,0,0,.045) !important;
+}}
+
+.jcr-context-panel.active {{
+  display:block !important;
+}}
+
+.jcr-context-heading {{
+  display:flex !important;
+  align-items:center !important;
+  gap:8px !important;
+  margin-bottom:14px !important;
+  color:#191f28 !important;
+  font-size:14px !important;
+  font-weight:900 !important;
+}}
+
+.jcr-context-dot {{
+  width:8px !important;
+  height:8px !important;
+}}
+
+.jcr-context-values {{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:9px !important;
+}}
+
+.jcr-context-values > div {{
+  min-width:0 !important;
+  padding:13px 9px !important;
+  border:1px solid #eceff1 !important;
+  border-radius:14px !important;
+  background:#f7f8f9 !important;
+  text-align:center !important;
+}}
+
+.jcr-context-values span {{
+  display:block !important;
+  margin-bottom:5px !important;
+  color:#8b95a1 !important;
+  font-size:10px !important;
+  font-weight:800 !important;
+  white-space:normal !important;
+}}
+
+.jcr-context-values strong {{
+  display:block !important;
+  color:#333d37 !important;
+  font-size:12px !important;
+  font-weight:900 !important;
+  line-height:1.4 !important;
+  white-space:normal !important;
+}}
+
+
+/* 패턴 그래프를 영상 아래 카드 안으로 이동 */
+.jcr-context-panel .pattern-chart {{
+  position:static !important;
+  inset:auto !important;
+  width:100% !important;
+  margin-top:13px !important;
+  padding:13px !important;
+  border:1px solid #e7eaec !important;
+  border-radius:14px !important;
+  background:#f7f8f9 !important;
+  color:#333d37 !important;
+  box-shadow:none !important;
+  backdrop-filter:none !important;
+}}
+
+.jcr-context-panel .pattern-chart-title {{
+  margin-bottom:6px !important;
+  color:#667085 !important;
+  font-size:11px !important;
+}}
+
+.jcr-context-panel .pattern-chart svg {{
+  width:100% !important;
+  height:80px !important;
+}}
+
+.jcr-context-panel .pattern-chart line {{
+  stroke:#dfe4e1 !important;
+}}
+
+.jcr-context-panel .pattern-chart polyline {{
+  stroke:#50745f !important;
+}}
+
+.jcr-context-panel .pattern-chart circle {{
+  fill:#50745f !important;
+}}
+
+.jcr-context-panel .pattern-chart-times {{
+  color:#8b95a1 !important;
+  font-size:9px !important;
+}}
+
+
+/* 영상 안 오버레이는 아주 약하게 */
+.jcr-vision-layer {{
+  opacity:.48 !important;
+}}
+
+.heat-spot {{
+  opacity:.38 !important;
+  filter:blur(20px) !important;
+}}
+
+.cluster-box {{
+  opacity:.58 !important;
+  border-width:1px !important;
+  background:rgba(57,113,220,.035) !important;
+}}
+
+.cluster-box span {{
+  opacity:.80 !important;
+  font-size:8px !important;
+}}
+
+.flow-arrow {{
+  opacity:.68 !important;
+  font-size:32px !important;
+}}
+
+.vision-label,
+.vision-scale {{
+  display:none !important;
+}}
+
+/* 기존 패턴 그래프는 영상 안에서 숨김 */
+.jcr-vision-pattern .pattern-chart {{
+  display:none !important;
+}}
+
+/* 패턴 탭에서는 작은 변화 감지 표시만 유지 */
+.jcr-vision-pattern .pattern-event {{
+  top:12px !important;
+  right:12px !important;
+  padding:6px 9px !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  background:rgba(22,27,24,.58) !important;
+  color:#ffffff !important;
+  font-size:8px !important;
+  backdrop-filter:blur(7px);
+}}
+
+
+/* 영상 안에 공통으로 보이는 작은 분석 상태 */
+.jcr-video-analysis-indicator {{
+  position:absolute;
+  top:12px;
+  left:12px;
+  z-index:8;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  max-width:70%;
+  padding:7px 10px;
+  border:1px solid rgba(255,255,255,.20);
+  border-radius:999px;
+  background:rgba(20,25,22,.58);
+  color:#ffffff;
+  font-size:9px;
+  font-weight:900;
+  backdrop-filter:blur(8px);
+  pointer-events:none;
+}}
+
+.jcr-video-analysis-indicator-dot {{
+  width:7px;
+  height:7px;
+  flex:0 0 7px;
+  border-radius:50%;
+  background:#a7d7b9;
+  box-shadow:0 0 8px rgba(167,215,185,.85);
+  animation:jcrIndicatorPulse 1.8s ease-in-out infinite;
+}}
+
+@keyframes jcrIndicatorPulse {{
+  0%,100% {{
+    opacity:.55;
+    transform:scale(.9);
+  }}
+
+  50% {{
+    opacity:1;
+    transform:scale(1.12);
+  }}
+}}
+
+/* 기존 영상 위 제목은 중복되므로 숨김 */
+.jcr-analysis-overlay {{
+  display:none !important;
+}}
+
+
+/* 핵심 설명과 영상 아래 분석 카드 연결 */
+.jcr-visual-summary {{
+  margin-top:10px !important;
+  border:1px solid #e5e8eb !important;
+  border-radius:18px !important;
+  background:#f7f8f9 !important;
+}}
+
+
+@media (max-width:600px) {{
+  .jcr-context-panel {{
+    padding:14px !important;
+  }}
+
+  .jcr-context-values {{
+    gap:6px !important;
+  }}
+
+  .jcr-context-values > div {{
+    padding:11px 5px !important;
+  }}
+
+  .jcr-context-values span {{
+    font-size:8px !important;
+  }}
+
+  .jcr-context-values strong {{
+    font-size:10px !important;
+  }}
+
+  .jcr-context-panel .pattern-chart svg {{
+    height:64px !important;
+  }}
+
+  .jcr-video-analysis-indicator {{
+    top:9px;
+    left:9px;
+    padding:6px 8px;
+    font-size:8px;
+  }}
+
+  .flow-arrow {{
+    font-size:25px !important;
+  }}
+}}
+
 </style>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKZ6FWYZ9D"></script>
@@ -2219,6 +2488,119 @@ document.addEventListener("DOMContentLoaded", function() {{
   }});
 
   setContextMode("activity");
+}});
+</script>
+
+
+<script>
+// JCR_MOBILE_ANALYSIS_REFINEMENT_SCRIPT_V3
+document.addEventListener("DOMContentLoaded", function() {{
+  const videoWrap = document.querySelector(
+    ".jcr-analysis-video-wrap"
+  );
+
+  const context = document.getElementById(
+    "jcrIntegratedContext"
+  );
+
+  const summary = document.querySelector(
+    ".jcr-visual-summary"
+  );
+
+  const tabs = document.querySelectorAll(
+    ".jcr-analysis-tab"
+  );
+
+  const patternPanel = document.querySelector(
+    '.jcr-context-panel[data-context-mode="pattern"]'
+  );
+
+  const patternChart = document.querySelector(
+    ".jcr-vision-pattern .pattern-chart"
+  );
+
+
+  /* 상세 분석 결과를 영상 바로 아래로 이동 */
+  if (videoWrap && context) {{
+    videoWrap.insertAdjacentElement("afterend", context);
+  }}
+
+
+  /* 인공지능이 본 핵심은 상세 결과 아래에 위치 */
+  if (context && summary) {{
+    context.insertAdjacentElement("afterend", summary);
+  }}
+
+
+  /* 패턴 그래프를 패턴 변화 카드 아래로 이동 */
+  if (patternPanel && patternChart) {{
+    patternPanel.appendChild(patternChart);
+  }}
+
+
+  /* 영상 안 작은 분석 상태 표시 */
+  let indicator = document.getElementById(
+    "jcrVideoAnalysisIndicator"
+  );
+
+  if (!indicator && videoWrap) {{
+    indicator = document.createElement("div");
+    indicator.id = "jcrVideoAnalysisIndicator";
+    indicator.className = "jcr-video-analysis-indicator";
+
+    indicator.innerHTML =
+      '<span class="jcr-video-analysis-indicator-dot"></span>' +
+      '<span id="jcrVideoAnalysisText">인공지능 활동량 분석</span>';
+
+    videoWrap.appendChild(indicator);
+  }}
+
+  const indicatorText = document.getElementById(
+    "jcrVideoAnalysisText"
+  );
+
+
+  const modeLabels = {{
+    activity:"인공지능 활동량 분석",
+    cluster:"인공지능 군집 흐름 분석",
+    pattern:"인공지능 패턴 변화 분석"
+  }};
+
+
+  function resolveMode(tab, index) {{
+    if (tab.dataset.mode) {{
+      return tab.dataset.mode;
+    }}
+
+    if (index === 0) return "activity";
+    if (index === 1) return "cluster";
+
+    return "pattern";
+  }}
+
+
+  tabs.forEach(function(tab, index) {{
+    const mode = resolveMode(tab, index);
+    tab.dataset.mode = mode;
+
+    tab.addEventListener("click", function() {{
+      if (indicatorText) {{
+        indicatorText.textContent = modeLabels[mode];
+      }}
+    }});
+  }});
+
+
+  const activeTab = document.querySelector(
+    ".jcr-analysis-tab.active"
+  );
+
+  if (activeTab && indicatorText) {{
+    const activeIndex = Array.from(tabs).indexOf(activeTab);
+    const activeMode = resolveMode(activeTab, activeIndex);
+
+    indicatorText.textContent = modeLabels[activeMode];
+  }}
 }});
 </script>
 
