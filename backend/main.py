@@ -23,7 +23,6 @@ EVENTS_FILE = DATA_DIR / "events.jsonl"
 for d in (DATA_DIR, STATIC_DIR, VIDEOS_DIR, THUMBS_DIR, HEATMAPS_DIR):
     d.mkdir(parents=True, exist_ok=True)
 
-app.mount("/assets", StaticFiles(directory=str(STATIC_DIR / "assets")), name="assets")
 app.mount("/videos", StaticFiles(directory=str(VIDEOS_DIR)), name="videos")
 app.mount("/thumbs", StaticFiles(directory=str(THUMBS_DIR)), name="thumbs")
 app.mount("/heatmaps", StaticFiles(directory=str(HEATMAPS_DIR)), name="heatmaps")
@@ -151,7 +150,7 @@ def build_one_line(events: list[dict]) -> str:
 
 @app.get("/", response_class=HTMLResponse)
 def root():
-    return RedirectResponse("/p/EGG-0001", status_code=302)
+    return RedirectResponse("/p/EGG-0001")
 
 
 @app.get("/events", response_class=JSONResponse)
@@ -207,13 +206,9 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
         "/videos/highlight.mp4"
         if (VIDEOS_DIR / "highlight.mp4").exists()
         else (
-            "/videos/ai_event_1.mp4"
-            if (VIDEOS_DIR / "ai_event_1.mp4").exists()
-            else (
-                "/videos/demo.mp4"
-                if (VIDEOS_DIR / "demo.mp4").exists()
-                else ""
-            )
+            "/videos/clip0525.mp4"
+            if (VIDEOS_DIR / "clip0525.mp4").exists()
+            else ""
         )
     )
 
@@ -264,27 +259,27 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>EYERAN</title>
+<title>JCR</title>
 <style>
 * {{ box-sizing:border-box; }}
 
 :root {{
-  --bg:#FFFFFF;
-  --bg2:#FAFCFB;
-  --card:#FFFFFF;
-  --line:#E5EEE9;
-  --text:#17231D;
-  --sub:#66736C;
-  --mint:#F1F8F4;
-  --mint2:#E7F3EC;
-  --deep:#267A4A;
-  --shadow:0 12px 28px rgba(20,60,40,0.06);
+  --bg:#FFFBEA;
+  --bg2:#FFFDF5;
+  --card:#ffffff;
+  --line:#F6E7B0;
+  --text:#4A3B00;
+  --sub:#7A6A2F;
+  --mint:#FFF3C4;
+  --mint2:#FFE89A;
+  --deep:#F5B700;
+  --shadow:0 12px 28px rgba(245,183,0,0.10);
   --radius:26px;
 }}
 
 body {{
   margin:0;
-  background:linear-gradient(180deg,#ffffff 0%, #f8fbfa 55%, #eef8f2 100%);
+  background:linear-gradient(180deg,var(--bg) 0%, var(--bg2) 45%, #eef4ef 100%);
   color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
 }}
@@ -306,7 +301,7 @@ body {{
   font-size:38px;
   font-weight:900;
   letter-spacing:-1.6px;
-  color:#17231D;
+  color:#4A3B00;
 }}
 
 .back-link {{
@@ -344,7 +339,7 @@ body {{
   display:flex;
   flex-direction:column;
   justify-content:center;
-  background:linear-gradient(180deg,#FAFCFB 0%, #ffffff 100%);
+  background:linear-gradient(180deg,#FFF8D9 0%, #ffffff 100%);
 }}
 
 .hero-badge {{
@@ -354,11 +349,11 @@ body {{
   width:max-content;
   padding:8px 12px;
   border-radius:999px;
-  background:#F8FBFA;
+  background:#FFFDF5;
   border:1px solid var(--line);
   font-size:12px;
   font-weight:900;
-  color:#5E7168;
+  color:#7A6A2F;
   margin-bottom:14px;
 }}
 
@@ -368,7 +363,7 @@ body {{
   letter-spacing:-1.4px;
   font-weight:900;
   margin:0 0 12px;
-  color:#17231D;
+  color:#4A3B00;
 }}
 
 .hero-sub {{
@@ -386,7 +381,7 @@ body {{
   min-width:220px;
   padding:16px 22px;
   border-radius:18px;
-  background:#267A4A;
+  background:#F5B700;
   color:#fff;
   text-decoration:none;
   font-weight:900;
@@ -397,7 +392,7 @@ body {{
 .hero-note {{
   margin-top:18px;
   padding:14px 16px;
-  background:#F8FBFA;
+  background:#FFFDF5;
   border:1px solid var(--line);
   border-radius:18px;
   color:var(--sub);
@@ -416,7 +411,7 @@ body {{
   gap:8px;
   font-size:14px;
   font-weight:900;
-  color:#5E7168;
+  color:#7A6A2F;
   margin:0 0 10px;
 }}
 
@@ -424,7 +419,7 @@ body {{
   position:relative;
   overflow:hidden;
   border-radius:22px;
-  background:#E5EEE9;
+  background:#F6E7B0;
   min-height:340px;
   max-height:420px;
 }}
@@ -453,7 +448,7 @@ video {{
   align-items:center;
   justify-content:center;
   font-size:34px;
-  color:#267A4A;
+  color:#E0A100;
   box-shadow:0 10px 24px rgba(245,183,0,0.20);
   pointer-events:none;
   transition:opacity .2s ease;
@@ -498,15 +493,15 @@ video {{
 
 .metric {{
   padding:16px;
-  background:#FFFFFF;
-  border:1px solid #E5EEE9;
+  background:#FFFBEA;
+  border:1px solid #F6E7B0;
   border-radius:20px;
 }}
 
 .metric .k {{
   font-size:12px;
   font-weight:900;
-  color:#5E7168;
+  color:#7A6A2F;
   margin-bottom:8px;
 }}
 
@@ -558,7 +553,7 @@ video {{
   gap:12px;
   align-items:flex-start;
   padding:14px;
-  background:#F8FBFA;
+  background:#FFFDF5;
   border:1px solid var(--line);
   border-radius:18px;
 }}
@@ -591,7 +586,7 @@ video {{
 .subscribe-card {{
   padding:22px;
   margin-bottom:18px;
-  background:linear-gradient(180deg,#FAFCFB,#ffffff);
+  background:linear-gradient(180deg,#FFF8D9,#ffffff);
 }}
 
 .subscribe-head {{
@@ -619,7 +614,7 @@ video {{
   width:100%;
   text-align:center;
   text-decoration:none;
-  background:#267A4A;
+  background:#F5B700;
   color:#fff;
   padding:18px;
   border-radius:18px;
@@ -634,14 +629,14 @@ video {{
 }}
 
 .event-row {{
-  background:#F8FBFA;
+  background:#FFFDF5;
   border-radius:20px;
   padding:14px;
   display:flex;
   align-items:flex-start;
   gap:12px;
   margin-bottom:12px;
-  border:1px solid #E5EEE9;
+  border:1px solid #F6E7B0;
 }}
 
 .event-row:last-child {{
@@ -649,25 +644,25 @@ video {{
 }}
 
 .alert-row {{
-  background:#F1F8F4;
-  border:1px solid #E5EEE9;
+  background:#FFF3C4;
+  border:1px solid #F6E7B0;
 }}
 
 .icon-box {{
   width:46px;
   height:46px;
   border-radius:14px;
-  background:#E7F3EC;
+  background:#FFE89A;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:21px;
-  color:#267A4A;
+  color:#E0A100;
   flex:0 0 auto;
 }}
 
 .event-time {{
-  color:#5E7168;
+  color:#7A6A2F;
   font-size:12px;
   font-weight:900;
   margin-bottom:4px;
@@ -677,7 +672,7 @@ video {{
   font-size:15px;
   line-height:1.65;
   font-weight:800;
-  color:#17231D;
+  color:#4A3B00;
   margin-bottom:10px;
   word-break:keep-all;
 }}
@@ -699,9 +694,9 @@ video {{
   text-decoration:none;
   font-size:12px;
   font-weight:900;
-  background:#FFFFFF;
-  color:#267A4A;
-  border:1px solid #E5EEE9;
+  background:#FFFBEA;
+  color:#F5B700;
+  border:1px solid #F6E7B0;
   white-space:nowrap;
 }}
 
@@ -731,133 +726,26 @@ video {{
     max-height:300px;
   }}
 }}
-
-.eyeran-main {{
-  background:#fff;
-}}
-
-.main-video-section {{
-  margin-bottom:20px;
-}}
-
-.cert-grid {{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-  margin-bottom:20px;
-}}
-
-.cert-card {{
-  background:#fff;
-  border:1px solid #dbeadf;
-  border-radius:22px;
-  padding:18px 12px;
-  text-align:center;
-  box-shadow:0 10px 24px rgba(14,91,61,0.07);
-}}
-
-.cert-card img {{
-  width:64px;
-  height:64px;
-  object-fit:contain;
-  margin-bottom:10px;
-}}
-
-.cert-title {{
-  font-size:15px;
-  font-weight:900;
-  color:#0e5b3d;
-}}
-
-.ai-result-grid {{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:14px;
-}}
-
-.ai-result-card {{
-  background:#f4f7f5;
-  border:1px solid #dbeadf;
-  border-radius:18px;
-  padding:16px;
-}}
-
-.ai-result-card .label {{
-  font-size:12px;
-  font-weight:900;
-  color:#2f8f57;
-  margin-bottom:8px;
-}}
-
-.ai-result-card .value {{
-  font-size:21px;
-  font-weight:900;
-  color:#0e5b3d;
-}}
-
-.ai-desc {{
-  margin-top:14px;
-  padding:16px;
-  border-radius:18px;
-  background:#f8fbf8;
-  border:1px solid #dbeadf;
-  color:#5f7364;
-  font-size:14px;
-  line-height:1.7;
-}}
-
-@media (max-width:900px) {{
-  .cert-grid {{
-    grid-template-columns:repeat(2,1fr);
-  }}
-
-  .ai-result-grid {{
-    grid-template-columns:1fr;
-  }}
-}}
-
 </style>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XKZ6FWYZ9D"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){{dataLayer.push(arguments);}}
-gtag('js', new Date());
-
-gtag('config', 'G-XKZ6FWYZ9D');
-</script>
-
 </head>
-
 <body>
-<div class="page eyeran-main">
-
-  <div class="topbar">
-    <div class="brand">EYERAN</div>
+<div class="page">
+  <div class="topbar"><div class="brand">JCR</div></div>
+    
   </div>
 
-  <div class="card video-card main-video-section" id="farm-video">
-    <div class="video-label">🎥 이번주 농장 영상</div>
-    {video_html}
-  </div>
+  <div class="hero-grid">
+    <div class="card hero-copy-card">
+      <div class="hero-badge">✦ JCR Farm Story</div>
+      <h1 class="hero-title">내가 먹는 계란,<br>농장 이야기를 보고 선택하세요</h1>
+      <p class="hero-sub">단순히 계란을 판매하는 것이 아니라, 소비자가 직접 농장의 흐름과 분위기를 보고 안심하고 선택할 수 있는 경험을 만들고 싶었습니다.</p>
+      <a href="https://www.instagram.com/eyeran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="hero-cta">✦ JCR 인스타그램</a>
+      <div class="hero-note">이번주 농장 기록, 최근 흐름, 변화 요약까지 한 화면에서 편하게 확인할 수 있어요. 보고 고르는 경험이 JCR 핵심입니다 ✨</div>
+    </div>
 
-  <div class="cert-grid">
-    <div class="cert-card">
-      <img src="/assets/6indus.png" alt="6차산업 인증">
-      <div class="cert-title">6차산업 인증</div>
-    </div>
-    <div class="cert-card">
-      <img src="/assets/naepo.png" alt="내포천애 인증">
-      <div class="cert-title">내포천애 인증</div>
-    </div>
-    <div class="cert-card">
-      <img src="/assets/muhang.png" alt="무항생제 인증">
-      <div class="cert-title">무항생제 인증</div>
-    </div>
-    <div class="cert-card">
-      <img src="/assets/haccp.png" alt="안전관리 인증">
-      <div class="cert-title">안전관리 인증</div>
+    <div class="card video-card" id="farm-video">
+      <div class="video-label">🎥 이번주 농장 영상</div>
+      {video_html}
     </div>
   </div>
 
@@ -865,64 +753,85 @@ gtag('config', 'G-XKZ6FWYZ9D');
     <div class="section-title">✦ 이번주 한 줄 요약</div>
     <div class="summary-main">{html.escape(one_line)}</div>
     <p class="summary-sub">{html.escape(summary)}</p>
-  </div>
 
-  <div class="card info-card">
-    <div class="section-title">🤖 AI 영상 분석 결과</div>
-
-    <p class="info-copy">
-      업로드된 농장 영상을 프레임 단위로 분석하여 움직임 변화, 군집 흐름, 공간별 활동 집중도를 요약합니다.
-    </p>
-
-    <div class="ai-result-grid">
-      <div class="ai-result-card">
-        <div class="label">활동량 분석</div>
-        <div class="value">{motion_text(metrics)}</div>
+    <div class="metrics">
+      <div class="metric">
+        <div class="k">움직임</div>
+        <div class="v">{motion_text(metrics)}</div>
+        <div class="d">이번주 농장 안에서 보이는 움직임의 리듬을 쉽게 풀어낸 결과예요.</div>
       </div>
-      <div class="ai-result-card">
-        <div class="label">군집 흐름</div>
-        <div class="value">{density_text(metrics)}</div>
+      <div class="metric">
+        <div class="k">모여 있는 정도</div>
+        <div class="v">{density_text(metrics)}</div>
+        <div class="d">한 공간에 과하게 몰리지 않는지, 농장 전체 흐름을 보여줘요.</div>
       </div>
-      <div class="ai-result-card">
-        <div class="label">패턴 변화</div>
-        <div class="value">{change_text(metrics)}</div>
-      </div>
-    </div>
-
-    <div class="feature-list" style="margin-top:18px;">
-      <div class="feature">
-        <div class="feature-icon">1</div>
-        <div>
-          <div class="feature-title">영상 입력</div>
-          <p class="feature-copy">농장 CCTV 영상을 불러와 일정 간격의 프레임으로 나눕니다.</p>
-        </div>
-      </div>
-
-      <div class="feature">
-        <div class="feature-icon">2</div>
-        <div>
-          <div class="feature-title">움직임 변화 감지</div>
-          <p class="feature-copy">이전 프레임과 현재 프레임의 차이를 비교해 움직임이 많은 구간을 찾습니다.</p>
-        </div>
-      </div>
-
-      <div class="feature">
-        <div class="feature-icon">3</div>
-        <div>
-          <div class="feature-title">하이라이트 추출</div>
-          <p class="feature-copy">이벤트 밀도가 높은 구간을 중심으로 소비자가 확인하기 쉬운 영상 구간을 제공합니다.</p>
-        </div>
+      <div class="metric">
+        <div class="k">이번주 변화</div>
+        <div class="v">{change_text(metrics)}</div>
+        <div class="d">평소보다 흐름이 흔들렸는지, 큰 변화 없이 안정적인지 살펴본 내용이에요.</div>
       </div>
     </div>
   </div>
 
-  <div class="card events-card" style="margin-top:20px;">
-    <div class="section-title">AI 최근 패턴 분석 🍃</div>
-    {card_html(e1, "🌿")}
-    {card_html(e2, "🐔")}
-    {card_html(e3, "🥚")}
-  </div>
+  <div class="lower-grid">
+    <div class="card info-card">
+      <div class="info-head">왜 더 믿을 수 있을까요? 🌿</div>
+      <p class="info-copy">JCR은 소비자가 직접 보고 선택할 수 있는 투명한 브랜드 경험을 제공합니다. 계란의 출발점인 농장 환경을 먼저 보여주는 게 맞다고 생각했습니다.</p>
 
+      <div class="feature-list">
+        <div class="feature">
+          <div class="feature-icon">🎥</div>
+          <div>
+            <div class="feature-title">농장 기록을 직접 확인</div>
+            <p class="feature-copy">문장으로만 설명하지 않고, 실제 영상과 흐름을 함께 보여드려요.</p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">🐓</div>
+          <div>
+            <div class="feature-title">더 자연스러운 농장 흐름</div>
+            <p class="feature-copy">닭들이 어떻게 움직이고 쉬는지 직관적으로 이해할 수 있도록 정리했어요.</p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">🥚</div>
+          <div>
+            <div class="feature-title">보고 나서 선택하는 경험</div>
+            <p class="feature-copy">그냥 믿는 것이 아니라, 직접 보고 안심하고 고를 수 있는 페이지를 지향합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card subscribe-card">
+        <div class="subscribe-head">
+          <div class="section-title" style="margin:0;">정기 구독</div>
+          <div class="subscribe-emoji">📦</div>
+        </div>
+        <p class="subscribe-copy">농장을 직접 확인한 계란이니까, 믿고 꾸준히 드실 수 있어요. 정기배송으로 신청하면 매번 주문할 필요 없이 신선한 아이란이 정해진 날에 집 앞에 옵니다.</p>
+        <a href="https://www.instagram.com/eyeran_egg?igsh=cmtzaDliN3Nhdzdt&utm_source=qr" target="_blank" class="cta">JCR 인스타그램</a>
+      </div>
+
+      <div class="card events-card">
+        <div class="section-title"인공지능 최근 패턴 분석 🍃</div>
+
+        <div class="feature" style="margin-bottom:14px;">
+          <div class="feature-icon">🤖</div>
+          <div>
+            <div class="feature-title">인공지능 영상 분석 결과</div>
+            <p class="feature-copy">업로드된 농장 영상에서 움직임 변화가 큰 구간을 자동으로 분리해 주요 이벤트 영상으로 정리했습니다.</p>
+          </div>
+        </div>
+
+        {card_html(e1, "🌿")}
+        {card_html(e2, "🐔")}
+        {card_html(e3, "🥚")}
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
