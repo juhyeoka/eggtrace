@@ -269,22 +269,22 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 * {{ box-sizing:border-box; }}
 
 :root {{
-  --bg:#FFFBEA;
-  --bg2:#FFFDF5;
+  --bg:#FFFFFF;
+  --bg2:#F8FBFA;
   --card:#ffffff;
-  --line:#F6E7B0;
-  --text:#4A3B00;
-  --sub:#7A6A2F;
-  --mint:#FFF3C4;
-  --mint2:#FFE89A;
-  --deep:#F5B700;
+  --line:#DDEEE4;
+  --text:#10251B;
+  --sub:#5E7168;
+  --mint:#EAF7EF;
+  --mint2:#DDF2E5;
+  --deep:#0E8F5A;
   --shadow:0 12px 28px rgba(245,183,0,0.10);
   --radius:26px;
 }}
 
 body {{
   margin:0;
-  background:linear-gradient(180deg,var(--bg) 0%, var(--bg2) 45%, #eef4ef 100%);
+  background:linear-gradient(180deg,#ffffff 0%, #f8fbfa 55%, #eef8f2 100%);
   color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
 }}
@@ -306,7 +306,7 @@ body {{
   font-size:38px;
   font-weight:900;
   letter-spacing:-1.6px;
-  color:#4A3B00;
+  color:#10251B;
 }}
 
 .back-link {{
@@ -344,7 +344,7 @@ body {{
   display:flex;
   flex-direction:column;
   justify-content:center;
-  background:linear-gradient(180deg,#FFF8D9 0%, #ffffff 100%);
+  background:linear-gradient(180deg,#F5FBF7 0%, #ffffff 100%);
 }}
 
 .hero-badge {{
@@ -354,11 +354,11 @@ body {{
   width:max-content;
   padding:8px 12px;
   border-radius:999px;
-  background:#FFFDF5;
+  background:#F8FBFA;
   border:1px solid var(--line);
   font-size:12px;
   font-weight:900;
-  color:#7A6A2F;
+  color:#5E7168;
   margin-bottom:14px;
 }}
 
@@ -368,7 +368,7 @@ body {{
   letter-spacing:-1.4px;
   font-weight:900;
   margin:0 0 12px;
-  color:#4A3B00;
+  color:#10251B;
 }}
 
 .hero-sub {{
@@ -386,7 +386,7 @@ body {{
   min-width:220px;
   padding:16px 22px;
   border-radius:18px;
-  background:#F5B700;
+  background:#0E8F5A;
   color:#fff;
   text-decoration:none;
   font-weight:900;
@@ -397,7 +397,7 @@ body {{
 .hero-note {{
   margin-top:18px;
   padding:14px 16px;
-  background:#FFFDF5;
+  background:#F8FBFA;
   border:1px solid var(--line);
   border-radius:18px;
   color:var(--sub);
@@ -416,7 +416,7 @@ body {{
   gap:8px;
   font-size:14px;
   font-weight:900;
-  color:#7A6A2F;
+  color:#5E7168;
   margin:0 0 10px;
 }}
 
@@ -424,7 +424,7 @@ body {{
   position:relative;
   overflow:hidden;
   border-radius:22px;
-  background:#F6E7B0;
+  background:#DDEEE4;
   min-height:340px;
   max-height:420px;
 }}
@@ -453,7 +453,7 @@ video {{
   align-items:center;
   justify-content:center;
   font-size:34px;
-  color:#E0A100;
+  color:#0E8F5A;
   box-shadow:0 10px 24px rgba(245,183,0,0.20);
   pointer-events:none;
   transition:opacity .2s ease;
@@ -498,15 +498,15 @@ video {{
 
 .metric {{
   padding:16px;
-  background:#FFFBEA;
-  border:1px solid #F6E7B0;
+  background:#FFFFFF;
+  border:1px solid #DDEEE4;
   border-radius:20px;
 }}
 
 .metric .k {{
   font-size:12px;
   font-weight:900;
-  color:#7A6A2F;
+  color:#5E7168;
   margin-bottom:8px;
 }}
 
@@ -558,7 +558,7 @@ video {{
   gap:12px;
   align-items:flex-start;
   padding:14px;
-  background:#FFFDF5;
+  background:#F8FBFA;
   border:1px solid var(--line);
   border-radius:18px;
 }}
@@ -591,7 +591,7 @@ video {{
 .subscribe-card {{
   padding:22px;
   margin-bottom:18px;
-  background:linear-gradient(180deg,#FFF8D9,#ffffff);
+  background:linear-gradient(180deg,#F5FBF7,#ffffff);
 }}
 
 .subscribe-head {{
@@ -619,7 +619,7 @@ video {{
   width:100%;
   text-align:center;
   text-decoration:none;
-  background:#F5B700;
+  background:#0E8F5A;
   color:#fff;
   padding:18px;
   border-radius:18px;
@@ -634,14 +634,14 @@ video {{
 }}
 
 .event-row {{
-  background:#FFFDF5;
+  background:#F8FBFA;
   border-radius:20px;
   padding:14px;
   display:flex;
   align-items:flex-start;
   gap:12px;
   margin-bottom:12px;
-  border:1px solid #F6E7B0;
+  border:1px solid #DDEEE4;
 }}
 
 .event-row:last-child {{
@@ -649,25 +649,25 @@ video {{
 }}
 
 .alert-row {{
-  background:#FFF3C4;
-  border:1px solid #F6E7B0;
+  background:#EAF7EF;
+  border:1px solid #DDEEE4;
 }}
 
 .icon-box {{
   width:46px;
   height:46px;
   border-radius:14px;
-  background:#FFE89A;
+  background:#DDF2E5;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:21px;
-  color:#E0A100;
+  color:#0E8F5A;
   flex:0 0 auto;
 }}
 
 .event-time {{
-  color:#7A6A2F;
+  color:#5E7168;
   font-size:12px;
   font-weight:900;
   margin-bottom:4px;
@@ -677,7 +677,7 @@ video {{
   font-size:15px;
   line-height:1.65;
   font-weight:800;
-  color:#4A3B00;
+  color:#10251B;
   margin-bottom:10px;
   word-break:keep-all;
 }}
@@ -699,9 +699,9 @@ video {{
   text-decoration:none;
   font-size:12px;
   font-weight:900;
-  background:#FFFBEA;
-  color:#F5B700;
-  border:1px solid #F6E7B0;
+  background:#FFFFFF;
+  color:#0E8F5A;
+  border:1px solid #DDEEE4;
   white-space:nowrap;
 }}
 
@@ -888,6 +888,32 @@ gtag('config', 'G-XKZ6FWYZ9D');
     <div class="ai-desc">
       AI가 CCTV 영상에서 움직임 변화, 군집 흐름, 공간별 활동 집중도를 분석하고,
       이벤트가 많은 구간을 중심으로 이번주 농장 상태를 요약합니다.
+    </div>
+
+    <div class="feature-list" style="margin-top:16px;">
+      <div class="feature">
+        <div class="feature-icon">①</div>
+        <div>
+          <div class="feature-title">영상 입력</div>
+          <p class="feature-copy">농장 CCTV 영상을 불러와 프레임 단위로 분석합니다.</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">②</div>
+        <div>
+          <div class="feature-title">움직임 감지</div>
+          <p class="feature-copy">프레임 변화량을 비교해 활동량이 높은 구간을 찾습니다.</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">③</div>
+        <div>
+          <div class="feature-title">AI 이벤트 추출</div>
+          <p class="feature-copy">움직임이 집중된 구간을 자동 선별해 하이라이트 영상과 분석 결과로 정리합니다.</p>
+        </div>
+      </div>
     </div>
   </div>
 
