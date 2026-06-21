@@ -264,7 +264,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>EYERAN</title>
+<title>JCR</title>
 <style>
 * {{ box-sizing:border-box; }}
 
@@ -817,6 +817,213 @@ video {{
   }}
 }}
 
+
+/* JCR_NEUTRAL_THEME_V3 */
+
+body {{
+  background:#F4F6F8 !important;
+  color:#191F28 !important;
+}}
+
+.page,
+.eyeran-main {{
+  background:transparent !important;
+}}
+
+.card,
+.cert-card,
+.video-card,
+.summary-card,
+.events-card {{
+  background:#FFFFFF !important;
+  border:1px solid #E5E8EB !important;
+  box-shadow:0 8px 24px rgba(0,0,0,0.045) !important;
+}}
+
+.brand,
+.section-title,
+.cert-title {{
+  color:#191F28 !important;
+}}
+
+.cert-card {{
+  border-radius:20px !important;
+}}
+
+.cert-title {{
+  font-size:14px !important;
+}}
+
+.summary-main {{
+  color:#191F28 !important;
+}}
+
+.summary-sub,
+.info-copy,
+.feature-copy {{
+  color:#6B7684 !important;
+}}
+
+/* 기존 숫자 전용 AI 카드와 실패한 숨김 분석창 제거 */
+.info-card,
+.real-analysis-section,
+.analysis-panel {{
+  display:none !important;
+}}
+
+.jcr-analysis-card {{
+  margin-top:20px;
+  padding:22px;
+  border-radius:24px;
+}}
+
+.jcr-analysis-header {{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:18px;
+}}
+
+.jcr-analysis-sub {{
+  margin:7px 0 0;
+  color:#6B7684;
+  font-size:13px;
+  line-height:1.6;
+}}
+
+.jcr-analysis-complete {{
+  flex-shrink:0;
+  padding:7px 10px;
+  border-radius:999px;
+  background:#F0F4F1;
+  color:#587062;
+  font-size:11px;
+  font-weight:900;
+}}
+
+.jcr-analysis-tabs {{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  padding:5px;
+  margin-bottom:14px;
+  border-radius:15px;
+  background:#F2F4F6;
+}}
+
+.jcr-analysis-tab {{
+  padding:11px 8px;
+  border:0;
+  border-radius:11px;
+  background:transparent;
+  color:#8B95A1;
+  font-family:inherit;
+  font-size:12px;
+  font-weight:900;
+  cursor:pointer;
+}}
+
+.jcr-analysis-tab.active {{
+  background:#FFFFFF;
+  color:#34483D;
+  box-shadow:0 3px 10px rgba(0,0,0,0.07);
+}}
+
+.jcr-analysis-video-wrap {{
+  position:relative;
+  overflow:hidden;
+  border-radius:18px;
+  background:#111111;
+}}
+
+.jcr-analysis-video {{
+  display:block;
+  width:100%;
+  min-height:260px;
+  max-height:460px;
+  object-fit:cover;
+  background:#111111;
+}}
+
+.jcr-analysis-overlay {{
+  position:absolute;
+  top:13px;
+  left:13px;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  padding:9px 11px;
+  border-radius:12px;
+  background:rgba(25,31,28,0.72);
+  color:#FFFFFF;
+  pointer-events:none;
+}}
+
+.jcr-analysis-overlay strong {{
+  font-size:12px;
+}}
+
+.jcr-analysis-overlay span {{
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:1px;
+  opacity:0.78;
+}}
+
+.jcr-analysis-metrics {{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin-top:12px;
+}}
+
+.jcr-analysis-metric {{
+  padding:14px 10px;
+  border:1px solid #E8EBED;
+  border-radius:15px;
+  background:#FAFAFA;
+  text-align:center;
+}}
+
+.jcr-analysis-metric span {{
+  display:block;
+  margin-bottom:5px;
+  color:#8B95A1;
+  font-size:11px;
+  font-weight:800;
+}}
+
+.jcr-analysis-metric strong {{
+  color:#333D37;
+  font-size:15px;
+  font-weight:900;
+}}
+
+.jcr-analysis-note {{
+  margin-top:12px;
+  padding:14px 15px;
+  border-radius:15px;
+  background:#F7F8F9;
+  color:#6B7684;
+  font-size:13px;
+  line-height:1.7;
+}}
+
+@media (max-width:600px) {{
+  .jcr-analysis-card {{
+    padding:17px;
+  }}
+
+  .jcr-analysis-video {{
+    min-height:220px;
+  }}
+
+  .jcr-analysis-metrics {{
+    grid-template-columns:1fr;
+  }}
+}}
+
 </style>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKZ6FWYZ9D"></script>
@@ -834,7 +1041,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
 <div class="page eyeran-main">
 
   <div class="topbar">
-    <div class="brand">EYERAN</div>
+    <div class="brand">JCR</div>
   </div>
 
   <div class="card video-card main-video-section" id="farm-video">
@@ -916,7 +1123,95 @@ gtag('config', 'G-XKZ6FWYZ9D');
     </div>
   </div>
 
-  <div class="card events-card" style="margin-top:20px;">
+  
+  <!-- JCR_VISIBLE_AI_ANALYSIS_V3 -->
+  <div class="card jcr-analysis-card" id="jcr-ai-analysis">
+    <div class="jcr-analysis-header">
+      <div>
+        <div class="section-title">AI 영상 분석 결과</div>
+        <p class="jcr-analysis-sub">
+          농장 영상에서 움직임과 군집 흐름이 집중된 구간을 AI가 분석했습니다.
+        </p>
+      </div>
+
+      <span class="jcr-analysis-complete">분석 완료</span>
+    </div>
+
+    <div class="jcr-analysis-tabs">
+      <button
+        type="button"
+        class="jcr-analysis-tab active"
+        data-src="/videos/ai_event_1.mp4"
+        data-title="활동량 분석"
+      >
+        활동량
+      </button>
+
+      <button
+        type="button"
+        class="jcr-analysis-tab"
+        data-src="/videos/ai_event_2.mp4"
+        data-title="군집 흐름 분석"
+      >
+        군집 흐름
+      </button>
+
+      <button
+        type="button"
+        class="jcr-analysis-tab"
+        data-src="/videos/ai_event_3.mp4"
+        data-title="패턴 변화 분석"
+      >
+        패턴 변화
+      </button>
+    </div>
+
+    <div class="jcr-analysis-video-wrap">
+      <video
+        id="jcrAnalysisVideo"
+        class="jcr-analysis-video"
+        controls
+        playsinline
+        muted
+        preload="metadata"
+      >
+        <source
+          id="jcrAnalysisSource"
+          src="/videos/ai_event_1.mp4"
+          type="video/mp4"
+        >
+      </video>
+
+      <div class="jcr-analysis-overlay">
+        <strong id="jcrAnalysisTitle">활동량 분석</strong>
+        <span>AI ANALYSIS</span>
+      </div>
+    </div>
+
+    <div class="jcr-analysis-metrics">
+      <div class="jcr-analysis-metric">
+        <span>활동량</span>
+        <strong>{motion_text(metrics)}</strong>
+      </div>
+
+      <div class="jcr-analysis-metric">
+        <span>군집 흐름</span>
+        <strong>{density_text(metrics)}</strong>
+      </div>
+
+      <div class="jcr-analysis-metric">
+        <span>패턴 변화</span>
+        <strong>{change_text(metrics)}</strong>
+      </div>
+    </div>
+
+    <div class="jcr-analysis-note">
+      프레임 간 움직임 변화와 공간별 활동 집중도를 분석하여
+      이벤트가 많이 발생한 구간을 영상으로 제공합니다.
+    </div>
+  </div>
+
+<div class="card events-card" style="margin-top:20px;">
     <div class="section-title">AI 최근 패턴 분석 🍃</div>
     {card_html(e1, "🌿")}
     {card_html(e2, "🐔")}
@@ -946,6 +1241,58 @@ if (video && badge) {{
   video.addEventListener("ended", showBadge);
 }}
 </script>
+
+<script>
+// JCR_VISIBLE_AI_ANALYSIS_SCRIPT_V3
+document.addEventListener("DOMContentLoaded", function() {{
+  const tabs = document.querySelectorAll(".jcr-analysis-tab");
+  const video = document.getElementById("jcrAnalysisVideo");
+  const videoSource = document.getElementById("jcrAnalysisSource");
+  const videoTitle = document.getElementById("jcrAnalysisTitle");
+
+  let fallbackUsed = false;
+
+  tabs.forEach(function(tab) {{
+    tab.addEventListener("click", function() {{
+      tabs.forEach(function(item) {{
+        item.classList.remove("active");
+      }});
+
+      tab.classList.add("active");
+
+      const selectedSource = tab.dataset.src;
+      const selectedTitle = tab.dataset.title;
+
+      fallbackUsed = false;
+
+      if (video && videoSource) {{
+        video.pause();
+        videoSource.src = selectedSource;
+        video.load();
+      }}
+
+      if (videoTitle) {{
+        videoTitle.textContent = selectedTitle;
+      }}
+    }});
+  }});
+
+  if (video && videoSource) {{
+    video.addEventListener("error", function() {{
+      if (!fallbackUsed) {{
+        fallbackUsed = true;
+        videoSource.src = "/videos/ai_event_1.mp4";
+        video.load();
+
+        if (videoTitle) {{
+          videoTitle.textContent = "활동량 분석";
+        }}
+      }}
+    }});
+  }}
+}});
+</script>
+
 </body>
 </html>
 """
