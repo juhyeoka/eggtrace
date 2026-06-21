@@ -89,7 +89,7 @@ def motion_text(metrics: dict) -> str:
         return "활발해요"
     if avg_flow >= 2:
         return "보통이에요"
-    return "차분해요"
+    return "보통 수준"
 
 
 def density_text(metrics: dict) -> str:
@@ -98,13 +98,13 @@ def density_text(metrics: dict) -> str:
         return "적절해요"
     if avg_compact >= 0.7:
         return "조금 몰려 있어요"
-    return "한쪽에 모여 있어요"
+    return "우측 구역 집중"
 
 
 def change_text(metrics: dict) -> str:
     bvi = metrics.get("bvi", 0.0)
     if bvi < 0.03:
-        return "크지 않았어요"
+        return "평소 범위 유지"
     if bvi < 0.08:
         return "조금 있었어요"
     return "비교적 컸어요"
@@ -1024,6 +1024,356 @@ body {{
   }}
 }}
 
+
+/* JCR_AI_VISUAL_OVERLAY_STYLE_V1 */
+
+/* 상단 JCR 로고 가운데 정렬 */
+.topbar {{
+  position:relative !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}}
+
+.topbar .brand {{
+  width:100% !important;
+  margin:0 auto !important;
+  text-align:center !important;
+  justify-content:center !important;
+}}
+
+.jcr-analysis-video-wrap {{
+  position:relative;
+}}
+
+.jcr-vision-layer {{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  overflow:hidden;
+  border-radius:18px;
+  pointer-events:none;
+}}
+
+.jcr-vision-mode {{
+  display:none;
+  position:absolute;
+  inset:0;
+}}
+
+.jcr-vision-layer.mode-activity .jcr-vision-activity {{
+  display:block;
+}}
+
+.jcr-vision-layer.mode-cluster .jcr-vision-cluster {{
+  display:block;
+}}
+
+.jcr-vision-layer.mode-pattern .jcr-vision-pattern {{
+  display:block;
+}}
+
+/* 활동량 히트맵 */
+.heat-spot {{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(8px);
+  mix-blend-mode:screen;
+  animation:heatPulse 2.4s ease-in-out infinite;
+}}
+
+.heat-spot-one {{
+  width:150px;
+  height:120px;
+  left:54%;
+  top:38%;
+  background:radial-gradient(
+    circle,
+    rgba(255,55,45,0.82) 0%,
+    rgba(255,190,45,0.60) 42%,
+    rgba(255,220,70,0) 74%
+  );
+}}
+
+.heat-spot-two {{
+  width:120px;
+  height:100px;
+  left:24%;
+  top:52%;
+  background:radial-gradient(
+    circle,
+    rgba(255,156,30,0.72) 0%,
+    rgba(255,218,60,0.42) 48%,
+    rgba(255,220,70,0) 75%
+  );
+  animation-delay:.5s;
+}}
+
+.heat-spot-three {{
+  width:90px;
+  height:80px;
+  left:68%;
+  top:18%;
+  background:radial-gradient(
+    circle,
+    rgba(255,216,50,0.65) 0%,
+    rgba(255,220,70,0) 72%
+  );
+  animation-delay:1s;
+}}
+
+@keyframes heatPulse {{
+  0%, 100% {{
+    transform:scale(.92);
+    opacity:.72;
+  }}
+
+  50% {{
+    transform:scale(1.08);
+    opacity:1;
+  }}
+}}
+
+.vision-label {{
+  position:absolute;
+  padding:8px 11px;
+  border:1px solid rgba(255,255,255,.45);
+  border-radius:10px;
+  background:rgba(20,25,22,.70);
+  color:#ffffff;
+  font-size:11px;
+  font-weight:900;
+  backdrop-filter:blur(8px);
+}}
+
+.vision-label-activity {{
+  right:14px;
+  top:14px;
+}}
+
+.vision-scale {{
+  position:absolute;
+  right:14px;
+  bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 9px;
+  border-radius:10px;
+  background:rgba(20,25,22,.70);
+  color:#ffffff;
+  font-size:9px;
+  font-weight:800;
+  backdrop-filter:blur(8px);
+}}
+
+.vision-scale-bar {{
+  width:72px;
+  height:7px;
+  border-radius:999px;
+  background:linear-gradient(
+    90deg,
+    #ffe95b 0%,
+    #ff9f2e 50%,
+    #ff4038 100%
+  );
+}}
+
+/* 군집 및 이동 흐름 */
+.cluster-box {{
+  position:absolute;
+  border:2px solid rgba(255,255,255,.92);
+  border-radius:14px;
+  box-shadow:0 0 0 1px rgba(41,112,255,.8);
+  background:rgba(41,112,255,.09);
+}}
+
+.cluster-box span {{
+  position:absolute;
+  top:-27px;
+  left:-2px;
+  padding:5px 8px;
+  border-radius:7px;
+  background:#2970ff;
+  color:#ffffff;
+  font-size:10px;
+  font-weight:900;
+}}
+
+.cluster-box-one {{
+  width:32%;
+  height:34%;
+  left:14%;
+  top:42%;
+}}
+
+.cluster-box-two {{
+  width:28%;
+  height:38%;
+  right:13%;
+  top:31%;
+}}
+
+.flow-arrow {{
+  position:absolute;
+  color:#ffffff;
+  font-size:44px;
+  font-weight:900;
+  line-height:1;
+  text-shadow:
+    0 0 4px rgba(41,112,255,1),
+    0 0 10px rgba(41,112,255,.9);
+  animation:arrowMove 1.6s ease-in-out infinite;
+}}
+
+.flow-arrow-one {{
+  left:40%;
+  top:37%;
+}}
+
+.flow-arrow-two {{
+  left:49%;
+  top:53%;
+  animation-delay:.3s;
+}}
+
+.flow-arrow-three {{
+  left:57%;
+  top:29%;
+  animation-delay:.6s;
+}}
+
+@keyframes arrowMove {{
+  0%, 100% {{
+    transform:translateX(0);
+    opacity:.65;
+  }}
+
+  50% {{
+    transform:translateX(12px);
+    opacity:1;
+  }}
+}}
+
+.vision-label-cluster {{
+  right:14px;
+  top:14px;
+}}
+
+/* 시간대별 패턴 그래프 */
+.pattern-chart {{
+  position:absolute;
+  left:14px;
+  right:14px;
+  bottom:14px;
+  padding:14px;
+  border:1px solid rgba(255,255,255,.30);
+  border-radius:16px;
+  background:rgba(25,31,40,.78);
+  color:#ffffff;
+  backdrop-filter:blur(10px);
+}}
+
+.pattern-chart-title {{
+  margin-bottom:5px;
+  font-size:11px;
+  font-weight:900;
+}}
+
+.pattern-chart svg {{
+  display:block;
+  width:100%;
+  height:90px;
+}}
+
+.pattern-chart-times {{
+  display:flex;
+  justify-content:space-between;
+  color:rgba(255,255,255,.70);
+  font-size:9px;
+  font-weight:800;
+}}
+
+.pattern-event {{
+  position:absolute;
+  top:14px;
+  right:14px;
+  padding:8px 11px;
+  border-radius:10px;
+  background:rgba(255,255,255,.92);
+  color:#191f28;
+  font-size:10px;
+  font-weight:900;
+}}
+
+/* 영상 아래 소비자용 설명 */
+.jcr-visual-summary {{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  margin-top:13px;
+  padding:15px;
+  border:1px solid #e7eaec;
+  border-radius:16px;
+  background:#f7f8f9;
+}}
+
+.jcr-visual-summary-icon {{
+  flex:0 0 36px;
+  width:36px;
+  height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+  background:#ffffff;
+  color:#476052;
+  font-size:18px;
+  font-weight:900;
+  box-shadow:0 3px 10px rgba(0,0,0,.06);
+}}
+
+.jcr-visual-summary-label {{
+  display:block;
+  margin-bottom:4px;
+  color:#8b95a1;
+  font-size:10px;
+  font-weight:900;
+}}
+
+.jcr-visual-summary strong {{
+  display:block;
+  color:#191f28;
+  font-size:14px;
+  line-height:1.45;
+}}
+
+.jcr-visual-summary p {{
+  margin:5px 0 0;
+  color:#6b7684;
+  font-size:12px;
+  line-height:1.6;
+}}
+
+@media (max-width:600px) {{
+  .flow-arrow {{
+    font-size:34px;
+  }}
+
+  .pattern-chart {{
+    padding:11px;
+  }}
+
+  .pattern-chart svg {{
+    height:70px;
+  }}
+
+  .vision-scale {{
+    bottom:10px;
+    right:10px;
+  }}
+}}
+
 </style>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKZ6FWYZ9D"></script>
@@ -1142,7 +1492,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
         type="button"
         class="jcr-analysis-tab active"
         data-src="/videos/ai_event_1.mp4"
-        data-title="활동량 분석"
+        data-title="활동량 분석" data-mode="activity"
       >
         활동량
       </button>
@@ -1151,7 +1501,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
         type="button"
         class="jcr-analysis-tab"
         data-src="/videos/ai_event_2.mp4"
-        data-title="군집 흐름 분석"
+        data-title="군집 흐름 분석" data-mode="cluster"
       >
         군집 흐름
       </button>
@@ -1160,7 +1510,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
         type="button"
         class="jcr-analysis-tab"
         data-src="/videos/ai_event_3.mp4"
-        data-title="패턴 변화 분석"
+        data-title="패턴 변화 분석" data-mode="pattern"
       >
         패턴 변화
       </button>
@@ -1182,25 +1532,121 @@ gtag('config', 'G-XKZ6FWYZ9D');
         >
       </video>
 
+      
+      <!-- JCR_AI_VISUAL_OVERLAY_V1 -->
+      <div id="jcrVisionLayer" class="jcr-vision-layer mode-activity">
+
+        <div class="jcr-vision-mode jcr-vision-activity">
+          <div class="heat-spot heat-spot-one"></div>
+          <div class="heat-spot heat-spot-two"></div>
+          <div class="heat-spot heat-spot-three"></div>
+
+          <div class="vision-label vision-label-activity">
+            활동 집중 영역
+          </div>
+
+          <div class="vision-scale">
+            <span>낮음</span>
+            <div class="vision-scale-bar"></div>
+            <span>높음</span>
+          </div>
+        </div>
+
+        <div class="jcr-vision-mode jcr-vision-cluster">
+          <div class="cluster-box cluster-box-one">
+            <span>군집 A</span>
+          </div>
+
+          <div class="cluster-box cluster-box-two">
+            <span>군집 B</span>
+          </div>
+
+          <div class="flow-arrow flow-arrow-one">→</div>
+          <div class="flow-arrow flow-arrow-two">↗</div>
+          <div class="flow-arrow flow-arrow-three">→</div>
+
+          <div class="vision-label vision-label-cluster">
+            주요 이동 방향
+          </div>
+        </div>
+
+        <div class="jcr-vision-mode jcr-vision-pattern">
+          <div class="pattern-chart">
+            <div class="pattern-chart-title">
+              시간대별 활동 변화
+            </div>
+
+            <svg viewBox="0 0 320 120" preserveAspectRatio="none">
+              <line x1="0" y1="30" x2="320" y2="30"
+                    stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+              <line x1="0" y1="60" x2="320" y2="60"
+                    stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+              <line x1="0" y1="90" x2="320" y2="90"
+                    stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+
+              <polyline
+                points="0,88 45,76 90,80 135,47 180,55 225,30 270,45 320,38"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+
+              <circle cx="225" cy="30" r="6" fill="#ffffff"/>
+            </svg>
+
+            <div class="pattern-chart-times">
+              <span>오전</span>
+              <span>점심</span>
+              <span>오후</span>
+              <span>저녁</span>
+            </div>
+          </div>
+
+          <div class="pattern-event">
+            오후 활동 변화 감지
+          </div>
+        </div>
+      </div>
+
       <div class="jcr-analysis-overlay">
         <strong id="jcrAnalysisTitle">활동량 분석</strong>
         <span>AI ANALYSIS</span>
       </div>
     </div>
 
+    
+    <!-- JCR_AI_VISUAL_SUMMARY_V1 -->
+    <div class="jcr-visual-summary">
+      <div class="jcr-visual-summary-icon" id="jcrVisualIcon">◉</div>
+
+      <div>
+        <span class="jcr-visual-summary-label">AI가 본 핵심</span>
+
+        <strong id="jcrVisualHeadline">
+          움직임이 집중된 영역을 표시했어요
+        </strong>
+
+        <p id="jcrVisualDescription">
+          색이 진한 위치일수록 닭의 움직임이 많이 감지된 구역입니다.
+        </p>
+      </div>
+    </div>
+
     <div class="jcr-analysis-metrics">
       <div class="jcr-analysis-metric">
-        <span>활동량</span>
+        <span>움직임 집중도</span>
         <strong>{motion_text(metrics)}</strong>
       </div>
 
       <div class="jcr-analysis-metric">
-        <span>군집 흐름</span>
+        <span>군집 중심</span>
         <strong>{density_text(metrics)}</strong>
       </div>
 
       <div class="jcr-analysis-metric">
-        <span>패턴 변화</span>
+        <span>변화 추세</span>
         <strong>{change_text(metrics)}</strong>
       </div>
     </div>
@@ -1290,6 +1736,80 @@ document.addEventListener("DOMContentLoaded", function() {{
       }}
     }});
   }}
+}});
+</script>
+
+
+<script>
+// JCR_AI_VISUAL_OVERLAY_SCRIPT_V1
+document.addEventListener("DOMContentLoaded", function() {{
+  const visualLayer = document.getElementById("jcrVisionLayer");
+  const headline = document.getElementById("jcrVisualHeadline");
+  const description = document.getElementById("jcrVisualDescription");
+  const icon = document.getElementById("jcrVisualIcon");
+  const tabs = document.querySelectorAll(".jcr-analysis-tab");
+
+  const visualConfig = {{
+    activity: {{
+      icon:"◉",
+      headline:"움직임이 집중된 영역을 표시했어요",
+      description:"색이 진한 위치일수록 닭의 움직임이 많이 감지된 구역입니다."
+    }},
+
+    cluster: {{
+      icon:"↗",
+      headline:"군집 중심과 주요 이동 방향을 찾았어요",
+      description:"파란 박스는 닭이 많이 모인 영역이고, 화살표는 주로 이동한 방향입니다."
+    }},
+
+    pattern: {{
+      icon:"⌁",
+      headline:"시간대별 활동 변화 흐름을 비교했어요",
+      description:"그래프가 높아지는 구간은 평소보다 움직임이 많이 관찰된 시간대입니다."
+    }}
+  }};
+
+  function changeVisualMode(mode) {{
+    if (!visualLayer || !visualConfig[mode]) return;
+
+    visualLayer.classList.remove(
+      "mode-activity",
+      "mode-cluster",
+      "mode-pattern"
+    );
+
+    visualLayer.classList.add("mode-" + mode);
+
+    if (headline) {{
+      headline.textContent = visualConfig[mode].headline;
+    }}
+
+    if (description) {{
+      description.textContent = visualConfig[mode].description;
+    }}
+
+    if (icon) {{
+      icon.textContent = visualConfig[mode].icon;
+    }}
+  }}
+
+  tabs.forEach(function(tab, index) {{
+    if (!tab.dataset.mode) {{
+      tab.dataset.mode = (
+        index === 0
+          ? "activity"
+          : index === 1
+            ? "cluster"
+            : "pattern"
+      );
+    }}
+
+    tab.addEventListener("click", function() {{
+      changeVisualMode(tab.dataset.mode);
+    }});
+  }});
+
+  changeVisualMode("activity");
 }});
 </script>
 
