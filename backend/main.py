@@ -1374,6 +1374,299 @@ body {{
   }}
 }}
 
+
+/* JCR_INTEGRATED_ANALYSIS_STYLE_V2 */
+
+/* 영상 속 분석 요소가 자연스럽게 섞이도록 전체 톤 조정 */
+.jcr-analysis-video-wrap {{
+  position:relative !important;
+  isolation:isolate;
+}}
+
+.jcr-analysis-video {{
+  position:relative;
+  z-index:0;
+}}
+
+.jcr-vision-layer {{
+  z-index:2 !important;
+}}
+
+.jcr-analysis-overlay {{
+  z-index:5 !important;
+}}
+
+
+/* 기존 영상 밖 고정 지표가 남아 있어도 숨김 */
+.jcr-analysis-metrics {{
+  display:none !important;
+}}
+
+
+/* 영상 내부 탭별 분석 정보 */
+.jcr-integrated-context {{
+  position:absolute;
+  left:12px;
+  right:12px;
+  bottom:12px;
+  z-index:6;
+  pointer-events:none;
+}}
+
+.jcr-context-panel {{
+  display:none;
+  width:min(420px, 78%);
+  padding:12px 13px;
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:15px;
+  background:linear-gradient(
+    135deg,
+    rgba(17,23,20,.78),
+    rgba(30,37,33,.60)
+  );
+  box-shadow:0 8px 24px rgba(0,0,0,.18);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  color:#ffffff;
+}}
+
+.jcr-context-panel.active {{
+  display:block;
+}}
+
+.jcr-context-heading {{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-bottom:10px;
+  color:rgba(255,255,255,.92);
+  font-size:11px;
+  font-weight:900;
+}}
+
+.jcr-context-dot {{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  box-shadow:0 0 8px currentColor;
+}}
+
+.activity-dot {{
+  color:#ffb13b;
+  background:#ffb13b;
+}}
+
+.cluster-dot {{
+  color:#74a7ff;
+  background:#74a7ff;
+}}
+
+.pattern-dot {{
+  color:#a8d5bb;
+  background:#a8d5bb;
+}}
+
+.jcr-context-values {{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}}
+
+.jcr-context-values > div {{
+  min-width:0;
+  padding-right:7px;
+  border-right:1px solid rgba(255,255,255,.16);
+}}
+
+.jcr-context-values > div:last-child {{
+  border-right:0;
+  padding-right:0;
+}}
+
+.jcr-context-values span {{
+  display:block;
+  margin-bottom:3px;
+  overflow:hidden;
+  color:rgba(255,255,255,.58);
+  font-size:9px;
+  font-weight:700;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}}
+
+.jcr-context-values strong {{
+  display:block;
+  overflow:hidden;
+  color:#ffffff;
+  font-size:11px;
+  font-weight:900;
+  line-height:1.35;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}}
+
+
+/* 활동량 히트맵이 영상과 너무 따로 놀지 않도록 약하게 */
+.heat-spot {{
+  filter:blur(16px) !important;
+  mix-blend-mode:screen;
+  opacity:.72;
+}}
+
+.heat-spot-one {{
+  background:radial-gradient(
+    circle,
+    rgba(255,83,55,.66) 0%,
+    rgba(255,174,55,.42) 42%,
+    rgba(255,205,70,0) 74%
+  ) !important;
+}}
+
+.heat-spot-two {{
+  background:radial-gradient(
+    circle,
+    rgba(255,158,45,.55) 0%,
+    rgba(255,213,80,.30) 48%,
+    rgba(255,220,70,0) 76%
+  ) !important;
+}}
+
+.heat-spot-three {{
+  opacity:.52;
+}}
+
+
+/* 군집 박스도 CCTV 분석선처럼 얇고 자연스럽게 */
+.cluster-box {{
+  border:1.5px solid rgba(130,175,255,.92) !important;
+  background:rgba(57,113,220,.07) !important;
+  box-shadow:
+    0 0 0 1px rgba(57,113,220,.28),
+    inset 0 0 18px rgba(57,113,220,.06) !important;
+}}
+
+.cluster-box span {{
+  padding:4px 7px !important;
+  background:rgba(42,91,178,.82) !important;
+  backdrop-filter:blur(5px);
+}}
+
+.flow-arrow {{
+  color:rgba(180,210,255,.94) !important;
+  text-shadow:
+    0 0 5px rgba(41,112,255,.75),
+    0 0 12px rgba(41,112,255,.42) !important;
+}}
+
+
+/* 패턴 그래프 크기를 크게 축소하고 오른쪽 위에 배치 */
+.jcr-vision-pattern .pattern-chart {{
+  left:auto !important;
+  right:12px !important;
+  top:50px !important;
+  bottom:auto !important;
+  width:min(250px, 43%) !important;
+  padding:10px 11px !important;
+  border:1px solid rgba(255,255,255,.22) !important;
+  border-radius:13px !important;
+  background:linear-gradient(
+    145deg,
+    rgba(25,31,40,.70),
+    rgba(25,31,40,.48)
+  ) !important;
+  box-shadow:0 7px 20px rgba(0,0,0,.14);
+  backdrop-filter:blur(9px);
+}}
+
+.jcr-vision-pattern .pattern-chart-title {{
+  margin-bottom:1px !important;
+  color:rgba(255,255,255,.86);
+  font-size:9px !important;
+}}
+
+.jcr-vision-pattern .pattern-chart svg {{
+  height:55px !important;
+}}
+
+.jcr-vision-pattern .pattern-chart-times {{
+  font-size:7px !important;
+}}
+
+.jcr-vision-pattern .pattern-event {{
+  top:12px !important;
+  right:12px !important;
+  padding:6px 8px !important;
+  background:rgba(255,255,255,.88) !important;
+  font-size:8px !important;
+}}
+
+
+/* 영상 위 기존 분석 제목도 조금 더 자연스럽게 */
+.jcr-analysis-overlay {{
+  padding:7px 9px !important;
+  background:rgba(20,25,22,.60) !important;
+  border:1px solid rgba(255,255,255,.17);
+  box-shadow:0 5px 14px rgba(0,0,0,.12);
+  backdrop-filter:blur(8px);
+}}
+
+.jcr-analysis-overlay span {{
+  letter-spacing:0 !important;
+  font-size:9px !important;
+}}
+
+
+/* 영상 아래 핵심 설명은 영상 카드와 연결된 느낌 */
+.jcr-visual-summary {{
+  margin-top:0 !important;
+  border-top-left-radius:0 !important;
+  border-top-right-radius:0 !important;
+  border-top:0 !important;
+  background:#f7f8f9 !important;
+}}
+
+.jcr-analysis-video-wrap + .jcr-visual-summary {{
+  margin-top:-1px !important;
+}}
+
+
+@media (max-width:600px) {{
+  .jcr-context-panel {{
+    width:100%;
+    padding:10px 11px;
+  }}
+
+  .jcr-context-heading {{
+    margin-bottom:8px;
+  }}
+
+  .jcr-context-values {{
+    gap:5px;
+  }}
+
+  .jcr-context-values span {{
+    font-size:8px;
+  }}
+
+  .jcr-context-values strong {{
+    font-size:9px;
+  }}
+
+  .jcr-vision-pattern .pattern-chart {{
+    width:46% !important;
+    top:45px !important;
+    padding:8px !important;
+  }}
+
+  .jcr-vision-pattern .pattern-chart svg {{
+    height:43px !important;
+  }}
+
+  .vision-scale {{
+    bottom:88px !important;
+  }}
+}}
+
 </style>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKZ6FWYZ9D"></script>
@@ -1425,7 +1718,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
   </div>
 
   <div class="card info-card">
-    <div class="section-title">🤖 AI 영상 분석 결과</div>
+    <div class="section-title">🤖 인공지능 영상 분석 결과</div>
 
     <p class="info-copy">
       업로드된 농장 영상을 프레임 단위로 분석하여 움직임 변화, 군집 흐름, 공간별 활동 집중도를 요약합니다.
@@ -1478,7 +1771,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
   <div class="card jcr-analysis-card" id="jcr-ai-analysis">
     <div class="jcr-analysis-header">
       <div>
-        <div class="section-title">AI 영상 분석 결과</div>
+        <div class="section-title">인공지능 영상 분석 결과</div>
         <p class="jcr-analysis-sub">
           농장 영상에서 움직임과 군집 흐름이 집중된 구간을 AI가 분석했습니다.
         </p>
@@ -1612,9 +1905,98 @@ gtag('config', 'G-XKZ6FWYZ9D');
 
       <div class="jcr-analysis-overlay">
         <strong id="jcrAnalysisTitle">활동량 분석</strong>
-        <span>AI ANALYSIS</span>
+        <span>인공지능 분석</span>
       </div>
-    </div>
+    
+      <!-- JCR_INTEGRATED_CONTEXT_V2 -->
+      <div id="jcrIntegratedContext" class="jcr-integrated-context">
+
+        <div
+          class="jcr-context-panel active"
+          data-context-mode="activity"
+        >
+          <div class="jcr-context-heading">
+            <span class="jcr-context-dot activity-dot"></span>
+            활동량 분석
+          </div>
+
+          <div class="jcr-context-values">
+            <div>
+              <span>활동 상태</span>
+              <strong>{motion_text(metrics)}</strong>
+            </div>
+
+            <div>
+              <span>집중 영역</span>
+              <strong>우측 구역</strong>
+            </div>
+
+            <div>
+              <span>감지 기준</span>
+              <strong>프레임 변화</strong>
+            </div>
+          </div>
+        </div>
+
+
+        <div
+          class="jcr-context-panel"
+          data-context-mode="cluster"
+        >
+          <div class="jcr-context-heading">
+            <span class="jcr-context-dot cluster-dot"></span>
+            군집 흐름 분석
+          </div>
+
+          <div class="jcr-context-values">
+            <div>
+              <span>군집 상태</span>
+              <strong>{density_text(metrics)}</strong>
+            </div>
+
+            <div>
+              <span>주요 중심</span>
+              <strong>중앙·우측</strong>
+            </div>
+
+            <div>
+              <span>이동 방향</span>
+              <strong>왼쪽 → 오른쪽</strong>
+            </div>
+          </div>
+        </div>
+
+
+        <div
+          class="jcr-context-panel"
+          data-context-mode="pattern"
+        >
+          <div class="jcr-context-heading">
+            <span class="jcr-context-dot pattern-dot"></span>
+            패턴 변화 분석
+          </div>
+
+          <div class="jcr-context-values">
+            <div>
+              <span>변화 추세</span>
+              <strong>{change_text(metrics)}</strong>
+            </div>
+
+            <div>
+              <span>주요 시점</span>
+              <strong>오후 구간</strong>
+            </div>
+
+            <div>
+              <span>비교 기준</span>
+              <strong>이번 주 평균</strong>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+</div>
 
     
     <!-- JCR_AI_VISUAL_SUMMARY_V1 -->
@@ -1622,34 +2004,19 @@ gtag('config', 'G-XKZ6FWYZ9D');
       <div class="jcr-visual-summary-icon" id="jcrVisualIcon">◉</div>
 
       <div>
-        <span class="jcr-visual-summary-label">AI가 본 핵심</span>
+        <span class="jcr-visual-summary-label">인공지능이 본 핵심</span>
 
         <strong id="jcrVisualHeadline">
-          움직임이 집중된 영역을 표시했어요
+          영상에서 움직임이 집중된 위치를 찾았어요
         </strong>
 
         <p id="jcrVisualDescription">
-          색이 진한 위치일수록 닭의 움직임이 많이 감지된 구역입니다.
+          영상 위의 색이 진할수록 움직임이 많이 감지된 위치입니다.
         </p>
       </div>
     </div>
 
-    <div class="jcr-analysis-metrics">
-      <div class="jcr-analysis-metric">
-        <span>움직임 집중도</span>
-        <strong>{motion_text(metrics)}</strong>
-      </div>
-
-      <div class="jcr-analysis-metric">
-        <span>군집 중심</span>
-        <strong>{density_text(metrics)}</strong>
-      </div>
-
-      <div class="jcr-analysis-metric">
-        <span>변화 추세</span>
-        <strong>{change_text(metrics)}</strong>
-      </div>
-    </div>
+    
 
     <div class="jcr-analysis-note">
       프레임 간 움직임 변화와 공간별 활동 집중도를 분석하여
@@ -1658,7 +2025,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
   </div>
 
 <div class="card events-card" style="margin-top:20px;">
-    <div class="section-title">AI 최근 패턴 분석 🍃</div>
+    <div class="section-title">인공지능 최근 패턴 분석 🍃</div>
     {card_html(e1, "🌿")}
     {card_html(e2, "🐔")}
     {card_html(e3, "🥚")}
@@ -1752,20 +2119,20 @@ document.addEventListener("DOMContentLoaded", function() {{
   const visualConfig = {{
     activity: {{
       icon:"◉",
-      headline:"움직임이 집중된 영역을 표시했어요",
-      description:"색이 진한 위치일수록 닭의 움직임이 많이 감지된 구역입니다."
+      headline:"영상에서 움직임이 집중된 위치를 찾았어요",
+      description:"영상 위의 색이 진할수록 움직임이 많이 감지된 위치입니다."
     }},
 
     cluster: {{
       icon:"↗",
-      headline:"군집 중심과 주요 이동 방향을 찾았어요",
-      description:"파란 박스는 닭이 많이 모인 영역이고, 화살표는 주로 이동한 방향입니다."
+      headline:"닭이 모인 위치와 이동 흐름을 확인했어요",
+      description:"영상 속 박스는 군집이 형성된 위치이고 화살표는 주요 이동 방향입니다."
     }},
 
     pattern: {{
       icon:"⌁",
-      headline:"시간대별 활동 변화 흐름을 비교했어요",
-      description:"그래프가 높아지는 구간은 평소보다 움직임이 많이 관찰된 시간대입니다."
+      headline:"시간대에 따라 달라진 활동 흐름을 비교했어요",
+      description:"작은 그래프에서 선이 높아지는 부분은 움직임이 증가한 시간대입니다."
     }}
   }};
 
@@ -1810,6 +2177,48 @@ document.addEventListener("DOMContentLoaded", function() {{
   }});
 
   changeVisualMode("activity");
+}});
+</script>
+
+
+<script>
+// JCR_INTEGRATED_CONTEXT_SCRIPT_V2
+document.addEventListener("DOMContentLoaded", function() {{
+  const tabs = document.querySelectorAll(".jcr-analysis-tab");
+  const contextPanels = document.querySelectorAll(
+    ".jcr-context-panel"
+  );
+
+  function setContextMode(mode) {{
+    contextPanels.forEach(function(panel) {{
+      panel.classList.toggle(
+        "active",
+        panel.dataset.contextMode === mode
+      );
+    }});
+  }}
+
+  tabs.forEach(function(tab, index) {{
+    let mode = tab.dataset.mode;
+
+    if (!mode) {{
+      mode = (
+        index === 0
+          ? "activity"
+          : index === 1
+            ? "cluster"
+            : "pattern"
+      );
+
+      tab.dataset.mode = mode;
+    }}
+
+    tab.addEventListener("click", function() {{
+      setContextMode(mode);
+    }});
+  }});
+
+  setContextMode("activity");
 }});
 </script>
 
