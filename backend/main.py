@@ -271,14 +271,14 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 :root {{
   --bg:#FFFFFF;
   --bg2:#F8FBFA;
-  --card:#ffffff;
+  --card:#FFFFFF;
   --line:#DDEEE4;
   --text:#10251B;
   --sub:#5E7168;
   --mint:#EAF7EF;
   --mint2:#DDF2E5;
   --deep:#0E8F5A;
-  --shadow:0 12px 28px rgba(245,183,0,0.10);
+  --shadow:0 12px 28px rgba(14,143,90,0.10);
   --radius:26px;
 }}
 
