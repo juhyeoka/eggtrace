@@ -204,8 +204,6 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
     e1, e2, e3 = recent_cards[0], recent_cards[1], recent_cards[2]
     
     video_source = "/videos/highlight.mp4?v=20"
-        )
-    )
 
 
     def card_html(ev, icon: str) -> str:
