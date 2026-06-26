@@ -185,7 +185,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
                 sev,
                 e.get("thumb_path"),
                 e.get("heatmap_path"),
-                e.get("video_path", "/videos/ai_event_1.mp4"),
+                e.get("video_path", "/videos/highlight.mp4?v=20"),
             )
         )
 
@@ -203,17 +203,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 
     e1, e2, e3 = recent_cards[0], recent_cards[1], recent_cards[2]
     
-    video_source = (
-        "/videos/highlight.mp4"
-        if (VIDEOS_DIR / "highlight.mp4").exists()
-        else (
-            "/videos/ai_event_1.mp4"
-            if (VIDEOS_DIR / "ai_event_1.mp4").exists()
-            else (
-                "/videos/demo.mp4"
-                if (VIDEOS_DIR / "demo.mp4").exists()
-                else ""
-            )
+    video_source = "/videos/highlight.mp4?v=20"
         )
     )
 
@@ -1957,6 +1947,543 @@ body {{
   overflow:hidden !important;
 }}
 
+
+
+/* JCR_PREMIUM_UI_REDESIGN_V1 */
+
+:root {{
+  --jcr-bg:#F5F7F8;
+  --jcr-card:#FFFFFF;
+  --jcr-text:#191F28;
+  --jcr-sub:#6B7684;
+  --jcr-line:#E8EBED;
+  --jcr-soft:#F2F4F6;
+  --jcr-accent:#1E7A68;
+  --jcr-accent-soft:#EAF5F1;
+  --jcr-shadow:0 10px 30px rgba(0,0,0,.055);
+  --jcr-radius:24px;
+}}
+
+* {{
+  box-sizing:border-box;
+}}
+
+html {{
+  background:var(--jcr-bg);
+}}
+
+body {{
+  margin:0 !important;
+  background:
+    radial-gradient(
+      circle at 50% -120px,
+      rgba(30,122,104,.09),
+      transparent 360px
+    ),
+    var(--jcr-bg) !important;
+  color:var(--jcr-text) !important;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Pretendard",
+    "Apple SD Gothic Neo",
+    "Noto Sans KR",
+    sans-serif !important;
+}}
+
+.page {{
+  width:100% !important;
+  max-width:720px !important;
+  margin:0 auto !important;
+  padding:20px 18px 60px !important;
+  background:transparent !important;
+}}
+
+/* 상단 브랜드 */
+.topbar {{
+  position:relative !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-height:72px !important;
+  margin-bottom:16px !important;
+  padding:10px 0 !important;
+}}
+
+.topbar::after {{
+  content:"FARM TRANSPARENCY REPORT";
+  position:absolute;
+  bottom:4px;
+  left:50%;
+  transform:translateX(-50%);
+  color:#98A1AA;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1.8px;
+  white-space:nowrap;
+}}
+
+.brand {{
+  width:auto !important;
+  margin:0 !important;
+  color:var(--jcr-text) !important;
+  font-size:27px !important;
+  font-weight:950 !important;
+  letter-spacing:-1.3px !important;
+  text-align:center !important;
+}}
+
+.brand::first-letter {{
+  color:var(--jcr-accent);
+}}
+
+/* 공통 카드 */
+.card {{
+  margin-bottom:16px !important;
+  padding:22px !important;
+  border:1px solid var(--jcr-line) !important;
+  border-radius:var(--jcr-radius) !important;
+  background:var(--jcr-card) !important;
+  box-shadow:var(--jcr-shadow) !important;
+}}
+
+.section-title {{
+  display:flex !important;
+  align-items:center !important;
+  gap:8px !important;
+  margin-bottom:8px !important;
+  color:var(--jcr-text) !important;
+  font-size:18px !important;
+  font-weight:900 !important;
+  letter-spacing:-.45px !important;
+}}
+
+.section-title::before {{
+  content:"";
+  width:5px;
+  height:18px;
+  flex:0 0 5px;
+  border-radius:999px;
+  background:var(--jcr-accent);
+}}
+
+.info-copy,
+.summary-sub,
+.jcr-analysis-sub,
+.jcr-analysis-note,
+.feature-copy {{
+  color:var(--jcr-sub) !important;
+  font-size:13px !important;
+  line-height:1.75 !important;
+}}
+
+/* 이번 주 영상 */
+.main-video-section {{
+  position:relative !important;
+  padding:14px !important;
+  overflow:hidden !important;
+}}
+
+.main-video-section::before {{
+  content:"이번 주 기록";
+  display:inline-flex;
+  align-items:center;
+  margin:2px 0 12px 4px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:var(--jcr-accent-soft);
+  color:var(--jcr-accent);
+  font-size:11px;
+  font-weight:900;
+}}
+
+.video-label {{
+  display:none !important;
+}}
+
+.main-video-section video,
+.main-video-section .video-box {{
+  width:100% !important;
+  min-height:0 !important;
+  max-height:none !important;
+  border-radius:18px !important;
+  background:#111 !important;
+  object-fit:contain !important;
+}}
+
+.main-video-section video {{
+  display:block !important;
+  aspect-ratio:16 / 9 !important;
+}}
+
+/* 인증 카드 */
+.cert-grid {{
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  gap:10px !important;
+  margin:0 0 16px !important;
+}}
+
+.cert-card {{
+  min-width:0 !important;
+  padding:14px 7px 12px !important;
+  border:1px solid var(--jcr-line) !important;
+  border-radius:18px !important;
+  background:#FFFFFF !important;
+  box-shadow:0 5px 16px rgba(0,0,0,.035) !important;
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease !important;
+}}
+
+.cert-card:hover {{
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(0,0,0,.07) !important;
+}}
+
+.cert-card img {{
+  width:56px !important;
+  height:56px !important;
+  margin-bottom:8px !important;
+  object-fit:contain !important;
+}}
+
+.cert-title {{
+  color:#3D454D !important;
+  font-size:11px !important;
+  font-weight:850 !important;
+  line-height:1.35 !important;
+  word-break:keep-all !important;
+}}
+
+/* 한 줄 요약 */
+.summary-card {{
+  position:relative !important;
+  overflow:hidden !important;
+  padding:24px !important;
+  background:
+    linear-gradient(
+      135deg,
+      #FFFFFF 0%,
+      #F4FAF7 100%
+    ) !important;
+}}
+
+.summary-card::after {{
+  content:"";
+  position:absolute;
+  width:130px;
+  height:130px;
+  right:-55px;
+  bottom:-65px;
+  border-radius:50%;
+  background:rgba(30,122,104,.07);
+}}
+
+.summary-main {{
+  position:relative;
+  z-index:1;
+  margin:12px 0 8px !important;
+  color:var(--jcr-text) !important;
+  font-size:22px !important;
+  font-weight:950 !important;
+  line-height:1.42 !important;
+  letter-spacing:-.7px !important;
+}}
+
+.summary-sub {{
+  position:relative;
+  z-index:1;
+  margin:0 !important;
+}}
+
+/* 인공지능 분석 카드 */
+.jcr-analysis-card {{
+  padding:22px !important;
+}}
+
+.jcr-analysis-header {{
+  margin-bottom:16px !important;
+}}
+
+.jcr-analysis-complete {{
+  padding:7px 10px !important;
+  border-radius:999px !important;
+  background:var(--jcr-accent-soft) !important;
+  color:var(--jcr-accent) !important;
+  font-size:10px !important;
+  font-weight:900 !important;
+}}
+
+.jcr-analysis-tabs {{
+  display:grid !important;
+  grid-template-columns:repeat(3,1fr) !important;
+  gap:5px !important;
+  margin-bottom:14px !important;
+  padding:5px !important;
+  border:1px solid var(--jcr-line) !important;
+  border-radius:16px !important;
+  background:var(--jcr-soft) !important;
+}}
+
+.jcr-analysis-tab {{
+  min-width:0 !important;
+  padding:11px 5px !important;
+  border:0 !important;
+  border-radius:12px !important;
+  background:transparent !important;
+  color:#8B95A1 !important;
+  font-size:12px !important;
+  font-weight:900 !important;
+  transition:.18s ease !important;
+}}
+
+.jcr-analysis-tab.active {{
+  background:#FFFFFF !important;
+  color:var(--jcr-text) !important;
+  box-shadow:0 3px 12px rgba(0,0,0,.07) !important;
+}}
+
+.jcr-analysis-video-wrap {{
+  overflow:hidden !important;
+  border-radius:18px !important;
+  background:#111 !important;
+}}
+
+.jcr-analysis-video {{
+  display:block !important;
+  width:100% !important;
+  aspect-ratio:16 / 9 !important;
+  min-height:0 !important;
+  object-fit:cover !important;
+}}
+
+/* 영상 아래 분석 결과 */
+.jcr-integrated-context {{
+  margin-top:12px !important;
+}}
+
+.jcr-context-panel {{
+  padding:16px !important;
+  border:1px solid var(--jcr-line) !important;
+  border-radius:18px !important;
+  background:#FFFFFF !important;
+  box-shadow:none !important;
+}}
+
+.jcr-context-heading {{
+  margin-bottom:12px !important;
+  color:var(--jcr-text) !important;
+  font-size:14px !important;
+  font-weight:900 !important;
+}}
+
+.jcr-context-values {{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:8px !important;
+}}
+
+.jcr-context-values > div {{
+  min-width:0 !important;
+  padding:13px 7px !important;
+  border:0 !important;
+  border-radius:14px !important;
+  background:var(--jcr-soft) !important;
+  text-align:center !important;
+}}
+
+.jcr-context-values span {{
+  display:block !important;
+  margin-bottom:5px !important;
+  color:#8B95A1 !important;
+  font-size:9px !important;
+  font-weight:800 !important;
+}}
+
+.jcr-context-values strong {{
+  display:block !important;
+  color:var(--jcr-text) !important;
+  font-size:11px !important;
+  font-weight:900 !important;
+  line-height:1.4 !important;
+}}
+
+/* 인공지능이 본 핵심 */
+.jcr-visual-summary {{
+  display:flex !important;
+  align-items:flex-start !important;
+  gap:12px !important;
+  margin-top:10px !important;
+  padding:16px !important;
+  border:0 !important;
+  border-radius:18px !important;
+  background:#F7F9FA !important;
+}}
+
+.jcr-visual-summary-icon {{
+  width:38px !important;
+  height:38px !important;
+  flex:0 0 38px !important;
+  border-radius:13px !important;
+  background:#FFFFFF !important;
+  color:var(--jcr-accent) !important;
+}}
+
+.jcr-visual-summary-label {{
+  color:#8B95A1 !important;
+  font-size:9px !important;
+  font-weight:900 !important;
+}}
+
+.jcr-visual-summary strong {{
+  color:var(--jcr-text) !important;
+  font-size:14px !important;
+  font-weight:900 !important;
+  line-height:1.45 !important;
+}}
+
+.jcr-visual-summary p {{
+  margin-top:5px !important;
+  color:var(--jcr-sub) !important;
+  font-size:12px !important;
+  line-height:1.65 !important;
+}}
+
+/* 최근 패턴 카드 */
+.events-card {{
+  padding:22px !important;
+}}
+
+.events-card .feature,
+.events-card .event-card {{
+  margin-top:10px !important;
+  padding:15px !important;
+  border:1px solid var(--jcr-line) !important;
+  border-radius:16px !important;
+  background:#FAFBFB !important;
+  box-shadow:none !important;
+}}
+
+/* 버튼 */
+button,
+.cta,
+.hero-cta {{
+  font-family:inherit !important;
+}}
+
+.cta,
+.hero-cta {{
+  border:0 !important;
+  border-radius:15px !important;
+  background:var(--jcr-text) !important;
+  color:#FFFFFF !important;
+  box-shadow:0 8px 18px rgba(25,31,40,.14) !important;
+}}
+
+/* 모바일 */
+@media (max-width:600px) {{
+  .page {{
+    padding:12px 12px 40px !important;
+  }}
+
+  .topbar {{
+    min-height:66px !important;
+    margin-bottom:10px !important;
+  }}
+
+  .brand {{
+    font-size:25px !important;
+  }}
+
+  .card {{
+    margin-bottom:12px !important;
+    padding:17px !important;
+    border-radius:21px !important;
+  }}
+
+  .main-video-section {{
+    padding:10px !important;
+  }}
+
+  .main-video-section::before {{
+    margin:1px 0 9px 3px;
+    padding:5px 9px;
+    font-size:10px;
+  }}
+
+  .cert-grid {{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:8px !important;
+    margin-bottom:12px !important;
+  }}
+
+  .cert-card {{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    gap:9px !important;
+    min-height:76px !important;
+    padding:10px 11px !important;
+    text-align:left !important;
+  }}
+
+  .cert-card img {{
+    width:47px !important;
+    height:47px !important;
+    flex:0 0 47px !important;
+    margin:0 !important;
+  }}
+
+  .cert-title {{
+    font-size:11px !important;
+  }}
+
+  .summary-main {{
+    font-size:19px !important;
+  }}
+
+  .section-title {{
+    font-size:16px !important;
+  }}
+
+  .jcr-analysis-card {{
+    padding:16px !important;
+  }}
+
+  .jcr-analysis-tabs {{
+    gap:3px !important;
+  }}
+
+  .jcr-analysis-tab {{
+    padding:10px 3px !important;
+    font-size:10px !important;
+  }}
+
+  .jcr-context-panel {{
+    padding:13px !important;
+  }}
+
+  .jcr-context-values {{
+    gap:6px !important;
+  }}
+
+  .jcr-context-values > div {{
+    padding:11px 4px !important;
+  }}
+
+  .jcr-context-values span {{
+    font-size:8px !important;
+  }}
+
+  .jcr-context-values strong {{
+    font-size:9px !important;
+  }}
+
+  .jcr-visual-summary {{
+    padding:13px !important;
+  }}
+}}
 
 </style>
 
