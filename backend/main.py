@@ -1936,6 +1936,28 @@ body {{
   }}
 }}
 
+
+/* JCR_WEEKLY_VIDEO_QUALITY_FIX */
+.main-video-section .video-box,
+.main-video-section video,
+#farm-video .video-box,
+#farm-video video {{
+  width:100% !important;
+  height:auto !important;
+  min-height:0 !important;
+  max-height:none !important;
+  aspect-ratio:auto !important;
+  object-fit:contain !important;
+  image-rendering:auto !important;
+  transform:none !important;
+  filter:none !important;
+}}
+
+.main-video-section {{
+  overflow:hidden !important;
+}}
+
+
 </style>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKZ6FWYZ9D"></script>
