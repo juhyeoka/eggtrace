@@ -2483,6 +2483,1249 @@ button,
   }}
 }}
 
+
+/* JCR_SIGNATURE_UI_V1 */
+
+:root {{
+  --lux-bg:#F3F5F4;
+  --lux-paper:#FFFFFF;
+  --lux-ink:#101A17;
+  --lux-muted:#69746F;
+  --lux-line:rgba(17,50,40,.10);
+  --lux-emerald:#0D6B50;
+  --lux-emerald-deep:#084B39;
+  --lux-emerald-soft:#E7F3EE;
+  --lux-gold:#C7A76A;
+  --lux-gold-soft:#F5EEE1;
+  --lux-navy:#111B2A;
+  --lux-shadow:
+    0 2px 4px rgba(14,38,30,.02),
+    0 16px 45px rgba(14,38,30,.075);
+  --lux-shadow-large:
+    0 10px 25px rgba(8,32,24,.08),
+    0 35px 90px rgba(8,32,24,.13);
+}}
+
+html {{
+  scroll-behavior:smooth !important;
+  background:var(--lux-bg) !important;
+}}
+
+body {{
+  position:relative;
+  overflow-x:hidden;
+  margin:0 !important;
+  background:
+    radial-gradient(
+      circle at 8% 2%,
+      rgba(13,107,80,.10),
+      transparent 360px
+    ),
+    radial-gradient(
+      circle at 94% 26%,
+      rgba(199,167,106,.09),
+      transparent 330px
+    ),
+    linear-gradient(
+      180deg,
+      #F8FAF9 0%,
+      #F3F5F4 40%,
+      #EEF2F0 100%
+    ) !important;
+  color:var(--lux-ink) !important;
+}}
+
+body::before {{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.32;
+  background-image:
+    linear-gradient(
+      rgba(13,107,80,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(13,107,80,.025) 1px,
+      transparent 1px
+    );
+  background-size:42px 42px;
+}}
+
+.page {{
+  width:100% !important;
+  max-width:940px !important;
+  margin:0 auto !important;
+  padding:20px 22px 76px !important;
+  background:transparent !important;
+}}
+
+
+/* ---------------------------------------------------------
+   상단 로고
+--------------------------------------------------------- */
+
+.topbar {{
+  position:relative !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-height:72px !important;
+  margin:0 0 18px !important;
+}}
+
+.topbar::before {{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:1px;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(13,107,80,.18),
+    transparent
+  );
+}}
+
+.topbar::after {{
+  content:"FARM INTELLIGENCE";
+  position:absolute;
+  right:2px;
+  bottom:16px;
+  color:#909994;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:1.7px;
+}}
+
+.topbar .brand {{
+  position:relative;
+  width:auto !important;
+  color:var(--lux-ink) !important;
+  font-size:30px !important;
+  font-weight:950 !important;
+  letter-spacing:-1.6px !important;
+  text-align:center !important;
+}}
+
+.topbar .brand::before {{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-9px;
+  width:20px;
+  height:3px;
+  border-radius:999px;
+  transform:translateX(-50%);
+  background:linear-gradient(
+    90deg,
+    var(--lux-emerald),
+    var(--lux-gold)
+  );
+}}
+
+
+/* ---------------------------------------------------------
+   시그니처 히어로
+--------------------------------------------------------- */
+
+.jcr-signature-hero {{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 220px;
+  min-height:440px;
+  margin-bottom:14px;
+  padding:54px 54px 48px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:36px;
+  background:
+    linear-gradient(
+      135deg,
+      #101E1A 0%,
+      #0C332A 48%,
+      #0B5A43 100%
+    );
+  box-shadow:var(--lux-shadow-large);
+  isolation:isolate;
+}}
+
+.jcr-signature-hero::before {{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  opacity:.19;
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.08) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.08) 1px,
+      transparent 1px
+    );
+  background-size:48px 48px;
+  mask-image:linear-gradient(
+    90deg,
+    #000,
+    transparent 85%
+  );
+}}
+
+.jcr-signature-hero::after {{
+  content:"JCR";
+  position:absolute;
+  right:-24px;
+  bottom:-76px;
+  z-index:-1;
+  color:rgba(255,255,255,.035);
+  font-size:230px;
+  font-weight:950;
+  line-height:1;
+  letter-spacing:-18px;
+}}
+
+.jcr-hero-content {{
+  position:relative;
+  z-index:2;
+  align-self:center;
+}}
+
+.jcr-hero-eyebrow {{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:22px;
+  padding:8px 12px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:999px;
+  background:rgba(255,255,255,.07);
+  color:rgba(255,255,255,.78);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:1.5px;
+  backdrop-filter:blur(10px);
+}}
+
+.jcr-live-dot {{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#70E5AF;
+  box-shadow:0 0 0 5px rgba(112,229,175,.12);
+  animation:jcrLivePulse 2s ease-in-out infinite;
+}}
+
+@keyframes jcrLivePulse {{
+  0%,100% {{
+    opacity:.62;
+    transform:scale(.9);
+  }}
+
+  50% {{
+    opacity:1;
+    transform:scale(1.15);
+  }}
+}}
+
+.jcr-hero-heading {{
+  margin:0 0 18px;
+  color:#FFFFFF;
+  font-size:48px;
+  font-weight:950;
+  line-height:1.12;
+  letter-spacing:-2.3px;
+}}
+
+.jcr-hero-heading span {{
+  color:#B6E1CE;
+  background:linear-gradient(
+    90deg,
+    #A7DAC3,
+    #E9D1A0
+  );
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}}
+
+.jcr-hero-description {{
+  max-width:520px;
+  margin:0 0 31px;
+  color:rgba(255,255,255,.68);
+  font-size:15px;
+  line-height:1.82;
+  word-break:keep-all;
+}}
+
+.jcr-hero-meta {{
+  display:flex;
+  align-items:center;
+  width:max-content;
+  max-width:100%;
+  padding:13px 17px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:18px;
+  background:rgba(5,20,16,.28);
+  backdrop-filter:blur(12px);
+}}
+
+.jcr-meta-item {{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}}
+
+.jcr-meta-item span {{
+  color:rgba(255,255,255,.40);
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:1.2px;
+}}
+
+.jcr-meta-item strong {{
+  color:rgba(255,255,255,.90);
+  font-size:11px;
+  font-weight:850;
+  white-space:nowrap;
+}}
+
+.jcr-status-ok {{
+  color:#82E4B3 !important;
+}}
+
+.jcr-meta-divider {{
+  width:1px;
+  height:28px;
+  margin:0 18px;
+  background:rgba(255,255,255,.12);
+}}
+
+.jcr-hero-symbol {{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  align-self:center;
+  width:210px;
+  height:210px;
+}}
+
+.jcr-symbol-ring {{
+  position:absolute;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:50%;
+}}
+
+.jcr-ring-one {{
+  inset:0;
+  animation:jcrRingSpin 22s linear infinite;
+}}
+
+.jcr-ring-one::before,
+.jcr-ring-two::before {{
+  content:"";
+  position:absolute;
+  top:-4px;
+  left:50%;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--lux-gold);
+  box-shadow:0 0 16px rgba(199,167,106,.8);
+}}
+
+.jcr-ring-two {{
+  inset:30px;
+  border-style:dashed;
+  opacity:.65;
+  animation:jcrRingSpin 16s linear infinite reverse;
+}}
+
+@keyframes jcrRingSpin {{
+  to {{
+    transform:rotate(360deg);
+  }}
+}}
+
+.jcr-symbol-core {{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:112px;
+  height:112px;
+  border:1px solid rgba(255,255,255,.17);
+  border-radius:34px;
+  transform:rotate(45deg);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.15),
+      rgba(255,255,255,.045)
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    0 24px 55px rgba(0,0,0,.22);
+  backdrop-filter:blur(14px);
+}}
+
+.jcr-symbol-core span {{
+  transform:rotate(-45deg);
+  color:#FFFFFF;
+  font-size:58px;
+  font-weight:950;
+  letter-spacing:-4px;
+}}
+
+
+/* ---------------------------------------------------------
+   퀵 내비게이션
+--------------------------------------------------------- */
+
+.jcr-section-navigation {{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin-bottom:17px;
+  padding:7px;
+  border:1px solid rgba(13,107,80,.09);
+  border-radius:20px;
+  background:rgba(255,255,255,.72);
+  box-shadow:0 8px 25px rgba(17,50,40,.045);
+  backdrop-filter:blur(16px);
+}}
+
+.jcr-section-navigation a {{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:12px 8px;
+  border-radius:14px;
+  color:#52605A;
+  text-decoration:none;
+  font-size:11px;
+  font-weight:850;
+  transition:
+    transform .2s ease,
+    background .2s ease,
+    color .2s ease;
+}}
+
+.jcr-section-navigation a span {{
+  color:var(--lux-gold);
+  font-size:9px;
+  font-weight:950;
+}}
+
+.jcr-section-navigation a:hover {{
+  transform:translateY(-1px);
+  background:var(--lux-emerald-soft);
+  color:var(--lux-emerald-deep);
+}}
+
+
+/* ---------------------------------------------------------
+   모든 공통 카드
+--------------------------------------------------------- */
+
+.card {{
+  position:relative;
+  overflow:hidden;
+  margin-bottom:17px !important;
+  padding:24px !important;
+  border:1px solid rgba(17,50,40,.09) !important;
+  border-radius:28px !important;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.99),
+      rgba(251,253,252,.97)
+    ) !important;
+  box-shadow:var(--lux-shadow) !important;
+}}
+
+.card::before {{
+  content:"";
+  position:absolute;
+  top:0;
+  left:28px;
+  right:28px;
+  height:1px;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.95),
+    transparent
+  );
+}}
+
+.section-title {{
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+  margin:0 0 9px !important;
+  color:var(--lux-ink) !important;
+  font-size:19px !important;
+  font-weight:950 !important;
+  letter-spacing:-.55px !important;
+}}
+
+.section-title::before {{
+  content:"";
+  width:6px;
+  height:20px;
+  flex:0 0 6px;
+  border-radius:999px;
+  background:linear-gradient(
+    180deg,
+    var(--lux-emerald),
+    var(--lux-gold)
+  );
+  box-shadow:0 5px 12px rgba(13,107,80,.18);
+}}
+
+
+/* ---------------------------------------------------------
+   대표 농장 영상
+--------------------------------------------------------- */
+
+.main-video-section {{
+  padding:11px !important;
+  border-color:rgba(13,107,80,.15) !important;
+  border-radius:31px !important;
+  background:
+    linear-gradient(
+      145deg,
+      #FFFFFF,
+      #EFF7F3
+    ) !important;
+  box-shadow:var(--lux-shadow-large) !important;
+}}
+
+.main-video-section::before {{
+  content:"LIVE FARM RECORD";
+  position:absolute;
+  top:25px;
+  left:25px;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  width:auto;
+  height:auto;
+  padding:8px 11px;
+  border-radius:999px;
+  background:rgba(11,25,21,.66);
+  color:#FFFFFF;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:1.15px;
+  backdrop-filter:blur(8px);
+}}
+
+.main-video-section::after {{
+  content:"";
+  position:absolute;
+  top:32px;
+  left:137px;
+  z-index:6;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#70E5AF;
+  box-shadow:0 0 9px #70E5AF;
+}}
+
+.main-video-section video,
+.main-video-section .video-box {{
+  width:100% !important;
+  min-height:0 !important;
+  max-height:none !important;
+  border-radius:22px !important;
+  background:#07100D !important;
+}}
+
+.main-video-section video {{
+  display:block !important;
+  aspect-ratio:16 / 9 !important;
+  object-fit:cover !important;
+}}
+
+.video-label {{
+  display:none !important;
+}}
+
+
+/* ---------------------------------------------------------
+   인증 카드
+--------------------------------------------------------- */
+
+.cert-grid {{
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  gap:11px !important;
+  margin:0 0 17px !important;
+  scroll-margin-top:20px;
+}}
+
+.cert-card {{
+  position:relative;
+  min-width:0 !important;
+  min-height:162px;
+  padding:18px 10px 15px !important;
+  overflow:hidden;
+  border:1px solid rgba(17,50,40,.09) !important;
+  border-radius:23px !important;
+  background:
+    linear-gradient(
+      145deg,
+      #FFFFFF 0%,
+      #F7FAF8 100%
+    ) !important;
+  box-shadow:0 10px 28px rgba(17,50,40,.055) !important;
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease !important;
+}}
+
+.cert-card::before {{
+  content:"VERIFIED";
+  position:absolute;
+  top:10px;
+  right:10px;
+  color:rgba(13,107,80,.32);
+  font-size:6px;
+  font-weight:950;
+  letter-spacing:1px;
+}}
+
+.cert-card::after {{
+  content:"";
+  position:absolute;
+  right:-35px;
+  bottom:-35px;
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:rgba(13,107,80,.035);
+}}
+
+.cert-card:hover {{
+  transform:translateY(-5px);
+  border-color:rgba(13,107,80,.22) !important;
+  box-shadow:0 20px 42px rgba(17,50,40,.10) !important;
+}}
+
+.cert-card img {{
+  position:relative;
+  z-index:1;
+  width:70px !important;
+  height:70px !important;
+  margin:10px auto 11px !important;
+  object-fit:contain !important;
+  filter:drop-shadow(0 7px 9px rgba(0,0,0,.07));
+}}
+
+.cert-title {{
+  position:relative;
+  z-index:1;
+  color:#34423C !important;
+  font-size:12px !important;
+  font-weight:900 !important;
+  line-height:1.4 !important;
+  text-align:center !important;
+  word-break:keep-all !important;
+}}
+
+
+/* ---------------------------------------------------------
+   이번 주 한 줄 요약
+--------------------------------------------------------- */
+
+.summary-card {{
+  padding:31px 32px !important;
+  overflow:hidden !important;
+  background:
+    radial-gradient(
+      circle at 95% 20%,
+      rgba(199,167,106,.15),
+      transparent 190px
+    ),
+    linear-gradient(
+      135deg,
+      #FFFFFF 0%,
+      #EEF7F3 100%
+    ) !important;
+}}
+
+.summary-card::after {{
+  content:"WEEKLY";
+  position:absolute;
+  right:24px;
+  bottom:-18px;
+  color:rgba(13,107,80,.045);
+  font-size:74px;
+  font-weight:950;
+  letter-spacing:-5px;
+}}
+
+.summary-main {{
+  position:relative;
+  z-index:1;
+  max-width:720px;
+  margin:16px 0 10px !important;
+  color:var(--lux-ink) !important;
+  font-size:27px !important;
+  font-weight:950 !important;
+  line-height:1.4 !important;
+  letter-spacing:-1px !important;
+}}
+
+.summary-sub {{
+  position:relative;
+  z-index:1;
+  max-width:720px;
+  margin:0 !important;
+  color:var(--lux-muted) !important;
+  font-size:13px !important;
+  line-height:1.8 !important;
+}}
+
+
+/* ---------------------------------------------------------
+   인공지능 분석
+--------------------------------------------------------- */
+
+.jcr-analysis-card {{
+  margin-top:0 !important;
+  padding:29px !important;
+  scroll-margin-top:20px;
+}}
+
+.jcr-analysis-card::after {{
+  content:"INTELLIGENCE";
+  position:absolute;
+  top:21px;
+  right:27px;
+  color:rgba(13,107,80,.055);
+  font-size:23px;
+  font-weight:950;
+  letter-spacing:-1px;
+}}
+
+.jcr-analysis-header {{
+  position:relative;
+  z-index:1;
+  margin-bottom:20px !important;
+}}
+
+.jcr-analysis-sub {{
+  max-width:590px;
+  margin:8px 0 0 !important;
+  color:var(--lux-muted) !important;
+  font-size:13px !important;
+  line-height:1.72 !important;
+}}
+
+.jcr-analysis-complete {{
+  padding:8px 11px !important;
+  border:1px solid rgba(13,107,80,.10) !important;
+  border-radius:999px !important;
+  background:var(--lux-emerald-soft) !important;
+  color:var(--lux-emerald) !important;
+  font-size:9px !important;
+  font-weight:950 !important;
+}}
+
+.jcr-analysis-complete::before {{
+  content:"●";
+  margin-right:5px;
+  color:#37A976;
+  font-size:7px;
+}}
+
+.jcr-analysis-tabs {{
+  display:grid !important;
+  grid-template-columns:repeat(3,1fr) !important;
+  gap:6px !important;
+  margin-bottom:15px !important;
+  padding:6px !important;
+  border:1px solid rgba(17,50,40,.08) !important;
+  border-radius:18px !important;
+  background:#EDF1EF !important;
+}}
+
+.jcr-analysis-tab {{
+  position:relative;
+  min-height:45px;
+  padding:11px 6px !important;
+  border:0 !important;
+  border-radius:13px !important;
+  background:transparent !important;
+  color:#84908A !important;
+  font-size:11px !important;
+  font-weight:900 !important;
+  transition:
+    background .2s ease,
+    color .2s ease,
+    transform .2s ease !important;
+}}
+
+.jcr-analysis-tab:hover {{
+  color:var(--lux-emerald) !important;
+}}
+
+.jcr-analysis-tab.active {{
+  transform:translateY(-1px);
+  background:#FFFFFF !important;
+  color:var(--lux-emerald-deep) !important;
+  box-shadow:
+    0 2px 4px rgba(17,50,40,.03),
+    0 7px 18px rgba(17,50,40,.08) !important;
+}}
+
+.jcr-analysis-tab.active::after {{
+  content:"";
+  position:absolute;
+  left:35%;
+  right:35%;
+  bottom:5px;
+  height:2px;
+  border-radius:999px;
+  background:var(--lux-emerald);
+}}
+
+.jcr-analysis-video-wrap {{
+  overflow:hidden !important;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:23px !important;
+  background:#07100D !important;
+  box-shadow:0 17px 45px rgba(5,20,15,.16);
+}}
+
+.jcr-analysis-video {{
+  display:block !important;
+  width:100% !important;
+  min-height:0 !important;
+  max-height:none !important;
+  aspect-ratio:16 / 9 !important;
+  object-fit:cover !important;
+}}
+
+.jcr-integrated-context {{
+  margin-top:13px !important;
+}}
+
+.jcr-context-panel {{
+  padding:17px !important;
+  border:1px solid rgba(17,50,40,.08) !important;
+  border-radius:19px !important;
+  background:
+    linear-gradient(
+      135deg,
+      #F8FAF9,
+      #F1F6F3
+    ) !important;
+  box-shadow:none !important;
+}}
+
+.jcr-context-heading {{
+  margin-bottom:13px !important;
+  color:var(--lux-ink) !important;
+  font-size:13px !important;
+  font-weight:950 !important;
+}}
+
+.jcr-context-values {{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:8px !important;
+}}
+
+.jcr-context-values > div {{
+  padding:14px 8px !important;
+  border:1px solid rgba(17,50,40,.06) !important;
+  border-radius:15px !important;
+  background:rgba(255,255,255,.80) !important;
+  text-align:center !important;
+}}
+
+.jcr-context-values span {{
+  display:block !important;
+  margin-bottom:6px !important;
+  color:#8B9691 !important;
+  font-size:8px !important;
+  font-weight:850 !important;
+}}
+
+.jcr-context-values strong {{
+  display:block !important;
+  color:#26332D !important;
+  font-size:11px !important;
+  font-weight:950 !important;
+  line-height:1.4 !important;
+}}
+
+.jcr-visual-summary {{
+  display:flex !important;
+  align-items:flex-start !important;
+  gap:13px !important;
+  margin-top:11px !important;
+  padding:17px !important;
+  border:1px solid rgba(199,167,106,.18) !important;
+  border-radius:19px !important;
+  background:
+    linear-gradient(
+      135deg,
+      #FBFAF7,
+      #F5F0E6
+    ) !important;
+}}
+
+.jcr-visual-summary-icon {{
+  width:40px !important;
+  height:40px !important;
+  flex:0 0 40px !important;
+  border:1px solid rgba(199,167,106,.20);
+  border-radius:14px !important;
+  background:#FFFFFF !important;
+  color:#9B783A !important;
+  box-shadow:0 5px 14px rgba(100,75,30,.08);
+}}
+
+.jcr-visual-summary-label {{
+  color:#9D8B69 !important;
+  font-size:8px !important;
+  font-weight:950 !important;
+  letter-spacing:.4px;
+}}
+
+.jcr-visual-summary strong {{
+  color:#2A302C !important;
+  font-size:14px !important;
+  font-weight:950 !important;
+}}
+
+.jcr-visual-summary p {{
+  margin:5px 0 0 !important;
+  color:#756D60 !important;
+  font-size:12px !important;
+  line-height:1.68 !important;
+}}
+
+
+/* ---------------------------------------------------------
+   최근 패턴 카드
+--------------------------------------------------------- */
+
+.events-card {{
+  padding:29px !important;
+}}
+
+.events-card .feature,
+.events-card .event-card,
+.events-card .event-row {{
+  position:relative;
+  margin-top:10px !important;
+  padding:17px !important;
+  overflow:hidden;
+  border:1px solid rgba(17,50,40,.07) !important;
+  border-radius:18px !important;
+  background:
+    linear-gradient(
+      135deg,
+      #FAFBFA,
+      #F3F7F5
+    ) !important;
+  box-shadow:none !important;
+  transition:
+    transform .2s ease,
+    border-color .2s ease !important;
+}}
+
+.events-card .feature:hover,
+.events-card .event-card:hover,
+.events-card .event-row:hover {{
+  transform:translateX(3px);
+  border-color:rgba(13,107,80,.17) !important;
+}}
+
+.mini-btn {{
+  border:1px solid rgba(13,107,80,.12) !important;
+  background:#FFFFFF !important;
+  color:var(--lux-emerald) !important;
+  box-shadow:0 4px 12px rgba(17,50,40,.04) !important;
+}}
+
+
+/* ---------------------------------------------------------
+   등장 애니메이션
+--------------------------------------------------------- */
+
+.jcr-reveal {{
+  opacity:0;
+  transform:translateY(24px);
+  transition:
+    opacity .65s cubic-bezier(.2,.7,.2,1),
+    transform .65s cubic-bezier(.2,.7,.2,1);
+}}
+
+.jcr-reveal.jcr-visible {{
+  opacity:1;
+  transform:translateY(0);
+}}
+
+
+/* ---------------------------------------------------------
+   모바일
+--------------------------------------------------------- */
+
+@media (max-width:700px) {{
+  body::before {{
+    background-size:32px 32px;
+  }}
+
+  .page {{
+    padding:10px 11px 44px !important;
+  }}
+
+  .topbar {{
+    min-height:64px !important;
+    margin-bottom:11px !important;
+  }}
+
+  .topbar::after {{
+    display:none;
+  }}
+
+  .topbar .brand {{
+    font-size:26px !important;
+  }}
+
+  .jcr-signature-hero {{
+    display:block;
+    min-height:0;
+    padding:34px 25px 29px;
+    border-radius:27px;
+  }}
+
+  .jcr-signature-hero::after {{
+    right:-15px;
+    bottom:-38px;
+    font-size:120px;
+  }}
+
+  .jcr-hero-heading {{
+    margin-bottom:15px;
+    font-size:35px;
+    line-height:1.16;
+    letter-spacing:-1.7px;
+  }}
+
+  .jcr-hero-description {{
+    margin-bottom:24px;
+    font-size:13px;
+    line-height:1.75;
+  }}
+
+  .jcr-hero-meta {{
+    width:100%;
+    justify-content:space-between;
+    padding:12px 13px;
+  }}
+
+  .jcr-meta-divider {{
+    margin:0 8px;
+  }}
+
+  .jcr-meta-item span {{
+    font-size:7px;
+  }}
+
+  .jcr-meta-item strong {{
+    font-size:9px;
+  }}
+
+  .jcr-hero-symbol {{
+    display:none;
+  }}
+
+  .jcr-section-navigation {{
+    gap:4px;
+    margin-bottom:12px;
+    padding:5px;
+    border-radius:16px;
+  }}
+
+  .jcr-section-navigation a {{
+    flex-direction:column;
+    gap:2px;
+    padding:9px 3px;
+    font-size:9px;
+  }}
+
+  .card {{
+    margin-bottom:12px !important;
+    padding:17px !important;
+    border-radius:22px !important;
+  }}
+
+  .main-video-section {{
+    padding:8px !important;
+    border-radius:24px !important;
+  }}
+
+  .main-video-section::before {{
+    top:17px;
+    left:17px;
+    padding:6px 8px;
+    font-size:7px;
+  }}
+
+  .main-video-section::after {{
+    top:23px;
+    left:111px;
+  }}
+
+  .main-video-section video,
+  .main-video-section .video-box {{
+    border-radius:17px !important;
+  }}
+
+  .cert-grid {{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:8px !important;
+    margin-bottom:12px !important;
+  }}
+
+  .cert-card {{
+    display:flex !important;
+    align-items:center !important;
+    min-height:82px !important;
+    padding:10px !important;
+    border-radius:18px !important;
+    text-align:left !important;
+  }}
+
+  .cert-card::before {{
+    top:7px;
+    right:7px;
+    font-size:5px;
+  }}
+
+  .cert-card img {{
+    width:48px !important;
+    height:48px !important;
+    flex:0 0 48px;
+    margin:0 9px 0 0 !important;
+  }}
+
+  .cert-title {{
+    font-size:10px !important;
+    text-align:left !important;
+  }}
+
+  .summary-card {{
+    padding:22px 20px !important;
+  }}
+
+  .summary-card::after {{
+    right:9px;
+    bottom:-8px;
+    font-size:43px;
+  }}
+
+  .summary-main {{
+    margin-top:12px !important;
+    font-size:20px !important;
+  }}
+
+  .section-title {{
+    font-size:16px !important;
+  }}
+
+  .section-title::before {{
+    width:5px;
+    height:17px;
+    flex-basis:5px;
+  }}
+
+  .jcr-analysis-card {{
+    padding:17px !important;
+  }}
+
+  .jcr-analysis-card::after {{
+    display:none;
+  }}
+
+  .jcr-analysis-header {{
+    gap:8px !important;
+  }}
+
+  .jcr-analysis-complete {{
+    padding:6px 8px !important;
+    font-size:7px !important;
+  }}
+
+  .jcr-analysis-tabs {{
+    gap:3px !important;
+    padding:4px !important;
+  }}
+
+  .jcr-analysis-tab {{
+    min-height:40px;
+    padding:9px 2px !important;
+    font-size:9px !important;
+  }}
+
+  .jcr-analysis-video-wrap {{
+    border-radius:17px !important;
+  }}
+
+  .jcr-context-panel {{
+    padding:13px !important;
+  }}
+
+  .jcr-context-values {{
+    gap:5px !important;
+  }}
+
+  .jcr-context-values > div {{
+    padding:11px 4px !important;
+  }}
+
+  .jcr-context-values span {{
+    font-size:7px !important;
+  }}
+
+  .jcr-context-values strong {{
+    font-size:9px !important;
+  }}
+
+  .jcr-visual-summary {{
+    padding:14px !important;
+  }}
+
+  .jcr-visual-summary-icon {{
+    width:35px !important;
+    height:35px !important;
+    flex-basis:35px !important;
+  }}
+
+  .events-card {{
+    padding:18px !important;
+  }}
+}}
+
 </style>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKZ6FWYZ9D"></script>
@@ -2503,12 +3746,82 @@ gtag('config', 'G-XKZ6FWYZ9D');
     <div class="brand">JCR</div>
   </div>
 
+
+  <!-- JCR_SIGNATURE_HERO_V1 -->
+  <section class="jcr-signature-hero">
+    <div class="jcr-hero-glow jcr-glow-one"></div>
+    <div class="jcr-hero-glow jcr-glow-two"></div>
+
+    <div class="jcr-hero-content">
+      <div class="jcr-hero-eyebrow">
+        <span class="jcr-live-dot"></span>
+        FARM TRANSPARENCY REPORT
+      </div>
+
+      <h1 class="jcr-hero-heading">
+        농장의 오늘을<br>
+        <span>직접 확인하세요</span>
+      </h1>
+
+      <p class="jcr-hero-description">
+        농장 영상부터 인증 정보와 인공지능 행동 분석까지,
+        소비자가 직접 확인할 수 있는 투명한 농장 리포트입니다.
+      </p>
+
+      <div class="jcr-hero-meta">
+        <div class="jcr-meta-item">
+          <span>PRODUCT</span>
+          <strong>EGG-0001</strong>
+        </div>
+
+        <div class="jcr-meta-divider"></div>
+
+        <div class="jcr-meta-item">
+          <span>REPORT</span>
+          <strong>이번 주 기록</strong>
+        </div>
+
+        <div class="jcr-meta-divider"></div>
+
+        <div class="jcr-meta-item">
+          <span>STATUS</span>
+          <strong class="jcr-status-ok">정상 운영</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="jcr-hero-symbol">
+      <div class="jcr-symbol-ring jcr-ring-one"></div>
+      <div class="jcr-symbol-ring jcr-ring-two"></div>
+      <div class="jcr-symbol-core">
+        <span>J</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="jcr-section-navigation">
+    <a href="#farm-video">
+      <span>01</span>
+      농장 영상
+    </a>
+
+    <a href="#jcr-ai-analysis">
+      <span>02</span>
+      인공지능 분석
+    </a>
+
+    <a href="#certifications">
+      <span>03</span>
+      공식 인증
+    </a>
+  </div>
+
   <div class="card video-card main-video-section" id="farm-video">
     <div class="video-label">🎥 이번주 농장 영상</div>
     {video_html}
   </div>
 
-  <div class="cert-grid">
+  <div class="cert-grid" id="certifications">
     <div class="cert-card">
       <img src="/assets/6indus.png" alt="6차산업 인증">
       <div class="cert-title">6차산업 인증</div>
@@ -3147,6 +4460,47 @@ document.addEventListener("DOMContentLoaded", function() {{
     const activeMode = resolveMode(activeTab, activeIndex);
 
     indicatorText.textContent = modeLabels[activeMode];
+  }}
+}});
+</script>
+
+
+<script>
+// JCR_SIGNATURE_UI_SCRIPT_V1
+document.addEventListener("DOMContentLoaded", function() {{
+  const revealItems = document.querySelectorAll(
+    ".card, .cert-card, .jcr-section-navigation"
+  );
+
+  revealItems.forEach(function(item, index) {{
+    item.classList.add("jcr-reveal");
+    item.style.transitionDelay =
+      Math.min(index * 45, 240) + "ms";
+  }});
+
+  if ("IntersectionObserver" in window) {{
+    const observer = new IntersectionObserver(
+      function(entries) {{
+        entries.forEach(function(entry) {{
+          if (entry.isIntersecting) {{
+            entry.target.classList.add("jcr-visible");
+            observer.unobserve(entry.target);
+          }}
+        }});
+      }},
+      {{
+        threshold:0.08,
+        rootMargin:"0px 0px -25px 0px"
+      }}
+    );
+
+    revealItems.forEach(function(item) {{
+      observer.observe(item);
+    }});
+  }} else {{
+    revealItems.forEach(function(item) {{
+      item.classList.add("jcr-visible");
+    }});
   }}
 }});
 </script>
