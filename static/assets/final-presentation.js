@@ -253,3 +253,145 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+/* JCR_REMOVE_MAIN_VIDEO_GREEN_DOT_V2 */
+
+document.addEventListener("DOMContentLoaded", function () {
+  const mainVideo =
+    document.querySelector(".main-video-section video")
+    || document.querySelector(
+      ".main-video-section .video-box video"
+    );
+
+  if (!mainVideo) {
+    return;
+  }
+
+  const root =
+    mainVideo.closest(".main-video-section")
+    || mainVideo.parentElement;
+
+  if (!root) {
+    return;
+  }
+
+  function removeGreenDot() {
+    const videoRect = mainVideo.getBoundingClientRect();
+
+    Array.from(root.querySelectorAll("*")).forEach(
+      function (element) {
+        if (
+          element === mainVideo
+          || element === root
+          || element.contains(mainVideo)
+        ) {
+          return;
+        }
+
+        const rect = element.getBoundingClientRect();
+
+        if (
+          rect.width <= 0
+          || rect.height <= 0
+          || rect.width > 30
+          || rect.height > 30
+        ) {
+          return;
+        }
+
+        const relativeLeft =
+          rect.left - videoRect.left;
+
+        const relativeTop =
+          rect.top - videoRect.top;
+
+        const isTopLeft =
+          relativeLeft >= -5
+          && relativeLeft <= 115
+          && relativeTop >= -5
+          && relativeTop <= 75;
+
+        if (!isTopLeft) {
+          return;
+        }
+
+        const style = window.getComputedStyle(element);
+
+        const visual = [
+          style.background,
+          style.backgroundColor,
+          style.borderColor,
+          style.color,
+          style.boxShadow,
+          style.fill
+        ]
+          .join(" ")
+          .toLowerCase();
+
+        const greenPatterns = [
+          "rgb(16, 185",
+          "rgb(19, 183",
+          "rgb(34, 197",
+          "rgb(52, 211",
+          "rgb(74, 222",
+          "rgb(54, 211",
+          "#10b981",
+          "#13b77d",
+          "#22c55e",
+          "#34d399",
+          "#4ade80",
+          "#36d399"
+        ];
+
+        const looksGreen = greenPatterns.some(
+          function (pattern) {
+            return visual.includes(pattern);
+          }
+        );
+
+        const isCircle =
+          style.borderRadius === "50%"
+          || parseFloat(style.borderRadius) >=
+             Math.min(rect.width, rect.height) / 2;
+
+        if (looksGreen || isCircle) {
+          element.style.setProperty(
+            "display",
+            "none",
+            "important"
+          );
+
+          element.style.setProperty(
+            "opacity",
+            "0",
+            "important"
+          );
+
+          element.style.setProperty(
+            "visibility",
+            "hidden",
+            "important"
+          );
+        }
+      }
+    );
+  }
+
+  removeGreenDot();
+
+  setTimeout(removeGreenDot, 200);
+  setTimeout(removeGreenDot, 700);
+  setTimeout(removeGreenDot, 1500);
+
+  const observer = new MutationObserver(
+    function () {
+      removeGreenDot();
+    }
+  );
+
+  observer.observe(root, {
+    childList:true,
+    subtree:true,
+    attributes:true
+  });
+});

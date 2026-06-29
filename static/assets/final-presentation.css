@@ -746,3 +746,156 @@ body::before {
     padding:13px 14px !important;
   }
 }
+
+/* JCR_HEADER_VIDEO_FIX_20260629_V2 */
+
+/* 상단 헤더 전체 정렬 */
+.topbar {
+  position:relative !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-height:142px !important;
+  margin:0 0 18px !important;
+  padding:18px 0 24px !important;
+  gap:9px !important;
+}
+
+.topbar::before {
+  content:"" !important;
+  position:absolute !important;
+  left:50% !important;
+  bottom:0 !important;
+  display:block !important;
+  width:86% !important;
+  height:1px !important;
+  transform:translateX(-50%) !important;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(8,122,85,.20),
+      transparent
+    ) !important;
+}
+
+/* 기존 오른쪽 끝에 따로 있던 영문 문구 제거 */
+.topbar::after {
+  display:none !important;
+  content:none !important;
+}
+
+/* 로고 컨테이너 */
+.topbar .brand {
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+  gap:8px !important;
+}
+
+/* 로고 아래 영문 문구를 로고와 한 덩어리로 표시 */
+.topbar .brand::after {
+  content:"TRACEABLE FARM INTELLIGENCE" !important;
+  position:static !important;
+  display:block !important;
+  margin:1px 0 0 !important;
+  color:#65736d !important;
+  font-size:9px !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+  letter-spacing:3.2px !important;
+  white-space:nowrap !important;
+}
+
+/* 다른 장식 제거 */
+.topbar .brand::before {
+  display:none !important;
+  content:none !important;
+}
+
+/* 로고 크기 확대 */
+.jcr-main-logo,
+.topbar .brand img {
+  display:block !important;
+  width:auto !important;
+  height:91px !important;
+  max-width:350px !important;
+  margin:0 auto !important;
+  padding:0 !important;
+  object-fit:contain !important;
+  object-position:center !important;
+  transform:none !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  filter:
+    drop-shadow(0 8px 17px rgba(6,55,39,.12)) !important;
+}
+
+
+/* 대표 농장 영상 왼쪽 위의 초록 점 제거 */
+
+/* 이름이 붙은 상태 표시 요소 */
+.main-video-section .status-dot,
+.main-video-section .live-dot,
+.main-video-section .video-dot,
+.main-video-section .indicator-dot,
+.main-video-section .record-dot,
+.main-video-section .recording-dot,
+.main-video-section .analysis-dot,
+.main-video-section .jcr-dot,
+.main-video-section .jcr-status-dot,
+.main-video-section .jcr-video-dot,
+.main-video-section .video-indicator,
+.main-video-section .live-indicator,
+.main-video-section .analysis-indicator,
+.main-video-section [class*="status-dot"],
+.main-video-section [class*="live-dot"],
+.main-video-section [class*="indicator-dot"],
+.main-video-section [class*="video-dot"] {
+  display:none !important;
+  opacity:0 !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+}
+
+/* 영상 래퍼 가상 요소로 만들어진 점 제거 */
+.main-video-section .video-box::before,
+.main-video-section .video-wrap::before,
+.main-video-section .main-video-wrap::before,
+.main-video-section .video-container::before,
+.main-video-section .media-wrap::before,
+.main-video-section .jcr-video-wrap::before {
+  display:none !important;
+  content:none !important;
+  opacity:0 !important;
+}
+
+/* 영상 위 좌측 상단 오버레이는 JS에서 한 번 더 제거 */
+.main-video-section video {
+  position:relative !important;
+  z-index:2 !important;
+}
+
+@media (max-width:700px) {
+  .topbar {
+    min-height:112px !important;
+    padding:13px 0 18px !important;
+    gap:7px !important;
+  }
+
+  .jcr-main-logo,
+  .topbar .brand img {
+    height:70px !important;
+    max-width:270px !important;
+  }
+
+  .topbar .brand::after {
+    font-size:7px !important;
+    letter-spacing:2.3px !important;
+  }
+}
