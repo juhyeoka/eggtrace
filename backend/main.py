@@ -4431,7 +4431,7 @@ gtag('js', new Date());
 gtag('config', 'G-XKZ6FWYZ9D');
 </script>
 
-<link rel="stylesheet" href="/assets/final-presentation.css?v=remove-green-dot-final-20260629">
+<link rel="stylesheet" href="/assets/final-presentation.css?v=green-dot-absolute-final-20260629">
 </head>
 
 <body>
@@ -5277,7 +5277,7 @@ document.addEventListener("DOMContentLoaded", function() {{
 }});
 </script>
 
-<script src="/assets/final-presentation.js?v=header-video-fix-v2-20260629" defer></script>
+<script src="/assets/final-presentation.js?v=green-dot-absolute-final-20260629" defer></script>
 </body>
 </html>
 """

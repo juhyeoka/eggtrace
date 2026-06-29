@@ -988,3 +988,38 @@ img[src*="naepo.png"] {
   content:none !important;
   display:none !important;
 }
+
+/* JCR_REMOVE_CREATED_GREEN_DOT_ABSOLUTE_FINAL */
+
+/* 대표 농장 영상 영역에 내가 추가한 모든 장식용 가상 요소 제거 */
+.main-video-section::before,
+.main-video-section::after,
+.main-video-section *::before,
+.main-video-section *::after {
+  content:none !important;
+  display:none !important;
+  opacity:0 !important;
+  visibility:hidden !important;
+  background:none !important;
+  box-shadow:none !important;
+}
+
+/* 영상 위에 얹힌 별도 상태 요소 제거 */
+.main-video-section [class*="dot"],
+.main-video-section [class*="status"],
+.main-video-section [class*="indicator"],
+.main-video-section [class*="marker"],
+.main-video-section [class*="pulse"],
+.main-video-section [class*="live"],
+.main-video-section [class*="badge"] {
+  display:none !important;
+  opacity:0 !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+}
+
+/* 영상은 원래 크기로 복구 */
+.main-video-section video {
+  transform:none !important;
+  scale:1 !important;
+}

@@ -395,3 +395,59 @@ document.addEventListener("DOMContentLoaded", function () {
     attributes:true
   });
 });
+
+/* JCR_REMOVE_CREATED_GREEN_DOT_ABSOLUTE_FINAL */
+
+document.addEventListener("DOMContentLoaded", function () {
+  const section = document.querySelector(".main-video-section");
+
+  if (!section) {
+    return;
+  }
+
+  const video = section.querySelector("video");
+
+  if (!video) {
+    return;
+  }
+
+  function removeOverlayDots() {
+    const videoRect = video.getBoundingClientRect();
+
+    Array.from(section.querySelectorAll("*")).forEach(function (element) {
+      if (
+        element === video
+        || element.contains(video)
+      ) {
+        return;
+      }
+
+      const rect = element.getBoundingClientRect();
+      const style = window.getComputedStyle(element);
+
+      const nearVideoTopLeft =
+        rect.left >= videoRect.left - 10
+        && rect.left <= videoRect.left + 140
+        && rect.top >= videoRect.top - 10
+        && rect.top <= videoRect.top + 90;
+
+      const smallOverlay =
+        rect.width > 0
+        && rect.height > 0
+        && rect.width <= 40
+        && rect.height <= 40;
+
+      const positioned =
+        style.position === "absolute"
+        || style.position === "fixed";
+
+      if (nearVideoTopLeft && smallOverlay && positioned) {
+        element.remove();
+      }
+    });
+  }
+
+  removeOverlayDots();
+  setTimeout(removeOverlayDots, 300);
+  setTimeout(removeOverlayDots, 1000);
+});
