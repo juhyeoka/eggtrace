@@ -130,7 +130,7 @@ def human_event_text(tags: list[str]) -> str:
 
 def build_one_line(events: list[dict]) -> str:
     if not events:
-        return "✦ 인공지능이 영상 속 활동량 변화와 군집 흐름을 분석하고 있습니다."
+        return "✦ 인공지능이 영상 속 활동량 변화와 밀집도 히트맵을 분석하고 있습니다."
 
     recent_tags: list[str] = []
     for e in events[:5]:
@@ -3726,6 +3726,700 @@ body::before {{
   }}
 }}
 
+
+/* JCR_REAL_LOGO_V1 */
+
+.topbar .brand {{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:auto !important;
+}}
+
+.topbar .brand::before {{
+  display:none !important;
+}}
+
+.jcr-main-logo {{
+  display:block !important;
+  width:auto !important;
+  height:48px !important;
+  max-width:190px !important;
+  object-fit:contain !important;
+  filter:drop-shadow(0 5px 12px rgba(0,0,0,.08));
+}}
+
+.jcr-symbol-core {{
+  overflow:hidden !important;
+  padding:20px !important;
+}}
+
+.jcr-symbol-core span {{
+  display:none !important;
+}}
+
+.jcr-hero-logo {{
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  object-fit:contain !important;
+  transform:rotate(-45deg) !important;
+  filter:brightness(0) invert(1)
+    drop-shadow(0 6px 16px rgba(0,0,0,.18));
+}}
+
+/* 배경에 있던 JCR 글자 장식 제거 */
+.jcr-signature-hero::after {{
+  content:"" !important;
+  display:none !important;
+}}
+
+@media (max-width:700px) {{
+  .jcr-main-logo {{
+    height:42px !important;
+    max-width:165px !important;
+  }}
+}}
+
+
+/* JCR_LOGO_FIX_V2 */
+
+.topbar .brand {{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:100% !important;
+}}
+
+.jcr-main-logo {{
+  display:block !important;
+  width:auto !important;
+  height:64px !important;
+  max-width:240px !important;
+  object-fit:contain !important;
+  object-position:center !important;
+  filter:none !important;
+  transform:none !important;
+}}
+
+.jcr-symbol-core {{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  overflow:hidden !important;
+  padding:14px !important;
+}}
+
+.jcr-hero-logo {{
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  object-fit:contain !important;
+  object-position:center !important;
+  filter:none !important;
+  transform:rotate(-45deg) !important;
+}}
+
+@media (max-width:700px) {{
+  .jcr-main-logo {{
+    height:54px !important;
+    max-width:210px !important;
+  }}
+}}
+
+
+/* JCR_REFINED_UI_V2 */
+
+:root {{
+  --r-bg:#F6F7F5;
+  --r-card:#FFFFFF;
+  --r-text:#18221E;
+  --r-sub:#6D7772;
+  --r-line:#E5E9E6;
+  --r-green:#1F6B4E;
+  --r-green-dark:#164D39;
+  --r-green-soft:#EAF3EE;
+  --r-gold:#B89455;
+  --r-shadow:0 14px 38px rgba(28,55,43,.07);
+}}
+
+body {{
+  background:
+    linear-gradient(180deg,#F9FAF8 0%,#F4F6F4 100%) !important;
+}}
+
+.page {{
+  max-width:960px !important;
+  padding:18px 22px 64px !important;
+}}
+
+/* 상단 로고 영역 */
+.topbar {{
+  min-height:76px !important;
+  margin-bottom:14px !important;
+  padding:6px 0 14px !important;
+}}
+
+.topbar::before {{
+  left:0 !important;
+  right:0 !important;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(31,107,78,.12),
+    transparent
+  ) !important;
+}}
+
+.topbar::after {{
+  display:none !important;
+}}
+
+.jcr-main-logo {{
+  height:58px !important;
+  max-width:220px !important;
+  filter:none !important;
+}}
+
+/* 히어로 전면 재구성 */
+.jcr-signature-hero {{
+  display:block !important;
+  min-height:0 !important;
+  margin-bottom:14px !important;
+  padding:42px 46px 38px !important;
+  border:1px solid rgba(255,255,255,.10) !important;
+  border-radius:28px !important;
+  background:
+    linear-gradient(
+      135deg,
+      #173C2F 0%,
+      #205C45 58%,
+      #2A7255 100%
+    ) !important;
+  box-shadow:0 22px 60px rgba(26,69,51,.16) !important;
+}}
+
+.jcr-signature-hero::before {{
+  opacity:.10 !important;
+  background-size:56px 56px !important;
+}}
+
+.jcr-signature-hero::after {{
+  display:none !important;
+}}
+
+.jcr-hero-content {{
+  max-width:680px !important;
+}}
+
+.jcr-hero-eyebrow {{
+  margin-bottom:17px !important;
+  padding:7px 11px !important;
+  border-color:rgba(255,255,255,.14) !important;
+  background:rgba(255,255,255,.07) !important;
+  font-size:8px !important;
+}}
+
+.jcr-hero-heading {{
+  margin-bottom:15px !important;
+  font-size:42px !important;
+  line-height:1.16 !important;
+  letter-spacing:-1.9px !important;
+}}
+
+.jcr-hero-heading span {{
+  background:none !important;
+  -webkit-text-fill-color:initial !important;
+  color:#CFE4D8 !important;
+}}
+
+.jcr-hero-description {{
+  max-width:620px !important;
+  margin-bottom:25px !important;
+  color:rgba(255,255,255,.72) !important;
+  font-size:14px !important;
+  line-height:1.8 !important;
+}}
+
+.jcr-hero-meta {{
+  padding:12px 15px !important;
+  border-radius:14px !important;
+  background:rgba(10,33,25,.26) !important;
+}}
+
+.jcr-meta-divider {{
+  margin:0 15px !important;
+}}
+
+.jcr-hero-symbol {{
+  display:none !important;
+}}
+
+/* 네비게이션 단순화 */
+.jcr-section-navigation {{
+  margin-bottom:14px !important;
+  padding:5px !important;
+  border:1px solid var(--r-line) !important;
+  border-radius:16px !important;
+  background:#FFFFFF !important;
+  box-shadow:0 7px 20px rgba(28,55,43,.045) !important;
+}}
+
+.jcr-section-navigation a {{
+  padding:11px 8px !important;
+  border-radius:11px !important;
+  color:#5B6761 !important;
+  font-size:11px !important;
+}}
+
+.jcr-section-navigation a span {{
+  color:var(--r-green) !important;
+}}
+
+.jcr-section-navigation a:hover {{
+  background:var(--r-green-soft) !important;
+  color:var(--r-green-dark) !important;
+}}
+
+/* 영상이 첫 번째 핵심처럼 보이게 */
+.main-video-section {{
+  padding:9px !important;
+  border:1px solid rgba(31,107,78,.12) !important;
+  border-radius:24px !important;
+  background:#FFFFFF !important;
+  box-shadow:var(--r-shadow) !important;
+}}
+
+.main-video-section::before {{
+  top:18px !important;
+  left:18px !important;
+  padding:6px 9px !important;
+  border-radius:999px !important;
+  background:rgba(14,28,22,.70) !important;
+  font-size:7px !important;
+}}
+
+.main-video-section::after {{
+  top:24px !important;
+  left:115px !important;
+}}
+
+.main-video-section video,
+.main-video-section .video-box {{
+  border-radius:17px !important;
+}}
+
+/* 카드 공통 단순화 */
+.card {{
+  border:1px solid var(--r-line) !important;
+  border-radius:22px !important;
+  background:#FFFFFF !important;
+  box-shadow:var(--r-shadow) !important;
+}}
+
+.card::before {{
+  display:none !important;
+}}
+
+/* 인증 영역 */
+.cert-grid {{
+  gap:10px !important;
+}}
+
+.cert-card {{
+  min-height:145px !important;
+  border-radius:18px !important;
+  background:#FFFFFF !important;
+  box-shadow:0 10px 25px rgba(28,55,43,.045) !important;
+}}
+
+.cert-card::before {{
+  color:rgba(31,107,78,.28) !important;
+}}
+
+.cert-card img {{
+  width:64px !important;
+  height:64px !important;
+}}
+
+.cert-title {{
+  font-size:11px !important;
+}}
+
+/* 요약 카드 */
+.summary-card {{
+  padding:26px 28px !important;
+  background:
+    linear-gradient(
+      135deg,
+      #FFFFFF 0%,
+      #F3F8F5 100%
+    ) !important;
+}}
+
+.summary-card::after {{
+  display:none !important;
+}}
+
+.summary-main {{
+  font-size:23px !important;
+  line-height:1.45 !important;
+}}
+
+/* 인공지능 분석 카드 */
+.jcr-analysis-card {{
+  padding:25px !important;
+}}
+
+.jcr-analysis-card::after {{
+  display:none !important;
+}}
+
+.jcr-analysis-tabs {{
+  background:#EFF2F0 !important;
+  border-radius:15px !important;
+}}
+
+.jcr-analysis-tab {{
+  min-height:42px !important;
+  border-radius:10px !important;
+}}
+
+.jcr-analysis-tab.active {{
+  color:var(--r-green-dark) !important;
+  box-shadow:0 5px 14px rgba(28,55,43,.07) !important;
+}}
+
+.jcr-analysis-tab.active::after {{
+  display:none !important;
+}}
+
+.jcr-analysis-video-wrap {{
+  border-radius:18px !important;
+  box-shadow:0 14px 30px rgba(18,41,31,.13) !important;
+}}
+
+.jcr-context-panel {{
+  background:#F6F8F6 !important;
+}}
+
+.jcr-visual-summary {{
+  border-color:rgba(184,148,85,.14) !important;
+  background:#F8F5EF !important;
+}}
+
+/* 모바일 */
+@media (max-width:700px) {{
+  .page {{
+    padding:10px 11px 40px !important;
+  }}
+
+  .topbar {{
+    min-height:64px !important;
+    padding-bottom:10px !important;
+  }}
+
+  .jcr-main-logo {{
+    height:46px !important;
+    max-width:180px !important;
+  }}
+
+  .jcr-signature-hero {{
+    padding:30px 24px 27px !important;
+    border-radius:23px !important;
+  }}
+
+  .jcr-hero-heading {{
+    font-size:32px !important;
+    letter-spacing:-1.3px !important;
+  }}
+
+  .jcr-hero-description {{
+    font-size:12px !important;
+    line-height:1.7 !important;
+  }}
+
+  .jcr-hero-meta {{
+    width:100% !important;
+    padding:11px 12px !important;
+  }}
+
+  .jcr-meta-divider {{
+    margin:0 8px !important;
+  }}
+
+  .jcr-meta-item strong {{
+    font-size:9px !important;
+  }}
+
+  .jcr-section-navigation a {{
+    font-size:9px !important;
+  }}
+
+  .card {{
+    border-radius:19px !important;
+  }}
+
+  .summary-main {{
+    font-size:19px !important;
+  }}
+}}
+
+
+/* JCR_DENSITY_HEATMAP_V1 */
+
+/* 기존 군집 박스·화살표·가상 객체 전부 제거 */
+.jcr-vision-cluster > * {{
+  display:none !important;
+}}
+
+/* 군집 모드를 밀집도 히트맵 모드로 재사용 */
+.jcr-vision-cluster {{
+  display:none;
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  opacity:.94;
+  background:
+    radial-gradient(
+      ellipse 19% 25% at 62% 57%,
+      rgba(255,42,32,.86) 0%,
+      rgba(255,96,27,.74) 22%,
+      rgba(255,201,44,.48) 48%,
+      rgba(255,224,74,0) 74%
+    ),
+    radial-gradient(
+      ellipse 16% 21% at 34% 65%,
+      rgba(255,91,28,.76) 0%,
+      rgba(255,173,32,.58) 34%,
+      rgba(255,220,60,0) 74%
+    ),
+    radial-gradient(
+      ellipse 13% 18% at 75% 30%,
+      rgba(255,161,25,.62) 0%,
+      rgba(255,218,58,.38) 42%,
+      rgba(255,225,70,0) 75%
+    ),
+    radial-gradient(
+      ellipse 12% 15% at 47% 39%,
+      rgba(255,199,35,.48) 0%,
+      rgba(255,225,70,0) 72%
+    );
+  mix-blend-mode:screen;
+  filter:blur(2px) saturate(1.12);
+  animation:jcrDensityBreath 3.2s ease-in-out infinite;
+}}
+
+/* cluster 탭을 눌렀을 때 히트맵 노출 */
+.jcr-vision-layer.mode-cluster .jcr-vision-cluster {{
+  display:block !important;
+}}
+
+/* 히트맵 범례 */
+.jcr-vision-layer.mode-cluster::after {{
+  content:"낮음   활동 밀집도   높음";
+  position:absolute;
+  right:14px;
+  bottom:14px;
+  z-index:8;
+  display:block;
+  padding:8px 11px 8px 70px;
+  border:1px solid rgba(255,255,255,.20);
+  border-radius:999px;
+  background:
+    linear-gradient(
+      90deg,
+      #2F7BFF 0%,
+      #38CFA3 24%,
+      #F2DF43 52%,
+      #FF8A25 76%,
+      #FF3328 100%
+    ) 10px 50% / 52px 7px no-repeat,
+    rgba(10,18,15,.72);
+  color:#FFFFFF;
+  font-size:8px;
+  font-weight:850;
+  letter-spacing:.2px;
+  backdrop-filter:blur(8px);
+  pointer-events:none;
+}}
+
+/* 히트맵 모드 라벨 */
+.jcr-vision-layer.mode-cluster::before {{
+  content:"DENSITY HEATMAP";
+  position:absolute;
+  top:14px;
+  right:14px;
+  z-index:8;
+  display:block;
+  padding:7px 10px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:999px;
+  background:rgba(11,24,20,.68);
+  color:#FFFFFF;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:1px;
+  backdrop-filter:blur(8px);
+  pointer-events:none;
+}}
+
+@keyframes jcrDensityBreath {{
+  0%,100% {{
+    opacity:.76;
+    transform:scale(.985);
+  }}
+
+  50% {{
+    opacity:.96;
+    transform:scale(1.015);
+  }}
+}}
+
+/* 두 번째 탭 활성화 색상을 히트맵 계열로 강조 */
+.jcr-analysis-tab:nth-child(2).active {{
+  color:#A8491E !important;
+  background:
+    linear-gradient(
+      135deg,
+      #FFFFFF,
+      #FFF5ED
+    ) !important;
+}}
+
+.jcr-analysis-tab:nth-child(2).active::before {{
+  content:"";
+  display:inline-block;
+  width:7px;
+  height:7px;
+  margin-right:5px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#FFD43B,#FF4635);
+  box-shadow:0 0 0 4px rgba(255,92,44,.08);
+}}
+
+@media (max-width:700px) {{
+  .jcr-vision-layer.mode-cluster::before {{
+    top:9px;
+    right:9px;
+    padding:5px 7px;
+    font-size:6px;
+  }}
+
+  .jcr-vision-layer.mode-cluster::after {{
+    right:9px;
+    bottom:9px;
+    padding:6px 8px 6px 56px;
+    background-size:40px 6px;
+    background-position:9px 50%;
+    font-size:6px;
+  }}
+}}
+
+
+/* JCR_REAL_DENSITY_HEATMAP_V2 */
+
+.jcr-vision-cluster {{
+  display:none !important;
+  position:absolute !important;
+  inset:0 !important;
+  opacity:1 !important;
+  background:
+    url("/heatmaps/current_density.png?v=20260629")
+    center / 100% 100%
+    no-repeat !important;
+  mix-blend-mode:screen !important;
+  filter:none !important;
+  transform:none !important;
+  animation:none !important;
+}}
+
+.jcr-vision-layer.mode-cluster .jcr-vision-cluster {{
+  display:block !important;
+}}
+
+.jcr-vision-cluster > * {{
+  display:none !important;
+}}
+
+.jcr-vision-layer.mode-cluster::before {{
+  content:"프레임별 움직임 밀집 분석" !important;
+  position:absolute !important;
+  top:14px !important;
+  right:14px !important;
+  z-index:8 !important;
+  display:block !important;
+  padding:7px 10px !important;
+  border:1px solid rgba(255,255,255,.18) !important;
+  border-radius:999px !important;
+  background:rgba(8,18,15,.72) !important;
+  color:#FFFFFF !important;
+  font-size:8px !important;
+  font-weight:900 !important;
+  letter-spacing:.3px !important;
+  backdrop-filter:blur(8px) !important;
+}}
+
+.jcr-vision-layer.mode-cluster::after {{
+  content:"낮음   움직임 밀집도   높음" !important;
+  position:absolute !important;
+  right:14px !important;
+  bottom:14px !important;
+  z-index:8 !important;
+  display:block !important;
+  padding:8px 11px 8px 72px !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  border-radius:999px !important;
+  background:
+    linear-gradient(
+      90deg,
+      #244BFF 0%,
+      #1AC7E8 25%,
+      #42D36B 48%,
+      #FFE342 70%,
+      #FF3428 100%
+    ) 10px 50% / 54px 7px no-repeat,
+    rgba(8,18,15,.72) !important;
+  color:#FFFFFF !important;
+  font-size:8px !important;
+  font-weight:850 !important;
+  backdrop-filter:blur(8px) !important;
+}}
+
+@media (max-width:700px) {{
+  .jcr-vision-layer.mode-cluster::before {{
+    top:9px !important;
+    right:9px !important;
+    padding:5px 7px !important;
+    font-size:6px !important;
+  }}
+
+  .jcr-vision-layer.mode-cluster::after {{
+    right:9px !important;
+    bottom:9px !important;
+    padding:6px 8px 6px 58px !important;
+    background-size:42px 6px !important;
+    background-position:9px 50% !important;
+    font-size:6px !important;
+  }}
+}}
+
+
+/* JCR_DISABLE_STATIC_HEATMAP_V3 */
+
+.jcr-vision-layer.mode-cluster {{
+  display:none !important;
+}}
+
+.jcr-vision-layer.mode-cluster::before,
+.jcr-vision-layer.mode-cluster::after {{
+  display:none !important;
+}}
+
+.jcr-vision-cluster {{
+  display:none !important;
+}}
+
 </style>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKZ6FWYZ9D"></script>
@@ -3743,7 +4437,9 @@ gtag('config', 'G-XKZ6FWYZ9D');
 <div class="page eyeran-main">
 
   <div class="topbar">
-    <div class="brand">JCR</div>
+    <div class="brand">
+    <img class="jcr-main-logo" src="/assets/logo.png?v=2" alt="JCR 로고">
+  </div>
   </div>
 
 
@@ -3794,7 +4490,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
       <div class="jcr-symbol-ring jcr-ring-one"></div>
       <div class="jcr-symbol-ring jcr-ring-two"></div>
       <div class="jcr-symbol-core">
-        <span>J</span>
+        <img class="jcr-hero-logo" src="/assets/logo.png?v=2" alt="JCR 로고">
       </div>
     </div>
   </section>
@@ -3850,7 +4546,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
     <div class="section-title">🤖 인공지능 영상 분석 결과</div>
 
     <p class="info-copy">
-      업로드된 농장 영상을 프레임 단위로 분석하여 움직임 변화, 군집 흐름, 공간별 활동 집중도를 요약합니다.
+      업로드된 농장 영상을 프레임 단위로 분석하여 움직임 변화, 밀집도 히트맵, 공간별 활동 집중도를 요약합니다.
     </p>
 
     <div class="ai-result-grid">
@@ -3859,7 +4555,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
         <div class="value">{motion_text(metrics)}</div>
       </div>
       <div class="ai-result-card">
-        <div class="label">군집 흐름</div>
+        <div class="label">밀집도 히트맵</div>
         <div class="value">{density_text(metrics)}</div>
       </div>
       <div class="ai-result-card">
@@ -3902,7 +4598,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
       <div>
         <div class="section-title">인공지능 영상 분석 결과</div>
         <p class="jcr-analysis-sub">
-          농장 영상에서 움직임과 군집 흐름이 집중된 구간을 AI가 분석했습니다.
+          농장 영상에서 움직임과 밀집도 히트맵이 집중된 구간을 AI가 분석했습니다.
         </p>
       </div>
 
@@ -3923,9 +4619,9 @@ gtag('config', 'G-XKZ6FWYZ9D');
         type="button"
         class="jcr-analysis-tab"
         data-src="/videos/ai_event_2.mp4"
-        data-title="군집 흐름 분석" data-mode="cluster"
+        data-title="밀집도 히트맵 분석" data-mode="cluster"
       >
-        군집 흐름
+        밀집도 히트맵
       </button>
 
       <button
@@ -4074,7 +4770,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
         >
           <div class="jcr-context-heading">
             <span class="jcr-context-dot cluster-dot"></span>
-            군집 흐름 분석
+            밀집도 히트맵 분석
           </div>
 
           <div class="jcr-context-values">
@@ -4422,7 +5118,7 @@ document.addEventListener("DOMContentLoaded", function() {{
 
   const modeLabels = {{
     activity:"인공지능 활동량 분석",
-    cluster:"인공지능 군집 흐름 분석",
+    cluster:"인공지능 밀집도 히트맵 분석",
     pattern:"인공지능 패턴 변화 분석"
   }};
 
@@ -4502,6 +5198,81 @@ document.addEventListener("DOMContentLoaded", function() {{
       item.classList.add("jcr-visible");
     }});
   }}
+}});
+</script>
+
+
+<script>
+// JCR_SYNCED_HEATMAP_VIDEO_V3
+document.addEventListener("DOMContentLoaded", function() {{
+  const video = document.querySelector(".jcr-analysis-video");
+  const tabs = document.querySelectorAll(".jcr-analysis-tab");
+  const visionLayer = document.querySelector(".jcr-vision-layer");
+
+  if (!video || !tabs.length) {{
+    return;
+  }}
+
+  const normalSource = "/videos/highlight.mp4?v=20";
+  const heatmapSource = "/videos/density_heatmap.mp4?v=10";
+
+  tabs.forEach(function(tab) {{
+    tab.addEventListener("click", function() {{
+      const mode = tab.dataset.mode;
+      const currentTime = video.currentTime || 0;
+      const wasPlaying = !video.paused;
+
+      if (mode === "cluster") {{
+        if (!video.src.includes("density_heatmap.mp4")) {{
+          video.src = heatmapSource;
+          video.load();
+
+          video.addEventListener(
+            "loadedmetadata",
+            function restoreHeatmapTime() {{
+              video.currentTime = Math.min(
+                currentTime,
+                video.duration || currentTime
+              );
+
+              if (wasPlaying) {{
+                video.play().catch(function() {{}});
+              }}
+            }},
+            {{ once:true }}
+          );
+        }}
+
+        if (visionLayer) {{
+          visionLayer.style.display = "none";
+        }}
+      }} else {{
+        if (!video.src.includes("highlight.mp4")) {{
+          video.src = normalSource;
+          video.load();
+
+          video.addEventListener(
+            "loadedmetadata",
+            function restoreNormalTime() {{
+              video.currentTime = Math.min(
+                currentTime,
+                video.duration || currentTime
+              );
+
+              if (wasPlaying) {{
+                video.play().catch(function() {{}});
+              }}
+            }},
+            {{ once:true }}
+          );
+        }}
+
+        if (visionLayer) {{
+          visionLayer.style.display = "";
+        }}
+      }}
+    }});
+  }});
 }});
 </script>
 
