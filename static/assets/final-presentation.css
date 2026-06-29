@@ -950,3 +950,41 @@ img[src*="naepo.png"] {
   padding:0 !important;
   filter:none !important;
 }
+
+/* JCR_REMOVE_GREEN_DOT_FINAL */
+
+/* 대표 농장 영상의 위쪽 가장자리를 살짝 잘라 초록 점 제거 */
+.main-video-section .video-box,
+.main-video-section .video-wrap,
+.main-video-section .video-container,
+.main-video-section .main-video-wrap {
+  overflow:hidden !important;
+}
+
+.main-video-section video {
+  display:block !important;
+  width:100% !important;
+  height:auto !important;
+  transform:scale(1.025) !important;
+  transform-origin:center center !important;
+}
+
+/* 혹시 영상 위에 따로 얹힌 점이면 같이 제거 */
+.main-video-section [class*="dot"],
+.main-video-section [class*="marker"],
+.main-video-section [class*="indicator"],
+.main-video-section [class*="pulse"],
+.main-video-section [class*="live"] {
+  display:none !important;
+  opacity:0 !important;
+  visibility:hidden !important;
+}
+
+/* 좌측 상단 장식 가상 요소 제거 */
+.main-video-section .video-box::before,
+.main-video-section .video-wrap::before,
+.main-video-section .video-container::before,
+.main-video-section .main-video-wrap::before {
+  content:none !important;
+  display:none !important;
+}

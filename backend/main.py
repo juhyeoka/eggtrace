@@ -4431,7 +4431,7 @@ gtag('js', new Date());
 gtag('config', 'G-XKZ6FWYZ9D');
 </script>
 
-<link rel="stylesheet" href="/assets/final-presentation.css?v=cert-transparent-fix-20260629">
+<link rel="stylesheet" href="/assets/final-presentation.css?v=remove-green-dot-final-20260629">
 </head>
 
 <body>
@@ -4456,8 +4456,8 @@ gtag('config', 'G-XKZ6FWYZ9D');
       </div>
 
       <h1 class="jcr-hero-heading">
-        농장의 오늘을<br>
-        <span>직접 확인하세요</span>
+        이번주 농장을<br>
+        <span>확인해보세요</span>
       </h1>
 
       <p class="jcr-hero-description">
