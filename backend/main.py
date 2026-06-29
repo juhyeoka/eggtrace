@@ -4431,7 +4431,7 @@ gtag('js', new Date());
 gtag('config', 'G-XKZ6FWYZ9D');
 </script>
 
-<link rel="stylesheet" href="/assets/final-presentation.css?v=header-video-fix-v2-20260629">
+<link rel="stylesheet" href="/assets/final-presentation.css?v=cert-transparent-fix-20260629">
 </head>
 
 <body>
@@ -4520,19 +4520,19 @@ gtag('config', 'G-XKZ6FWYZ9D');
 
   <div class="cert-grid" id="certifications">
     <div class="cert-card">
-      <img src="/assets/6indus.png" alt="6차산업 인증">
+      <img src="/assets/6indus.png?v=cert-transparent-fix-20260629" alt="6차산업 인증">
       <div class="cert-title">6차산업 인증</div>
     </div>
     <div class="cert-card">
-      <img src="/assets/naepo.png" alt="내포천애 인증">
+      <img src="/assets/naepo.png?v=cert-transparent-fix-20260629" alt="내포천애 인증">
       <div class="cert-title">내포천애 인증</div>
     </div>
     <div class="cert-card">
-      <img src="/assets/muhang.png" alt="무항생제 인증">
+      <img src="/assets/muhang.png?v=cert-transparent-fix-20260629" alt="무항생제 인증">
       <div class="cert-title">무항생제 인증</div>
     </div>
     <div class="cert-card">
-      <img src="/assets/haccp.png" alt="안전관리 인증">
+      <img src="/assets/haccp.png?v=cert-transparent-fix-20260629" alt="안전관리 인증">
       <div class="cert-title">안전관리 인증</div>
     </div>
   </div>

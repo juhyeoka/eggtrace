@@ -899,3 +899,54 @@ body::before {
     letter-spacing:2.3px !important;
   }
 }
+
+/* JCR_CERT_TRANSPARENT_FIX_20260629 */
+
+/* 인증 이미지 자체 배경 제거 */
+.cert-card img,
+.cert-card .cert-image,
+.cert-card .cert-logo,
+.cert-card picture,
+.cert-card picture img {
+  background:transparent !important;
+  background-color:transparent !important;
+  box-shadow:none !important;
+  border:0 !important;
+  border-radius:0 !important;
+  mix-blend-mode:normal !important;
+  opacity:1 !important;
+  object-fit:contain !important;
+}
+
+/* 인증 이미지 감싸는 박스 배경 제거 */
+.cert-card .image-wrap,
+.cert-card .cert-image-wrap,
+.cert-card .cert-logo-wrap,
+.cert-card .thumb,
+.cert-card figure,
+.cert-card picture {
+  background:transparent !important;
+  background-color:transparent !important;
+  box-shadow:none !important;
+  border:0 !important;
+}
+
+/* 카드 자체는 유지하되 이미지 영역에 색 안 깔리게 */
+.cert-card::before,
+.cert-card::after {
+  pointer-events:none !important;
+}
+
+/* 혹시 이미지에 인라인 배경이 있어도 강제 제거 */
+img[src*="6indus.png"],
+img[src*="haccp.png"],
+img[src*="muhang.png"],
+img[src*="naepo.png"] {
+  background:transparent !important;
+  background-color:transparent !important;
+  box-shadow:none !important;
+  border:0 !important;
+  border-radius:0 !important;
+  padding:0 !important;
+  filter:none !important;
+}
