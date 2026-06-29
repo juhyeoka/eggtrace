@@ -4431,6 +4431,7 @@ gtag('js', new Date());
 gtag('config', 'G-XKZ6FWYZ9D');
 </script>
 
+<link rel="stylesheet" href="/assets/final-presentation.css?v=presentation-final-20260629">
 </head>
 
 <body>
@@ -4438,7 +4439,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
 
   <div class="topbar">
     <div class="brand">
-    <img class="jcr-main-logo" src="/assets/logo.png?v=2" alt="JCR 로고">
+    <img class="jcr-main-logo" src="/assets/logo.png?v=presentation-final-20260629" alt="JCR 로고">
   </div>
   </div>
 
@@ -4490,7 +4491,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
       <div class="jcr-symbol-ring jcr-ring-one"></div>
       <div class="jcr-symbol-ring jcr-ring-two"></div>
       <div class="jcr-symbol-core">
-        <img class="jcr-hero-logo" src="/assets/logo.png?v=2" alt="JCR 로고">
+        <img class="jcr-hero-logo" src="/assets/logo.png?v=presentation-final-20260629" alt="JCR 로고">
       </div>
     </div>
   </section>
@@ -5276,6 +5277,7 @@ document.addEventListener("DOMContentLoaded", function() {{
 }});
 </script>
 
+<script src="/assets/final-presentation.js?v=presentation-final-20260629" defer></script>
 </body>
 </html>
 """
