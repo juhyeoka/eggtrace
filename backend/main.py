@@ -4432,6 +4432,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
 </script>
 
 <link rel="stylesheet" href="/assets/final-presentation.css?v=green-dot-absolute-final-20260629">
+<link rel="stylesheet" href="/assets/patent-report-v2.css?v=real-consumer-report-v3-20260704">
 </head>
 
 <body>
@@ -5278,10 +5279,466 @@ document.addEventListener("DOMContentLoaded", function() {{
 </script>
 
 <script src="/assets/final-presentation.js?v=green-dot-absolute-final-20260629" defer></script>
+<script src="/assets/patent-report-v2.js?v=real-consumer-report-v3-20260704" defer></script>
 </body>
 </html>
 """
     return HTMLResponse(page)
 
+# === EGGTRACE_REAL_ANALYTICS_API_V3_START ===
 
+@app.get("/api/products/{product_code}/analytics")
+def eggtrace_real_product_analytics(product_code: str):
+    """
+    data/events.jsonl의 실제 이벤트를 읽어
+    소비자용 분석 결과를 계산한다.
+    임의의 시연 기본값은 사용하지 않는다.
+    """
+    from collections import Counter, defaultdict
+    from datetime import datetime
+    from pathlib import Path
+    import hashlib
+    import json
+    import math
+    import statistics
 
+    base_dir = Path(__file__).resolve().parents[1]
+
+    candidates = [
+        base_dir / "data" / "events.jsonl",
+        base_dir / "data" / "events" / "events.jsonl",
+        base_dir / "data" / "output" / "events.jsonl",
+    ]
+
+    events_path = next(
+        (
+            candidate
+            for candidate in candidates
+            if candidate.exists()
+            and candidate.is_file()
+        ),
+        None,
+    )
+
+    if events_path is None:
+        return {
+            "has_data": False,
+            "product_code": product_code,
+            "message": "events.jsonl 파일을 찾지 못했습니다.",
+        }
+
+    records = []
+
+    with events_path.open(
+        "r",
+        encoding="utf-8",
+        errors="ignore",
+    ) as file:
+        for line in file:
+            line = line.strip()
+
+            if not line:
+                continue
+
+            try:
+                item = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+
+            if isinstance(item, dict):
+                records.append(item)
+
+    if not records:
+        return {
+            "has_data": False,
+            "product_code": product_code,
+            "source_name": str(
+                events_path.relative_to(base_dir)
+            ),
+            "message": "분석 기록이 비어 있습니다.",
+        }
+
+    def record_product(record):
+        for key in (
+            "product_code",
+            "egg_code",
+            "product",
+            "code",
+        ):
+            value = record.get(key)
+
+            if value:
+                return str(value)
+
+        return None
+
+    product_records = [
+        record
+        for record in records
+        if record_product(record) == product_code
+    ]
+
+    if product_records:
+        records = product_records
+
+    # 최근 기록만 사용해 현재 화면이
+    # 지나치게 오래된 데이터에 끌려가지 않도록 한다.
+    records = records[-300:]
+
+    def finite_number(value):
+        try:
+            number = float(value)
+        except (TypeError, ValueError):
+            return None
+
+        return (
+            number
+            if math.isfinite(number)
+            else None
+        )
+
+    def values_for(*keys):
+        values = []
+
+        for record in records:
+            value = None
+
+            for key in keys:
+                if key in record:
+                    value = finite_number(
+                        record.get(key)
+                    )
+
+                    if value is not None:
+                        break
+
+            if value is not None:
+                values.append(value)
+
+        return values
+
+    motion_values = values_for(
+        "motion_ratio",
+        "activity_ratio",
+    )
+
+    flow_values = values_for(
+        "flow_mean_mag",
+        "flow_magnitude",
+    )
+
+    confidence_values = values_for(
+        "confidence",
+        "analysis_confidence",
+    )
+
+    zone_sums = defaultdict(float)
+    zone_counts = defaultdict(int)
+
+    for record in records:
+        roi_activity = record.get("roi_activity")
+
+        if not isinstance(roi_activity, dict):
+            continue
+
+        for zone_name, raw_value in roi_activity.items():
+            value = finite_number(raw_value)
+
+            if value is None:
+                continue
+
+            zone_sums[str(zone_name)] += value
+            zone_counts[str(zone_name)] += 1
+
+    zones = []
+
+    for index, zone_name in enumerate(
+        sorted(zone_sums)
+    ):
+        count = max(zone_counts[zone_name], 1)
+        average = zone_sums[zone_name] / count
+
+        zones.append(
+            {
+                "name": zone_name,
+                "index": index,
+                "value": round(average, 6),
+            }
+        )
+
+    zone_total = sum(
+        max(zone["value"], 0.0)
+        for zone in zones
+    )
+
+    for zone in zones:
+        zone["share"] = (
+            max(zone["value"], 0.0) / zone_total
+            if zone_total > 0
+            else 0.0
+        )
+
+    zones.sort(
+        key=lambda zone: zone["value"],
+        reverse=True,
+    )
+
+    top_zone = (
+        zones[0]
+        if zones
+        else {
+            "name": None,
+            "index": 0,
+            "value": 0.0,
+            "share": 0.0,
+        }
+    )
+
+    average_motion = (
+        statistics.fmean(motion_values)
+        if motion_values
+        else 0.0
+    )
+
+    peak_motion = (
+        max(motion_values)
+        if motion_values
+        else 0.0
+    )
+
+    motion_variability = (
+        statistics.pstdev(motion_values)
+        if len(motion_values) >= 2
+        else 0.0
+    )
+
+    average_flow = (
+        statistics.fmean(flow_values)
+        if flow_values
+        else 0.0
+    )
+
+    average_confidence = (
+        statistics.fmean(confidence_values)
+        if confidence_values
+        else None
+    )
+
+    zone_concentration = float(
+        top_zone.get("share", 0.0)
+    )
+
+    direction_counter = Counter()
+
+    for record in records:
+        direction = (
+            record.get("flow_direction")
+            or record.get("direction")
+        )
+
+        if direction:
+            direction_counter[str(direction)] += 1
+
+    main_direction = (
+        direction_counter.most_common(1)[0][0]
+        if direction_counter
+        else None
+    )
+
+    event_counter = Counter(
+        str(record.get("event_type"))
+        for record in records
+        if record.get("event_type")
+    )
+
+    if average_motion <= 0.05:
+        activity_label = "대체로 차분하게 지냈어요"
+        activity_sentence = (
+            "움직임이 적고 차분한 시간이 "
+            "많이 확인됐습니다."
+        )
+    elif average_motion <= 0.20:
+        activity_label = "평소처럼 안정적으로 움직였어요"
+        activity_sentence = (
+            "과도하게 움직이거나 지나치게 "
+            "움직임이 적은 모습 없이 "
+            "안정적인 활동이 확인됐습니다."
+        )
+    elif average_motion <= 0.25:
+        activity_label = "비교적 활발하게 움직였어요"
+        activity_sentence = (
+            "평소보다 활동적인 구간이 "
+            "조금 더 많이 확인됐습니다."
+        )
+    else:
+        activity_label = "움직임이 많은 시간이 있었어요"
+        activity_sentence = (
+            "움직임이 크게 늘어난 구간이 있어 "
+            "해당 시간대의 영상을 함께 확인하는 것이 좋습니다."
+        )
+
+    if zone_concentration >= 0.60:
+        space_label = "한 구역에 활동이 많이 모였어요"
+        space_sentence = (
+            "특정 구역에서 움직임이 집중된 "
+            "모습이 확인됐습니다."
+        )
+    elif zone_concentration >= 0.42:
+        space_label = "자주 이용한 구역이 있었어요"
+        space_sentence = (
+            "일부 구역을 조금 더 자주 이용했지만 "
+            "한곳에만 계속 머문 모습은 아닙니다."
+        )
+    else:
+        space_label = "공간을 비교적 고르게 이용했어요"
+        space_sentence = (
+            "여러 구역에서 움직임이 고르게 확인됐습니다."
+        )
+
+    if motion_variability < 0.10:
+        variation_label = "시간별 변화가 크지 않았어요"
+        variation_sentence = (
+            "시간이 지나도 움직임의 변화 폭이 "
+            "크지 않았습니다."
+        )
+    elif motion_variability < 0.25:
+        variation_label = "일부 시간대에 변화가 있었어요"
+        variation_sentence = (
+            "일부 시간대에서 움직임 차이가 있었지만 "
+            "전체적으로는 크게 불안정하지 않았습니다."
+        )
+    else:
+        variation_label = "시간대별 차이가 크게 나타났어요"
+        variation_sentence = (
+            "움직임의 차이가 큰 구간이 있어 "
+            "반복되는 현상인지 추가 확인이 필요합니다."
+        )
+
+    headline = activity_label
+
+    description = " ".join(
+        [
+            activity_sentence,
+            space_sentence,
+            variation_sentence,
+        ]
+    )
+
+    chain_records = [
+        record
+        for record in records
+        if record.get("hash")
+        and record.get("prev_hash") is not None
+    ]
+
+    integrity_available = len(chain_records) >= 2
+    integrity_ok = None
+
+    if integrity_available:
+        integrity_ok = True
+
+        for previous, current in zip(
+            chain_records,
+            chain_records[1:],
+        ):
+            if str(current.get("prev_hash")) != str(
+                previous.get("hash")
+            ):
+                integrity_ok = False
+                break
+
+    file_fingerprint = hashlib.sha256(
+        events_path.read_bytes()
+    ).hexdigest()
+
+    def readable_time(value):
+        if value is None:
+            return None
+
+        numeric = finite_number(value)
+
+        if numeric is not None and numeric > 1_000_000_000:
+            try:
+                return datetime.fromtimestamp(
+                    numeric
+                ).strftime("%Y-%m-%d %H:%M:%S")
+            except (ValueError, OSError):
+                pass
+
+        return str(value)
+
+    latest_time = None
+
+    for record in reversed(records):
+        for key in (
+            "time",
+            "timestamp",
+            "created_at",
+            "sealed_at",
+        ):
+            if record.get(key) is not None:
+                latest_time = readable_time(
+                    record.get(key)
+                )
+                break
+
+        if latest_time:
+            break
+
+    return {
+        "has_data": True,
+        "product_code": product_code,
+        "source_name": str(
+            events_path.relative_to(base_dir)
+        ),
+        "records_analyzed": len(records),
+        "latest_time": latest_time,
+        "overview": {
+            "headline": headline,
+            "description": description,
+            "activity_label": activity_label,
+            "space_label": space_label,
+            "variation_label": variation_label,
+        },
+        "metrics": {
+            "average_motion": round(
+                average_motion,
+                6,
+            ),
+            "peak_motion": round(
+                peak_motion,
+                6,
+            ),
+            "motion_variability": round(
+                motion_variability,
+                6,
+            ),
+            "average_flow": round(
+                average_flow,
+                6,
+            ),
+            "zone_concentration": round(
+                zone_concentration,
+                6,
+            ),
+            "average_confidence": (
+                round(average_confidence, 6)
+                if average_confidence is not None
+                else None
+            ),
+        },
+        "top_zone": top_zone,
+        "zones": zones,
+        "main_direction": main_direction,
+        "event_types": dict(event_counter),
+        "integrity": {
+            "available": integrity_available,
+            "ok": integrity_ok,
+            "checked_records": len(
+                chain_records
+            ),
+            "file_fingerprint": file_fingerprint,
+        },
+    }
+
+# === EGGTRACE_REAL_ANALYTICS_API_V3_END ===
