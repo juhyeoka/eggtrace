@@ -1,0 +1,21 @@
+/* 이전에 만들어진 3단계 막대 제거 */
+.jcr-process,
+.jcr-old-process,
+.jcr-step-strip,
+.jcr-process-strip {
+  display:none !important;
+}
+
+/* 상단 카드와 목차 사이의 불필요한 간격 제거 */
+#jcr-premium-hero {
+  margin-bottom:18px !important;
+}
+
+#jcr-final-toc {
+  margin-top:18px !important;
+}
+
+/* 최종 목차 안의 4개 항목은 유지 */
+#jcr-final-toc .jcr-final-menu {
+  display:grid !important;
+}

@@ -4433,6 +4433,9 @@ gtag('config', 'G-XKZ6FWYZ9D');
 
 <link rel="stylesheet" href="/assets/final-presentation.css?v=green-dot-absolute-final-20260629">
 <link rel="stylesheet" href="/assets/patent-report-v2.css?v=real-consumer-report-v3-20260704">
+<link rel="stylesheet" href="/assets/jcr-hero-v4.css?v=jcr-hero-v4-20260704">
+<link rel="stylesheet" href="/assets/jcr-final-layout-v6.css?v=jcr-final-layout-v6-20260704">
+<link rel="stylesheet" href="/assets/jcr-hard-clean-v7.css?v=jcr-hard-clean-v7-20260704">
 </head>
 
 <body>
@@ -5280,6 +5283,9 @@ document.addEventListener("DOMContentLoaded", function() {{
 
 <script src="/assets/final-presentation.js?v=green-dot-absolute-final-20260629" defer></script>
 <script src="/assets/patent-report-v2.js?v=real-consumer-report-v3-20260704" defer></script>
+<script src="/assets/jcr-hero-v4.js?v=jcr-hero-v4-20260704" defer></script>
+<script src="/assets/jcr-final-layout-v6.js?v=jcr-final-layout-v6-20260704" defer></script>
+<script src="/assets/jcr-hard-clean-v7.js?v=jcr-hard-clean-v7-20260704" defer></script>
 </body>
 </html>
 """
