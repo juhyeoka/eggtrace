@@ -116,9 +116,45 @@
     }
   }
 
+  function makeVideoFirst() {
+    const page = document.querySelector(".page");
+    const topbar = page?.querySelector(".topbar");
+    const video = page?.querySelector(
+      ".main-video-section"
+    );
+
+    if (!page || !topbar || !video) {
+      return;
+    }
+
+    [
+      "#jcr-premium-hero",
+      "#jcr-final-toc",
+      "#jcr-final-top-brand",
+      ".jcr-signature-hero",
+      ".jcr-section-navigation"
+    ].forEach((selector) => {
+      page.querySelectorAll(selector).forEach(
+        (element) => element.remove()
+      );
+    });
+
+    topbar.querySelectorAll("img").forEach((image) => {
+      image.alt = "i4 COMPANY";
+    });
+
+    if (video.previousElementSibling !== topbar) {
+      topbar.insertAdjacentElement("afterend", video);
+    }
+
+    document.title =
+      "i4 COMPANY | 농장 투명성 리포트";
+  }
+
   function clean() {
     removeOldBars();
     removeEmptySpacing();
+    makeVideoFirst();
   }
 
   function start() {

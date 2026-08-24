@@ -19,3 +19,163 @@
 #jcr-final-toc .jcr-final-menu {
   display:grid !important;
 }
+
+/* i4 COMPANY: 영상이 첫 화면에 바로 보이는 최종 구성 */
+#jcr-premium-hero,
+#jcr-final-toc,
+#jcr-final-top-brand,
+.jcr-signature-hero,
+.jcr-section-navigation {
+  display:none !important;
+}
+
+.eyeran-main .topbar {
+  min-height:76px !important;
+  margin:0 0 20px !important;
+  padding:12px 0 16px !important;
+  border-bottom:1px solid #e5e7eb !important;
+}
+
+.eyeran-main .topbar .brand {
+  display:flex !important;
+  align-items:center !important;
+}
+
+.eyeran-main .jcr-main-logo {
+  width:auto !important;
+  height:48px !important;
+  max-width:190px !important;
+  object-fit:contain !important;
+  object-position:left center !important;
+}
+
+.eyeran-main .main-video-section {
+  position:relative !important;
+  display:grid !important;
+  grid-template-columns:minmax(0, .72fr) minmax(0, 1.28fr) !important;
+  gap:30px !important;
+  align-items:center !important;
+  margin:0 0 28px !important;
+  padding:34px !important;
+  overflow:hidden !important;
+  border:1px solid #dfe7e2 !important;
+  border-radius:28px !important;
+  background:
+    radial-gradient(circle at 12% 15%, rgba(45, 135, 82, .14), transparent 36%),
+    linear-gradient(135deg, #f6fbf8 0%, #ffffff 65%) !important;
+  box-shadow:0 22px 60px rgba(21, 55, 38, .10) !important;
+}
+
+.eyeran-main .main-video-section::before,
+.eyeran-main .main-video-section::after {
+  content:none !important;
+  display:none !important;
+}
+
+.eyeran-main .main-video-section .video-label {
+  position:absolute !important;
+  top:20px !important;
+  left:34px !important;
+  z-index:2 !important;
+  margin:0 !important;
+  color:#267a4a !important;
+  font-size:12px !important;
+  font-weight:900 !important;
+  letter-spacing:.12em !important;
+}
+
+.i4-video-heading {
+  grid-column:1 !important;
+  grid-row:1 !important;
+  padding-top:26px !important;
+}
+
+.i4-video-heading span {
+  display:block !important;
+  margin-bottom:14px !important;
+  color:#267a4a !important;
+  font-size:11px !important;
+  font-weight:900 !important;
+  letter-spacing:.14em !important;
+}
+
+.i4-video-heading h1 {
+  margin:0 !important;
+  color:#13251b !important;
+  font-size:clamp(30px, 4.2vw, 54px) !important;
+  font-weight:900 !important;
+  line-height:1.08 !important;
+  letter-spacing:-.055em !important;
+  word-break:keep-all !important;
+}
+
+.i4-video-heading p {
+  margin:18px 0 0 !important;
+  color:#65736b !important;
+  font-size:15px !important;
+  line-height:1.7 !important;
+}
+
+.eyeran-main .main-video-section .video-box {
+  grid-column:2 !important;
+  grid-row:1 !important;
+  min-height:0 !important;
+  margin:0 !important;
+  overflow:hidden !important;
+  border-radius:20px !important;
+  background:#07110c !important;
+  box-shadow:0 18px 38px rgba(14, 37, 24, .20) !important;
+}
+
+.eyeran-main .main-video-section video {
+  display:block !important;
+  width:100% !important;
+  height:auto !important;
+  aspect-ratio:16 / 9 !important;
+  object-fit:cover !important;
+}
+
+@media (max-width:700px) {
+  .eyeran-main .topbar {
+    min-height:62px !important;
+    margin-bottom:14px !important;
+  }
+
+  .eyeran-main .jcr-main-logo {
+    height:40px !important;
+    max-width:154px !important;
+  }
+
+  .eyeran-main .main-video-section {
+    display:flex !important;
+    flex-direction:column !important;
+    gap:20px !important;
+    padding:24px 18px 18px !important;
+    border-radius:22px !important;
+  }
+
+  .eyeran-main .main-video-section .video-label {
+    top:16px !important;
+    left:18px !important;
+  }
+
+  .i4-video-heading {
+    width:100% !important;
+    padding-top:22px !important;
+  }
+
+  .i4-video-heading h1 {
+    font-size:32px !important;
+  }
+
+  .i4-video-heading p {
+    margin-top:12px !important;
+    font-size:14px !important;
+  }
+
+  .eyeran-main .main-video-section .video-box {
+    width:100% !important;
+    order:2 !important;
+    border-radius:16px !important;
+  }
+}

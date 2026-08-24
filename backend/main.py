@@ -252,7 +252,7 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>JCR</title>
+<title>i4 COMPANY | 농장 투명성 리포트</title>
 <style>
 * {{ box-sizing:border-box; }}
 
@@ -4435,7 +4435,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
 <link rel="stylesheet" href="/assets/patent-report-v2.css?v=real-consumer-report-v3-20260704">
 <link rel="stylesheet" href="/assets/jcr-hero-v4.css?v=jcr-hero-v4-20260704">
 <link rel="stylesheet" href="/assets/jcr-final-layout-v6.css?v=jcr-final-layout-v6-20260704">
-<link rel="stylesheet" href="/assets/jcr-hard-clean-v7.css?v=jcr-hard-clean-v7-20260704">
+<link rel="stylesheet" href="/assets/jcr-hard-clean-v7.css?v=i4-video-first-20260825">
 </head>
 
 <body>
@@ -4443,7 +4443,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
 
   <div class="topbar">
     <div class="brand">
-    <img class="jcr-main-logo" src="/assets/logo.png?v=header-video-fix-v2-20260629" alt="JCR 로고">
+    <img class="jcr-main-logo" src="/assets/logo.png?v=i4-company-20260825" alt="i4 COMPANY">
   </div>
   </div>
 
@@ -4495,7 +4495,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
       <div class="jcr-symbol-ring jcr-ring-one"></div>
       <div class="jcr-symbol-ring jcr-ring-two"></div>
       <div class="jcr-symbol-core">
-        <img class="jcr-hero-logo" src="/assets/logo.png?v=header-video-fix-v2-20260629" alt="JCR 로고">
+        <img class="jcr-hero-logo" src="/assets/logo.png?v=i4-company-20260825" alt="i4 COMPANY">
       </div>
     </div>
   </section>
@@ -4518,7 +4518,12 @@ gtag('config', 'G-XKZ6FWYZ9D');
   </div>
 
   <div class="card video-card main-video-section" id="farm-video">
-    <div class="video-label">🎥 이번주 농장 영상</div>
+    <div class="video-label">농장 영상</div>
+    <div class="i4-video-heading">
+      <span>FARM LIVE REPORT</span>
+      <h1>농장의 오늘을 영상으로 먼저 확인하세요.</h1>
+      <p>i4 COMPANY가 공개하는 실제 농장 기록입니다.</p>
+    </div>
     {video_html}
   </div>
 
@@ -5285,7 +5290,7 @@ document.addEventListener("DOMContentLoaded", function() {{
 <script src="/assets/patent-report-v2.js?v=real-consumer-report-v3-20260704" defer></script>
 <script src="/assets/jcr-hero-v4.js?v=jcr-hero-v4-20260704" defer></script>
 <script src="/assets/jcr-final-layout-v6.js?v=jcr-final-layout-v6-20260704" defer></script>
-<script src="/assets/jcr-hard-clean-v7.js?v=jcr-hard-clean-v7-20260704" defer></script>
+<script src="/assets/jcr-hard-clean-v7.js?v=i4-video-first-20260825" defer></script>
 </body>
 </html>
 """
