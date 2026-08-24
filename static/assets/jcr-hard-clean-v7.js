@@ -98,32 +98,13 @@
     });
   }
 
-  function removeEmptySpacing() {
-    const hero = document.getElementById(
-      "jcr-premium-hero"
-    );
-
-    const toc = document.getElementById(
-      "jcr-final-toc"
-    );
-
-    if (hero) {
-      hero.style.marginBottom = "18px";
-    }
-
-    if (toc) {
-      toc.style.marginTop = "18px";
-    }
-  }
-
-  function makeVideoFirst() {
+  function finalizeI4Page() {
     const page = document.querySelector(".page");
-    const topbar = page?.querySelector(".topbar");
     const video = page?.querySelector(
       ".main-video-section"
     );
 
-    if (!page || !topbar || !video) {
+    if (!page || !video) {
       return;
     }
 
@@ -139,22 +120,13 @@
       );
     });
 
-    topbar.querySelectorAll("img").forEach((image) => {
-      image.alt = "i4 COMPANY";
-    });
-
-    if (video.previousElementSibling !== topbar) {
-      topbar.insertAdjacentElement("afterend", video);
-    }
-
     document.title =
       "i4 COMPANY | 농장 투명성 리포트";
   }
 
   function clean() {
     removeOldBars();
-    removeEmptySpacing();
-    makeVideoFirst();
+    finalizeI4Page();
   }
 
   function start() {

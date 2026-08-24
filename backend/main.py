@@ -236,6 +236,10 @@ def product_page(code: str, days: int = 30, farm_id: str = "farm1", lot_id: str 
             <source src="{video_source}" type="video/mp4">
           </video>
           <div id="playBadge" class="play">▶</div>
+          <div class="i4-video-brand" aria-label="i4 COMPANY">
+            <strong>i4</strong>
+            <span>COMPANY</span>
+          </div>
         </div>
         '''
         if video_source
@@ -4435,96 +4439,24 @@ gtag('config', 'G-XKZ6FWYZ9D');
 <link rel="stylesheet" href="/assets/patent-report-v2.css?v=real-consumer-report-v3-20260704">
 <link rel="stylesheet" href="/assets/jcr-hero-v4.css?v=jcr-hero-v4-20260704">
 <link rel="stylesheet" href="/assets/jcr-final-layout-v6.css?v=jcr-final-layout-v6-20260704">
-<link rel="stylesheet" href="/assets/jcr-hard-clean-v7.css?v=i4-video-first-20260825">
+<link rel="stylesheet" href="/assets/jcr-hard-clean-v7.css?v=i4-video-layout-20260825-4">
 </head>
 
 <body>
 <div class="page eyeran-main">
 
-  <div class="topbar">
-    <div class="brand">
-    <img class="jcr-main-logo" src="/assets/logo.png?v=i4-company-20260825" alt="i4 COMPANY">
-  </div>
-  </div>
-
-
-  <!-- JCR_SIGNATURE_HERO_V1 -->
-  <section class="jcr-signature-hero">
-    <div class="jcr-hero-glow jcr-glow-one"></div>
-    <div class="jcr-hero-glow jcr-glow-two"></div>
-
-    <div class="jcr-hero-content">
-      <div class="jcr-hero-eyebrow">
-        <span class="jcr-live-dot"></span>
-        FARM TRANSPARENCY REPORT
-      </div>
-
-      <h1 class="jcr-hero-heading">
-        이번주 농장을<br>
-        <span>확인해보세요</span>
-      </h1>
-
-      <p class="jcr-hero-description">
-        농장 영상부터 인증 정보와 인공지능 행동 분석까지,
-        소비자가 직접 확인할 수 있는 투명한 농장 리포트입니다.
-      </p>
-
-      <div class="jcr-hero-meta">
-        <div class="jcr-meta-item">
-          <span>PRODUCT</span>
-          <strong>EGG-0001</strong>
-        </div>
-
-        <div class="jcr-meta-divider"></div>
-
-        <div class="jcr-meta-item">
-          <span>REPORT</span>
-          <strong>이번 주 기록</strong>
-        </div>
-
-        <div class="jcr-meta-divider"></div>
-
-        <div class="jcr-meta-item">
-          <span>STATUS</span>
-          <strong class="jcr-status-ok">정상 운영</strong>
-        </div>
-      </div>
-    </div>
-
-    <div class="jcr-hero-symbol">
-      <div class="jcr-symbol-ring jcr-ring-one"></div>
-      <div class="jcr-symbol-ring jcr-ring-two"></div>
-      <div class="jcr-symbol-core">
-        <img class="jcr-hero-logo" src="/assets/logo.png?v=i4-company-20260825" alt="i4 COMPANY">
-      </div>
-    </div>
-  </section>
-
-  <div class="jcr-section-navigation">
-    <a href="#farm-video">
-      <span>01</span>
-      농장 영상
-    </a>
-
-    <a href="#jcr-ai-analysis">
-      <span>02</span>
-      인공지능 분석
-    </a>
-
-    <a href="#certifications">
-      <span>03</span>
-      공식 인증
-    </a>
-  </div>
-
   <div class="card video-card main-video-section" id="farm-video">
-    <div class="video-label">농장 영상</div>
-    <div class="i4-video-heading">
-      <span>FARM LIVE REPORT</span>
-      <h1>농장의 오늘을 영상으로 먼저 확인하세요.</h1>
-      <p>i4 COMPANY가 공개하는 실제 농장 기록입니다.</p>
-    </div>
     {video_html}
+    <div class="i4-video-heading">
+      <span>i4 FARM RECORD</span>
+      <h1>오늘의 농장을<br>영상으로 확인하세요.</h1>
+      <p>사육 환경과 닭의 상태를 가공하지 않은 현장 영상으로 공개합니다.</p>
+    </div>
+    <div class="i4-video-meta" aria-label="영상 정보">
+      <span>상품 EGG-0001</span>
+      <span>이번 주 기록</span>
+      <span>영상 공개</span>
+    </div>
   </div>
 
   <div class="cert-grid" id="certifications">
@@ -5290,7 +5222,7 @@ document.addEventListener("DOMContentLoaded", function() {{
 <script src="/assets/patent-report-v2.js?v=real-consumer-report-v3-20260704" defer></script>
 <script src="/assets/jcr-hero-v4.js?v=jcr-hero-v4-20260704" defer></script>
 <script src="/assets/jcr-final-layout-v6.js?v=jcr-final-layout-v6-20260704" defer></script>
-<script src="/assets/jcr-hard-clean-v7.js?v=i4-video-first-20260825" defer></script>
+<script src="/assets/jcr-hard-clean-v7.js?v=i4-video-layout-20260825-4" defer></script>
 </body>
 </html>
 """
