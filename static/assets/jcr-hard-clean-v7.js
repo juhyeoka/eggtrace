@@ -120,6 +120,38 @@
       );
     });
 
+    const certifications = document.getElementById(
+      "certifications"
+    );
+    const report = document.getElementById(
+      "eggtrace-patent-ui"
+    );
+
+    if (page.firstElementChild !== video) {
+      page.prepend(video);
+    }
+
+    if (
+      certifications &&
+      video.nextElementSibling !== certifications
+    ) {
+      video.insertAdjacentElement(
+        "afterend",
+        certifications
+      );
+    }
+
+    if (
+      report &&
+      certifications &&
+      certifications.nextElementSibling !== report
+    ) {
+      certifications.insertAdjacentElement(
+        "afterend",
+        report
+      );
+    }
+
     document.title =
       "i4 COMPANY | 농장 투명성 리포트";
   }

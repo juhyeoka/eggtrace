@@ -156,12 +156,17 @@
       </div>
     `;
 
-    const anchor = document.querySelector(
-      ".summary-card, .jcr-analysis-card, main, .page"
+    const certifications = document.getElementById(
+      "certifications"
+    );
+    const summary = document.querySelector(
+      ".summary-card, .jcr-analysis-card"
     );
 
-    if (anchor && anchor.parentNode) {
-      anchor.parentNode.insertBefore(root, anchor);
+    if (certifications && certifications.parentNode) {
+      certifications.insertAdjacentElement("afterend", root);
+    } else if (summary && summary.parentNode) {
+      summary.parentNode.insertBefore(root, summary);
     } else {
       document.body.appendChild(root);
     }

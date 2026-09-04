@@ -4439,7 +4439,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
 <link rel="stylesheet" href="/assets/patent-report-v2.css?v=real-consumer-report-v3-20260704">
 <link rel="stylesheet" href="/assets/jcr-hero-v4.css?v=jcr-hero-v4-20260704">
 <link rel="stylesheet" href="/assets/jcr-final-layout-v6.css?v=jcr-final-layout-v6-20260704">
-<link rel="stylesheet" href="/assets/jcr-hard-clean-v7.css?v=i4-video-layout-20260825-4">
+<link rel="stylesheet" href="/assets/jcr-hard-clean-v7.css?v=i4-video-layout-20260904-1">
 </head>
 
 <body>
@@ -4448,7 +4448,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
   <div class="card video-card main-video-section" id="farm-video">
     {video_html}
     <div class="i4-video-heading">
-      <span>i4 FARM RECORD</span>
+      <span>이번 주 농장 기록</span>
       <h1>오늘의 농장을<br>영상으로 확인하세요.</h1>
       <p>사육 환경과 닭의 상태를 가공하지 않은 현장 영상으로 공개합니다.</p>
     </div>
@@ -4479,13 +4479,13 @@ gtag('config', 'G-XKZ6FWYZ9D');
   </div>
 
   <div class="card summary-card">
-    <div class="section-title">✦ 이번주 한 줄 요약</div>
+    <div class="section-title">이번 주 농장 요약</div>
     <div class="summary-main">{html.escape(one_line)}</div>
     <p class="summary-sub">{html.escape(summary)}</p>
   </div>
 
   <div class="card info-card">
-    <div class="section-title">🤖 인공지능 영상 분석 결과</div>
+    <div class="section-title">영상 분석 결과</div>
 
     <p class="info-copy">
       업로드된 농장 영상을 프레임 단위로 분석하여 움직임 변화, 밀집도 히트맵, 공간별 활동 집중도를 요약합니다.
@@ -5219,10 +5219,10 @@ document.addEventListener("DOMContentLoaded", function() {{
 </script>
 
 <script src="/assets/final-presentation.js?v=green-dot-absolute-final-20260629" defer></script>
-<script src="/assets/patent-report-v2.js?v=real-consumer-report-v3-20260704" defer></script>
+<script src="/assets/patent-report-v2.js?v=report-order-20260904-1" defer></script>
 <script src="/assets/jcr-hero-v4.js?v=jcr-hero-v4-20260704" defer></script>
 <script src="/assets/jcr-final-layout-v6.js?v=jcr-final-layout-v6-20260704" defer></script>
-<script src="/assets/jcr-hard-clean-v7.js?v=i4-video-layout-20260825-4" defer></script>
+<script src="/assets/jcr-hard-clean-v7.js?v=i4-video-layout-20260904-1" defer></script>
 </body>
 </html>
 """

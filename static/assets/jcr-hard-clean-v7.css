@@ -1,4 +1,8 @@
 /* i4 COMPANY: 영상이 실제 첫 콘텐츠인 최종 구성 */
+body {
+  background:#f3f6f2 !important;
+}
+
 #jcr-premium-hero,
 #jcr-final-toc,
 #jcr-final-top-brand,
@@ -22,9 +26,9 @@
   padding:0 !important;
   overflow:hidden !important;
   border:1px solid #dce4df !important;
-  border-radius:26px !important;
+  border-radius:16px !important;
   background:#fff !important;
-  box-shadow:0 24px 64px rgba(22, 46, 33, .12) !important;
+  box-shadow:0 14px 38px rgba(22, 46, 33, .08) !important;
 }
 
 .eyeran-main .main-video-section::before,
@@ -40,7 +44,7 @@
   flex-direction:column !important;
   justify-content:center !important;
   padding:42px 36px 28px !important;
-  background:#f4f7f5 !important;
+  background:#fff !important;
 }
 
 .i4-video-heading span {
@@ -95,7 +99,7 @@
   border-radius:999px !important;
   background:rgba(9,20,14,.74) !important;
   color:#fff !important;
-  box-shadow:0 10px 28px rgba(0,0,0,.22) !important;
+  box-shadow:none !important;
   backdrop-filter:blur(12px) !important;
   -webkit-backdrop-filter:blur(12px) !important;
   pointer-events:none !important;
@@ -158,12 +162,69 @@
   border-right:0 !important;
 }
 
+.eyeran-main .cert-card {
+  border-color:#dce4df !important;
+  border-radius:12px !important;
+  box-shadow:none !important;
+}
+
+.eyeran-main .cert-card::before,
+.eyeran-main .cert-card::after {
+  content:none !important;
+  display:none !important;
+}
+
+#eggtrace-patent-ui {
+  margin:22px auto 34px !important;
+  padding:0 !important;
+}
+
+#eggtrace-patent-ui .egg-report-shell {
+  border-color:#dce4df !important;
+  border-radius:16px !important;
+  background:#fff !important;
+  box-shadow:0 12px 32px rgba(22, 46, 33, .07) !important;
+}
+
+#eggtrace-patent-ui .egg-report-badge {
+  padding:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  letter-spacing:.05em !important;
+}
+
+#eggtrace-patent-ui .egg-report-badge::before {
+  content:none !important;
+}
+
+#eggtrace-patent-ui .egg-mode-tabs {
+  padding:5px !important;
+  border-radius:10px !important;
+}
+
+#eggtrace-patent-ui .egg-mode-button {
+  border-radius:7px !important;
+}
+
+#eggtrace-patent-ui .egg-summary-main,
+#eggtrace-patent-ui .egg-simple-card {
+  border-radius:12px !important;
+}
+
+#eggtrace-patent-ui .egg-summary-main {
+  background:#0b6d50 !important;
+}
+
+#eggtrace-patent-ui .egg-summary-main::after {
+  content:none !important;
+}
+
 @media (max-width:700px) {
   .eyeran-main .main-video-section {
     display:grid !important;
     grid-template-columns:1fr !important;
     grid-template-rows:auto auto auto !important;
-    border-radius:20px !important;
+    border-radius:12px !important;
   }
 
   .i4-video-heading {
@@ -209,5 +270,13 @@
     min-height:48px !important;
     padding:0 10px !important;
     font-size:10px !important;
+  }
+
+  #eggtrace-patent-ui {
+    margin-top:14px !important;
+  }
+
+  #eggtrace-patent-ui .egg-report-shell {
+    border-radius:12px !important;
   }
 }
