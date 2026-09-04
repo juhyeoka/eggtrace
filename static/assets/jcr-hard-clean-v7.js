@@ -100,12 +100,25 @@
 
   function finalizeI4Page() {
     const page = document.querySelector(".page");
+    const topbar = page?.querySelector(".topbar");
     const video = page?.querySelector(
       ".main-video-section"
     );
 
     if (!page || !video) {
       return;
+    }
+
+    if (topbar && !topbar.querySelector(".jcr-main-logo")) {
+      const brand = document.createElement("div");
+      const logo = document.createElement("img");
+
+      brand.className = "brand";
+      logo.className = "jcr-main-logo";
+      logo.src = "/assets/logo.png?v=i4-company-20260825";
+      logo.alt = "i4 COMPANY";
+      brand.appendChild(logo);
+      topbar.replaceChildren(brand);
     }
 
     [
@@ -127,7 +140,22 @@
       "eggtrace-patent-ui"
     );
 
-    if (page.firstElementChild !== video) {
+    if (topbar && page.firstElementChild !== topbar) {
+      page.prepend(topbar);
+    }
+
+    if (
+      topbar &&
+      video.previousElementSibling !== topbar
+    ) {
+      topbar.insertAdjacentElement(
+        "afterend",
+        video
+      );
+    } else if (
+      !topbar &&
+      page.firstElementChild !== video
+    ) {
       page.prepend(video);
     }
 
