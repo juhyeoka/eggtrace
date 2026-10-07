@@ -4436,6 +4436,7 @@ gtag('config', 'G-XKZ6FWYZ9D');
 <link rel="stylesheet" href="/assets/jcr-hero-v4.css?v=jcr-hero-v4-20260704">
 <link rel="stylesheet" href="/assets/jcr-final-layout-v6.css?v=jcr-final-layout-v6-20260704">
 <link rel="stylesheet" href="/assets/jcr-hard-clean-v7.css?v=i4-video-layout-20260904-2">
+<link rel="stylesheet" href="/assets/farm-disclosure-notice-20261007.css">
 </head>
 
 <body>
@@ -5223,6 +5224,26 @@ document.addEventListener("DOMContentLoaded", function() {{
 <script src="/assets/jcr-hero-v4.js?v=jcr-hero-v4-20260704" defer></script>
 <script src="/assets/jcr-final-layout-v6.js?v=jcr-final-layout-v6-20260704" defer></script>
 <script src="/assets/jcr-hard-clean-v7.js?v=i4-video-layout-20260904-2" defer></script>
+<dialog class="eggtrace-farm-notice" id="eggtraceFarmNotice"
+        aria-labelledby="eggtraceFarmNoticeTitle" aria-describedby="eggtraceFarmNoticeDescription">
+  <div class="eggtrace-farm-notice__accessible-copy">
+    <h2 id="eggtraceFarmNoticeTitle">농장 공개 안내</h2>
+    <p id="eggtraceFarmNoticeDescription">지금은 농장보다 닭을 먼저 지키겠습니다.
+      조류인플루엔자(AI) 방역 강화 기간으로 외부인 농장 출입 및 현장 공개를 잠시 중단합니다.
+      외부인 출입 제한, 농장 현장 공개 중단, 강화된 방역 조치를 시행합니다.
+      농장 공개는 잠시 멈추지만 I4COMPANY의 투명성은 멈추지 않습니다.
+      방역 상황이 안정되는 대로 다시 농장의 모습을 공개하겠습니다.</p>
+  </div>
+  <div class="eggtrace-farm-notice__content">
+    <img class="eggtrace-farm-notice__image" src="/assets/farm-disclosure-notice-20261007.png"
+         alt="" width="941" height="1672" decoding="async">
+  </div>
+  <div class="eggtrace-farm-notice__actions">
+    <button type="button" data-eggtrace-notice-hide>24시간 동안 보지 않기</button>
+    <button type="button" data-eggtrace-notice-close autofocus>닫기</button>
+  </div>
+</dialog>
+<script src="/assets/farm-disclosure-notice-20261007.js" defer></script>
 </body>
 </html>
 """

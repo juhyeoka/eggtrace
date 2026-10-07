@@ -1,0 +1,102 @@
+.eggtrace-farm-notice {
+  width: min(420px, calc(100vw - 24px));
+  max-width: none;
+  max-height: calc(100vh - 24px);
+  max-height: calc(100dvh - 24px);
+  padding: 0;
+  overflow: hidden;
+  color: #173a22;
+  background: #fff;
+  border: 0;
+  border-radius: 18px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .3);
+}
+
+.eggtrace-farm-notice[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.eggtrace-farm-notice::backdrop {
+  background: rgba(12, 25, 17, .68);
+}
+
+.eggtrace-farm-notice__content {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.eggtrace-farm-notice__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.eggtrace-farm-notice__actions {
+  display: grid;
+  flex: 0 0 auto;
+  grid-template-columns: minmax(0, 1fr) 88px;
+  min-height: 58px;
+  background: #fff;
+  border-top: 1px solid #e2e8e2;
+}
+
+.eggtrace-farm-notice__actions button {
+  min-height: 58px;
+  padding: 12px 15px;
+  color: #36503d;
+  background: #fff;
+  border: 0;
+  font: 600 14px/1.4 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.eggtrace-farm-notice__actions button:last-child {
+  color: #fff;
+  background: #234e2a;
+  border-left: 1px solid #e2e8e2;
+}
+
+.eggtrace-farm-notice__actions button:hover {
+  background: #f0f5ef;
+}
+
+.eggtrace-farm-notice__actions button:last-child:hover {
+  background: #183d20;
+}
+
+.eggtrace-farm-notice__actions button:focus-visible {
+  outline: 3px solid #9ac66a;
+  outline-offset: -4px;
+}
+
+.eggtrace-farm-notice__accessible-copy {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+html.eggtrace-farm-notice-open {
+  overflow: hidden;
+}
+
+@media (max-width: 480px) {
+  .eggtrace-farm-notice {
+    border-radius: 14px;
+  }
+
+  .eggtrace-farm-notice__actions {
+    grid-template-columns: minmax(0, 1fr) 74px;
+  }
+
+  .eggtrace-farm-notice__actions button {
+    padding-inline: 10px;
+    font-size: 13px;
+  }
+}
