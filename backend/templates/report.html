@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f7f9">
+  <meta name="description" content="크로바 농장 영상, 사육 기록과 인증 정보. JCR 유정란.">
+  <title>JCR | 크로바 농장</title>
+  <link rel="icon" href="/assets/i4-company-logo-20261105.jpeg">
+  <link rel="preload" as="image" href="/assets/jcr-hen-hero-20261105.webp">
+  <link rel="stylesheet" href="/assets/jcr-app-v2-20261105.css?v=3-scroll">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKZ6FWYZ9D"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XKZ6FWYZ9D');</script>
+  <script id="report-data" type="application/json">$report_json</script>
+  <script src="/assets/jcr-app-v2-20261105.js?v=3-scroll" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#farm">농장 소개</a>
+<svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 7h14l1 14H4L5 7Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7V5Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M5 20v-6m7 6V8m7 12V3"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 2 8 3v7c0 5-8 10-8 10S4 17 4 12V5l8-3Z"/><path d="m8 11 3 3 5-5"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 3C9 2 2 7 5 15c6 8 15 1 15-12Z"/><path d="M3 21 15 9"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 16V2m-5 5 5-5 5 5M5 11v10h14V11"/></symbol>
+</svg>
+
+<header class="site-header">
+  <a class="brand" href="#home" aria-label="JCR 홈"><img src="/assets/i4-company-logo-20261105.jpeg" width="38" height="38" alt="I4COMPANY"><span>JCR</span></a>
+  <nav aria-label="주요 메뉴"><a href="#farm">농장</a><a href="#farm-video">영상</a><a href="#certifications">인증</a></nav>
+  <button class="header-shop" type="button" data-open-purchase aria-label="상품 정보 열기"><svg class="icon"><use href="#i-bag"/></svg><span>구매하기</span></button>
+</header>
+
+<main id="app-main">
+  <section class="content-section hero" data-section="home" id="home" aria-labelledby="hero-title">
+    <div class="hero-visual"><img src="/assets/jcr-hen-hero-20261105.webp" width="1536" height="1024" alt="흰 닭과 계란" fetchpriority="high"></div>
+    <div class="hero-copy"><span class="eyebrow">크로바 농장</span><h1 id="hero-title">계란을 고를 때,<br>농장부터 보세요.</h1><p>크로바 농장의 영상과<br>사육 기록을 공개합니다.</p><a class="button button-dark" href="#farm">농장 보기 <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+  </section>
+
+  <section class="content-section page-shell" data-section="farm" id="farm" aria-labelledby="farm-title">
+    <div class="farm-layout">
+      <div class="farm-intro"><span class="eyebrow">충남 홍성</span><h2 class="page-title" id="farm-title" tabindex="-1">크로바 농장</h2><p class="page-description">닭들이 지내는 모습과<br>농장 기록을 확인하세요.</p></div>
+      <div class="farm-overview"><div class="farm-photo"><img src="/assets/jcr-farm-poster-v2.webp" width="960" height="540" alt="크로바 농장 영상" loading="lazy"><button class="icon-button photo-share" type="button" id="share-report" aria-label="농장 공유"><svg class="icon"><use href="#i-share"/></svg></button><strong>크로바 농장</strong></div><div class="summary-panel"><div class="panel-heading"><h2>농장 기록</h2><span class="soft-tag">분석 기록</span></div><p class="summary-status" id="summary-status">기록 준비 중</p><div class="summary-stats"><div><span>평균 움직임</span><strong id="motion-summary">준비 중</strong></div><div><span>분석 기록</span><strong id="record-count">준비 중</strong></div><div><span>기록 기간</span><strong id="record-period-short">준비 중</strong></div></div><p class="record-date">최근 기록 <span id="latest-record">준비 중</span></p><a class="button button-dark full-width" href="#farm-video"><svg class="icon fill"><use href="#i-play"/></svg> 영상 보기 <svg class="icon end"><use href="#i-arrow"/></svg></a></div></div>
+    </div>
+  </section>
+
+  <section class="content-section page-shell video-page" data-section="farm-video" id="farm-video" aria-labelledby="video-title">
+    <div class="page-heading"><div><h2 class="page-title" id="video-title" tabindex="-1">농장 영상</h2><p class="page-description">현장 영상과 활동 기록</p></div><span class="video-length" id="video-duration">20초</span></div>
+    <div class="video-tabs" role="tablist" aria-label="영상 분석 선택">
+      <button type="button" role="tab" aria-selected="true" id="video-tab-farm" aria-controls="video-panel" data-mode="farm">농장 영상</button>
+      <button type="button" role="tab" aria-selected="false" tabindex="-1" id="video-tab-activity" aria-controls="video-panel" data-mode="activity">활동량</button>
+      <button type="button" role="tab" aria-selected="false" tabindex="-1" id="video-tab-density" aria-controls="video-panel" data-mode="density">밀집도</button>
+      <button type="button" role="tab" aria-selected="false" tabindex="-1" id="video-tab-pattern" aria-controls="video-panel" data-mode="pattern">패턴 변화</button>
+    </div>
+    <div class="video-layout" id="video-panel" role="tabpanel" aria-labelledby="video-tab-farm">
+      <div class="video-column"><div class="video-frame"><video id="farm-player" controls playsinline muted preload="metadata" poster="/assets/jcr-farm-poster-v2.webp" aria-label="농장 영상"><source src="/videos/jcr-farm-web-20261105.mp4" type="video/mp4"></video><span class="video-mode-label" id="video-mode-label" hidden>농장 영상</span><button class="video-play" type="button" id="video-play" aria-label="영상 재생"><svg class="icon fill"><use href="#i-play"/></svg></button></div><div class="video-caption"><h2 id="video-caption-title">크로바 농장 현장</h2><p id="video-caption">닭들이 지내는 모습을 담았습니다.</p></div><p class="video-error" id="video-error" hidden>영상을 불러오지 못했습니다. <button type="button" id="retry-video">다시 시도</button></p></div>
+      <aside class="analysis-panel" aria-label="선택한 영상 분석">
+        <div class="panel-heading"><h2 id="analysis-title">영상 기록</h2><span class="soft-tag" id="analysis-tag">현장 영상</span></div>
+        <div class="live-metric"><strong id="live-value">20</strong><span id="live-unit">초</span></div><p class="metric-label" id="metric-label">전체 영상 길이</p>
+        <div class="zone-grid" id="zone-grid" hidden aria-label="구역별 움직임 분포"></div><div class="zone-legend" id="zone-legend" hidden><span>적음</span><i></i><span>많음</span></div>
+        <div class="chart-block" id="chart-block"><div class="chart-topline"><span id="chart-title">시간별 움직임</span><span id="current-time">00:00</span></div><div class="analysis-chart" id="analysis-chart" role="img" aria-label="시간별 움직임 그래프"></div><div class="chart-labels"><span>00:00</span><span id="chart-end">00:20</span></div></div>
+        <dl class="analysis-stats"><div><dt id="stat-one-label">분석 간격</dt><dd id="stat-one-value">0.5초</dd></div><div><dt id="stat-two-label">영상 길이</dt><dd id="stat-two-value">20초</dd></div></dl>
+        <p class="analysis-detail" id="analysis-detail">영상 재생 위치에 맞춰 움직임을 표시합니다.</p>
+      </aside>
+    </div>
+    <div class="moments"><div class="moments-heading"><h2>구간 바로 보기</h2><span>장면을 누르면 해당 구간부터 재생됩니다.</span></div><div class="moment-grid"><button type="button" data-seek="2"><img src="/assets/jcr-moment-1-v2.webp" width="480" height="270" alt="2초 장면" loading="lazy"><span><strong>초반 장면</strong><time>00:02</time><svg class="icon fill"><use href="#i-play"/></svg></span></button><button type="button" data-seek="10"><img src="/assets/jcr-moment-2-v2.webp" width="480" height="270" alt="10초 장면" loading="lazy"><span><strong>중간 장면</strong><time>00:10</time><svg class="icon fill"><use href="#i-play"/></svg></span></button><button type="button" data-seek="17"><img src="/assets/jcr-moment-3-v2.webp" width="480" height="270" alt="17초 장면" loading="lazy"><span><strong>후반 장면</strong><time>00:17</time><svg class="icon fill"><use href="#i-play"/></svg></span></button></div></div>
+  </section>
+
+  <section class="content-section page-shell" data-section="certifications" id="certifications" aria-labelledby="cert-title">
+    <div class="cert-layout"><div><span class="eyebrow">크로바 농장</span><h2 class="page-title" id="cert-title" tabindex="-1">농장 인증</h2><p class="page-description">인증 이미지를 누르면<br>크게 볼 수 있습니다.</p></div><div class="cert-grid"><button class="cert-card" type="button" data-cert-image="/assets/haccp.png" data-cert-title="HACCP 안전관리 인증"><img src="/assets/haccp.png" width="90" height="90" loading="lazy" alt=""><strong>HACCP</strong><span>안전관리 인증</span><span class="cert-expand" aria-hidden="true">↗</span></button><button class="cert-card" type="button" data-cert-image="/assets/muhang.png" data-cert-title="무항생제 인증"><img src="/assets/muhang.png" width="90" height="90" loading="lazy" alt=""><strong>무항생제</strong><span>축산물 인증</span><span class="cert-expand" aria-hidden="true">↗</span></button><button class="cert-card" type="button" data-cert-image="/assets/6indus.png" data-cert-title="6차산업 인증"><img src="/assets/6indus.png" width="90" height="90" loading="lazy" alt=""><strong>6차산업</strong><span>농촌융복합산업 인증</span><span class="cert-expand" aria-hidden="true">↗</span></button><button class="cert-card" type="button" data-cert-image="/assets/naepo.png" data-cert-title="내포천애 인증"><img src="/assets/naepo.png" width="90" height="90" loading="lazy" alt=""><strong>내포천애</strong><span>지역 브랜드 인증</span><span class="cert-expand" aria-hidden="true">↗</span></button></div></div>
+  </section>
+
+  <section class="content-section page-shell shop-section" data-section="shop" id="shop" aria-labelledby="shop-title">
+    <div class="shop-layout">
+      <div class="shop-image product-label-crop"><img src="/assets/jcr-product-label-20261105.png" width="792" height="595" alt="자연방사 난각번호 1번 유정란 20구" loading="lazy"></div>
+      <div class="shop-copy"><span class="eyebrow">JCR 유정란</span><h2 class="page-title" id="shop-title">JCR 유정란 20구</h2><p class="page-description">자연방사 유정란<br>국내산 계란 20구</p><div class="shop-features"><span>난각번호 1번</span><span>무항생제</span><span>20구</span></div><button class="button button-dark full-width" type="button" data-open-purchase><svg class="icon"><use href="#i-bag"/></svg> 상품 정보 보기 <svg class="icon end"><use href="#i-arrow"/></svg></button></div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer"><span>JCR <span class="footer-divider">/</span> 크로바 농장</span><div><button type="button" id="reopen-notice">농장 안내</button><span>© I4COMPANY</span></div></footer>
+<button class="floating-shop" type="button" data-open-purchase aria-label="상품 정보 열기"><svg class="icon"><use href="#i-bag"/></svg><span>구매하기</span></button>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<dialog class="farm-notice modal" id="farm-notice" aria-labelledby="notice-title"><h2 id="notice-title" class="sr-only">농장 안내</h2><div class="notice-content"><img src="/assets/farm-notice-20261105.png" width="1080" height="1350" alt="농장 방역 안내. 적용 기간 2026년 10월 20일부터 2027년 2월 28일까지, 발생 상황에 따라 조정 가능."></div><div class="notice-actions"><button type="button" id="notice-hide">오늘 하루 보지 않기</button><button type="button" data-close-dialog>닫기 <svg class="icon"><use href="#i-close"/></svg></button></div></dialog>
+<dialog class="purchase-dialog modal" id="purchase-dialog" aria-labelledby="purchase-title"><div class="dialog-header"><span>상품 정보</span><button class="icon-button" type="button" data-close-dialog aria-label="구매 화면 닫기"><svg class="icon"><use href="#i-close"/></svg></button></div><div class="purchase-scroll"><div class="purchase-image product-label-crop"><img src="/assets/jcr-product-label-20261105.png" width="792" height="595" alt="자연방사 난각번호 1번 유정란 20구"></div><h2 id="purchase-title">JCR 유정란 20구</h2><p class="purchase-subtitle">자연방사 유정란</p><dl class="purchase-details"><div><dt>구성</dt><dd>국내산 계란 20구</dd></div><div><dt>난각번호</dt><dd>1번</dd></div><div><dt>인증</dt><dd>무항생제</dd></div></dl></div><div class="purchase-bottom"><a class="button button-dark full-width" id="purchase-link" hidden target="_blank" rel="noopener noreferrer">구매하기 <svg class="icon"><use href="#i-arrow"/></svg></a><button class="button button-unavailable full-width" id="purchase-pending" type="button" disabled>온라인 판매 준비 중</button></div></dialog>
+<dialog class="cert-dialog modal" id="cert-dialog" aria-labelledby="cert-dialog-title"><div class="dialog-header"><h2 id="cert-dialog-title">인증 정보</h2><button class="icon-button" type="button" data-close-dialog aria-label="인증 정보 닫기"><svg class="icon"><use href="#i-close"/></svg></button></div><img id="cert-dialog-image" alt=""></dialog>
+</body>
+</html>
