@@ -11,31 +11,35 @@
   const tabs = [...document.querySelectorAll('[data-mode]')];
   const navLinks = [...document.querySelectorAll('.site-header nav a')];
   const modes = {
-    farm: { title:'농장 영상', caption:'크로바 농장 현장', description:'닭들이 지내는 모습을 담았습니다.', analysis:'영상 기록', tag:'현장 영상', detail:'전체 영상의 움직임을 0.5초 간격으로 확인할 수 있습니다.' },
-    activity: { title:'활동량', caption:'움직이는 구간 표시', description:'초록색 영역과 박스로 움직임이 잡힌 곳을 표시했습니다.', analysis:'활동량 분석', tag:'현재 장면', detail:'직전 프레임과 비교해 달라진 화면의 비율입니다.' },
-    density: { title:'밀집도', caption:'움직임이 집중된 구역', description:'움직임이 많이 잡힌 곳일수록 노란색과 붉은색으로 표시됩니다.', analysis:'구역별 분포', tag:'움직임 기준', detail:'화면을 9개 구역으로 나눈 움직임 분포입니다.' },
-    pattern: { title:'패턴 변화', caption:'이동 흐름과 시간별 변화', description:'화살표는 이동 흐름, 그래프는 시간별 움직임을 보여줍니다.', analysis:'패턴 변화', tag:'시간별 분석', detail:'움직임이 가장 컸던 구간과 시간에 따른 변화를 확인하세요.' }
+    farm: { title:'농장 영상', caption:'농장 현장', description:'닭들이 지내는 모습을 담았습니다.', analysis:'영상 기록', tag:'현장 영상', detail:'시간에 따라 움직임이 어떻게 달라졌는지 보여줘요.' },
+    activity: { title:'활동량', caption:'움직이는 구간 표시', description:'움직임이 보이는 곳을 초록색으로 표시했어요.', analysis:'활동량 분석', tag:'현재 장면', detail:'직전 프레임과 비교해 달라진 화면의 비율입니다.' },
+    density: { title:'밀집도', caption:'움직임이 집중된 구역', description:'움직임이 많은 곳은 노란색이나 붉은색으로 보여요.', analysis:'구역별 분포', tag:'움직임 기준', detail:'화면을 9개 구역으로 나눈 움직임 분포입니다.' },
+    pattern: { title:'패턴 변화', caption:'이동 흐름과 시간별 변화', description:'화살표를 따라 이동 방향을 볼 수 있어요.', analysis:'패턴 변화', tag:'시간별 분석', detail:'움직임이 가장 컸던 구간과 시간에 따른 변화를 확인하세요.' }
   };
   const zoneNames = ['좌측 상단','상단 중앙','우측 상단','좌측 중앙','중앙','우측 중앙','좌측 하단','하단 중앙','우측 하단'];
   let activeMode = 'farm';
   let analysis = null;
   let graphPoints = [];
-  let toastTimer;
   let mediaChange = 0;
-  const notify = message => {
-    clearTimeout(toastTimer);
-    $('toast').textContent = message;
-    $('toast').hidden = false;
-    toastTimer = setTimeout(() => { $('toast').hidden = true; }, 3000);
-  };
 
-  text('summary-status', data.hasData ? `${data.recordCount}건의 분석 기록` : '등록된 기록이 없습니다.');
-  text('latest-record', data.latestLabel);
-  text('record-count', data.hasData ? `${data.recordCount}건` : '미등록');
-  text('motion-summary', data.hasData ? `${data.averageMotionPercent}%` : '미등록');
-  const dates = data.periodLabel.match(/\d{4}\.\d{2}\.\d{2}/g) || [];
-  text('record-period-short', dates.length ? dates.map(date => date.slice(5)).join(' ~ ') : '미등록');
-  document.querySelector('.record-date').title = data.periodLabel;
+  const certificates = {
+    haccp: {
+      description: '식품을 만들거나 포장할 때 안전을 해칠 수 있는 요소를 찾아 관리하는 기준이에요.',
+      source: 'https://www.standard.go.kr/KSCI/crtfcSystem/searchCrtfcSystemView.do?crtfcstId=0000000470&crtfcstReformNo=0000&firstChk=ok&menuId=60373&topMenuId=536&upperMenuId=537&viewPage=system'
+    },
+    antibiotic: {
+      description: '사료와 사육 관리가 무항생제축산물 기준에 맞는지 확인하는 인증이에요.',
+      source: 'https://www.naqs.go.kr/hp/contents/contentsTab.do?menuId=MN20390'
+    },
+    sixth: {
+      description: '지역 농산물을 생산하면서 가공이나 판매, 체험 사업을 함께 하는 경영체에 부여하는 인증이에요.',
+      source: 'https://xn--980b99s59h34f6tl.com/home/biz/company.cs?act=view&idx=4504'
+    },
+    naepo: {
+      description: '내포천애는 홍성군의 농특산물 공동브랜드예요.',
+      source: 'https://council.hongseong.go.kr/kr/speakfiveBBSview.do?flag=all&list_style=&page=17&schwrd=&uid=C38E22E0733D88B21D7A1C5CB1346289'
+    }
+  };
 
   const dialogs = [...document.querySelectorAll('dialog')];
   const openDialog = dialog => {
@@ -61,19 +65,34 @@
     $('purchase-link').hidden = false;
     $('purchase-pending').hidden = true;
   }
-  document.querySelectorAll('[data-cert-image]').forEach(button => button.addEventListener('click', () => {
-    text('cert-dialog-title', button.dataset.certTitle);
-    $('cert-dialog-image').src = button.dataset.certImage;
-    $('cert-dialog-image').alt = button.dataset.certTitle;
+  document.querySelectorAll('[data-cert]').forEach(button => button.addEventListener('click', () => {
+    const certificate = certificates[button.dataset.cert];
+    const title = button.dataset.certTitle;
+    text('cert-dialog-title', title);
+    text('cert-dialog-description', certificate.description);
+    const mark = $('cert-dialog-image');
+    mark.src = button.dataset.certImage;
+    mark.alt = title;
+
+    const sourceLink = $('cert-dialog-source');
+    sourceLink.href = certificate.source;
+    sourceLink.hidden = false;
     openDialog($('cert-dialog'));
   }));
+  $('farm-help').addEventListener('click', () => openDialog($('farm-info')));
+
   const notice = $('farm-notice');
   const noticeKey = 'eggtrace:farm-notice:20261105:hidden-until';
+  let noticeOpened = false;
+  const showNotice = () => {
+    noticeOpened = true;
+    openDialog(notice);
+  };
   $('notice-hide').addEventListener('click', () => {
     try { localStorage.setItem(noticeKey, String(Date.now() + 86400000)); } catch { /* Closing is available without storage. */ }
     notice.close();
   });
-  $('reopen-notice').addEventListener('click', () => openDialog(notice));
+  $('reopen-notice').addEventListener('click', showNotice);
 
   // All sections stay in document order; header links are optional shortcuts.
   if ('IntersectionObserver' in window) {
@@ -148,7 +167,9 @@
   }
   function renderMode() {
     const mode = modes[activeMode];
-    text('video-mode-label', mode.title); text('video-caption-title', mode.caption); text('video-caption', mode.description);
+    $('video-caption-block').hidden = activeMode === 'farm';
+    text('video-caption-title', mode.caption);
+    text('video-caption', mode.description);
     text('analysis-title',mode.analysis); text('analysis-tag',mode.tag); text('analysis-detail',mode.detail);
     $('zone-grid').hidden = activeMode !== 'density';
     $('zone-legend').hidden = activeMode !== 'density';
@@ -156,7 +177,7 @@
     if (!analysis) { $('analysis-chart').textContent = '분석 데이터를 불러오는 중입니다.'; return; }
     const summary = analysis.summary;
     const duration = `${Math.round(analysis.duration)}초`;
-    text('video-duration', duration); text('chart-end', clock(Math.round(analysis.duration)));
+    text('video-duration', `${duration} 영상`); text('chart-end', clock(Math.round(analysis.duration)));
     if (activeMode === 'farm') {
       text('stat-one-label','평균 움직임'); text('stat-one-value', `${summary.averageMotionPercent.toFixed(1)}%`);
       text('stat-two-label','주요 활동 구역'); text('stat-two-value',summary.activeZoneLabel);
@@ -204,31 +225,49 @@
       tabs[next].focus(); selectMode(tabs[next]);
     });
   });
+  document.querySelector('.analysis-details').addEventListener('toggle', event => {
+    if (!event.currentTarget.open && activeMode !== 'farm') selectMode(tabs[0], false);
+  });
   video.addEventListener('timeupdate', updateFrame);
   video.addEventListener('seeked', updateFrame);
-  document.querySelectorAll('[data-seek]').forEach(button => button.addEventListener('click', () => {
-    const seek = () => { video.currentTime = Number(button.dataset.seek); attemptPlay(); updateFrame(); };
+  function seekTo(seconds) {
+    const seek = () => {
+      video.currentTime = seconds;
+      attemptPlay();
+      updateFrame();
+    };
     if (video.readyState >= 1) seek();
-    else { video.addEventListener('loadedmetadata',seek,{once:true}); video.load(); }
-    video.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches ? 'instant' : 'smooth'});
-  }));
-  fetch('/assets/jcr-video-analysis-20261105.json').then(response => {
+    else {
+      video.addEventListener('loadedmetadata', seek, { once:true });
+      video.load();
+    }
+    video.scrollIntoView({
+      block:'center',
+      behavior:matchMedia('(prefers-reduced-motion:reduce)').matches ? 'instant' : 'smooth'
+    });
+  }
+  document.querySelectorAll('[data-seek]').forEach(button => {
+    button.addEventListener('click', () => seekTo(Number(button.dataset.seek)));
+  });
+  $('video-peak').addEventListener('click', () => {
+    if (analysis) seekTo(analysis.summary.peakTime);
+  });
+
+  fetch('/assets/jcr-video-analysis-20261105.json?v=3').then(response => {
     if (!response.ok) throw new Error('analysis unavailable');
     return response.json();
   }).then(result => {
     if (!Array.isArray(result.frames) || !result.frames.length) throw new Error('no samples');
     analysis = result;
-    if (data.productCode === 'EGG-0001') {
-      text('summary-status', '농장 영상 요약');
-      const labels = document.querySelectorAll('.summary-stats span');
-      labels[0].textContent = '평균 움직임';
-      labels[1].textContent = '주요 활동 구역';
-      labels[2].textContent = '영상 길이';
-      text('motion-summary', `${result.summary.averageMotionPercent.toFixed(1)}%`);
-      text('record-count', result.summary.activeZoneLabel);
-      text('record-period-short', `${Math.round(result.duration)}초`);
-      document.querySelector('.record-date').textContent = '등록된 농장 영상 기준';
+    const { averageMotionPercent, peakMotionPercent, peakTime, observation } = result.summary;
+    if (averageMotionPercent > 0 && peakMotionPercent > 0) {
+      const ratio = (peakMotionPercent / averageMotionPercent).toFixed(1);
+      text('video-conclusion', `영상에서 움직임이 가장 많았던 때는 시작 ${peakTime}초였어요. 이때 움직임은 이 영상 평균의 약 ${ratio}배였어요.`);
+      $('video-conclusion').hidden = false;
+      text('video-peak-label', `${peakTime}초 장면 보기`);
+      $('video-peak').hidden = false;
     }
+    if (observation) text('video-insight-title', observation);
     renderMode();
   }).catch(() => {
     $('analysis-chart').textContent = '분석 기록을 불러오지 못했습니다.';
@@ -236,15 +275,16 @@
   });
   renderMode();
 
-  $('share-report').addEventListener('click', async () => {
-    const url = new URL(location.href); url.hash = 'farm';
-    if (navigator.share) {
-      try { await navigator.share({title:'크로바 농장',url:url.href}); } catch (error) { if (error.name !== 'AbortError') notify('주소창의 링크를 복사해주세요.'); }
-    } else {
-      try { await navigator.clipboard.writeText(url.href); notify('링크를 복사했습니다.'); } catch { notify('주소창의 링크를 복사해주세요.'); }
-    }
-  });
   let hiddenUntil = 0;
   try { hiddenUntil = Number(localStorage.getItem(noticeKey)) || 0; } catch { /* Show the notice without storage. */ }
-  if (Date.now() >= hiddenUntil) openDialog(notice);
+  if (Date.now() >= hiddenUntil && !location.hash) {
+    const scheduleNotice = () => {
+      setTimeout(() => {
+        if (!noticeOpened && !location.hash && window.scrollY < 50 && !dialogs.some(dialog => dialog.open)) showNotice();
+      }, 1600);
+    };
+    const introAnimation = $('brand-intro').getAnimations?.()[0];
+    if (introAnimation) introAnimation.finished.then(scheduleNotice, scheduleNotice);
+    else scheduleNotice();
+  }
 })();
