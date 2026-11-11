@@ -11,10 +11,10 @@
   const tabs = [...document.querySelectorAll('[data-mode]')];
   const navLinks = [...document.querySelectorAll('.site-header nav a')];
   const modes = {
-    farm: { title:'농장 영상', caption:'농장 현장', description:'닭들이 지내는 모습을 담았습니다.', analysis:'영상 기록', tag:'현장 영상', detail:'시간에 따라 움직임이 어떻게 달라졌는지 보여줘요.' },
-    activity: { title:'활동량', caption:'움직이는 구간 표시', description:'움직임이 보이는 곳을 초록색으로 표시했어요.', analysis:'활동량 분석', tag:'현재 장면', detail:'직전 프레임과 비교해 달라진 화면의 비율입니다.' },
-    density: { title:'밀집도', caption:'움직임이 집중된 구역', description:'움직임이 많은 곳은 노란색이나 붉은색으로 보여요.', analysis:'구역별 분포', tag:'움직임 기준', detail:'화면을 9개 구역으로 나눈 움직임 분포입니다.' },
-    pattern: { title:'패턴 변화', caption:'이동 흐름과 시간별 변화', description:'화살표를 따라 이동 방향을 볼 수 있어요.', analysis:'패턴 변화', tag:'시간별 분석', detail:'움직임이 가장 컸던 구간과 시간에 따른 변화를 확인하세요.' }
+    farm: { title:'농장 영상', caption:'농장 현장', description:'닭들이 지내는 모습을 담았습니다.', analysis:'영상 기록', tag:'현장 영상', detail:'영상 속 움직임을 시간순으로 표시합니다.' },
+    activity: { title:'활동량', caption:'움직임 표시', description:'움직임이 있는 곳을 초록색으로 표시합니다.', analysis:'활동량 분석', tag:'현재 장면', detail:'직전 장면과 비교해 화면이 달라진 비율입니다.' },
+    density: { title:'밀집도', caption:'움직임이 많은 곳', description:'움직임이 많을수록 노란색과 붉은색으로 나타납니다.', analysis:'구역별 분포', tag:'움직임 기준', detail:'화면을 9개 구역으로 나눠 움직임을 비교합니다.' },
+    pattern: { title:'패턴 변화', caption:'이동 방향', description:'화살표가 움직임의 방향을 나타냅니다.', analysis:'패턴 변화', tag:'시간별 분석', detail:'시간에 따라 움직임이 얼마나 달라졌는지 확인할 수 있습니다.' }
   };
   const zoneNames = ['좌측 상단','상단 중앙','우측 상단','좌측 중앙','중앙','우측 중앙','좌측 하단','하단 중앙','우측 하단'];
   let activeMode = 'farm';
@@ -24,19 +24,19 @@
 
   const certificates = {
     haccp: {
-      description: '식품을 만들거나 포장할 때 안전을 해칠 수 있는 요소를 찾아 관리하는 기준이에요.',
+      description: '식품을 만들거나 포장하는 과정에서 위해 요소를 찾아 관리하는 기준입니다.',
       source: 'https://www.standard.go.kr/KSCI/crtfcSystem/searchCrtfcSystemView.do?crtfcstId=0000000470&crtfcstReformNo=0000&firstChk=ok&menuId=60373&topMenuId=536&upperMenuId=537&viewPage=system'
     },
     antibiotic: {
-      description: '사료와 사육 관리가 무항생제축산물 기준에 맞는지 확인하는 인증이에요.',
+      description: '사료와 사육 관리가 무항생제축산물 기준에 맞는지 확인하는 인증입니다.',
       source: 'https://www.naqs.go.kr/hp/contents/contentsTab.do?menuId=MN20390'
     },
     sixth: {
-      description: '지역 농산물을 생산하면서 가공이나 판매, 체험 사업을 함께 하는 경영체에 부여하는 인증이에요.',
+      description: '지역 농산물 생산과 함께 가공이나 판매, 체험 사업을 운영하는 경영체에 주는 인증입니다.',
       source: 'https://xn--980b99s59h34f6tl.com/home/biz/company.cs?act=view&idx=4504'
     },
     naepo: {
-      description: '내포천애는 홍성군의 농특산물 공동브랜드예요.',
+      description: '내포천애는 홍성군의 농특산물 공동브랜드입니다.',
       source: 'https://council.hongseong.go.kr/kr/speakfiveBBSview.do?flag=all&list_style=&page=17&schwrd=&uid=C38E22E0733D88B21D7A1C5CB1346289'
     }
   };
@@ -253,7 +253,7 @@
     if (analysis) seekTo(analysis.summary.peakTime);
   });
 
-  fetch('/assets/jcr-video-analysis-20261105.json?v=3').then(response => {
+  fetch('/assets/jcr-video-analysis-20261105.json?v=4-copy').then(response => {
     if (!response.ok) throw new Error('analysis unavailable');
     return response.json();
   }).then(result => {
@@ -262,12 +262,13 @@
     const { averageMotionPercent, peakMotionPercent, peakTime, observation } = result.summary;
     if (averageMotionPercent > 0 && peakMotionPercent > 0) {
       const ratio = (peakMotionPercent / averageMotionPercent).toFixed(1);
-      text('video-conclusion', `영상에서 움직임이 가장 많았던 때는 시작 ${peakTime}초였어요. 이때 움직임은 이 영상 평균의 약 ${ratio}배였어요.`);
+      text('video-insight-title', `움직임은 ${peakTime}초 무렵 가장 많았습니다.`);
+      text('video-conclusion', `${peakTime}초 무렵의 움직임은 이 영상 평균의 약 ${ratio}배입니다.`);
       $('video-conclusion').hidden = false;
       text('video-peak-label', `${peakTime}초 장면 보기`);
       $('video-peak').hidden = false;
     }
-    if (observation) text('video-insight-title', observation);
+    if (observation) text('video-insight-description', observation);
     renderMode();
   }).catch(() => {
     $('analysis-chart').textContent = '분석 기록을 불러오지 못했습니다.';

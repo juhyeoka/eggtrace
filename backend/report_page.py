@@ -96,7 +96,7 @@ def _store_details() -> tuple[str, str]:
 
     name = settings.get("product_name")
     if not isinstance(name, str) or not name.strip():
-        name = "JCR 프리미엄 유정란"
+        name = "자연방사 유정란 20구"
 
     url = os.environ.get("EGGTRACE_PURCHASE_URL", settings.get("purchase_url", ""))
     if not isinstance(url, str):

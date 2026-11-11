@@ -3,20 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f6f7f9">
-  <meta name="description" content="크로바 양계식품의 월암농장 소개, 농장 영상과 인증 정보.">
-  <title>크로바 양계식품 | 월암농장</title>
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="I4COMPANY 농장 이야기. 자연방사 유정란의 농장 영상과 상품 정보를 확인하세요.">
+  <title>I4COMPANY | 농장 이야기</title>
   <link rel="icon" href="/assets/i4-company-logo-20261105.jpeg">
-  <link rel="preload" as="image" href="/assets/i4-company-logo-20261105.jpeg">
-  <link rel="stylesheet" href="/assets/jcr-app-v2-20261105.css?v=6-footer">
+  <link rel="preload" as="image" href="/assets/i4-wordmark-20261111.webp">
+  <link rel="preload" as="image" href="/assets/egg-hero-20261111.webp">
+  <link rel="stylesheet" href="/assets/jcr-app-v2-20261105.css?v=7-photos">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKZ6FWYZ9D"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XKZ6FWYZ9D');</script>
   <script id="report-data" type="application/json">$report_json</script>
-  <script src="/assets/jcr-app-v2-20261105.js?v=5-consumer" defer></script>
+  <script src="/assets/jcr-app-v2-20261105.js?v=6-copy" defer></script>
 </head>
 <body>
 <div class="brand-intro" id="brand-intro" aria-hidden="true">
-  <img src="/assets/i4-company-logo-20261105.jpeg" width="126" height="126" alt="" fetchpriority="high">
+  <span class="brand-wordmark"><img src="/assets/i4-wordmark-20261111.webp" width="2172" height="724" alt="" fetchpriority="high"></span>
 </div>
 <a class="skip-link" href="#farm">농장 소개</a>
 <svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -34,27 +35,27 @@
 </svg>
 
 <header class="site-header">
-  <a class="brand" href="#home" aria-label="첫 화면"><img src="/assets/i4-company-logo-20261105.jpeg" width="38" height="38" alt="I4COMPANY"></a>
+  <a class="brand" href="#home" aria-label="I4COMPANY 첫 화면"><span class="brand-wordmark"><img src="/assets/i4-wordmark-20261111.webp" width="2172" height="724" alt="I4COMPANY"></span></a>
   <nav aria-label="주요 메뉴"><a href="#farm">농장</a><a href="#farm-video">영상</a><a href="#certifications">인증</a></nav>
   <button class="header-shop" type="button" data-open-purchase aria-label="상품 정보 열기"><svg class="icon"><use href="#i-bag"/></svg><span>구매하기</span></button>
 </header>
 
 <main id="app-main">
   <section class="content-section hero" data-section="home" id="home" aria-labelledby="hero-title">
+    <div class="hero-media"><img src="/assets/egg-hero-20261111.webp" width="1813" height="868" alt="햇살 아래 놓인 달걀과 노른자" fetchpriority="high"></div>
     <div class="hero-copy">
-      <img class="hero-logo" src="/assets/i4-company-logo-20261105.jpeg" width="126" height="126" alt="I4COMPANY">
-      <p class="hero-brand">크로바 양계식품</p>
-      <h1 id="hero-title">월암농장에서 온<br>자연방사 유정란</h1>
-      <a class="button button-dark" href="#farm">농장 이야기 보기 <svg class="icon"><use href="#i-arrow"/></svg></a>
+      <p class="hero-brand">난각번호 1번</p>
+      <h1 id="hero-title">자연방사<br>유정란</h1>
+      <p class="hero-description">닭들이 지내는 곳을 보여드립니다.</p>
+      <a class="button button-dark" href="#farm">농장 둘러보기 <svg class="icon"><use href="#i-arrow"/></svg></a>
     </div>
   </section>
 
   <section class="content-section page-shell" data-section="farm" id="farm" aria-labelledby="farm-title">
     <div class="farm-layout">
       <div class="farm-intro">
-        <span class="eyebrow">이 달걀이 온 곳</span>
-        <h2 class="page-title" id="farm-title">월암농장</h2>
-        <p class="page-description">충남 홍성에서 닭을 키우고 유정란을 생산해요.</p>
+        <h2 class="page-title" id="farm-title">농장 이야기</h2>
+        <p class="page-description">충남 홍성에서 생산한 유정란입니다.<br>닭들이 지내는 모습을 영상으로 담았습니다.</p>
       </div>
       <figure class="farm-overview">
         <div class="farm-photo">
@@ -68,7 +69,7 @@
 
   <section class="content-section page-shell video-page" data-section="farm-video" id="farm-video" aria-labelledby="video-title">
     <div class="page-heading">
-      <h2 class="page-title" id="video-title" tabindex="-1">닭들이 지내는 모습</h2>
+      <h2 class="page-title" id="video-title" tabindex="-1">농장 영상</h2>
       <span class="video-length" id="video-duration">20초 영상</span>
     </div>
     <div class="video-layout">
@@ -77,12 +78,13 @@
           <video id="farm-player" controls playsinline muted preload="metadata" poster="/assets/jcr-farm-poster-v2.webp" aria-label="농장 영상"><source src="/videos/jcr-farm-web-20261105.mp4" type="video/mp4"></video>
           <button class="video-play" type="button" id="video-play" aria-label="영상 재생"><svg class="icon fill"><use href="#i-play"/></svg></button>
         </div>
-        <div class="video-caption" id="video-caption-block" hidden><h3 id="video-caption-title">농장 현장</h3><p id="video-caption">닭들이 지내는 모습을 담았어요.</p></div>
-        <p class="video-error" id="video-error" hidden>영상을 불러오지 못했어요. <button type="button" id="retry-video">다시 시도</button></p>
+        <div class="video-caption" id="video-caption-block" hidden><h3 id="video-caption-title">농장 현장</h3><p id="video-caption">닭들이 지내는 모습입니다.</p></div>
+        <p class="video-error" id="video-error" hidden>영상을 불러오지 못했습니다. <button type="button" id="retry-video">다시 시도</button></p>
       </div>
       <aside class="video-insight" aria-labelledby="video-insight-title">
-        <span class="eyebrow">AI가 살펴본 장면</span>
-        <h3 id="video-insight-title">영상에서 닭들의 모습을 살펴보세요.</h3>
+        <span class="eyebrow">영상 요약</span>
+        <h3 id="video-insight-title">닭들이 지내는 모습입니다.</h3>
+        <p id="video-insight-description"></p>
         <button class="insight-seek" type="button" id="video-peak" hidden>
           <svg class="icon fill"><use href="#i-play"/></svg> <span id="video-peak-label">움직임이 많았던 장면 보기</span>
         </button>
@@ -110,13 +112,13 @@
   </section>
 
   <section class="content-section page-shell" data-section="certifications" id="certifications" aria-labelledby="cert-title">
-    <div class="cert-layout"><div><span class="eyebrow">크로바 양계식품</span><h2 class="page-title" id="cert-title" tabindex="-1">인증 정보</h2><p class="page-description">마크를 누르면 뜻을 확인할 수 있어요.</p></div><div class="cert-grid"><button class="cert-card" type="button" data-cert="haccp" data-cert-image="/assets/haccp.png" data-cert-title="HACCP 안전관리 인증"><img src="/assets/haccp.png" width="90" height="90" loading="lazy" alt=""><strong>HACCP</strong><span>안전관리 인증</span><span class="cert-expand" aria-hidden="true">↗</span></button><button class="cert-card" type="button" data-cert="antibiotic" data-cert-image="/assets/muhang.png" data-cert-title="무항생제 인증"><img src="/assets/muhang.png" width="90" height="90" loading="lazy" alt=""><strong>무항생제</strong><span>축산물 인증</span><span class="cert-expand" aria-hidden="true">↗</span></button><button class="cert-card" type="button" data-cert="sixth" data-cert-image="/assets/6indus.png" data-cert-title="6차산업 인증"><img src="/assets/6indus.png" width="90" height="90" loading="lazy" alt=""><strong>6차산업</strong><span>농촌융복합산업 인증</span><span class="cert-expand" aria-hidden="true">↗</span></button><button class="cert-card" type="button" data-cert="naepo" data-cert-image="/assets/naepo.png" data-cert-title="내포천애 인증"><img src="/assets/naepo.png" width="90" height="90" loading="lazy" alt=""><strong>내포천애</strong><span>홍성군 공동브랜드</span><span class="cert-expand" aria-hidden="true">↗</span></button></div></div>
+    <div class="cert-layout"><div><h2 class="page-title" id="cert-title" tabindex="-1">인증 정보</h2><p class="page-description">마크를 누르면 인증 내용을 볼 수 있습니다.</p></div><div class="cert-grid"><button class="cert-card" type="button" data-cert="haccp" data-cert-image="/assets/haccp.png" data-cert-title="HACCP 안전관리 인증"><img src="/assets/haccp.png" width="90" height="90" loading="lazy" alt=""><strong>HACCP</strong><span>안전관리 인증</span><span class="cert-expand" aria-hidden="true">+</span></button><button class="cert-card" type="button" data-cert="antibiotic" data-cert-image="/assets/muhang.png" data-cert-title="무항생제 인증"><img src="/assets/muhang.png" width="90" height="90" loading="lazy" alt=""><strong>무항생제</strong><span>축산물 인증</span><span class="cert-expand" aria-hidden="true">+</span></button><button class="cert-card" type="button" data-cert="sixth" data-cert-image="/assets/6indus.png" data-cert-title="6차산업 인증"><img src="/assets/6indus.png" width="90" height="90" loading="lazy" alt=""><strong>6차산업</strong><span>농촌융복합산업 인증</span><span class="cert-expand" aria-hidden="true">+</span></button><button class="cert-card" type="button" data-cert="naepo" data-cert-image="/assets/naepo.png" data-cert-title="내포천애 인증"><img src="/assets/naepo.png" width="90" height="90" loading="lazy" alt=""><strong>내포천애</strong><span>홍성군 공동브랜드</span><span class="cert-expand" aria-hidden="true">+</span></button></div></div>
   </section>
 
   <section class="content-section page-shell shop-section" data-section="shop" id="shop" aria-labelledby="shop-title">
     <div class="shop-layout">
-      <div class="shop-image product-label-crop"><img src="/assets/jcr-product-label-20261105.png" width="792" height="595" alt="자연방사 난각번호 1번 유정란 20구" loading="lazy"></div>
-      <div class="shop-copy"><h2 class="page-title" id="shop-title">JCR 유정란 20구</h2><p class="page-description">국내산 자연방사 유정란</p><div class="shop-features"><span>난각번호 1번</span><span>무항생제</span></div><button class="button button-dark full-width" type="button" data-open-purchase><svg class="icon"><use href="#i-bag"/></svg> 상품 정보 보기 <svg class="icon end"><use href="#i-arrow"/></svg></button></div>
+      <div class="shop-image"><img src="/assets/egg-family-20261111.webp" width="1254" height="1254" alt="달걀을 먹으며 웃는 아이와 바구니에 담긴 달걀" loading="lazy"></div>
+      <div class="shop-copy"><h2 class="page-title" id="shop-title">자연방사 유정란 <span class="product-count">20구</span></h2><p class="page-description">난각번호 1번, 국내산 유정란입니다.</p><div class="shop-features"><span>난각번호 1번</span><span>무항생제</span></div><button class="button button-dark full-width" type="button" data-open-purchase><svg class="icon"><use href="#i-bag"/></svg> 상품 정보 보기 <svg class="icon end"><use href="#i-arrow"/></svg></button></div>
     </div>
   </section>
 </main>
@@ -138,7 +140,7 @@
 <button class="floating-shop" type="button" data-open-purchase aria-label="상품 정보 열기"><svg class="icon"><use href="#i-bag"/></svg><span>구매하기</span></button>
 
 <dialog class="farm-notice modal" id="farm-notice" aria-labelledby="notice-title"><h2 id="notice-title" class="sr-only">농장 안내</h2><div class="notice-content"><img src="/assets/farm-notice-20261105.png" width="1080" height="1350" alt="농장 방역 안내. 적용 기간 2026년 10월 20일부터 2027년 2월 28일까지, 발생 상황에 따라 조정 가능."></div><div class="notice-actions"><button type="button" id="notice-hide">오늘 하루 보지 않기</button><button type="button" data-close-dialog>닫기 <svg class="icon"><use href="#i-close"/></svg></button></div></dialog>
-<dialog class="purchase-dialog modal" id="purchase-dialog" aria-labelledby="purchase-title"><div class="dialog-header"><span>상품 정보</span><button class="icon-button" type="button" data-close-dialog aria-label="구매 화면 닫기"><svg class="icon"><use href="#i-close"/></svg></button></div><div class="purchase-scroll"><div class="purchase-image product-label-crop"><img src="/assets/jcr-product-label-20261105.png" width="792" height="595" alt="자연방사 난각번호 1번 유정란 20구"></div><h2 id="purchase-title">JCR 유정란 20구</h2><p class="purchase-subtitle">자연방사 유정란</p><dl class="purchase-details"><div><dt>구성</dt><dd>국내산 계란 20구</dd></div><div><dt>난각번호</dt><dd>1번</dd></div><div><dt>인증</dt><dd>무항생제</dd></div></dl></div><div class="purchase-bottom"><a class="button button-dark full-width" id="purchase-link" hidden target="_blank" rel="noopener noreferrer">판매처에서 구매하기 <svg class="icon"><use href="#i-arrow"/></svg></a><button class="button button-unavailable full-width" id="purchase-pending" type="button" disabled>판매처 확인 중</button></div></dialog>
+<dialog class="purchase-dialog modal" id="purchase-dialog" aria-labelledby="purchase-title"><div class="dialog-header"><span>상품 정보</span><button class="icon-button" type="button" data-close-dialog aria-label="구매 화면 닫기"><svg class="icon"><use href="#i-close"/></svg></button></div><div class="purchase-scroll"><div class="purchase-image"><img src="/assets/egg-family-20261111.webp" width="1254" height="1254" alt="달걀을 먹으며 웃는 아이와 바구니에 담긴 달걀"></div><h2 id="purchase-title">자연방사 유정란 20구</h2><p class="purchase-subtitle">난각번호 1번</p><dl class="purchase-details"><div><dt>구성</dt><dd>국내산 계란 20구</dd></div><div><dt>난각번호</dt><dd>1번</dd></div><div><dt>인증</dt><dd>무항생제</dd></div></dl></div><div class="purchase-bottom"><a class="button button-dark full-width" id="purchase-link" hidden target="_blank" rel="noopener noreferrer">판매처에서 구매하기 <svg class="icon"><use href="#i-arrow"/></svg></a><button class="button button-unavailable full-width" id="purchase-pending" type="button" disabled>판매처 확인 중</button></div></dialog>
 <dialog class="cert-dialog modal" id="cert-dialog" aria-labelledby="cert-dialog-title"><div class="dialog-header"><h2 id="cert-dialog-title">인증 정보</h2><button class="icon-button" type="button" data-close-dialog aria-label="인증 정보 닫기"><svg class="icon"><use href="#i-close"/></svg></button></div><div class="cert-dialog-content">
   <img class="cert-dialog-mark" id="cert-dialog-image" alt="">
   <p id="cert-dialog-description"></p>
@@ -147,7 +149,7 @@
 <dialog class="farm-info modal" id="farm-info" aria-labelledby="farm-info-title">
   <div class="dialog-header"><h2 id="farm-info-title">농장 정보 안내</h2><button class="icon-button" type="button" data-close-dialog aria-label="농장 정보 닫기"><svg class="icon"><use href="#i-close"/></svg></button></div>
   <div class="farm-info-content">
-    <p>월암농장은 충남 홍성군 구항면 구항서길35번길 30-15에 있는 산란계 농장입니다. 사진은 농장 영상에서 가져왔습니다.</p>
+    <p>이 영상은 충남 홍성의 월암농장에서 촬영했습니다. 농장 사진도 같은 영상에서 가져왔습니다.</p>
     <a class="dialog-source" href="https://opengo.kr/5601fbd80e887edf2c09bbd5" target="_blank" rel="noopener noreferrer">농장 주소 출처 <svg class="icon"><use href="#i-arrow"/></svg></a>
   </div>
 </dialog>
