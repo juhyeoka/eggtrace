@@ -9,11 +9,11 @@
   <link rel="icon" href="/assets/i4-company-logo-20261105.jpeg">
   <link rel="preload" as="image" href="/assets/i4-wordmark-20261111.webp">
   <link rel="preload" as="image" href="/assets/egg-hero-20261111.webp">
-  <link rel="stylesheet" href="/assets/jcr-app-v2-20261105.css?v=7-photos">
+  <link rel="stylesheet" href="/assets/jcr-app-v2-20261105.css?v=8-analysis">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKZ6FWYZ9D"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XKZ6FWYZ9D');</script>
   <script id="report-data" type="application/json">$report_json</script>
-  <script src="/assets/jcr-app-v2-20261105.js?v=6-copy" defer></script>
+  <script src="/assets/jcr-app-v2-20261105.js?v=7-reasoning" defer></script>
 </head>
 <body>
 <div class="brand-intro" id="brand-intro" aria-hidden="true">
@@ -82,16 +82,16 @@
         <p class="video-error" id="video-error" hidden>영상을 불러오지 못했습니다. <button type="button" id="retry-video">다시 시도</button></p>
       </div>
       <aside class="video-insight" aria-labelledby="video-insight-title">
-        <span class="eyebrow">영상 요약</span>
+        <span class="eyebrow">AI 영상 분석</span>
         <h3 id="video-insight-title">닭들이 지내는 모습입니다.</h3>
         <p id="video-insight-description"></p>
+        <p class="insight-reason" id="video-insight-reason" hidden></p>
         <button class="insight-seek" type="button" id="video-peak" hidden>
           <svg class="icon fill"><use href="#i-play"/></svg> <span id="video-peak-label">움직임이 많았던 장면 보기</span>
         </button>
       </aside>
     </div>
-    <details class="analysis-details">
-      <summary>움직임 자세히 보기</summary>
+    <div class="video-analysis" aria-label="영상 움직임 분석">
       <p class="video-comparison" id="video-conclusion" hidden></p>
     <div class="video-tabs" role="tablist" aria-label="영상 분석 선택">
       <button type="button" role="tab" aria-selected="true" id="video-tab-farm" aria-controls="video-panel" data-mode="farm">원본 영상</button>
@@ -108,7 +108,7 @@
         <p class="analysis-detail" id="analysis-detail">영상 재생 위치에 맞춰 움직임을 표시합니다.</p>
       </div>
     <div class="moments"><div class="moments-heading"><h2>구간 바로 보기</h2><span>장면을 누르면 해당 구간부터 재생됩니다.</span></div><div class="moment-grid"><button type="button" data-seek="2"><img src="/assets/jcr-moment-1-v2.webp" width="480" height="270" alt="2초 장면" loading="lazy"><span><strong>초반 장면</strong><time>00:02</time><svg class="icon fill"><use href="#i-play"/></svg></span></button><button type="button" data-seek="10"><img src="/assets/jcr-moment-2-v2.webp" width="480" height="270" alt="10초 장면" loading="lazy"><span><strong>중간 장면</strong><time>00:10</time><svg class="icon fill"><use href="#i-play"/></svg></span></button><button type="button" data-seek="17"><img src="/assets/jcr-moment-3-v2.webp" width="480" height="270" alt="17초 장면" loading="lazy"><span><strong>후반 장면</strong><time>00:17</time><svg class="icon fill"><use href="#i-play"/></svg></span></button></div></div>
-    </details>
+    </div>
   </section>
 
   <section class="content-section page-shell" data-section="certifications" id="certifications" aria-labelledby="cert-title">

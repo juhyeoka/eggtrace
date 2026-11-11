@@ -11,10 +11,10 @@
   const tabs = [...document.querySelectorAll('[data-mode]')];
   const navLinks = [...document.querySelectorAll('.site-header nav a')];
   const modes = {
-    farm: { title:'농장 영상', caption:'농장 현장', description:'닭들이 지내는 모습을 담았습니다.', analysis:'영상 기록', tag:'현장 영상', detail:'영상 속 움직임을 시간순으로 표시합니다.' },
-    activity: { title:'활동량', caption:'움직임 표시', description:'움직임이 있는 곳을 초록색으로 표시합니다.', analysis:'활동량 분석', tag:'현재 장면', detail:'직전 장면과 비교해 화면이 달라진 비율입니다.' },
-    density: { title:'밀집도', caption:'움직임이 많은 곳', description:'움직임이 많을수록 노란색과 붉은색으로 나타납니다.', analysis:'구역별 분포', tag:'움직임 기준', detail:'화면을 9개 구역으로 나눠 움직임을 비교합니다.' },
-    pattern: { title:'패턴 변화', caption:'이동 방향', description:'화살표가 움직임의 방향을 나타냅니다.', analysis:'패턴 변화', tag:'시간별 분석', detail:'시간에 따라 움직임이 얼마나 달라졌는지 확인할 수 있습니다.' }
+    farm: { title:'농장 영상', caption:'농장 현장', description:'닭들이 지내는 모습을 담았습니다.', analysis:'영상 기록', tag:'현장 영상', detail:'앞뒤 장면의 변화를 비교했습니다. 그래프가 높을수록 움직임이 많이 잡힌 구간입니다.' },
+    activity: { title:'활동량', caption:'움직임 표시', description:'움직임이 있는 곳을 초록색으로 표시합니다.', analysis:'활동량 분석', tag:'현재 장면', detail:'0.5초 전 장면과 비교해 달라진 화면 면적을 계산합니다. 비율이 높을수록 화면에서 잡힌 움직임이 많다는 뜻입니다.' },
+    density: { title:'밀집도', caption:'움직임이 많은 곳', description:'움직임이 많을수록 노란색과 붉은색으로 나타납니다.', analysis:'구역별 분포', tag:'움직임 기준', detail:'화면을 9개 구역으로 나누고 각 구역의 변화를 비교합니다. 색이 진할수록 움직임이 많이 잡힌 곳이며 닭의 수를 뜻하지는 않습니다.' },
+    pattern: { title:'패턴 변화', caption:'이동 방향', description:'화살표가 움직임의 방향을 나타냅니다.', analysis:'패턴 변화', tag:'시간별 분석', detail:'앞뒤 장면에서 움직인 방향을 비교했습니다. 화살표는 이동 방향을, 그래프는 시간에 따른 화면 변화량을 나타냅니다.' }
   };
   const zoneNames = ['좌측 상단','상단 중앙','우측 상단','좌측 중앙','중앙','우측 중앙','좌측 하단','하단 중앙','우측 하단'];
   let activeMode = 'farm';
@@ -225,9 +225,6 @@
       tabs[next].focus(); selectMode(tabs[next]);
     });
   });
-  document.querySelector('.analysis-details').addEventListener('toggle', event => {
-    if (!event.currentTarget.open && activeMode !== 'farm') selectMode(tabs[0], false);
-  });
   video.addEventListener('timeupdate', updateFrame);
   video.addEventListener('seeked', updateFrame);
   function seekTo(seconds) {
@@ -262,8 +259,10 @@
     const { averageMotionPercent, peakMotionPercent, peakTime, observation } = result.summary;
     if (averageMotionPercent > 0 && peakMotionPercent > 0) {
       const ratio = (peakMotionPercent / averageMotionPercent).toFixed(1);
-      text('video-insight-title', `움직임은 ${peakTime}초 무렵 가장 많았습니다.`);
-      text('video-conclusion', `${peakTime}초 무렵의 움직임은 이 영상 평균의 약 ${ratio}배입니다.`);
+      text('video-insight-title', `${peakTime}초 무렵에 움직임이 가장 많이 잡혔습니다.`);
+      text('video-insight-reason', `${result.sampleInterval}초 간격으로 앞뒤 장면이 얼마나 달라졌는지 비교했습니다. ${peakTime}초 무렵의 변화가 가장 컸고 이 영상 평균의 약 ${ratio}배여서 움직임이 가장 많은 장면으로 골랐습니다.`);
+      $('video-insight-reason').hidden = false;
+      text('video-conclusion', `움직임이 잡힌 화면의 비율은 평균 ${averageMotionPercent.toFixed(1)}%, ${peakTime}초 무렵에는 ${peakMotionPercent.toFixed(1)}%였습니다.`);
       $('video-conclusion').hidden = false;
       text('video-peak-label', `${peakTime}초 장면 보기`);
       $('video-peak').hidden = false;
