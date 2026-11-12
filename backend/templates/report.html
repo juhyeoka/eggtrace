@@ -4,16 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="I4COMPANY 농장 이야기. 자연방사 유정란의 농장 영상과 상품 정보를 확인하세요.">
+  <meta name="description" content="I4COMPANY 농장 이야기. 자연방사 유정란이 온 농장을 영상으로 만나보세요.">
   <title>I4COMPANY | 농장 이야기</title>
   <link rel="icon" href="/assets/i4-company-logo-20261105.jpeg">
   <link rel="preload" as="image" href="/assets/i4-wordmark-20261111.webp">
   <link rel="preload" as="image" href="/assets/egg-hero-20261111.webp">
-  <link rel="stylesheet" href="/assets/jcr-app-v2-20261105.css?v=8-analysis">
+  <link rel="stylesheet" href="/assets/jcr-app-v2-20261105.css?v=9-consumer">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKZ6FWYZ9D"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XKZ6FWYZ9D');</script>
   <script id="report-data" type="application/json">$report_json</script>
-  <script src="/assets/jcr-app-v2-20261105.js?v=7-reasoning" defer></script>
+  <script src="/assets/jcr-app-v2-20261105.js?v=8-friendly" defer></script>
 </head>
 <body>
 <div class="brand-intro" id="brand-intro" aria-hidden="true">
@@ -46,7 +46,7 @@
     <div class="hero-copy">
       <p class="hero-brand">난각번호 1번</p>
       <h1 id="hero-title">자연방사<br>유정란</h1>
-      <p class="hero-description">닭들이 지내는 곳을 보여드립니다.</p>
+      <p class="hero-description">닭들이 어떻게 지내는지 볼 수 있어요.</p>
       <a class="button button-dark" href="#farm">농장 둘러보기 <svg class="icon"><use href="#i-arrow"/></svg></a>
     </div>
   </section>
@@ -54,8 +54,14 @@
   <section class="content-section page-shell" data-section="farm" id="farm" aria-labelledby="farm-title">
     <div class="farm-layout">
       <div class="farm-intro">
-        <h2 class="page-title" id="farm-title">농장 이야기</h2>
-        <p class="page-description">충남 홍성에서 생산한 유정란입니다.<br>닭들이 지내는 모습을 영상으로 담았습니다.</p>
+        <span class="eyebrow">농장 이야기</span>
+        <h2 class="page-title" id="farm-title">충남 홍성에서 온<br>자연방사 유정란</h2>
+        <p class="page-description">닭들이 지내는 모습을 농장 영상으로 담았어요.</p>
+        <div class="farm-points">
+          <div><svg class="icon"><use href="#i-leaf"/></svg><span>난각번호 1번</span></div>
+          <div><svg class="icon"><use href="#i-shield"/></svg><span>무항생제</span></div>
+        </div>
+        <a class="farm-video-link" href="#farm-video">농장 영상 보기 <svg class="icon"><use href="#i-arrow"/></svg></a>
       </div>
       <figure class="farm-overview">
         <div class="farm-photo">
@@ -78,47 +84,47 @@
           <video id="farm-player" controls playsinline muted preload="metadata" poster="/assets/jcr-farm-poster-v2.webp" aria-label="농장 영상"><source src="/videos/jcr-farm-web-20261105.mp4" type="video/mp4"></video>
           <button class="video-play" type="button" id="video-play" aria-label="영상 재생"><svg class="icon fill"><use href="#i-play"/></svg></button>
         </div>
-        <div class="video-caption" id="video-caption-block" hidden><h3 id="video-caption-title">농장 현장</h3><p id="video-caption">닭들이 지내는 모습입니다.</p></div>
-        <p class="video-error" id="video-error" hidden>영상을 불러오지 못했습니다. <button type="button" id="retry-video">다시 시도</button></p>
+        <div class="video-caption" id="video-caption-block" hidden><h3 id="video-caption-title">농장 모습</h3><p id="video-caption">닭들이 지내는 모습을 담았어요.</p></div>
+        <p class="video-error" id="video-error" hidden>영상을 불러오지 못했어요. <button type="button" id="retry-video">다시 시도</button></p>
       </div>
       <aside class="video-insight" aria-labelledby="video-insight-title">
-        <span class="eyebrow">AI 영상 분석</span>
-        <h3 id="video-insight-title">닭들이 지내는 모습입니다.</h3>
+        <span class="eyebrow">인공지능이 살펴본 영상</span>
+        <h3 id="video-insight-title">닭들이 지내는 모습을 담은 영상이에요.</h3>
         <p id="video-insight-description"></p>
         <p class="insight-reason" id="video-insight-reason" hidden></p>
         <button class="insight-seek" type="button" id="video-peak" hidden>
-          <svg class="icon fill"><use href="#i-play"/></svg> <span id="video-peak-label">움직임이 많았던 장면 보기</span>
+          <svg class="icon fill"><use href="#i-play"/></svg> <span id="video-peak-label">많이 움직인 장면 보기</span>
         </button>
       </aside>
     </div>
-    <div class="video-analysis" aria-label="영상 움직임 분석">
+    <div class="video-analysis" aria-label="영상 속 움직임">
       <p class="video-comparison" id="video-conclusion" hidden></p>
-    <div class="video-tabs" role="tablist" aria-label="영상 분석 선택">
-      <button type="button" role="tab" aria-selected="true" id="video-tab-farm" aria-controls="video-panel" data-mode="farm">원본 영상</button>
-      <button type="button" role="tab" aria-selected="false" tabindex="-1" id="video-tab-activity" aria-controls="video-panel" data-mode="activity">움직임 표시</button>
-      <button type="button" role="tab" aria-selected="false" tabindex="-1" id="video-tab-density" aria-controls="video-panel" data-mode="density">움직임 분포</button>
+    <div class="video-tabs" role="tablist" aria-label="영상 보기 선택">
+      <button type="button" role="tab" aria-selected="true" id="video-tab-farm" aria-controls="video-panel" data-mode="farm">원본</button>
+      <button type="button" role="tab" aria-selected="false" tabindex="-1" id="video-tab-activity" aria-controls="video-panel" data-mode="activity">움직임</button>
+      <button type="button" role="tab" aria-selected="false" tabindex="-1" id="video-tab-density" aria-controls="video-panel" data-mode="density">움직인 곳</button>
       <button type="button" role="tab" aria-selected="false" tabindex="-1" id="video-tab-pattern" aria-controls="video-panel" data-mode="pattern">이동 방향</button>
     </div>
       <div class="analysis-panel" id="video-panel" role="tabpanel" aria-labelledby="video-tab-farm">
-        <div class="panel-heading"><h2 id="analysis-title">영상 기록</h2><span class="soft-tag" id="analysis-tag">현장 영상</span></div>
-        <div class="live-metric"><strong id="live-value">20</strong><span id="live-unit">초</span></div><p class="metric-label" id="metric-label">전체 영상 길이</p>
-        <div class="zone-grid" id="zone-grid" hidden aria-label="구역별 움직임 분포"></div><div class="zone-legend" id="zone-legend" hidden><span>적음</span><i></i><span>많음</span></div>
-        <div class="chart-block" id="chart-block"><div class="chart-topline"><span id="chart-title">시간별 움직임</span><span id="current-time">00:00</span></div><div class="analysis-chart" id="analysis-chart" role="img" aria-label="시간별 움직임 그래프"></div><div class="chart-labels"><span>00:00</span><span id="chart-end">00:20</span></div></div>
-        <dl class="analysis-stats"><div><dt id="stat-one-label">분석 간격</dt><dd id="stat-one-value">0.5초</dd></div><div><dt id="stat-two-label">영상 길이</dt><dd id="stat-two-value">20초</dd></div></dl>
-        <p class="analysis-detail" id="analysis-detail">영상 재생 위치에 맞춰 움직임을 표시합니다.</p>
+        <div class="panel-heading"><h2 id="analysis-title">영상 속 움직임</h2><span class="soft-tag" id="analysis-tag">영상 전체</span></div>
+        <div class="live-metric"><strong id="live-value">00:00</strong><span id="live-unit"></span></div><p class="metric-label" id="metric-label">가장 많이 움직인 때</p>
+        <div class="zone-grid" id="zone-grid" hidden aria-label="장소별 움직임"></div><div class="zone-legend" id="zone-legend" hidden><span>적게 움직임</span><i></i><span>많이 움직임</span></div>
+        <div class="chart-block" id="chart-block"><div class="chart-topline"><span id="chart-title">시간별 움직임</span><span id="current-time">00:00</span></div><div class="analysis-chart" id="analysis-chart" role="img" aria-label="시간별 움직임 그래프"></div><div class="chart-labels"><span>00:00</span><span id="chart-end">00:20</span></div><p class="chart-average-key">점선은 이 영상의 평균이에요</p></div>
+        <dl class="analysis-stats"><div><dt id="stat-one-label">영상 평균과 비교</dt><dd id="stat-one-value">확인 중</dd></div><div><dt id="stat-two-label">주로 움직인 곳</dt><dd id="stat-two-value">확인 중</dd></div></dl>
+        <p class="analysis-detail" id="analysis-detail">그래프가 높은 곳에서 더 많이 움직였어요.</p>
       </div>
-    <div class="moments"><div class="moments-heading"><h2>구간 바로 보기</h2><span>장면을 누르면 해당 구간부터 재생됩니다.</span></div><div class="moment-grid"><button type="button" data-seek="2"><img src="/assets/jcr-moment-1-v2.webp" width="480" height="270" alt="2초 장면" loading="lazy"><span><strong>초반 장면</strong><time>00:02</time><svg class="icon fill"><use href="#i-play"/></svg></span></button><button type="button" data-seek="10"><img src="/assets/jcr-moment-2-v2.webp" width="480" height="270" alt="10초 장면" loading="lazy"><span><strong>중간 장면</strong><time>00:10</time><svg class="icon fill"><use href="#i-play"/></svg></span></button><button type="button" data-seek="17"><img src="/assets/jcr-moment-3-v2.webp" width="480" height="270" alt="17초 장면" loading="lazy"><span><strong>후반 장면</strong><time>00:17</time><svg class="icon fill"><use href="#i-play"/></svg></span></button></div></div>
+    <div class="moments"><div class="moments-heading"><h2>장면 골라 보기</h2><span>사진을 누르면 그 장면부터 볼 수 있어요.</span></div><div class="moment-grid"><button type="button" data-seek="2"><img src="/assets/jcr-moment-1-v2.webp" width="480" height="270" alt="2초 장면" loading="lazy"><span><strong>처음 모습</strong><time>00:02</time><svg class="icon fill"><use href="#i-play"/></svg></span></button><button type="button" data-seek="10"><img src="/assets/jcr-moment-2-v2.webp" width="480" height="270" alt="10초 장면" loading="lazy"><span><strong>중간 모습</strong><time>00:10</time><svg class="icon fill"><use href="#i-play"/></svg></span></button><button type="button" data-seek="17"><img src="/assets/jcr-moment-3-v2.webp" width="480" height="270" alt="17초 장면" loading="lazy"><span><strong>후반 모습</strong><time>00:17</time><svg class="icon fill"><use href="#i-play"/></svg></span></button></div></div>
     </div>
   </section>
 
   <section class="content-section page-shell" data-section="certifications" id="certifications" aria-labelledby="cert-title">
-    <div class="cert-layout"><div><h2 class="page-title" id="cert-title" tabindex="-1">인증 정보</h2><p class="page-description">마크를 누르면 인증 내용을 볼 수 있습니다.</p></div><div class="cert-grid"><button class="cert-card" type="button" data-cert="haccp" data-cert-image="/assets/haccp.png" data-cert-title="HACCP 안전관리 인증"><img src="/assets/haccp.png" width="90" height="90" loading="lazy" alt=""><strong>HACCP</strong><span>안전관리 인증</span><span class="cert-expand" aria-hidden="true">+</span></button><button class="cert-card" type="button" data-cert="antibiotic" data-cert-image="/assets/muhang.png" data-cert-title="무항생제 인증"><img src="/assets/muhang.png" width="90" height="90" loading="lazy" alt=""><strong>무항생제</strong><span>축산물 인증</span><span class="cert-expand" aria-hidden="true">+</span></button><button class="cert-card" type="button" data-cert="sixth" data-cert-image="/assets/6indus.png" data-cert-title="6차산업 인증"><img src="/assets/6indus.png" width="90" height="90" loading="lazy" alt=""><strong>6차산업</strong><span>농촌융복합산업 인증</span><span class="cert-expand" aria-hidden="true">+</span></button><button class="cert-card" type="button" data-cert="naepo" data-cert-image="/assets/naepo.png" data-cert-title="내포천애 인증"><img src="/assets/naepo.png" width="90" height="90" loading="lazy" alt=""><strong>내포천애</strong><span>홍성군 공동브랜드</span><span class="cert-expand" aria-hidden="true">+</span></button></div></div>
+    <div class="cert-layout"><div><h2 class="page-title" id="cert-title" tabindex="-1">인증 정보</h2><p class="page-description">마크를 누르면 어떤 인증인지 알 수 있어요.</p></div><div class="cert-grid"><button class="cert-card" type="button" data-cert="haccp" data-cert-image="/assets/haccp.png" data-cert-title="HACCP 안전관리 인증"><img src="/assets/haccp.png" width="90" height="90" loading="lazy" alt=""><strong>HACCP</strong><span>안전관리 인증</span><span class="cert-expand" aria-hidden="true">+</span></button><button class="cert-card" type="button" data-cert="antibiotic" data-cert-image="/assets/muhang.png" data-cert-title="무항생제 인증"><img src="/assets/muhang.png" width="90" height="90" loading="lazy" alt=""><strong>무항생제</strong><span>축산물 인증</span><span class="cert-expand" aria-hidden="true">+</span></button><button class="cert-card" type="button" data-cert="sixth" data-cert-image="/assets/6indus.png" data-cert-title="6차산업 인증"><img src="/assets/6indus.png" width="90" height="90" loading="lazy" alt=""><strong>6차산업</strong><span>농촌융복합산업 인증</span><span class="cert-expand" aria-hidden="true">+</span></button><button class="cert-card" type="button" data-cert="naepo" data-cert-image="/assets/naepo.png" data-cert-title="내포천애 인증"><img src="/assets/naepo.png" width="90" height="90" loading="lazy" alt=""><strong>내포천애</strong><span>홍성군 공동브랜드</span><span class="cert-expand" aria-hidden="true">+</span></button></div></div>
   </section>
 
   <section class="content-section page-shell shop-section" data-section="shop" id="shop" aria-labelledby="shop-title">
     <div class="shop-layout">
       <div class="shop-image"><img src="/assets/egg-family-20261111.webp" width="1254" height="1254" alt="달걀을 먹으며 웃는 아이와 바구니에 담긴 달걀" loading="lazy"></div>
-      <div class="shop-copy"><h2 class="page-title" id="shop-title">자연방사 유정란 <span class="product-count">20구</span></h2><p class="page-description">난각번호 1번, 국내산 유정란입니다.</p><div class="shop-features"><span>난각번호 1번</span><span>무항생제</span></div><button class="button button-dark full-width" type="button" data-open-purchase><svg class="icon"><use href="#i-bag"/></svg> 상품 정보 보기 <svg class="icon end"><use href="#i-arrow"/></svg></button></div>
+      <div class="shop-copy"><h2 class="page-title" id="shop-title">자연방사 유정란 <span class="product-count">20구</span></h2><p class="page-description">난각번호 1번, 국내산 유정란이에요.</p><div class="shop-features"><span>난각번호 1번</span><span>무항생제</span></div><button class="button button-dark full-width" type="button" data-open-purchase><svg class="icon"><use href="#i-bag"/></svg> 상품 정보 보기 <svg class="icon end"><use href="#i-arrow"/></svg></button></div>
     </div>
   </section>
 </main>
@@ -128,6 +134,7 @@
     <dl class="footer-details">
       <div><dt>대표자</dt><dd>김준하</dd></div>
       <div><dt>사업자등록번호</dt><dd>871-07-03688</dd></div>
+      <div><dt>통신판매업 신고번호</dt><dd>제2026-충남예산-00154호</dd></div>
     </dl>
   </div>
   <div class="footer-links">
@@ -142,13 +149,13 @@
 <dialog class="cert-dialog modal" id="cert-dialog" aria-labelledby="cert-dialog-title"><div class="dialog-header"><h2 id="cert-dialog-title">인증 정보</h2><button class="icon-button" type="button" data-close-dialog aria-label="인증 정보 닫기"><svg class="icon"><use href="#i-close"/></svg></button></div><div class="cert-dialog-content">
   <img class="cert-dialog-mark" id="cert-dialog-image" alt="">
   <p id="cert-dialog-description"></p>
-  <a class="dialog-source" id="cert-dialog-source" target="_blank" rel="noopener noreferrer" hidden>관련 정보 확인 <svg class="icon"><use href="#i-arrow"/></svg></a>
+  <a class="dialog-source" id="cert-dialog-source" target="_blank" rel="noopener noreferrer" hidden>인증 안내 더 보기 <svg class="icon"><use href="#i-arrow"/></svg></a>
 </div></dialog>
 <dialog class="farm-info modal" id="farm-info" aria-labelledby="farm-info-title">
   <div class="dialog-header"><h2 id="farm-info-title">농장 정보 안내</h2><button class="icon-button" type="button" data-close-dialog aria-label="농장 정보 닫기"><svg class="icon"><use href="#i-close"/></svg></button></div>
   <div class="farm-info-content">
-    <p>이 영상은 충남 홍성의 월암농장에서 촬영했습니다. 농장 사진도 같은 영상에서 가져왔습니다.</p>
-    <a class="dialog-source" href="https://opengo.kr/5601fbd80e887edf2c09bbd5" target="_blank" rel="noopener noreferrer">농장 주소 출처 <svg class="icon"><use href="#i-arrow"/></svg></a>
+    <p>영상에 나온 곳은 충남 홍성의 월암농장이에요.</p>
+    <a class="dialog-source" href="https://opengo.kr/5601fbd80e887edf2c09bbd5" target="_blank" rel="noopener noreferrer">농장 정보 더 보기 <svg class="icon"><use href="#i-arrow"/></svg></a>
   </div>
 </dialog>
 </body>

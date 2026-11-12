@@ -11,32 +11,38 @@
   const tabs = [...document.querySelectorAll('[data-mode]')];
   const navLinks = [...document.querySelectorAll('.site-header nav a')];
   const modes = {
-    farm: { title:'농장 영상', caption:'농장 현장', description:'닭들이 지내는 모습을 담았습니다.', analysis:'영상 기록', tag:'현장 영상', detail:'앞뒤 장면의 변화를 비교했습니다. 그래프가 높을수록 움직임이 많이 잡힌 구간입니다.' },
-    activity: { title:'활동량', caption:'움직임 표시', description:'움직임이 있는 곳을 초록색으로 표시합니다.', analysis:'활동량 분석', tag:'현재 장면', detail:'0.5초 전 장면과 비교해 달라진 화면 면적을 계산합니다. 비율이 높을수록 화면에서 잡힌 움직임이 많다는 뜻입니다.' },
-    density: { title:'밀집도', caption:'움직임이 많은 곳', description:'움직임이 많을수록 노란색과 붉은색으로 나타납니다.', analysis:'구역별 분포', tag:'움직임 기준', detail:'화면을 9개 구역으로 나누고 각 구역의 변화를 비교합니다. 색이 진할수록 움직임이 많이 잡힌 곳이며 닭의 수를 뜻하지는 않습니다.' },
-    pattern: { title:'패턴 변화', caption:'이동 방향', description:'화살표가 움직임의 방향을 나타냅니다.', analysis:'패턴 변화', tag:'시간별 분석', detail:'앞뒤 장면에서 움직인 방향을 비교했습니다. 화살표는 이동 방향을, 그래프는 시간에 따른 화면 변화량을 나타냅니다.' }
+    farm: { title:'농장 모습', caption:'농장 모습', description:'닭들이 지내는 모습을 그대로 담았어요.', analysis:'움직임이 많았던 때', tag:'영상 전체', detail:'앞뒤 장면을 비교해 움직임을 살펴봤어요. 그래프가 높을수록 움직임이 많이 잡힌 때예요.' },
+    activity: { title:'움직임', caption:'움직이는 곳을 찾아보세요', description:'움직임이 잡힌 곳을 초록색으로 표시했어요.', analysis:'지금 장면의 움직임', tag:'현재 장면', detail:'지금 장면의 움직임을 이 영상의 평균과 비교했어요. 1배보다 크면 영상 평균보다 많이 움직인 때예요.' },
+    density: { title:'움직인 곳', caption:'움직임이 많았던 곳', description:'움직임이 많은 곳은 노란색이나 붉은색으로 보여요.', analysis:'주로 움직인 곳', tag:'현재 장면', detail:'같은 장면 안에서 움직임을 비교했어요. 색이 진할수록 움직임이 많이 잡힌 곳이에요. 색은 닭의 수를 뜻하지 않아요.' },
+    pattern: { title:'이동 방향', caption:'움직인 방향', description:'화살표를 따라 움직인 방향을 볼 수 있어요.', analysis:'시간에 따른 움직임', tag:'시간에 따라', detail:'앞뒤 장면을 비교해 움직인 방향을 표시했어요. 화살표는 방향을, 그래프는 시간에 따라 움직임이 달라진 모습을 보여줘요.' }
   };
-  const zoneNames = ['좌측 상단','상단 중앙','우측 상단','좌측 중앙','중앙','우측 중앙','좌측 하단','하단 중앙','우측 하단'];
+  const zoneLabels = {'좌측 상단':'왼쪽 위','상단 중앙':'가운데 위','우측 상단':'오른쪽 위','좌측 중앙':'왼쪽','중앙':'가운데','우측 중앙':'오른쪽','좌측 하단':'왼쪽 아래','하단 중앙':'가운데 아래','우측 하단':'오른쪽 아래'};
+  const zoneNames = Object.values(zoneLabels);
+  const friendlyZone = name => zoneLabels[name] || name;
   let activeMode = 'farm';
   let analysis = null;
   let graphPoints = [];
   let mediaChange = 0;
+  const motionRatio = value => {
+    const average = analysis?.summary.averageMotionPercent;
+    return average > 0 && Number.isFinite(value) ? (value / average).toFixed(1) : null;
+  };
 
   const certificates = {
     haccp: {
-      description: '식품을 만들거나 포장하는 과정에서 위해 요소를 찾아 관리하는 기준입니다.',
+      description: '식품을 만들고 포장하는 동안 안전을 해칠 수 있는 요소를 찾아 관리하는 기준이에요.',
       source: 'https://www.standard.go.kr/KSCI/crtfcSystem/searchCrtfcSystemView.do?crtfcstId=0000000470&crtfcstReformNo=0000&firstChk=ok&menuId=60373&topMenuId=536&upperMenuId=537&viewPage=system'
     },
     antibiotic: {
-      description: '사료와 사육 관리가 무항생제축산물 기준에 맞는지 확인하는 인증입니다.',
+      description: '사료와 사육 관리가 무항생제축산물 기준에 맞는지 확인하는 인증이에요.',
       source: 'https://www.naqs.go.kr/hp/contents/contentsTab.do?menuId=MN20390'
     },
     sixth: {
-      description: '지역 농산물 생산과 함께 가공이나 판매, 체험 사업을 운영하는 경영체에 주는 인증입니다.',
+      description: '농산물을 생산하면서 가공이나 판매, 체험 사업도 함께 운영하는 곳에 주는 인증이에요.',
       source: 'https://xn--980b99s59h34f6tl.com/home/biz/company.cs?act=view&idx=4504'
     },
     naepo: {
-      description: '내포천애는 홍성군의 농특산물 공동브랜드입니다.',
+      description: '내포천애는 홍성군에서 함께 사용하는 농특산물 브랜드예요.',
       source: 'https://council.hongseong.go.kr/kr/speakfiveBBSview.do?flag=all&list_style=&page=17&schwrd=&uid=C38E22E0733D88B21D7A1C5CB1346289'
     }
   };
@@ -131,8 +137,10 @@
     const color = activeMode === 'activity' ? '#568e73' : activeMode === 'pattern' ? '#c29b56' : '#728eac';
     graphPoints = frames.map(frame => [4 + frame.t / analysis.duration * 312, 76 - frame.motionPercent / max * 70]);
     const points = graphPoints.map(point => point.join(',')).join(' ');
-    $('analysis-chart').innerHTML = `<svg viewBox="0 0 320 80" aria-hidden="true"><path d="M0 25H320M0 55H320" fill="none" stroke="#edf0f3"/><polygon points="4,80 ${points} 316,80" fill="${color}" opacity=".08"/><polyline points="${points}" fill="none" stroke="${color}" stroke-width="1.8" stroke-linejoin="round"/><line id="chart-cursor" x1="4" x2="4" y1="0" y2="80" stroke="${color}" stroke-width="1" opacity=".4"/><circle id="chart-point" cx="4" cy="76" r="3.5" fill="${color}"/></svg>`;
-    $('analysis-chart').setAttribute('aria-label', `영상 전체 움직임. 평균 ${analysis.summary.averageMotionPercent}%, 최대 ${analysis.summary.peakMotionPercent}%, 최대 시점 ${analysis.summary.peakTime}초.`);
+    const averageY = 76 - analysis.summary.averageMotionPercent / max * 70;
+    $('analysis-chart').innerHTML = `<svg viewBox="0 0 320 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 25H320M0 55H320" fill="none" stroke="#edf0f3"/><polygon points="4,80 ${points} 316,80" fill="${color}" opacity=".08"/><line class="chart-average" x1="4" x2="316" y1="${averageY}" y2="${averageY}" stroke="#7e857e" stroke-width="1" stroke-dasharray="4 3"/><polyline points="${points}" fill="none" stroke="${color}" stroke-width="1.8" stroke-linejoin="round"/><line id="chart-cursor" x1="4" x2="4" y1="0" y2="80" stroke="${color}" stroke-width="1" opacity=".4"/><circle id="chart-point" cx="4" cy="76" r="3.5" fill="${color}"/></svg>`;
+    const peakRatio = motionRatio(analysis.summary.peakMotionPercent);
+    $('analysis-chart').setAttribute('aria-label', `시간에 따른 움직임이에요. 실선이 점선보다 높으면 이 영상 평균보다 움직임이 많은 때예요. ${analysis.summary.peakTime}초 무렵에 가장 많았어요.${peakRatio ? ` 영상 평균의 약 ${peakRatio}배였어요.` : ''}`);
   }
   function updateFrame() {
     if (!analysis) return;
@@ -142,21 +150,24 @@
     const summary = analysis.summary;
     text('current-time', clock(time));
     if (activeMode === 'farm') {
-      text('live-value', Math.round(analysis.duration)); text('live-unit', '초'); text('metric-label', '전체 영상 길이');
+      text('live-value', clock(summary.peakTime)); text('live-unit', ''); text('metric-label', '가장 많이 움직인 때');
     } else if (activeMode === 'activity') {
-      text('live-value', frame.motionPercent.toFixed(1)); text('live-unit', '%'); text('metric-label', `${clock(time)} 현재 장면의 움직임`);
+      const ratio = motionRatio(frame.motionPercent);
+      text('live-value', ratio || '-'); text('live-unit', ratio ? '배' : ''); text('metric-label', '이 영상 평균과 비교');
     } else if (activeMode === 'density') {
-      text('live-value', frame.dominantZone); text('live-unit', ''); text('metric-label', '움직임이 가장 많이 잡힌 구역');
+      text('live-value', friendlyZone(frame.dominantZone)); text('live-unit', ''); text('metric-label', '지금 가장 많이 움직인 곳');
+      text('stat-two-value', clock(time));
       $('live-value').style.fontSize = '30px';
-      const maxZone = Math.max(...frame.zones, 1);
+      const maxZone = Math.max(...frame.zones, 0);
       [...$('zone-grid').children].forEach((cell, i) => {
-        const intensity = frame.zones[i] / maxZone;
+        const intensity = maxZone > 0 ? frame.zones[i] / maxZone : 0;
         cell.style.background = `hsl(${145 - intensity * 105} ${22 + intensity * 35}% ${96 - intensity * 25}%)`;
-        cell.querySelector('strong').textContent = frame.zones[i].toFixed(1) + '%';
+        cell.querySelector('strong').textContent = intensity >= .67 ? '많음' : intensity >= .33 ? '중간' : '적음';
       });
     } else {
-      text('live-value', clock(summary.peakTime)); text('live-unit', ''); text('metric-label', '움직임이 가장 컸던 시점');
-      text('stat-two-value', `${(frame.motionPercent - (analysis.frames[Math.max(index - 1, 0)].motionPercent)).toFixed(1)}%p`);
+      text('live-value', clock(summary.peakTime)); text('live-unit', ''); text('metric-label', '가장 많이 움직인 때');
+      const change = Number((frame.motionPercent - analysis.frames[Math.max(index - 1, 0)].motionPercent).toFixed(1));
+      text('stat-two-value', change > 0 ? '늘었어요' : change < 0 ? '줄었어요' : '비슷해요');
     }
     if (activeMode !== 'density') $('live-value').style.fontSize = '';
     if (graphPoints[index] && $('chart-cursor')) {
@@ -174,26 +185,28 @@
     $('zone-grid').hidden = activeMode !== 'density';
     $('zone-legend').hidden = activeMode !== 'density';
     $('chart-block').hidden = activeMode === 'density';
-    if (!analysis) { $('analysis-chart').textContent = '분석 데이터를 불러오는 중입니다.'; return; }
+    if (!analysis) { $('analysis-chart').textContent = '영상 분석 내용을 불러오고 있어요.'; return; }
     const summary = analysis.summary;
+    const peakRatio = motionRatio(summary.peakMotionPercent);
+    const peakComparison = peakRatio ? `약 ${peakRatio}배` : '비교하기 어려워요';
     const duration = `${Math.round(analysis.duration)}초`;
-    text('video-duration', `${duration} 영상`); text('chart-end', clock(Math.round(analysis.duration)));
+    text('video-duration', `${duration} 영상`); text('chart-end', clock(Math.round(analysis.duration))); text('chart-title', '시간에 따른 움직임');
     if (activeMode === 'farm') {
-      text('stat-one-label','평균 움직임'); text('stat-one-value', `${summary.averageMotionPercent.toFixed(1)}%`);
-      text('stat-two-label','주요 활동 구역'); text('stat-two-value',summary.activeZoneLabel);
+      text('stat-one-label','영상 평균과 비교'); text('stat-one-value', peakComparison);
+      text('stat-two-label','주로 움직인 곳'); text('stat-two-value',friendlyZone(summary.activeZoneLabel));
     } else if (activeMode === 'activity') {
-      text('stat-one-label','영상 평균'); text('stat-one-value',`${summary.averageMotionPercent.toFixed(1)}%`);
-      text('stat-two-label','최대 움직임'); text('stat-two-value',`${summary.peakMotionPercent.toFixed(1)}%`);
+      text('stat-one-label','가장 많이 움직인 때'); text('stat-one-value',clock(summary.peakTime));
+      text('stat-two-label','그때는 영상 평균의'); text('stat-two-value',peakComparison);
     } else if (activeMode === 'density') {
-      text('stat-one-label','전체 영상 주요 구역'); text('stat-one-value',summary.activeZoneLabel);
-      text('stat-two-label','분석 구역'); text('stat-two-value','9개');
+      text('stat-one-label','영상에서 주로 움직인 곳'); text('stat-one-value',friendlyZone(summary.activeZoneLabel));
+      text('stat-two-label','지금 보고 있는 때'); text('stat-two-value',clock(video.currentTime));
     } else {
-      text('stat-one-label','최대 움직임'); text('stat-one-value',`${summary.peakMotionPercent.toFixed(1)}%`);
-      text('stat-two-label','직전 구간 대비'); text('stat-two-value','0.0%p');
+      text('stat-one-label','가장 많을 때는 영상 평균의'); text('stat-one-value',peakComparison);
+      text('stat-two-label','조금 전과 비교하면'); text('stat-two-value','비슷해요');
     }
     drawChart(); updateFrame();
   }
-  $('zone-grid').innerHTML = zoneNames.map(name => `<div><span>${name}</span><strong>0%</strong></div>`).join('');
+  $('zone-grid').innerHTML = zoneNames.map(name => `<div><span>${name}</span><strong>적음</strong></div>`).join('');
   async function selectMode(tab, autoplay = true) {
     const nextMode = tab.dataset.mode;
     if (nextMode === activeMode) { if (autoplay) attemptPlay(); return; }
@@ -250,7 +263,7 @@
     if (analysis) seekTo(analysis.summary.peakTime);
   });
 
-  fetch('/assets/jcr-video-analysis-20261105.json?v=4-copy').then(response => {
+  fetch('/assets/jcr-video-analysis-20261105.json?v=5-friendly').then(response => {
     if (!response.ok) throw new Error('analysis unavailable');
     return response.json();
   }).then(result => {
@@ -259,10 +272,10 @@
     const { averageMotionPercent, peakMotionPercent, peakTime, observation } = result.summary;
     if (averageMotionPercent > 0 && peakMotionPercent > 0) {
       const ratio = (peakMotionPercent / averageMotionPercent).toFixed(1);
-      text('video-insight-title', `${peakTime}초 무렵에 움직임이 가장 많이 잡혔습니다.`);
-      text('video-insight-reason', `${result.sampleInterval}초 간격으로 앞뒤 장면이 얼마나 달라졌는지 비교했습니다. ${peakTime}초 무렵의 변화가 가장 컸고 이 영상 평균의 약 ${ratio}배여서 움직임이 가장 많은 장면으로 골랐습니다.`);
+      text('video-insight-title', `움직임이 가장 많았던 건 ${peakTime}초 무렵이에요.`);
+      text('video-insight-reason', `앞뒤 장면을 비교해 보니 ${peakTime}초 무렵의 움직임이 이 영상 평균의 약 ${ratio}배로 가장 많았어요. 그래서 이 장면을 골랐어요.`);
       $('video-insight-reason').hidden = false;
-      text('video-conclusion', `움직임이 잡힌 화면의 비율은 평균 ${averageMotionPercent.toFixed(1)}%, ${peakTime}초 무렵에는 ${peakMotionPercent.toFixed(1)}%였습니다.`);
+      text('video-conclusion', '그래프가 높은 곳일수록 움직임이 많이 잡힌 장면이에요. 같은 영상 안에서 비교했어요.');
       $('video-conclusion').hidden = false;
       text('video-peak-label', `${peakTime}초 장면 보기`);
       $('video-peak').hidden = false;
@@ -270,8 +283,8 @@
     if (observation) text('video-insight-description', observation);
     renderMode();
   }).catch(() => {
-    $('analysis-chart').textContent = '분석 기록을 불러오지 못했습니다.';
-    text('analysis-detail','다시 접속하면 분석 기록을 불러옵니다. 영상은 재생할 수 있습니다.');
+    $('analysis-chart').textContent = '영상 분석 내용을 불러오지 못했어요.';
+    text('analysis-detail','새로고침해 보세요. 농장 영상은 그대로 볼 수 있어요.');
   });
   renderMode();
 
