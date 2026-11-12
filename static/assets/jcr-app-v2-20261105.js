@@ -216,8 +216,8 @@
     video.pause(); activeMode = nextMode; videoError.hidden = true;
     tabs.forEach(item => { const selected = item === tab; item.setAttribute('aria-selected', String(selected)); item.tabIndex = selected ? 0 : -1; });
     $('video-panel').setAttribute('aria-labelledby',tab.id);
-    video.poster = `/assets/jcr-${activeMode}-poster-v2.webp?v=3-friendly`;
-    video.src = `/videos/jcr-${activeMode}-web-20261105.mp4?v=2-friendly`;
+    video.poster = `/assets/jcr-${activeMode}-poster-v2.webp?v=4-friendly`;
+    video.src = `/videos/jcr-${activeMode}-web-20261105.mp4?v=3-friendly`;
     video.setAttribute('aria-label',modes[activeMode].title + ' 영상');
     playButton.hidden = false;
     renderMode();
