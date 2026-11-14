@@ -9,11 +9,11 @@
   <link rel="icon" href="/assets/i4-company-logo-20261105.jpeg">
   <link rel="preload" as="image" href="/assets/i4-wordmark-20261111.webp">
   <link rel="preload" as="image" href="/assets/egg-hero-20261111.webp">
-  <link rel="stylesheet" href="/assets/jcr-app-v2-20261105.css?v=10-chart-fix">
+  <link rel="stylesheet" href="/assets/jcr-app-v2-20261105.css?v=11-mobile-layout">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKZ6FWYZ9D"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XKZ6FWYZ9D');</script>
   <script id="report-data" type="application/json">$report_json</script>
-  <script src="/assets/jcr-app-v2-20261105.js?v=11-chart-fix" defer></script>
+  <script src="/assets/jcr-app-v2-20261105.js?v=12-mobile-layout" defer></script>
 </head>
 <body>
 <div class="brand-intro" id="brand-intro" aria-hidden="true">
@@ -46,7 +46,7 @@
     <div class="hero-copy">
       <p class="hero-brand">난각번호 1번</p>
       <h1 id="hero-title">자연방사<br>유정란</h1>
-      <p class="hero-description">닭들이 어떻게 지내는지 볼 수 있어요.</p>
+      <p class="hero-description">닭들이 지내는 곳을<br>영상으로 담았어요.</p>
       <a class="button button-dark" href="#farm">농장 둘러보기 <svg class="icon"><use href="#i-arrow"/></svg></a>
     </div>
   </section>
@@ -54,9 +54,9 @@
   <section class="content-section page-shell" data-section="farm" id="farm" aria-labelledby="farm-title">
     <div class="farm-layout">
       <div class="farm-intro">
-        <span class="eyebrow">농장 이야기</span>
-        <h2 class="page-title" id="farm-title">충남 홍성에서 온<br>자연방사 유정란</h2>
-        <p class="page-description">닭들이 지내는 모습을 농장 영상으로 담았어요.</p>
+        <span class="eyebrow">키우는 과정</span>
+        <h2 class="page-title" id="farm-title">클로렐라 배양액으로 키운<br>자연방사 1번 유정란</h2>
+        <p class="page-description">자연방사로 키운 닭에게 클로렐라 배양액을 먹여요. 농장에서 지내는 모습도 영상으로 볼 수 있어요.</p>
         <div class="farm-points">
           <div><svg class="icon"><use href="#i-leaf"/></svg><span>난각번호 1번</span></div>
           <div><svg class="icon"><use href="#i-shield"/></svg><span>무항생제</span></div>
@@ -64,11 +64,11 @@
         <a class="farm-video-link" href="#farm-video">농장 영상 보기 <svg class="icon"><use href="#i-arrow"/></svg></a>
       </div>
       <figure class="farm-overview">
-        <div class="farm-photo">
-          <img src="/assets/jcr-farm-poster-v2.webp" width="960" height="540" alt="농장 영상에 담긴 닭들의 야외 모습" loading="lazy">
+        <div class="farm-photo farm-process-photo">
+          <img src="/assets/chlorella-process-reference-20261114.png" width="1098" height="394" alt="클로렐라를 기르는 배양기" loading="lazy">
           <button class="icon-button photo-help" type="button" id="farm-help" aria-label="농장 정보 안내"><svg class="icon"><use href="#i-help"/></svg></button>
         </div>
-        <figcaption>농장 영상 속 한 장면</figcaption>
+        <figcaption>클로렐라 배양기</figcaption>
       </figure>
     </div>
   </section>
@@ -105,13 +105,19 @@
       <button type="button" role="tab" aria-selected="false" tabindex="-1" id="video-tab-density" aria-controls="video-panel" data-mode="density">움직인 곳</button>
       <button type="button" role="tab" aria-selected="false" tabindex="-1" id="video-tab-pattern" aria-controls="video-panel" data-mode="pattern">이동 방향</button>
     </div>
-      <div class="analysis-panel" id="video-panel" role="tabpanel" aria-labelledby="video-tab-farm">
+      <div class="analysis-panel" id="video-panel" role="tabpanel" aria-labelledby="video-tab-farm" aria-describedby="analysis-detail">
+        <div class="analysis-header">
         <div class="panel-heading"><h2 id="analysis-title">영상 속 움직임</h2><span class="soft-tag" id="analysis-tag">영상 전체</span></div>
+        <div class="metric-summary">
         <div class="live-metric"><strong id="live-value">00:00</strong><span id="live-unit"></span></div><p class="metric-label" id="metric-label">가장 많이 움직인 때</p>
+        </div>
+        </div>
+        <div class="analysis-visual">
         <div class="zone-grid" id="zone-grid" hidden aria-label="장소별 움직임"></div><div class="zone-legend" id="zone-legend" hidden><span>적게 움직임</span><i></i><span>많이 움직임</span></div>
         <div class="chart-block" id="chart-block"><div class="chart-topline"><span id="chart-title">시간별 움직임</span><span id="current-time">00:00</span></div><div class="analysis-chart" id="analysis-chart" role="img" aria-label="시간별 움직임 그래프"></div><div class="chart-labels"><span>00:00</span><span id="chart-end">00:20</span></div><p class="chart-average-key">점선은 이 영상의 평균이에요</p></div>
+        </div>
         <dl class="analysis-stats"><div><dt id="stat-one-label">영상 평균과 비교</dt><dd id="stat-one-value">확인 중</dd></div><div><dt id="stat-two-label">주로 움직인 곳</dt><dd id="stat-two-value">확인 중</dd></div></dl>
-        <p class="analysis-detail" id="analysis-detail">그래프가 높은 곳에서 더 많이 움직였어요.</p>
+        <p class="analysis-detail sr-only" id="analysis-detail">그래프가 높은 곳에서 더 많이 움직였어요.</p>
       </div>
     <div class="moments"><div class="moments-heading"><h2>장면 골라 보기</h2><span>사진을 누르면 그 장면부터 볼 수 있어요.</span></div><div class="moment-grid"><button type="button" data-seek="2"><img src="/assets/jcr-moment-1-v2.webp" width="480" height="270" alt="2초 장면" loading="lazy"><span><strong>처음 모습</strong><time>00:02</time><svg class="icon fill"><use href="#i-play"/></svg></span></button><button type="button" data-seek="10"><img src="/assets/jcr-moment-2-v2.webp" width="480" height="270" alt="10초 장면" loading="lazy"><span><strong>중간 모습</strong><time>00:10</time><svg class="icon fill"><use href="#i-play"/></svg></span></button><button type="button" data-seek="17"><img src="/assets/jcr-moment-3-v2.webp" width="480" height="270" alt="17초 장면" loading="lazy"><span><strong>후반 모습</strong><time>00:17</time><svg class="icon fill"><use href="#i-play"/></svg></span></button></div></div>
     </div>
@@ -154,7 +160,7 @@
 <dialog class="farm-info modal" id="farm-info" aria-labelledby="farm-info-title">
   <div class="dialog-header"><h2 id="farm-info-title">농장 정보 안내</h2><button class="icon-button" type="button" data-close-dialog aria-label="농장 정보 닫기"><svg class="icon"><use href="#i-close"/></svg></button></div>
   <div class="farm-info-content">
-    <p>영상에 나온 곳은 충남 홍성의 월암농장이에요.</p>
+    <p>영상은 충남 홍성의 월암농장에서 담았어요. 사진은 클로렐라를 기르는 배양기예요.</p>
     <a class="dialog-source" href="https://opengo.kr/5601fbd80e887edf2c09bbd5" target="_blank" rel="noopener noreferrer">농장 정보 더 보기 <svg class="icon"><use href="#i-arrow"/></svg></a>
   </div>
 </dialog>

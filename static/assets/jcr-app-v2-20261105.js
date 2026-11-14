@@ -157,7 +157,7 @@
     } else if (activeMode === 'density') {
       text('live-value', friendlyZone(frame.dominantZone)); text('live-unit', ''); text('metric-label', '지금 가장 많이 움직인 곳');
       text('stat-two-value', clock(time));
-      $('live-value').style.fontSize = '30px';
+      $('live-value').style.fontSize = '24px';
       const maxZone = Math.max(...frame.zones, 0);
       [...$('zone-grid').children].forEach((cell, i) => {
         const intensity = maxZone > 0 ? frame.zones[i] / maxZone : 0;
