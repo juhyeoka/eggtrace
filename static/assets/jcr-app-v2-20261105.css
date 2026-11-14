@@ -237,7 +237,7 @@ html.modal-open { overflow:hidden; }
   .hero-copy { position:relative; z-index:1; padding:30px 22px; margin:0; }
   .hero h1 { font-size:35px; line-height:1.22; letter-spacing:-1.4px; }
   .hero-media { position:absolute; inset:0; height:100%; }
-  .hero-media img { object-position:right bottom; }
+  .hero-media img { object-position:90% bottom; }
   .hero-description { max-width:190px; font-size:14px; line-height:1.6; margin-top:14px; }
   .hero-copy .button { margin-top:16px; padding:10px 16px; min-height:42px; font-size:13px; }
   .hero-brand { font-size:12px; margin-bottom:12px; }
