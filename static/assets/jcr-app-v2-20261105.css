@@ -99,11 +99,6 @@ h1,h2,h3,p { word-break:keep-all; }
 .farm-video-link .icon { width:16px; height:16px; }
 .farm-links { display:flex; align-items:center; flex-wrap:wrap; gap:2px 22px; margin-top:20px; }
 .farm-links .farm-video-link { margin-top:0; }
-.nutrition-source { display:inline-flex; align-items:center; flex-wrap:wrap; gap:6px; min-height:40px; max-width:100%; font-size:12px; font-weight:500; color:var(--muted); }
-.nutrition-source:hover>span { text-decoration:underline; }
-.nutrition-source small { font-size:10px; font-weight:400; }
-.nutrition-source .icon { width:13px; height:13px; }
-.shop-copy .nutrition-source { margin:-8px 0 16px; }
 .farm-overview { margin:0; background:white; border-radius:12px; overflow:hidden; }
 .farm-photo { position:relative; aspect-ratio:526/305; overflow:hidden; }
 .farm-photo>img { width:100%; height:100%; object-fit:cover; }
