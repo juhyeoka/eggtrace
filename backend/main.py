@@ -18,13 +18,15 @@ STATIC_DIR = BASE_DIR / "static"
 VIDEOS_DIR = STATIC_DIR / "videos"
 THUMBS_DIR = DATA_DIR / "thumbs"
 HEATMAPS_DIR = DATA_DIR / "heatmaps"
+WEEKLY_DIR = STATIC_DIR / "weekly"
 EVENTS_FILE = DATA_DIR / "events.jsonl"
 
-for d in (DATA_DIR, STATIC_DIR, VIDEOS_DIR, THUMBS_DIR, HEATMAPS_DIR):
+for d in (DATA_DIR, STATIC_DIR, VIDEOS_DIR, THUMBS_DIR, HEATMAPS_DIR, WEEKLY_DIR):
     d.mkdir(parents=True, exist_ok=True)
 
 app.mount("/assets", StaticFiles(directory=str(STATIC_DIR / "assets")), name="assets")
 app.mount("/videos", StaticFiles(directory=str(VIDEOS_DIR)), name="videos")
+app.mount("/weekly", StaticFiles(directory=str(WEEKLY_DIR)), name="weekly")
 app.mount("/thumbs", StaticFiles(directory=str(THUMBS_DIR)), name="thumbs")
 app.mount("/heatmaps", StaticFiles(directory=str(HEATMAPS_DIR)), name="heatmaps")
 

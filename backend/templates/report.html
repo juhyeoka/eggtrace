@@ -9,11 +9,11 @@
   <link rel="icon" href="/assets/i4-company-logo-20261105.jpeg">
   <link rel="preload" as="image" href="/assets/i4-wordmark-20261111.webp">
   <link rel="preload" as="image" href="/assets/egg-hero-20261111.webp">
-  <link rel="stylesheet" href="/assets/jcr-app-v2-20261105.css?v=12-mobile-layout">
+  <link rel="stylesheet" href="/assets/jcr-app-v2-20261105.css?v=13-weekly-video">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKZ6FWYZ9D"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XKZ6FWYZ9D');</script>
   <script id="report-data" type="application/json">$report_json</script>
-  <script src="/assets/jcr-app-v2-20261105.js?v=12-mobile-layout" defer></script>
+  <script src="/assets/jcr-app-v2-20261105.js?v=13-weekly-video" defer></script>
 </head>
 <body>
 <div class="brand-intro" id="brand-intro" aria-hidden="true">
@@ -61,7 +61,7 @@
           <div><svg class="icon"><use href="#i-leaf"/></svg><span>난각번호 1번</span></div>
           <div><svg class="icon"><use href="#i-shield"/></svg><span>무항생제</span></div>
         </div>
-        <a class="farm-video-link" href="#farm-video">농장 영상 보기 <svg class="icon"><use href="#i-arrow"/></svg></a>
+        <div class="farm-links"><a class="farm-video-link" href="#farm-video">농장 영상 보기 <svg class="icon"><use href="#i-arrow"/></svg></a><a class="nutrition-source" href="https://ehongseong.com/shop/shopdetail.html?branduid=11331460" target="_blank" rel="noopener noreferrer"><span>칼슘·콜레스테롤 자료 보기</span><small>생산자 공개</small><svg class="icon"><use href="#i-arrow"/></svg></a></div>
       </div>
       <figure class="farm-overview">
         <div class="farm-photo farm-process-photo">
@@ -76,12 +76,12 @@
   <section class="content-section page-shell video-page" data-section="farm-video" id="farm-video" aria-labelledby="video-title">
     <div class="page-heading">
       <h2 class="page-title" id="video-title" tabindex="-1">농장 영상</h2>
-      <span class="video-length" id="video-duration">20초 영상</span>
+      <div class="video-meta"><span class="video-update" $video_update_hidden>$video_update</span><span class="video-length" id="video-duration">$video_duration</span></div>
     </div>
-    <div class="video-layout">
+    <div class="video-layout $video_portrait">
       <div class="video-column">
-        <div class="video-frame">
-          <video id="farm-player" controls playsinline muted preload="metadata" poster="/assets/jcr-farm-poster-v2.webp" aria-label="농장 영상"><source src="/videos/jcr-farm-web-20261105.mp4" type="video/mp4"></video>
+        <div class="video-frame $video_portrait" style="--video-aspect:$video_aspect">
+          <video id="farm-player" controls playsinline muted preload="metadata" poster="$video_poster_url" aria-label="농장 영상"><source src="$video_url" type="video/mp4"></video>
           <button class="video-play" type="button" id="video-play" aria-label="영상 재생"><svg class="icon fill"><use href="#i-play"/></svg></button>
         </div>
         <div class="video-caption" id="video-caption-block" hidden><h3 id="video-caption-title">농장 모습</h3><p id="video-caption">닭들이 지내는 모습을 담았어요.</p></div>
@@ -119,7 +119,7 @@
         <dl class="analysis-stats"><div><dt id="stat-one-label">영상 평균과 비교</dt><dd id="stat-one-value">확인 중</dd></div><div><dt id="stat-two-label">주로 움직인 곳</dt><dd id="stat-two-value">확인 중</dd></div></dl>
         <p class="analysis-detail sr-only" id="analysis-detail">그래프가 높은 곳에서 더 많이 움직였어요.</p>
       </div>
-    <div class="moments"><div class="moments-heading"><h2>장면 골라 보기</h2><span>사진을 누르면 그 장면부터 볼 수 있어요.</span></div><div class="moment-grid"><button type="button" data-seek="2"><img src="/assets/jcr-moment-1-v2.webp" width="480" height="270" alt="2초 장면" loading="lazy"><span><strong>처음 모습</strong><time>00:02</time><svg class="icon fill"><use href="#i-play"/></svg></span></button><button type="button" data-seek="10"><img src="/assets/jcr-moment-2-v2.webp" width="480" height="270" alt="10초 장면" loading="lazy"><span><strong>중간 모습</strong><time>00:10</time><svg class="icon fill"><use href="#i-play"/></svg></span></button><button type="button" data-seek="17"><img src="/assets/jcr-moment-3-v2.webp" width="480" height="270" alt="17초 장면" loading="lazy"><span><strong>후반 모습</strong><time>00:17</time><svg class="icon fill"><use href="#i-play"/></svg></span></button></div></div>
+    <div class="moments"><div class="moments-heading"><h2>장면 골라 보기</h2><span>사진을 누르면 그 장면부터 볼 수 있어요.</span></div><div class="moment-grid">$video_moments</div></div>
     </div>
   </section>
 
@@ -130,7 +130,7 @@
   <section class="content-section page-shell shop-section" data-section="shop" id="shop" aria-labelledby="shop-title">
     <div class="shop-layout">
       <div class="shop-image"><img src="/assets/egg-family-20261111.webp" width="1254" height="1254" alt="달걀을 먹으며 웃는 아이와 바구니에 담긴 달걀" loading="lazy"></div>
-      <div class="shop-copy"><h2 class="page-title" id="shop-title">자연방사 유정란 <span class="product-count">20구</span></h2><p class="page-description">난각번호 1번, 국내산 유정란이에요.</p><div class="shop-features"><span>난각번호 1번</span><span>무항생제</span></div><button class="button button-dark full-width" type="button" data-open-purchase><svg class="icon"><use href="#i-bag"/></svg> 상품 정보 보기 <svg class="icon end"><use href="#i-arrow"/></svg></button></div>
+      <div class="shop-copy"><h2 class="page-title" id="shop-title">클로렐라 자연방사 유정란 <span class="product-count">20구</span></h2><p class="page-description">클로렐라 배양액을 먹인 닭이 낳은 국내산 유정란이에요.</p><div class="shop-features"><span>클로렐라 급여</span><span>난각번호 1번</span><span>무항생제</span></div><a class="nutrition-source" href="https://ehongseong.com/shop/shopdetail.html?branduid=11331460" target="_blank" rel="noopener noreferrer"><span>칼슘·콜레스테롤 자료 보기</span><small>생산자 공개</small><svg class="icon"><use href="#i-arrow"/></svg></a><button class="button button-dark full-width" type="button" data-open-purchase><svg class="icon"><use href="#i-bag"/></svg> 상품 정보 보기 <svg class="icon end"><use href="#i-arrow"/></svg></button></div>
     </div>
   </section>
 </main>
@@ -151,7 +151,7 @@
 <button class="floating-shop" type="button" data-open-purchase aria-label="상품 정보 열기"><svg class="icon"><use href="#i-bag"/></svg><span>구매하기</span></button>
 
 <dialog class="farm-notice modal" id="farm-notice" aria-labelledby="notice-title"><h2 id="notice-title" class="sr-only">농장 안내</h2><div class="notice-content"><img src="/assets/farm-notice-20261105.png" width="1080" height="1350" alt="농장 방역 안내. 적용 기간 2026년 10월 20일부터 2027년 2월 28일까지, 발생 상황에 따라 조정 가능."></div><div class="notice-actions"><button type="button" id="notice-hide">오늘 하루 보지 않기</button><button type="button" data-close-dialog>닫기 <svg class="icon"><use href="#i-close"/></svg></button></div></dialog>
-<dialog class="purchase-dialog modal" id="purchase-dialog" aria-labelledby="purchase-title"><div class="dialog-header"><span>상품 정보</span><button class="icon-button" type="button" data-close-dialog aria-label="구매 화면 닫기"><svg class="icon"><use href="#i-close"/></svg></button></div><div class="purchase-scroll"><div class="purchase-image"><img src="/assets/egg-family-20261111.webp" width="1254" height="1254" alt="달걀을 먹으며 웃는 아이와 바구니에 담긴 달걀"></div><h2 id="purchase-title">자연방사 유정란 20구</h2><p class="purchase-subtitle">난각번호 1번</p><dl class="purchase-details"><div><dt>구성</dt><dd>국내산 계란 20구</dd></div><div><dt>난각번호</dt><dd>1번</dd></div><div><dt>인증</dt><dd>무항생제</dd></div></dl></div><div class="purchase-bottom"><a class="button button-dark full-width" id="purchase-link" hidden target="_blank" rel="noopener noreferrer">판매처에서 구매하기 <svg class="icon"><use href="#i-arrow"/></svg></a><button class="button button-unavailable full-width" id="purchase-pending" type="button" disabled>판매처 확인 중</button></div></dialog>
+<dialog class="purchase-dialog modal" id="purchase-dialog" aria-labelledby="purchase-title"><div class="dialog-header"><span>상품 정보</span><button class="icon-button" type="button" data-close-dialog aria-label="구매 화면 닫기"><svg class="icon"><use href="#i-close"/></svg></button></div><div class="purchase-scroll"><div class="purchase-image"><img src="/assets/egg-family-20261111.webp" width="1254" height="1254" alt="달걀을 먹으며 웃는 아이와 바구니에 담긴 달걀"></div><h2 id="purchase-title">클로렐라 자연방사 유정란 20구</h2><p class="purchase-subtitle">난각번호 1번</p><dl class="purchase-details"><div><dt>사육 과정</dt><dd>클로렐라 배양액 급여</dd></div><div><dt>구성</dt><dd>국내산 계란 20구</dd></div><div><dt>난각번호</dt><dd>1번</dd></div><div><dt>인증</dt><dd>무항생제</dd></div></dl></div><div class="purchase-bottom"><a class="button button-dark full-width" id="purchase-link" hidden target="_blank" rel="noopener noreferrer">판매처에서 구매하기 <svg class="icon"><use href="#i-arrow"/></svg></a><button class="button button-unavailable full-width" id="purchase-pending" type="button" disabled>판매처 확인 중</button></div></dialog>
 <dialog class="cert-dialog modal" id="cert-dialog" aria-labelledby="cert-dialog-title"><div class="dialog-header"><h2 id="cert-dialog-title">인증 정보</h2><button class="icon-button" type="button" data-close-dialog aria-label="인증 정보 닫기"><svg class="icon"><use href="#i-close"/></svg></button></div><div class="cert-dialog-content">
   <img class="cert-dialog-mark" id="cert-dialog-image" alt="">
   <p id="cert-dialog-description"></p>

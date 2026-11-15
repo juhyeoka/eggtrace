@@ -3,7 +3,10 @@
   const data = JSON.parse(document.getElementById('report-data').textContent);
   const $ = id => document.getElementById(id);
   const text = (id, value) => { $(id).textContent = value; };
-  const clock = value => `00:${String(Math.floor(value || 0)).padStart(2, '0')}`;
+  const clock = value => {
+    const seconds = Math.max(0, Math.floor(value || 0));
+    return `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
+  };
   const video = $('farm-player');
   const playButton = $('video-play');
   const videoError = $('video-error');
@@ -15,6 +18,11 @@
     activity: { title:'움직임', caption:'움직이는 곳을 찾아보세요', description:'움직임이 잡힌 곳을 초록색으로 표시했어요.', analysis:'지금 장면의 움직임', tag:'현재 장면', detail:'지금 장면의 움직임을 이 영상의 평균과 비교했어요. 1배보다 크면 영상 평균보다 많이 움직인 때예요.' },
     density: { title:'움직인 곳', caption:'움직임이 많았던 곳', description:'움직임이 많은 곳은 노란색이나 붉은색으로 보여요.', analysis:'주로 움직인 곳', tag:'현재 장면', detail:'같은 장면 안에서 움직임을 비교했어요. 색이 진할수록 움직임이 많이 잡힌 곳이에요. 색은 닭의 수를 뜻하지 않아요.' },
     pattern: { title:'이동 방향', caption:'움직인 방향', description:'화살표를 따라 움직인 방향을 볼 수 있어요.', analysis:'시간에 따른 움직임', tag:'시간에 따라', detail:'앞뒤 장면을 비교해 움직인 방향을 표시했어요. 화살표는 방향을, 그래프는 시간에 따라 움직임이 달라진 모습을 보여줘요.' }
+  };
+  const media = data.weeklyVideo || {
+    analysisUrl:'/assets/jcr-video-analysis-20261105.json?v=5-friendly',
+    videos:Object.fromEntries(Object.keys(modes).map(mode => [mode, `/videos/jcr-${mode}-web-20261105.mp4?v=3-friendly`])),
+    posters:Object.fromEntries(Object.keys(modes).map(mode => [mode, `/assets/jcr-${mode}-poster-v2.webp?v=4-friendly`]))
   };
   const zoneLabels = {'좌측 상단':'왼쪽 위','상단 중앙':'가운데 위','우측 상단':'오른쪽 위','좌측 중앙':'왼쪽','중앙':'가운데','우측 중앙':'오른쪽','좌측 하단':'왼쪽 아래','하단 중앙':'가운데 아래','우측 하단':'오른쪽 아래'};
   const zoneNames = Object.values(zoneLabels);
@@ -135,10 +143,20 @@
     const frames = analysis.frames;
     const max = Math.max(...frames.map(frame => frame.motionPercent), 1) * 1.12;
     const color = activeMode === 'activity' ? '#568e73' : activeMode === 'pattern' ? '#c29b56' : '#728eac';
-    graphPoints = frames.map(frame => [4 + frame.t / analysis.duration * 312, 76 - frame.motionPercent / max * 70]);
-    const points = graphPoints.map(point => point.join(',')).join(' ');
+    graphPoints = frames.map(frame => frame.measured === false ? null : [4 + frame.t / analysis.duration * 312, 76 - frame.motionPercent / max * 70]);
+    const segments = [];
+    let segment = [];
+    graphPoints.forEach(point => {
+      if (point) segment.push(point);
+      else if (segment.length) { segments.push(segment); segment = []; }
+    });
+    if (segment.length) segments.push(segment);
+    const waves = segments.map(points => {
+      const line = points.map(point => point.join(',')).join(' ');
+      return `<polygon points="${points[0][0]},80 ${line} ${points[points.length - 1][0]},80" fill="${color}" opacity=".08"/><polyline points="${line}" fill="none" stroke="${color}" stroke-width="1.8" stroke-linejoin="round"/>`;
+    }).join('');
     const averageY = 76 - analysis.summary.averageMotionPercent / max * 70;
-    $('analysis-chart').innerHTML = `<svg viewBox="0 0 320 80" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><path d="M0 25H320M0 55H320" fill="none" stroke="#edf0f3"/><polygon points="4,80 ${points} 316,80" fill="${color}" opacity=".08"/><line class="chart-average" x1="4" x2="316" y1="${averageY}" y2="${averageY}" stroke="#7e857e" stroke-width="1" stroke-dasharray="4 3"/><polyline points="${points}" fill="none" stroke="${color}" stroke-width="1.8" stroke-linejoin="round"/><line id="chart-cursor" x1="4" x2="4" y1="0" y2="80" stroke="${color}" stroke-width="1" opacity=".4"/><circle id="chart-point" cx="4" cy="76" r="3.5" fill="${color}"/></svg>`;
+    $('analysis-chart').innerHTML = `<svg viewBox="0 0 320 80" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><path d="M0 25H320M0 55H320" fill="none" stroke="#edf0f3"/><line class="chart-average" x1="4" x2="316" y1="${averageY}" y2="${averageY}" stroke="#7e857e" stroke-width="1" stroke-dasharray="4 3"/>${waves}<line id="chart-cursor" x1="4" x2="4" y1="0" y2="80" stroke="${color}" stroke-width="1" opacity=".4"/><circle id="chart-point" cx="4" cy="76" r="3.5" fill="${color}"/></svg>`;
     const peakRatio = motionRatio(analysis.summary.peakMotionPercent);
     $('analysis-chart').setAttribute('aria-label', `시간에 따른 움직임이에요. 실선이 점선보다 높으면 이 영상 평균보다 움직임이 많은 때예요. ${analysis.summary.peakTime}초 무렵에 가장 많았어요.${peakRatio ? ` 영상 평균의 약 ${peakRatio}배였어요.` : ''}`);
   }
@@ -148,28 +166,34 @@
     const index = Math.max(0, Math.min(analysis.frames.length - 1, Math.floor(time / analysis.sampleInterval)));
     const frame = analysis.frames[index];
     const summary = analysis.summary;
+    const measured = frame.measured !== false;
     text('current-time', clock(time));
     if (activeMode === 'farm') {
       text('live-value', clock(summary.peakTime)); text('live-unit', ''); text('metric-label', '가장 많이 움직인 때');
     } else if (activeMode === 'activity') {
-      const ratio = motionRatio(frame.motionPercent);
-      text('live-value', ratio || '-'); text('live-unit', ratio ? '배' : ''); text('metric-label', '이 영상 평균과 비교');
+      const ratio = measured ? motionRatio(frame.motionPercent) : null;
+      text('live-value', ratio || '확인 중'); text('live-unit', ratio ? '배' : ''); text('metric-label', measured ? '이 영상 평균과 비교' : '다음 장면부터 비교해요');
     } else if (activeMode === 'density') {
-      text('live-value', friendlyZone(frame.dominantZone)); text('live-unit', ''); text('metric-label', '지금 가장 많이 움직인 곳');
+      text('live-value', measured ? friendlyZone(frame.dominantZone) : '확인 중'); text('live-unit', ''); text('metric-label', measured ? '지금 가장 많이 움직인 곳' : '다음 장면부터 비교해요');
       text('stat-two-value', clock(time));
       $('live-value').style.fontSize = '24px';
       const maxZone = Math.max(...frame.zones, 0);
       [...$('zone-grid').children].forEach((cell, i) => {
         const intensity = maxZone > 0 ? frame.zones[i] / maxZone : 0;
         cell.style.background = `hsl(${145 - intensity * 105} ${22 + intensity * 35}% ${96 - intensity * 25}%)`;
-        cell.querySelector('strong').textContent = intensity >= .67 ? '많음' : intensity >= .33 ? '중간' : '적음';
+        cell.querySelector('strong').textContent = !measured ? '확인 중' : intensity >= .67 ? '많음' : intensity >= .33 ? '중간' : '적음';
       });
     } else {
       text('live-value', clock(summary.peakTime)); text('live-unit', ''); text('metric-label', '가장 많이 움직인 때');
-      const change = Number((frame.motionPercent - analysis.frames[Math.max(index - 1, 0)].motionPercent).toFixed(1));
-      text('stat-two-value', change > 0 ? '늘었어요' : change < 0 ? '줄었어요' : '비슷해요');
+      const previous = analysis.frames[Math.max(index - 1, 0)];
+      const change = Number((frame.motionPercent - previous.motionPercent).toFixed(1));
+      text('stat-two-value', !measured || previous.measured === false ? '확인 중' : change > 0 ? '늘었어요' : change < 0 ? '줄었어요' : '비슷해요');
     }
     if (activeMode !== 'density') $('live-value').style.fontSize = '';
+    if ($('chart-cursor')) {
+      $('chart-cursor').style.display = graphPoints[index] ? '' : 'none';
+      $('chart-point').style.display = graphPoints[index] ? '' : 'none';
+    }
     if (graphPoints[index] && $('chart-cursor')) {
       const [x,y] = graphPoints[index];
       $('chart-cursor').setAttribute('x1',x); $('chart-cursor').setAttribute('x2',x);
@@ -216,8 +240,8 @@
     video.pause(); activeMode = nextMode; videoError.hidden = true;
     tabs.forEach(item => { const selected = item === tab; item.setAttribute('aria-selected', String(selected)); item.tabIndex = selected ? 0 : -1; });
     $('video-panel').setAttribute('aria-labelledby',tab.id);
-    video.poster = `/assets/jcr-${activeMode}-poster-v2.webp?v=4-friendly`;
-    video.src = `/videos/jcr-${activeMode}-web-20261105.mp4?v=3-friendly`;
+    video.poster = media.posters[activeMode];
+    video.src = media.videos[activeMode];
     video.setAttribute('aria-label',modes[activeMode].title + ' 영상');
     playButton.hidden = false;
     renderMode();
@@ -263,7 +287,7 @@
     if (analysis) seekTo(analysis.summary.peakTime);
   });
 
-  fetch('/assets/jcr-video-analysis-20261105.json?v=5-friendly').then(response => {
+  fetch(media.analysisUrl).then(response => {
     if (!response.ok) throw new Error('analysis unavailable');
     return response.json();
   }).then(result => {
@@ -279,6 +303,10 @@
       $('video-conclusion').hidden = false;
       text('video-peak-label', `${peakTime}초 장면 보기`);
       $('video-peak').hidden = false;
+    } else {
+      text('video-insight-title', '이번 영상에서는 뚜렷한 움직임을 잡기 어려웠어요.');
+      text('video-insight-reason', '움직임을 비교하기 어려운 장면은 숫자로 표시하지 않았어요. 원본 영상에서 닭들의 모습을 함께 살펴보세요.');
+      $('video-insight-reason').hidden = false;
     }
     if (observation) text('video-insight-description', observation);
     renderMode();

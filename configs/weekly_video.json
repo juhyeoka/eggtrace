@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "version": "2026-11-16-2d65244bf3cd",
+  "week": "2026-11-16",
+  "createdAt": "2026-11-15T15:12:33+00:00",
+  "sourceSha256": "49cd026344cc0306877b26d5938d08722b5090fad98c801ef394c95596769373",
+  "duration": 22.583,
+  "width": 540,
+  "height": 960,
+  "aspectRatio": "540 / 960",
+  "analysisUrl": "/weekly/2026-11-16-2d65244bf3cd/analysis.json",
+  "videos": {
+    "farm": "/weekly/2026-11-16-2d65244bf3cd/farm.mp4",
+    "activity": "/weekly/2026-11-16-2d65244bf3cd/activity.mp4",
+    "density": "/weekly/2026-11-16-2d65244bf3cd/density.mp4",
+    "pattern": "/weekly/2026-11-16-2d65244bf3cd/pattern.mp4"
+  },
+  "posters": {
+    "farm": "/weekly/2026-11-16-2d65244bf3cd/farm.webp",
+    "activity": "/weekly/2026-11-16-2d65244bf3cd/activity.webp",
+    "density": "/weekly/2026-11-16-2d65244bf3cd/density.webp",
+    "pattern": "/weekly/2026-11-16-2d65244bf3cd/pattern.webp"
+  },
+  "posterTime": 11.5,
+  "moments": [
+    {
+      "time": 2.25,
+      "url": "/weekly/2026-11-16-2d65244bf3cd/moment-1.webp"
+    },
+    {
+      "time": 11.25,
+      "url": "/weekly/2026-11-16-2d65244bf3cd/moment-2.webp"
+    },
+    {
+      "time": 19.167,
+      "url": "/weekly/2026-11-16-2d65244bf3cd/moment-3.webp"
+    }
+  ],
+  "observation": "실내에서 닭들이 통로를 오가고, 오른쪽 단 위에서도 움직이고 있었어요.",
+  "editing": {
+    "sourceDuration": 22.567,
+    "start": 0.0,
+    "end": 22.583,
+    "strategy": "full-video"
+  }
+}

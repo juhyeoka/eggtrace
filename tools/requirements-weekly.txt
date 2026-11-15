@@ -1,0 +1,4 @@
+# Local preparation and automatic publishing; ffmpeg and ffprobe must be on PATH.
+opencv-python
+numpy
+Pillow
