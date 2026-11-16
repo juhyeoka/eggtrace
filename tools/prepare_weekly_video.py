@@ -32,7 +32,11 @@ ROOT = Path(__file__).resolve().parents[1]
 FPS = 24
 SAMPLE_INTERVAL = 0.5
 SAMPLE_STEP = int(FPS * SAMPLE_INTERVAL)
-PIPELINE_VERSION = "weekly-video-v1"
+PIPELINE_VERSION = "weekly-video-v2-chicken-mask"
+MODEL_NAME = "yolo11m-seg"
+MODEL_SHA256 = "eb9a06f63e2206c35d68d839b08c362429ebecf933ad54c1ad68b2fd001c17cf"
+MODEL_URL = "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11m-seg.pt"
+MODEL_PATH = Path.home() / "Library" / "Application Support" / "EggtraceWeekly" / "yolo11m-seg.pt"
 ZONES = [
     "좌측 상단", "상단 중앙", "우측 상단",
     "좌측 중앙", "중앙", "우측 중앙",
@@ -62,6 +66,57 @@ class SampleVisual:
     mask: np.ndarray
     flow: np.ndarray
     heat: np.ndarray
+
+
+@dataclass
+class DetectedSubjects:
+    mask: np.ndarray
+    count: int
+
+
+class ChickenMaskDetector:
+    """Keep only confident bird-instance masks, reviewed as chickens in this footage.
+
+    COCO's bird class is broader than chicken. This is not a flock census, and
+    overlapping/distant chickens can be missed. Missing detections never trigger
+    an all-class or whole-scene motion fallback.
+    """
+
+    def __init__(self, model_path: Path = MODEL_PATH, confidence: float = 0.4):
+        if not math.isfinite(confidence) or not 0.25 <= confidence <= 0.95:
+            raise ValueError("Detection confidence must be between 0.25 and 0.95")
+        if not model_path.is_file():
+            raise RuntimeError(f"Chicken mask weights are missing at {model_path}. Download the pinned official weights from {MODEL_URL}")
+        if sha256_file(model_path) != MODEL_SHA256:
+            raise RuntimeError("The chicken mask model checksum does not match the pinned official weights")
+        try:
+            from ultralytics import YOLO
+        except ImportError as error:
+            raise RuntimeError("Install tools/requirements-weekly.txt to enable chicken-only analysis") from error
+        self.model = YOLO(str(model_path))
+        if self.model.task != "segment" or self.model.names.get(14) != "bird":
+            raise RuntimeError("The chicken mask model does not provide the expected bird segmentation class")
+        self.confidence = confidence
+        self.metadata = {
+            "enabled": True, "model": MODEL_NAME, "modelSha256": MODEL_SHA256,
+            "className": "bird", "classId": 14, "maskMethod": "instance-segmentation",
+            "confidence": confidence, "imageSize": 960,
+            "missedDetectionsExcluded": True,
+            "normalization": "valid-current-detected-mask-pixels",
+        }
+
+    def detect(self, frame: np.ndarray) -> DetectedSubjects:
+        result = self.model.predict(frame, imgsz=960, classes=[14], conf=self.confidence,
+                                    retina_masks=True, device="cpu", verbose=False)[0]
+        combined = np.zeros(frame.shape[:2], dtype=np.uint8)
+        count = 0
+        if result.masks is not None and result.boxes is not None:
+            for polygon, class_id, confidence in zip(result.masks.xy, result.boxes.cls.tolist(), result.boxes.conf.tolist()):
+                if int(class_id) != 14 or confidence < self.confidence or len(polygon) < 3:
+                    continue
+                cv2.fillPoly(combined, [np.rint(polygon).astype(np.int32)], 255)
+                count += 1
+        return DetectedSubjects(combined, count)
 
 
 def current_week() -> str:
@@ -152,12 +207,13 @@ def small_gray(frame: np.ndarray) -> np.ndarray:
     return cv2.GaussianBlur(cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY), (5, 5), 0)
 
 
-def align_previous(previous: np.ndarray, current: np.ndarray) -> tuple[np.ndarray, np.ndarray, dict[str, Any]]:
+def align_previous(previous: np.ndarray, current: np.ndarray, previous_subject: np.ndarray | None = None, current_subject: np.ndarray | None = None) -> tuple[np.ndarray, np.ndarray, dict[str, Any]]:
     """Align background features so camera movement is not counted as bird movement."""
     height, width = current.shape
     valid = np.ones_like(current, dtype=np.uint8) * 255
-    metadata: dict[str, Any] = {"registered": False, "cameraShiftPixels": 0.0}
-    points = cv2.goodFeaturesToTrack(previous, maxCorners=300, qualityLevel=0.015, minDistance=7, blockSize=7)
+    metadata: dict[str, Any] = {"registered": False, "cameraShiftPixels": 0.0, "transform": np.float32([[1, 0, 0], [0, 1, 0]])}
+    background = None if previous_subject is None else cv2.bitwise_not(cv2.dilate(previous_subject, np.ones((9, 9), np.uint8)))
+    points = cv2.goodFeaturesToTrack(previous, mask=background, maxCorners=300, qualityLevel=0.015, minDistance=7, blockSize=7)
     if points is None or len(points) < 12:
         return previous, valid, metadata
     tracked, status, _ = cv2.calcOpticalFlowPyrLK(previous, current, points, None, winSize=(21, 21), maxLevel=3)
@@ -168,6 +224,12 @@ def align_previous(previous: np.ndarray, current: np.ndarray) -> tuple[np.ndarra
         return previous, valid, metadata
     good = (status.ravel() == 1) & (back_status.ravel() == 1)
     good &= np.linalg.norm(points.reshape(-1, 2) - backwards.reshape(-1, 2), axis=1) < 1.5
+    if current_subject is not None:
+        locations = np.rint(tracked.reshape(-1, 2)).astype(int)
+        inside = (locations[:, 0] >= 0) & (locations[:, 0] < width) & (locations[:, 1] >= 0) & (locations[:, 1] < height)
+        clean = np.zeros(len(locations), dtype=bool)
+        clean[inside] = current_subject[locations[inside, 1], locations[inside, 0]] == 0
+        good &= clean
     before, after = points.reshape(-1, 2)[good], tracked.reshape(-1, 2)[good]
     if len(before) < 12:
         return previous, valid, metadata
@@ -182,12 +244,12 @@ def align_previous(previous: np.ndarray, current: np.ndarray) -> tuple[np.ndarra
     aligned = cv2.warpAffine(previous, matrix, (width, height), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
     valid = cv2.warpAffine(valid, matrix, (width, height), flags=cv2.INTER_NEAREST, borderMode=cv2.BORDER_CONSTANT)
     valid = cv2.erode(valid, np.ones((5, 5), np.uint8))
-    metadata.update(registered=True, cameraShiftPixels=round(shift, 3))
+    metadata.update(registered=True, cameraShiftPixels=round(shift, 3), transform=matrix)
     return aligned, valid, metadata
 
 
-def measure_motion(previous: np.ndarray, current: np.ndarray) -> tuple[dict[str, Any], np.ndarray, np.ndarray]:
-    aligned, valid, camera = align_previous(previous, current)
+def measure_motion(previous: np.ndarray, current: np.ndarray, previous_subject: np.ndarray | None = None, current_subject: np.ndarray | None = None) -> tuple[dict[str, Any], np.ndarray, np.ndarray]:
+    aligned, valid, camera = align_previous(previous, current, previous_subject, current_subject)
     difference = current.astype(np.float32) - aligned.astype(np.float32)
     valid_pixels = valid > 0
     exposure = float(np.median(difference[valid_pixels])) if valid_pixels.any() else 0
@@ -198,8 +260,22 @@ def measure_motion(previous: np.ndarray, current: np.ndarray) -> tuple[dict[str,
     flow[~valid_pixels] = 0
     magnitude = np.linalg.norm(flow, axis=2)
     denominator = int(np.count_nonzero(valid_pixels))
+    metric_pixels = valid_pixels
     motion = float(np.count_nonzero(mask)) / denominator * 100 if denominator else 0
     scene_transition = not camera["registered"] and motion > 65 and float(np.median(magnitude[valid_pixels])) > 12
+    subjects_measured = True
+    if previous_subject is not None and current_subject is not None:
+        metric_pixels = (current_subject > 0) & valid_pixels
+        eligible = metric_pixels
+        subjects_measured = bool(np.any(previous_subject) and np.any(metric_pixels))
+        mask[~eligible] = 0
+        flow[current_subject == 0] = 0
+        magnitude = np.linalg.norm(flow, axis=2)
+        denominator = int(np.count_nonzero(metric_pixels))
+        motion = float(np.count_nonzero(mask)) / denominator * 100 if denominator and subjects_measured else 0
+        if not subjects_measured:
+            mask[:] = 0
+            flow[:] = 0
     if scene_transition:
         mask[:] = 0
         flow[:] = 0
@@ -209,24 +285,24 @@ def measure_motion(previous: np.ndarray, current: np.ndarray) -> tuple[dict[str,
     for row in range(3):
         for column in range(3):
             region = np.s_[rows[row]:rows[row + 1], columns[column]:columns[column + 1]]
-            count = int(np.count_nonzero(valid[region]))
+            count = int(np.count_nonzero(metric_pixels[region]))
             zones.append(round(float(np.count_nonzero(mask[region])) / count * 100, 2) if count else 0.0)
     record = {
         "motionPercent": round(motion, 2), "zones": zones,
-        "flow": round(float(magnitude[valid_pixels].mean()), 3) if denominator and not scene_transition else 0.0,
+        "flow": round(float(magnitude[metric_pixels].mean()), 3) if denominator and subjects_measured and not scene_transition else 0.0,
         "dominantZone": ZONES[int(np.argmax(zones))] if max(zones) > 0 else "움직임이 적었어요",
-        "measured": not scene_transition, "sceneTransition": bool(scene_transition),
+        "measured": not scene_transition and subjects_measured, "sceneTransition": bool(scene_transition),
         "cameraCompensated": camera["registered"], "cameraShiftPixels": camera["cameraShiftPixels"],
     }
     return record, mask, flow
 
 
-def choose_clip_start(path: Path, info: VideoInfo, max_duration: float) -> float:
+def choose_clip_start(path: Path, info: VideoInfo, max_duration: float, detector: ChickenMaskDetector) -> float:
     if info.duration <= max_duration:
         return 0.0
     capture = cv2.VideoCapture(str(path))
     scores: list[tuple[float, float]] = []
-    previous = None
+    previous = previous_subject = None
     try:
         for second in range(0, math.ceil(info.duration), 2):
             capture.set(cv2.CAP_PROP_POS_MSEC, second * 1000)
@@ -234,14 +310,16 @@ def choose_clip_start(path: Path, info: VideoInfo, max_duration: float) -> float
             if not ok:
                 break
             gray = small_gray(frame)
+            subject = cv2.resize(detector.detect(frame).mask, (gray.shape[1], gray.shape[0]), interpolation=cv2.INTER_NEAREST)
             if previous is not None:
-                record, _, _ = measure_motion(previous, gray)
+                record, _, _ = measure_motion(previous, gray, previous_subject, subject)
                 score = record["motionPercent"] if record["measured"] else 0
                 # A stable camera makes the automatic excerpt easier to watch.
                 if record["cameraShiftPixels"] > 12:
                     score *= 0.5
                 scores.append((float(second), score))
             previous = gray
+            previous_subject = subject
     finally:
         capture.release()
     if not scores:
@@ -260,14 +338,14 @@ def encode_original(source: Path, output: Path, width: int, height: int, start: 
     )
 
 
-def analyze_video(path: Path, observation: str | None) -> tuple[dict[str, Any], list[SampleVisual], int]:
+def analyze_video(path: Path, observation: str | None, detector: ChickenMaskDetector) -> tuple[dict[str, Any], list[SampleVisual], int]:
     capture = cv2.VideoCapture(str(path))
     if not capture.isOpened():
         raise ValueError("The prepared video could not be decoded")
     frame_count = int(capture.get(cv2.CAP_PROP_FRAME_COUNT))
     records: list[dict[str, Any]] = []
     visuals: list[SampleVisual] = []
-    previous = rolling = None
+    previous = previous_subject = rolling = None
     index = 0
     sharpest = (0.0, 0)
     try:
@@ -277,20 +355,24 @@ def analyze_video(path: Path, observation: str | None) -> tuple[dict[str, Any], 
                 if not ok:
                     raise ValueError("A sampled video frame could not be decoded")
                 gray = small_gray(frame)
+                detected = detector.detect(frame)
+                subject = cv2.resize(detected.mask, (gray.shape[1], gray.shape[0]), interpolation=cv2.INTER_NEAREST)
                 sharpness = float(cv2.Laplacian(gray, cv2.CV_64F).var())
-                if index > FPS and sharpness > sharpest[0]:
+                if index > FPS and detected.count > 0 and sharpness > sharpest[0]:
                     sharpest = (sharpness, index)
                 if previous is None:
                     mask = np.zeros_like(gray)
                     flow = np.zeros((*gray.shape, 2), np.float32)
                     record = {"motionPercent": 0.0, "zones": [0.0] * 9, "flow": 0.0, "dominantZone": "살펴보는 중", "measured": False, "sceneTransition": False, "cameraCompensated": False, "cameraShiftPixels": 0.0}
                 else:
-                    record, mask, flow = measure_motion(previous, gray)
+                    record, mask, flow = measure_motion(previous, gray, previous_subject, subject)
                 raw = cv2.GaussianBlur(mask.astype(np.float32) / 255, (0, 0), 11)
                 rolling = raw if rolling is None or record["sceneTransition"] else rolling * 0.6 + raw * 0.4
-                records.append({"t": round(index / FPS, 3), **record})
+                records.append({"t": round(index / FPS, 3), "detectedCount": detected.count,
+                                "detectionCoveragePercent": round(np.count_nonzero(subject) / subject.size * 100, 3), **record})
                 visuals.append(SampleVisual(mask, flow, rolling.copy()))
                 previous = gray
+                previous_subject = subject
             index += 1
     finally:
         capture.release()
@@ -298,17 +380,18 @@ def analyze_video(path: Path, observation: str | None) -> tuple[dict[str, Any], 
         raise ValueError("The prepared video is incomplete or too short to compare scenes")
     measured = [record for record in records if record["measured"]]
     if not measured:
-        raise ValueError("No comparable video scenes could be measured")
+        raise ValueError("No consecutive scenes with confidently detected chickens could be measured; the active video has not been replaced")
     peak = max(measured, key=lambda record: record["motionPercent"])
     average = round(float(np.mean([record["motionPercent"] for record in measured])), 2)
     zone_averages = np.mean([record["zones"] for record in measured], axis=0)
     active_index = int(np.argmax(zone_averages))
     if observation is None:
-        observation = f"영상에서는 {FRIENDLY_ZONES[active_index]} 쪽의 움직임이 두드러졌어요." if average > 0 else "닭들이 지내는 모습을 영상으로 담았어요."
+        observation = f"닭으로 인식된 부분을 살펴보니 {FRIENDLY_ZONES[active_index]} 쪽에서 움직임이 많이 잡혔어요." if average > 0 else "닭으로 인식된 부분에서는 움직임이 적게 잡혔어요."
     registered = sum(bool(record["cameraCompensated"]) for record in measured)
     payload = {
         "duration": round(frame_count / FPS, 3), "sampleInterval": SAMPLE_INTERVAL,
-        "sourceLabel": "주간 농장 영상", "method": "앞뒤 장면을 비교해 움직임을 살펴봤어요. 카메라가 움직인 부분은 배경 위치를 맞춰 줄였어요.",
+        "sourceLabel": "주간 농장 영상", "method": "닭으로 인식된 부분의 앞뒤 장면을 비교했어요. 카메라 움직임은 배경 위치를 맞춰 줄였고, 인식하지 못한 장면은 비교에서 뺐어요.",
+        "detection": detector.metadata,
         "cameraCompensation": {"enabled": True, "method": "background-feature-ransac", "registeredSamples": registered, "measuredSamples": len(measured), "sceneTransitions": sum(bool(record["sceneTransition"]) for record in records)},
         "baselineMethod": "same-video-measured-samples-only", "frames": records,
         "summary": {
@@ -364,7 +447,7 @@ def open_encoder(path: Path, width: int, height: int) -> subprocess.Popen:
     )
 
 
-def render_views(directory: Path, analysis: dict[str, Any], visuals: list[SampleVisual], poster_index: int, font_path: Path | None) -> tuple[int, int, list[dict[str, Any]]]:
+def render_views(directory: Path, analysis: dict[str, Any], visuals: list[SampleVisual], poster_index: int, font_path: Path | None, detector: ChickenMaskDetector) -> tuple[int, int, list[dict[str, Any]]]:
     capture = cv2.VideoCapture(str(directory / "farm.mp4"))
     width, height = int(capture.get(cv2.CAP_PROP_FRAME_WIDTH)), int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
     count = int(capture.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -385,36 +468,42 @@ def render_views(directory: Path, analysis: dict[str, Any], visuals: list[Sample
             if not ok:
                 break
             sample = visuals[min(index // SAMPLE_STEP, len(visuals) - 1)]
+            # Segment the CURRENT frame. A previous sample's mask must never
+            # mark empty floor after the chicken has moved out of that place.
+            subject = detector.detect(original).mask
             mask = cv2.resize(sample.mask, (width, height), interpolation=cv2.INTER_NEAREST)
+            mask[subject == 0] = 0
             activity = original.copy()
             alpha = mask.astype(np.float32)[:, :, None] / 255 * 0.28
             color = np.zeros_like(activity); color[:] = (123, 219, 86)
             activity = (activity * (1 - alpha) + color * alpha).astype(np.uint8)
-            contours, _ = cv2.findContours(cv2.dilate(mask, np.ones((7, 7), np.uint8)), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            for contour in contours:
-                if cv2.contourArea(contour) < width * height * 0.0004:
-                    continue
-                x, y, box_width, box_height = cv2.boundingRect(contour)
-                if box_width < width * 0.85 and box_height < height * 0.85:
-                    cv2.rectangle(activity, (x, y), (x + box_width, y + box_height), (135, 237, 101), 2, cv2.LINE_AA)
+            # Keep the overlay inside the detected silhouette, including edges.
+            edges = mask - cv2.erode(mask, np.ones((3, 3), np.uint8))
+            activity[edges > 0] = (135, 237, 101)
             heat = cv2.resize(sample.heat, (width, height))
             normalized = np.clip(heat / max(heat_max, 0.01), 0, 1)
+            normalized[subject == 0] = 0
             colors = cv2.applyColorMap((normalized * 255).astype(np.uint8), cv2.COLORMAP_TURBO)
             heat_alpha = (normalized * 0.58)[:, :, None]
             density = (original * (1 - heat_alpha) + colors * heat_alpha).astype(np.uint8)
             pattern = original.copy()
             flow_height, flow_width = sample.flow.shape[:2]
+            small_subject = cv2.resize(subject, (flow_width, flow_height), interpolation=cv2.INTER_NEAREST)
             scale_x, scale_y = width / flow_width, height / flow_height
             step = max(20, min(flow_width, flow_height) // 11)
             for y in range(step // 2, flow_height, step):
                 for x in range(step // 2, flow_width, step):
+                    if not small_subject[y, x]:
+                        continue
                     dx, dy = sample.flow[y, x]
                     magnitude = math.hypot(float(dx), float(dy))
                     if 0.45 < magnitude < min(flow_width, flow_height) * 0.15:
                         factor = min(2.8, 18 / magnitude)
                         start = (round(x * scale_x), round(y * scale_y))
                         end = (round((x + float(dx) * factor) * scale_x), round((y + float(dy) * factor) * scale_y))
-                        cv2.arrowedLine(pattern, start, end, (254, 205, 99), 2, cv2.LINE_AA, tipLength=0.35)
+                        arrow = pattern.copy()
+                        cv2.arrowedLine(arrow, start, end, (254, 205, 99), 2, cv2.LINE_AA, tipLength=0.35)
+                        pattern[subject > 0] = arrow[subject > 0]
             outputs = {"activity": activity, "density": density, "pattern": pattern}
             for mode, frame in outputs.items():
                 apply_plate(frame, plates[mode])
@@ -467,6 +556,9 @@ def validate_release(directory: Path, manifest: dict[str, Any]) -> None:
                 or abs(analysis["duration"] - manifest["duration"]) > 0.001
                 or not analysis["frames"] or not isinstance(analysis["summary"], dict)):
             raise ValueError("mismatched analysis")
+        if manifest.get("detection"):
+            if analysis.get("detection") != manifest["detection"] or not analysis["detection"].get("enabled"):
+                raise ValueError("mismatched chicken detection method")
         last_time = -1.0
         measured = []
         for frame in analysis["frames"]:
@@ -478,6 +570,8 @@ def validate_release(directory: Path, manifest: dict[str, Any]) -> None:
                 raise ValueError("invalid measurement")
             last_time = time
             if frame.get("measured", True):
+                if manifest.get("detection") and (frame.get("detectedCount", 0) < 1 or not 0 < frame.get("detectionCoveragePercent", 0) <= 100):
+                    raise ValueError("a measured scene has no detected chickens")
                 measured.append(frame)
         if not measured:
             raise ValueError("missing measured scenes")
@@ -514,12 +608,14 @@ def validate_release(directory: Path, manifest: dict[str, Any]) -> None:
         check_image(directory / Path(moment["url"]).name)
 
 
-def prepare_video(input_path: Path, *, week: str | None = None, output_root: Path = ROOT / "static" / "weekly", manifest_path: Path = ROOT / "configs" / "weekly_video.json", max_duration: float = 30, observation: str | None = None, font_path: Path | None = None, url_prefix: str = "/weekly") -> dict[str, Any]:
+def prepare_video(input_path: Path, *, week: str | None = None, output_root: Path = ROOT / "static" / "weekly", manifest_path: Path = ROOT / "configs" / "weekly_video.json", max_duration: float = 30, observation: str | None = None, font_path: Path | None = None, url_prefix: str = "/weekly", start_time: float | None = None, model_path: Path = MODEL_PATH, confidence: float = 0.4, detector: ChickenMaskDetector | None = None) -> dict[str, Any]:
     if not input_path.is_file():
         raise ValueError("The input video does not exist")
     if not math.isfinite(max_duration) or not 1 <= max_duration <= 300:
         raise ValueError("--max-duration must be between 1 and 300 seconds")
     max_duration = float(max_duration)
+    if start_time is not None and (not math.isfinite(start_time) or start_time < 0):
+        raise ValueError("--start must be a finite nonnegative video time")
     week = validate_week(week or current_week())
     if not url_prefix.startswith("/") or ".." in url_prefix or "?" in url_prefix or "#" in url_prefix:
         raise ValueError("The media URL prefix must be a local absolute URL path")
@@ -527,8 +623,9 @@ def prepare_video(input_path: Path, *, week: str | None = None, output_root: Pat
         raise ValueError("The requested video-label font does not exist")
     font_path = find_font(font_path)
     observation = observation.strip() if observation and observation.strip() else None
+    detector = detector or ChickenMaskDetector(model_path, confidence)
     source_hash = sha256_file(input_path)
-    options = {"pipeline": PIPELINE_VERSION, "source": source_hash, "week": week, "maxDuration": max_duration, "observation": observation, "font": sha256_file(font_path) if font_path else None, "urlPrefix": url_prefix.rstrip("/")}
+    options = {"pipeline": PIPELINE_VERSION, "source": source_hash, "week": week, "maxDuration": max_duration, "start": start_time, "detection": detector.metadata, "observation": observation, "font": sha256_file(font_path) if font_path else None, "urlPrefix": url_prefix.rstrip("/")}
     digest = hashlib.sha256(json.dumps(options, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:12]
     version = f"{week}-{digest}"
     output_root = output_root.resolve()
@@ -543,15 +640,17 @@ def prepare_video(input_path: Path, *, week: str | None = None, output_root: Pat
         atomic_json(manifest_path, cached)
         return cached
     info = probe_video(input_path)
+    if start_time is not None and start_time > info.duration - 1:
+        raise ValueError("--start must leave at least one second of footage")
     width, height = fit_dimensions(info.width, info.height)
-    start = choose_clip_start(input_path, info, max_duration)
+    start = start_time if start_time is not None else choose_clip_start(input_path, info, max_duration, detector)
     duration = min(max_duration, info.duration - start)
     with tempfile.TemporaryDirectory(prefix=".weekly-staging-", dir=output_root.parent) as temporary:
         staging = Path(temporary) / "release"
         staging.mkdir()
         encode_original(input_path, staging / "farm.mp4", width, height, start, duration)
-        analysis, visuals, poster_index = analyze_video(staging / "farm.mp4", observation)
-        width, height, moments = render_views(staging, analysis, visuals, poster_index, font_path)
+        analysis, visuals, poster_index = analyze_video(staging / "farm.mp4", observation, detector)
+        width, height, moments = render_views(staging, analysis, visuals, poster_index, font_path, detector)
         manifest = {
             "schemaVersion": 1, "version": version, "week": week,
             "createdAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -563,7 +662,8 @@ def prepare_video(input_path: Path, *, week: str | None = None, output_root: Pat
             "posterTime": round(poster_index / FPS, 3),
             "moments": [{"time": moment["time"], "url": f"{release_url}/{moment['file']}"} for moment in moments],
             "observation": analysis["summary"]["observation"],
-            "editing": {"sourceDuration": round(info.duration, 3), "start": start, "end": round(start + analysis["duration"], 3), "strategy": "full-video" if info.duration <= max_duration else "movement-window"},
+            "detection": detector.metadata,
+            "editing": {"sourceDuration": round(info.duration, 3), "start": start, "end": round(start + analysis["duration"], 3), "strategy": "reviewed-window" if start_time is not None else "full-video" if info.duration <= max_duration else "detected-chicken-movement-window"},
         }
         analysis.update(version=version, week=week, width=width, height=height, editing=manifest["editing"])
         atomic_json(staging / "analysis.json", analysis)
@@ -588,13 +688,16 @@ def main() -> int:
     parser.add_argument("--output-root", type=Path, default=ROOT / "static" / "weekly")
     parser.add_argument("--manifest", type=Path, default=ROOT / "configs" / "weekly_video.json")
     parser.add_argument("--max-duration", type=float, default=30)
+    parser.add_argument("--start", type=float, help="Optional reviewed excerpt start in source-video seconds")
+    parser.add_argument("--model", type=Path, default=MODEL_PATH, help="Local pinned official segmentation weights")
+    parser.add_argument("--confidence", type=float, default=0.4)
     parser.add_argument("--observation", help="Optional reviewed observation for this specific footage")
     parser.add_argument("--font", type=Path, help="Optional Korean font for small video labels")
     parser.add_argument("--url-prefix", default="/weekly")
     parser.add_argument("--json", action="store_true", help="Print the completed public manifest as JSON")
     args = parser.parse_args()
     try:
-        result = prepare_video(args.input, week=args.week, output_root=args.output_root, manifest_path=args.manifest, max_duration=args.max_duration, observation=args.observation, font_path=args.font, url_prefix=args.url_prefix)
+        result = prepare_video(args.input, week=args.week, output_root=args.output_root, manifest_path=args.manifest, max_duration=args.max_duration, observation=args.observation, font_path=args.font, url_prefix=args.url_prefix, start_time=args.start, model_path=args.model, confidence=args.confidence)
     except (OSError, ValueError, RuntimeError, subprocess.SubprocessError, json.JSONDecodeError, cv2.error) as error:
         print(f"Weekly video preparation failed: {error}", file=sys.stderr)
         return 1

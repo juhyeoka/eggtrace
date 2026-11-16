@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "version": "2026-11-16-91ba7ed90760",
+  "week": "2026-11-16",
+  "createdAt": "2026-11-16T01:50:41+00:00",
+  "sourceSha256": "01a0c825d256938a0386ac58fb0e26c37c19ff7f0e00ec1c997fcf6fbda043e9",
+  "duration": 30.0,
+  "width": 540,
+  "height": 960,
+  "aspectRatio": "540 / 960",
+  "analysisUrl": "/weekly/2026-11-16-91ba7ed90760/analysis.json",
+  "videos": {
+    "farm": "/weekly/2026-11-16-91ba7ed90760/farm.mp4",
+    "activity": "/weekly/2026-11-16-91ba7ed90760/activity.mp4",
+    "density": "/weekly/2026-11-16-91ba7ed90760/density.mp4",
+    "pattern": "/weekly/2026-11-16-91ba7ed90760/pattern.mp4"
+  },
+  "posters": {
+    "farm": "/weekly/2026-11-16-91ba7ed90760/farm.webp",
+    "activity": "/weekly/2026-11-16-91ba7ed90760/activity.webp",
+    "density": "/weekly/2026-11-16-91ba7ed90760/density.webp",
+    "pattern": "/weekly/2026-11-16-91ba7ed90760/pattern.webp"
+  },
+  "posterTime": 26.5,
+  "moments": [
+    {
+      "time": 3.0,
+      "url": "/weekly/2026-11-16-91ba7ed90760/moment-1.webp"
+    },
+    {
+      "time": 15.0,
+      "url": "/weekly/2026-11-16-91ba7ed90760/moment-2.webp"
+    },
+    {
+      "time": 25.458,
+      "url": "/weekly/2026-11-16-91ba7ed90760/moment-3.webp"
+    }
+  ],
+  "observation": "닭들이 가운데 발판을 따라 오가고, 주변 닭들 사이로 자리를 옮기는 모습이 보여요.",
+  "detection": {
+    "enabled": true,
+    "model": "yolo11m-seg",
+    "modelSha256": "eb9a06f63e2206c35d68d839b08c362429ebecf933ad54c1ad68b2fd001c17cf",
+    "className": "bird",
+    "classId": 14,
+    "maskMethod": "instance-segmentation",
+    "confidence": 0.4,
+    "imageSize": 960,
+    "missedDetectionsExcluded": true,
+    "normalization": "valid-current-detected-mask-pixels"
+  },
+  "editing": {
+    "sourceDuration": 67.033,
+    "start": 35.0,
+    "end": 65.0,
+    "strategy": "reviewed-window"
+  }
+}

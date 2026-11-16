@@ -282,10 +282,24 @@ html.modal-open { overflow:hidden; }
 
 .shop-layout { display:grid; grid-template-columns:1.13fr 1fr; gap:80px; align-items:center; }
 .shop-image { border-radius:12px; overflow:hidden; }
-.product-count { display:block; margin-top:8px; font-size:20px; font-weight:400; letter-spacing:0; color:var(--muted); }
-.shop-copy .page-description { margin-top:20px; }
-.shop-features { display:flex; flex-wrap:wrap; gap:8px; margin:26px 0; }
-.shop-features span { font-size:13px; border:1px solid var(--line); border-radius:6px; padding:8px 13px; }
+.product-origin { margin-bottom:9px; font-size:13px; font-weight:500; color:var(--muted); }
+.shop-copy .page-title { font-size:36px; }
+.product-count { display:flex; align-items:center; gap:10px; margin-top:12px; font-size:21px; font-weight:400; letter-spacing:0; color:var(--ink); }
+.product-count>span { font-size:17px; color:#aaa9a3; }
+.shop-copy .page-description { max-width:420px; margin-top:23px; font-size:15px; line-height:1.85; }
+.shop-features { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:25px 0 28px; }
+.shop-features>span,.product-cert { display:inline-flex; align-items:center; justify-content:center; min-height:39px; font-size:12px; border:1px solid var(--line); border-radius:6px; padding:7px 11px; }
+.product-cert { gap:6px; background:white; }
+.product-cert:hover { background:#f5f5f2; }
+.product-cert img { width:22px; height:22px; object-fit:contain; }
+.product-cert .icon { width:14px; height:14px; color:var(--muted); }
+.nutrition-facts { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:0 0 25px; padding:20px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.nutrition-facts>div+div { border-left:1px solid var(--line); padding-left:22px; }
+.nutrition-facts dt { font-size:12px; color:var(--muted); }
+.nutrition-facts dd { margin:7px 0 0; font-size:25px; font-weight:600; line-height:1.35; letter-spacing:-.6px; }
+.nutrition-facts dd>span { font-size:13px; font-weight:400; letter-spacing:0; }
+.farm-nutrition { max-width:390px; margin:28px 0 0; padding:17px 0; }
+.farm-nutrition dd { font-size:23px; }
 .video-page { padding-top:60px; }
 @media(max-width:1000px) { .shop-layout { gap:45px; } }
 @media(max-width:700px) {
@@ -294,8 +308,15 @@ html.modal-open { overflow:hidden; }
   .video-page { padding-top:24px; }
   .shop-layout { display:flex; flex-direction:column; align-items:stretch; gap:30px; }
   .shop-image { width:100%; border-radius:12px; }
-  .shop-copy .page-description { margin-top:15px; }
-  .shop-features { margin:23px 0; }
+  .shop-copy .page-title { font-size:30px; }
+  .product-origin { font-size:12px; }
+  .product-count { margin-top:10px; font-size:20px; }
+  .shop-copy .page-description { margin-top:18px; font-size:14px; line-height:1.8; }
+  .shop-features { margin:22px 0 24px; }
+  .nutrition-facts { gap:14px; padding:17px 0; margin-bottom:23px; }
+  .nutrition-facts>div+div { padding-left:16px; }
+  .nutrition-facts dd { font-size:24px; }
+  .farm-nutrition { margin:23px 0 0; }
 }
 
 .photo-help { position:absolute; top:16px; right:16px; background:#fffffff2; }

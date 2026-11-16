@@ -167,14 +167,15 @@
     const frame = analysis.frames[index];
     const summary = analysis.summary;
     const measured = frame.measured !== false;
+    const pendingLabel = frame.detectedCount === 0 ? '닭을 확인하는 중이에요' : '다음 장면부터 비교해요';
     text('current-time', clock(time));
     if (activeMode === 'farm') {
       text('live-value', clock(summary.peakTime)); text('live-unit', ''); text('metric-label', '가장 많이 움직인 때');
     } else if (activeMode === 'activity') {
       const ratio = measured ? motionRatio(frame.motionPercent) : null;
-      text('live-value', ratio || '확인 중'); text('live-unit', ratio ? '배' : ''); text('metric-label', measured ? '이 영상 평균과 비교' : '다음 장면부터 비교해요');
+      text('live-value', ratio || '확인 중'); text('live-unit', ratio ? '배' : ''); text('metric-label', measured ? '이 영상 평균과 비교' : pendingLabel);
     } else if (activeMode === 'density') {
-      text('live-value', measured ? friendlyZone(frame.dominantZone) : '확인 중'); text('live-unit', ''); text('metric-label', measured ? '지금 가장 많이 움직인 곳' : '다음 장면부터 비교해요');
+      text('live-value', measured ? friendlyZone(frame.dominantZone) : '확인 중'); text('live-unit', ''); text('metric-label', measured ? '지금 가장 많이 움직인 곳' : pendingLabel);
       text('stat-two-value', clock(time));
       $('live-value').style.fontSize = '24px';
       const maxZone = Math.max(...frame.zones, 0);
@@ -293,13 +294,21 @@
   }).then(result => {
     if (!Array.isArray(result.frames) || !result.frames.length) throw new Error('no samples');
     analysis = result;
+    const chickenOnly = result.detection?.enabled === true;
+    if (chickenOnly) {
+      modes.farm.detail = '닭으로 인식된 곳의 앞뒤 장면을 비교했어요. 그래프가 높을수록 닭의 움직임이 많이 잡힌 때예요.';
+      modes.activity.description = '닭이 움직인 곳을 초록색으로 표시했어요.';
+      modes.activity.detail = '닭으로 인식된 곳의 움직임을 이 영상의 평균과 비교했어요. 인식하기 어려운 장면은 비교에서 뺐어요.';
+      modes.density.description = '닭의 움직임이 많은 곳을 따뜻한 색으로 표시했어요.';
+      modes.pattern.description = '닭이 움직인 방향을 화살표로 표시했어요.';
+    }
     const { averageMotionPercent, peakMotionPercent, peakTime, observation } = result.summary;
     if (averageMotionPercent > 0 && peakMotionPercent > 0) {
       const ratio = (peakMotionPercent / averageMotionPercent).toFixed(1);
       text('video-insight-title', `움직임이 가장 많았던 건 ${peakTime}초 무렵이에요.`);
-      text('video-insight-reason', `앞뒤 장면을 비교해 보니 ${peakTime}초 무렵의 움직임이 이 영상 평균의 약 ${ratio}배로 가장 많았어요. 그래서 이 장면을 골랐어요.`);
+      text('video-insight-reason', `${chickenOnly ? '닭으로 인식된 곳만 골라 앞뒤 장면을 비교했어요. ' : '앞뒤 장면을 비교해 보니 '}${peakTime}초 무렵의 움직임이 이 영상 평균의 약 ${ratio}배로 가장 많았어요. 그래서 이 장면을 골랐어요.`);
       $('video-insight-reason').hidden = false;
-      text('video-conclusion', '그래프가 높은 곳일수록 움직임이 많이 잡힌 장면이에요. 같은 영상 안에서 비교했어요.');
+      text('video-conclusion', chickenOnly ? '닭으로 인식된 곳의 움직임을 비교했어요. 닭을 찾기 어려운 장면은 그래프에서 비워 뒀어요.' : '그래프가 높은 곳일수록 움직임이 많이 잡힌 장면이에요. 같은 영상 안에서 비교했어요.');
       $('video-conclusion').hidden = false;
       text('video-peak-label', `${peakTime}초 장면 보기`);
       $('video-peak').hidden = false;

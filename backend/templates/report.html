@@ -9,11 +9,11 @@
   <link rel="icon" href="/assets/i4-company-logo-20261105.jpeg">
   <link rel="preload" as="image" href="/assets/i4-wordmark-20261111.webp">
   <link rel="preload" as="image" href="/assets/egg-hero-20261111.webp">
-  <link rel="stylesheet" href="/assets/jcr-app-v2-20261105.css?v=14-remove-store-links">
+  <link rel="stylesheet" href="/assets/jcr-app-v2-20261105.css?v=16-product-nutrition">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKZ6FWYZ9D"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XKZ6FWYZ9D');</script>
   <script id="report-data" type="application/json">$report_json</script>
-  <script src="/assets/jcr-app-v2-20261105.js?v=13-weekly-video" defer></script>
+  <script src="/assets/jcr-app-v2-20261105.js?v=16-chicken-video" defer></script>
 </head>
 <body>
 <div class="brand-intro" id="brand-intro" aria-hidden="true">
@@ -57,10 +57,10 @@
         <span class="eyebrow">키우는 과정</span>
         <h2 class="page-title" id="farm-title">클로렐라 배양액으로 키운<br>자연방사 1번 유정란</h2>
         <p class="page-description">자연방사로 키운 닭에게 클로렐라 배양액을 먹여요. 농장에서 지내는 모습도 영상으로 볼 수 있어요.</p>
-        <div class="farm-points">
-          <div><svg class="icon"><use href="#i-leaf"/></svg><span>난각번호 1번</span></div>
-          <div><svg class="icon"><use href="#i-shield"/></svg><span>무항생제</span></div>
-        </div>
+        <dl class="nutrition-facts farm-nutrition" aria-label="영양 특징">
+          <div><dt>칼슘 함량</dt><dd>8% <span>증가 ↑</span></dd></div>
+          <div><dt>콜레스테롤</dt><dd>23% <span>감소 ↓</span></dd></div>
+        </dl>
         <div class="farm-links"><a class="farm-video-link" href="#farm-video">농장 영상 보기 <svg class="icon"><use href="#i-arrow"/></svg></a></div>
       </div>
       <figure class="farm-overview">
@@ -130,7 +130,21 @@
   <section class="content-section page-shell shop-section" data-section="shop" id="shop" aria-labelledby="shop-title">
     <div class="shop-layout">
       <div class="shop-image"><img src="/assets/egg-family-20261111.webp" width="1254" height="1254" alt="달걀을 먹으며 웃는 아이와 바구니에 담긴 달걀" loading="lazy"></div>
-      <div class="shop-copy"><h2 class="page-title" id="shop-title">클로렐라 자연방사 유정란 <span class="product-count">20구</span></h2><p class="page-description">클로렐라 배양액을 먹인 닭이 낳은 국내산 유정란이에요.</p><div class="shop-features"><span>클로렐라 급여</span><span>난각번호 1번</span><span>무항생제</span></div><button class="button button-dark full-width" type="button" data-open-purchase><svg class="icon"><use href="#i-bag"/></svg> 상품 정보 보기 <svg class="icon end"><use href="#i-arrow"/></svg></button></div>
+      <div class="shop-copy">
+        <p class="product-origin">난각번호 1번 · 무항생제</p>
+        <h2 class="page-title" id="shop-title">자연방사 유정란</h2>
+        <p class="product-count">20구 <span aria-hidden="true">/</span> 30구</p>
+        <p class="page-description">자연에서 자유롭게 자란 닭에게 클로렐라 배양액을 먹여요.<br>키우는 과정도 영상으로 함께 보여드려요.</p>
+        <div class="shop-features" aria-label="상품 특징">
+          <span>난각번호 1번</span><span>무항생제</span>
+          <button class="product-cert" type="button" data-cert="haccp" data-cert-image="/assets/haccp.png" data-cert-title="HACCP 안전관리 인증" aria-label="HACCP 인증 설명 보기"><img src="/assets/haccp.png" width="22" height="22" alt="">HACCP <svg class="icon"><use href="#i-help"/></svg></button>
+        </div>
+        <dl class="nutrition-facts" aria-label="영양 특징">
+          <div><dt>칼슘 함량</dt><dd>8% <span>증가 ↑</span></dd></div>
+          <div><dt>콜레스테롤</dt><dd>23% <span>감소 ↓</span></dd></div>
+        </dl>
+        <button class="button button-dark full-width" type="button" data-open-purchase><svg class="icon"><use href="#i-bag"/></svg> 상품 정보 보기 <svg class="icon end"><use href="#i-arrow"/></svg></button>
+      </div>
     </div>
   </section>
 </main>
@@ -151,7 +165,7 @@
 <button class="floating-shop" type="button" data-open-purchase aria-label="상품 정보 열기"><svg class="icon"><use href="#i-bag"/></svg><span>구매하기</span></button>
 
 <dialog class="farm-notice modal" id="farm-notice" aria-labelledby="notice-title"><h2 id="notice-title" class="sr-only">농장 안내</h2><div class="notice-content"><img src="/assets/farm-notice-20261105.png" width="1080" height="1350" alt="농장 방역 안내. 적용 기간 2026년 10월 20일부터 2027년 2월 28일까지, 발생 상황에 따라 조정 가능."></div><div class="notice-actions"><button type="button" id="notice-hide">오늘 하루 보지 않기</button><button type="button" data-close-dialog>닫기 <svg class="icon"><use href="#i-close"/></svg></button></div></dialog>
-<dialog class="purchase-dialog modal" id="purchase-dialog" aria-labelledby="purchase-title"><div class="dialog-header"><span>상품 정보</span><button class="icon-button" type="button" data-close-dialog aria-label="구매 화면 닫기"><svg class="icon"><use href="#i-close"/></svg></button></div><div class="purchase-scroll"><div class="purchase-image"><img src="/assets/egg-family-20261111.webp" width="1254" height="1254" alt="달걀을 먹으며 웃는 아이와 바구니에 담긴 달걀"></div><h2 id="purchase-title">클로렐라 자연방사 유정란 20구</h2><p class="purchase-subtitle">난각번호 1번</p><dl class="purchase-details"><div><dt>사육 과정</dt><dd>클로렐라 배양액 급여</dd></div><div><dt>구성</dt><dd>국내산 계란 20구</dd></div><div><dt>난각번호</dt><dd>1번</dd></div><div><dt>인증</dt><dd>무항생제</dd></div></dl></div><div class="purchase-bottom"><a class="button button-dark full-width" id="purchase-link" hidden target="_blank" rel="noopener noreferrer">판매처에서 구매하기 <svg class="icon"><use href="#i-arrow"/></svg></a><button class="button button-unavailable full-width" id="purchase-pending" type="button" disabled>온라인 판매 준비 중</button></div></dialog>
+<dialog class="purchase-dialog modal" id="purchase-dialog" aria-labelledby="purchase-title"><div class="dialog-header"><span>상품 정보</span><button class="icon-button" type="button" data-close-dialog aria-label="구매 화면 닫기"><svg class="icon"><use href="#i-close"/></svg></button></div><div class="purchase-scroll"><div class="purchase-image"><img src="/assets/egg-family-20261111.webp" width="1254" height="1254" alt="달걀을 먹으며 웃는 아이와 바구니에 담긴 달걀"></div><h2 id="purchase-title">자연방사 유정란</h2><p class="purchase-subtitle">20구 / 30구</p><dl class="purchase-details"><div><dt>사육 과정</dt><dd>클로렐라 배양액 급여</dd></div><div><dt>구성</dt><dd>국내산 계란 20구 / 30구</dd></div><div><dt>난각번호</dt><dd>1번</dd></div><div><dt>인증</dt><dd>HACCP, 무항생제</dd></div></dl></div><div class="purchase-bottom"><a class="button button-dark full-width" id="purchase-link" hidden target="_blank" rel="noopener noreferrer">판매처에서 구매하기 <svg class="icon"><use href="#i-arrow"/></svg></a><button class="button button-unavailable full-width" id="purchase-pending" type="button" disabled>온라인 판매 준비 중</button></div></dialog>
 <dialog class="cert-dialog modal" id="cert-dialog" aria-labelledby="cert-dialog-title"><div class="dialog-header"><h2 id="cert-dialog-title">인증 정보</h2><button class="icon-button" type="button" data-close-dialog aria-label="인증 정보 닫기"><svg class="icon"><use href="#i-close"/></svg></button></div><div class="cert-dialog-content">
   <img class="cert-dialog-mark" id="cert-dialog-image" alt="">
   <p id="cert-dialog-description"></p>
