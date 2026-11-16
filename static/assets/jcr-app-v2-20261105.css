@@ -160,7 +160,7 @@ h1,h2,h3,p { word-break:keep-all; }
 .moments-heading>span { color:#9aa2ac; font-size:10px; }
 .moment-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; }
 .moment-grid>button { padding:0; overflow:hidden; border-radius:16px; background:white; text-align:left; }
-.moment-grid img { aspect-ratio:16/8; width:100%; object-fit:cover; }
+.moment-grid img { aspect-ratio:16/9; width:100%; object-fit:cover; }
 .moment-grid>button>span { display:flex; align-items:center; gap:9px; padding:13px 14px; }
 .moment-grid strong { font-size:11px; font-weight:500; }
 .moment-grid time { font-size:9px; color:#929da7; }
@@ -265,7 +265,7 @@ html.modal-open { overflow:hidden; }
   .analysis-stats { margin-top:12px; padding-top:10px; }
   .zone-grid>div { min-height:42px; }
   .moments { margin-top:26px; } .moments-heading { display:block; } .moments-heading h2 { font-size:13px; } .moments-heading>span { display:block; margin-top:7px; font-size:9px; }
-  .moment-grid { gap:8px; } .moment-grid>button { border-radius:12px; } .moment-grid img { aspect-ratio:1.3; } .moment-grid>button>span { padding:10px 8px; flex-wrap:wrap; gap:5px; } .moment-grid strong { font-size:9px; } .moment-grid time { font-size:8px; } .moment-grid .icon { display:none; }
+  .moment-grid { gap:8px; } .moment-grid>button { border-radius:12px; } .moment-grid>button>span { padding:10px 8px; flex-wrap:wrap; gap:5px; } .moment-grid strong { font-size:9px; } .moment-grid time { font-size:8px; } .moment-grid .icon { display:none; }
   .cert-layout { display:block; padding:0; } .cert-grid { margin-top:24px; gap:10px; } .cert-card { min-height:140px; padding:18px 10px; } .cert-card>img { width:60px; height:60px; margin-bottom:14px; }
   .site-footer { display:block; padding:28px 22px 96px; }
   .footer-details { flex-direction:column; }

@@ -31,6 +31,29 @@ class TestSubjects:
 
 
 class WeeklyVideoTests(unittest.TestCase):
+    def test_landscape_framing_is_inside_source_and_has_exact_aspect(self):
+        portrait = weekly.build_framing(weekly.VideoInfo(1080, 1920, 67, 30))
+        self.assertEqual((portrait.x, portrait.y, portrait.crop_width, portrait.crop_height), (12, 902, 1056, 594))
+        self.assertEqual((portrait.width, portrait.height), (960, 540))
+        for width, height in ((1080, 1920), (1920, 1080), (2560, 1080), (96, 160), (641, 481)):
+            info = weekly.VideoInfo(width, height, 30, 24)
+            for anchor in (0, 0.68, 1):
+                plan = weekly.build_framing(info, crop_y=anchor)
+                self.assertGreaterEqual(plan.x, 0); self.assertGreaterEqual(plan.y, 0)
+                self.assertLessEqual(plan.x + plan.crop_width, width)
+                self.assertLessEqual(plan.y + plan.crop_height, height)
+                self.assertEqual(plan.crop_width * 9, plan.crop_height * 16)
+                self.assertEqual(plan.width * 9, plan.height * 16)
+                self.assertTrue(all(value % 2 == 0 for value in (plan.x, plan.y, plan.crop_width, plan.crop_height, plan.width, plan.height)))
+        native = weekly.build_framing(weekly.VideoInfo(1920, 1080, 30, 24))
+        self.assertEqual((native.x, native.y, native.crop_width, native.crop_height), (0, 0, 1920, 1080))
+        source = weekly.build_framing(weekly.VideoInfo(1080, 1920, 30, 24), framing="source")
+        self.assertEqual((source.x, source.y, source.crop_width, source.crop_height), (0, 0, 1080, 1920))
+        self.assertEqual((source.width, source.height), (540, 960))
+        for invalid in (-0.1, 1.1, float('nan'), float('inf')):
+            with self.assertRaises(ValueError):
+                weekly.build_framing(weekly.VideoInfo(1080, 1920, 30, 24), crop_y=invalid)
+
     def test_camera_translation_is_not_reported_as_bird_motion(self):
         random = np.random.default_rng(12)
         background = random.integers(30, 200, (200, 300), dtype=np.uint8)
@@ -41,6 +64,22 @@ class WeeklyVideoTests(unittest.TestCase):
         self.assertTrue(measurement["cameraCompensated"])
         self.assertLess(measurement["motionPercent"], 0.5)
         self.assertLess(np.count_nonzero(mask), mask.size * 0.005)
+
+    def test_automatic_excerpt_scores_only_the_visible_crop(self):
+        info = weekly.VideoInfo(96, 160, 6, 24)
+        plan = weekly.build_framing(info)
+        full = np.full((160, 96, 3), 240, np.uint8)
+        full[plan.y:plan.y + plan.crop_height, plan.x:plan.x + plan.crop_width] = 70
+        capture = SimpleNamespace(set=lambda *args: None, read=lambda: (True, full.copy()), release=lambda: None)
+        seen = []
+        class RecordingSubjects(TestSubjects):
+            def detect(self, frame):
+                seen.append(frame.copy())
+                return super().detect(frame)
+        with patch.object(weekly.cv2, "VideoCapture", return_value=capture):
+            weekly.choose_clip_start(Path('source.mp4'), info, 2, RecordingSubjects(), plan)
+        self.assertEqual(len(seen), 3)
+        self.assertTrue(all(frame.shape == (54, 96, 3) and np.all(frame == 70) for frame in seen))
 
     def test_portrait_zone_uses_actual_lower_right_of_image(self):
         random = np.random.default_rng(14)
@@ -68,7 +107,7 @@ class WeeklyVideoTests(unittest.TestCase):
             self.assertEqual(list(directory.glob(".weekly-staging-*")), [])
 
     @unittest.skipUnless(shutil.which("ffmpeg") and shutil.which("ffprobe"), "ffmpeg tools are required")
-    def test_portrait_release_has_one_timeline_and_is_idempotent(self):
+    def test_landscape_release_has_one_timeline_and_is_idempotent(self):
         with tempfile.TemporaryDirectory() as temporary:
             directory = Path(temporary)
             source = directory / "private-owner-name.mp4"
@@ -83,7 +122,10 @@ class WeeklyVideoTests(unittest.TestCase):
             writer.release()
             active = directory / "active.json"
             manifest = weekly.prepare_video(source, week="2026-11-09", output_root=directory / "weekly", manifest_path=active, observation="닭들이 지내는 모습을 담았어요.", detector=TestSubjects())
-            self.assertEqual((manifest["width"], manifest["height"]), (96, 160))
+            self.assertEqual((manifest["width"], manifest["height"]), (96, 54))
+            self.assertEqual(manifest["editing"]["framing"], "landscape")
+            self.assertEqual(manifest["editing"]["outputAspectRatio"], "16:9")
+            self.assertEqual(manifest["editing"]["crop"], {"x": 0, "y": 72, "width": 96, "height": 54, "sourceWidth": 96, "sourceHeight": 160})
             self.assertAlmostEqual(manifest["duration"], 2, places=2)
             self.assertNotIn(source.name, json.dumps(manifest))
             release = directory / "weekly" / manifest["version"]
@@ -95,7 +137,7 @@ class WeeklyVideoTests(unittest.TestCase):
             self.assertAlmostEqual(analysis["summary"]["averageMotionPercent"], round(float(np.mean([frame["motionPercent"] for frame in measured])), 2))
             for mode in weekly.MODES:
                 info = weekly.probe_video(release / f"{mode}.mp4")
-                self.assertEqual((info.width, info.height), (96, 160))
+                self.assertEqual((info.width, info.height), (96, 54))
                 self.assertAlmostEqual(info.duration, manifest["duration"], places=2)
             with patch.object(weekly, "encode_original", side_effect=AssertionError("immutable release should be reused")):
                 again = weekly.prepare_video(source, week="2026-11-09", output_root=directory / "weekly", manifest_path=active, max_duration=30.0, observation="닭들이 지내는 모습을 담았어요.", detector=TestSubjects())
@@ -105,7 +147,8 @@ class WeeklyVideoTests(unittest.TestCase):
             # previous immutable release, even when the source is identical.
             changed = TestSubjects()
             changed.metadata = {**changed.metadata, "confidence": 0.5, "modelSha256": "b" * 64}
-            for options in [{"detector": changed}, {"detector": TestSubjects(), "start_time": 0.5}]:
+            for options in [{"detector": changed}, {"detector": TestSubjects(), "start_time": 0.5},
+                            {"detector": TestSubjects(), "framing": "source"}, {"detector": TestSubjects(), "crop_y": 0.2}]:
                 with patch.object(weekly, "encode_original", side_effect=RuntimeError("new release required")):
                     with self.assertRaisesRegex(RuntimeError, "new release required"):
                         weekly.prepare_video(source, week="2026-11-09", output_root=directory / "weekly", manifest_path=active, observation="닭들이 지내는 모습을 담았어요.", **options)
@@ -116,6 +159,36 @@ class WeeklyVideoTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "prepared analysis"):
                 weekly.prepare_video(source, week="2026-11-09", output_root=directory / "weekly", manifest_path=active, observation="닭들이 지내는 모습을 담았어요.", detector=TestSubjects())
             self.assertEqual(json.loads(active.read_text()), {"version": "still-active"})
+
+    @unittest.skipUnless(shutil.which("ffmpeg") and shutil.which("ffprobe"), "ffmpeg tools are required")
+    def test_real_crop_keeps_square_shape_and_source_option_preserves_portrait(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            source = directory / "portrait.mp4"
+            writer = cv2.VideoWriter(str(source), cv2.VideoWriter_fourcc(*"mp4v"), 24, (320, 480))
+            self.assertTrue(writer.isOpened())
+            for _ in range(24):
+                frame = np.full((480, 320, 3), 70, np.uint8)
+                frame[300:348, 100:148] = 245
+                writer.write(frame)
+            writer.release()
+            info = weekly.probe_video(source)
+            for mode, expected in (("landscape", (320, 180)), ("source", (320, 480))):
+                plan = weekly.build_framing(info, framing=mode)
+                output = directory / f"{mode}.mp4"
+                weekly.encode_original(source, output, plan.width, plan.height, 0, 1, plan)
+                result = weekly.probe_video(output)
+                self.assertEqual((result.width, result.height), expected)
+                capture = cv2.VideoCapture(str(output)); ok, frame = capture.read(); capture.release()
+                self.assertTrue(ok)
+                white_y, white_x = np.where(np.all(frame > 215, axis=2))
+                self.assertGreater(white_x.size, 2000)
+                # A real crop preserves a square. Stretching the complete
+                # portrait source into a landscape frame would flatten it.
+                self.assertLessEqual(abs((white_x.max() - white_x.min()) - (white_y.max() - white_y.min())), 1)
+                if mode == "landscape":
+                    self.assertEqual(white_y.min(), 300 - plan.y)
+                    self.assertEqual(white_x.min(), 100 - plan.x)
 
     def test_zero_motion_has_finite_measurements(self):
         frame = np.zeros((240, 135), dtype=np.uint8)

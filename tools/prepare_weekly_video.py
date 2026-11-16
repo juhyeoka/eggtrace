@@ -32,7 +32,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FPS = 24
 SAMPLE_INTERVAL = 0.5
 SAMPLE_STEP = int(FPS * SAMPLE_INTERVAL)
-PIPELINE_VERSION = "weekly-video-v2-chicken-mask"
+PIPELINE_VERSION = "weekly-video-v3-landscape-mask"
 MODEL_NAME = "yolo11m-seg"
 MODEL_SHA256 = "eb9a06f63e2206c35d68d839b08c362429ebecf933ad54c1ad68b2fd001c17cf"
 MODEL_URL = "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11m-seg.pt"
@@ -59,6 +59,35 @@ class VideoInfo:
     codec: str = ""
     pixel_format: str = ""
     has_audio: bool = False
+
+
+@dataclass(frozen=True)
+class VideoFraming:
+    mode: str
+    source_width: int
+    source_height: int
+    x: int
+    y: int
+    crop_width: int
+    crop_height: int
+    width: int
+    height: int
+    crop_y: float
+
+    def apply(self, frame: np.ndarray) -> np.ndarray:
+        """Use the same display coordinates for source sampling and encoding."""
+        if frame.shape[1] != self.source_width or frame.shape[0] != self.source_height:
+            frame = cv2.resize(frame, (self.source_width, self.source_height))
+        return frame[self.y:self.y + self.crop_height, self.x:self.x + self.crop_width]
+
+    def metadata(self) -> dict[str, Any]:
+        aspect = Fraction(self.width, self.height)
+        return {
+            "framing": self.mode, "cropY": self.crop_y,
+            "crop": {"x": self.x, "y": self.y, "width": self.crop_width, "height": self.crop_height,
+                     "sourceWidth": self.source_width, "sourceHeight": self.source_height},
+            "outputAspectRatio": f"{aspect.numerator}:{aspect.denominator}",
+        }
 
 
 @dataclass
@@ -184,6 +213,34 @@ def fit_dimensions(width: int, height: int, max_side: int = 960) -> tuple[int, i
     return max(2, int(width * factor) // 2 * 2), max(2, int(height * factor) // 2 * 2)
 
 
+def build_framing(info: VideoInfo, framing: str = "landscape", crop_y: float = 0.68, max_side: int = 960) -> VideoFraming:
+    """Plan a genuine 16:9 crop in autorotated, square-pixel display coordinates.
+
+    Crop sizes use an even multiple of 16x9, giving exact aspect and even H.264
+    dimensions without stretching. The horizontal crop is centered; crop_y
+    controls the vertical position from top (0) to bottom (1).
+    """
+    if framing not in ("landscape", "source"):
+        raise ValueError("--framing must be landscape or source")
+    if not math.isfinite(crop_y) or not 0 <= crop_y <= 1:
+        raise ValueError("--crop-y must be between 0 and 1")
+    if framing == "source":
+        width, height = fit_dimensions(info.width, info.height, max_side)
+        return VideoFraming(framing, info.width, info.height, 0, 0, info.width, info.height, width, height, crop_y)
+    units = min(info.width // 16, info.height // 9) // 2 * 2
+    if units < 2:
+        raise ValueError("Landscape framing requires at least 32x18 display pixels")
+    crop_width, crop_height = units * 16, units * 9
+    x = (info.width - crop_width) // 4 * 2
+    available_y = info.height - crop_height
+    y = min(available_y // 2 * 2, round(available_y * crop_y / 2) * 2)
+    output_units = min(units, max_side // 16) // 2 * 2
+    if output_units < 2:
+        raise ValueError("Landscape output must allow at least 32x18 pixels")
+    return VideoFraming(framing, info.width, info.height, x, y, crop_width, crop_height,
+                        output_units * 16, output_units * 9, crop_y)
+
+
 def atomic_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = None
@@ -297,7 +354,7 @@ def measure_motion(previous: np.ndarray, current: np.ndarray, previous_subject: 
     return record, mask, flow
 
 
-def choose_clip_start(path: Path, info: VideoInfo, max_duration: float, detector: ChickenMaskDetector) -> float:
+def choose_clip_start(path: Path, info: VideoInfo, max_duration: float, detector: ChickenMaskDetector, framing: VideoFraming | None = None) -> float:
     if info.duration <= max_duration:
         return 0.0
     capture = cv2.VideoCapture(str(path))
@@ -309,6 +366,8 @@ def choose_clip_start(path: Path, info: VideoInfo, max_duration: float, detector
             ok, frame = capture.read()
             if not ok:
                 break
+            if framing is not None:
+                frame = framing.apply(frame)
             gray = small_gray(frame)
             subject = cv2.resize(detector.detect(frame).mask, (gray.shape[1], gray.shape[0]), interpolation=cv2.INTER_NEAREST)
             if previous is not None:
@@ -328,10 +387,17 @@ def choose_clip_start(path: Path, info: VideoInfo, max_duration: float, detector
     return round(max(candidates, key=lambda start: sum(score for time, score in scores if start <= time < start + max_duration)), 3)
 
 
-def encode_original(source: Path, output: Path, width: int, height: int, start: float, duration: float) -> None:
+def encode_original(source: Path, output: Path, width: int, height: int, start: float, duration: float, framing: VideoFraming | None = None) -> None:
+    filters = []
+    if framing is not None and framing.mode == "landscape":
+        # ffmpeg autorotates before filters. Normalize the display dimensions
+        # reported by ffprobe (including SAR) before applying display-space crop.
+        filters += [f"scale={framing.source_width}:{framing.source_height}:flags=lanczos", "setsar=1",
+                    f"crop={framing.crop_width}:{framing.crop_height}:{framing.x}:{framing.y}"]
+    filters += [f"scale={width}:{height}:flags=lanczos", "setsar=1", f"fps={FPS}"]
     subprocess.run(
         [command("ffmpeg"), "-hide_banner", "-loglevel", "error", "-y", "-ss", str(start), "-i", str(source),
-         "-t", str(duration), "-map", "0:v:0", "-an", "-vf", f"scale={width}:{height}:flags=lanczos,setsar=1,fps={FPS}",
+         "-t", str(duration), "-map", "0:v:0", "-an", "-vf", ",".join(filters),
          "-c:v", "libx264", "-preset", "fast", "-crf", "24", "-pix_fmt", "yuv420p", "-movflags", "+faststart",
          "-map_metadata", "-1", "-metadata:s:v:0", "rotate=0", str(output)],
         check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE,
@@ -608,7 +674,7 @@ def validate_release(directory: Path, manifest: dict[str, Any]) -> None:
         check_image(directory / Path(moment["url"]).name)
 
 
-def prepare_video(input_path: Path, *, week: str | None = None, output_root: Path = ROOT / "static" / "weekly", manifest_path: Path = ROOT / "configs" / "weekly_video.json", max_duration: float = 30, observation: str | None = None, font_path: Path | None = None, url_prefix: str = "/weekly", start_time: float | None = None, model_path: Path = MODEL_PATH, confidence: float = 0.4, detector: ChickenMaskDetector | None = None) -> dict[str, Any]:
+def prepare_video(input_path: Path, *, week: str | None = None, output_root: Path = ROOT / "static" / "weekly", manifest_path: Path = ROOT / "configs" / "weekly_video.json", max_duration: float = 30, observation: str | None = None, font_path: Path | None = None, url_prefix: str = "/weekly", start_time: float | None = None, model_path: Path = MODEL_PATH, confidence: float = 0.4, detector: ChickenMaskDetector | None = None, framing: str = "landscape", crop_y: float = 0.68) -> dict[str, Any]:
     if not input_path.is_file():
         raise ValueError("The input video does not exist")
     if not math.isfinite(max_duration) or not 1 <= max_duration <= 300:
@@ -616,6 +682,8 @@ def prepare_video(input_path: Path, *, week: str | None = None, output_root: Pat
     max_duration = float(max_duration)
     if start_time is not None and (not math.isfinite(start_time) or start_time < 0):
         raise ValueError("--start must be a finite nonnegative video time")
+    if framing not in ("landscape", "source") or not math.isfinite(crop_y) or not 0 <= crop_y <= 1:
+        raise ValueError("Use --framing landscape/source and --crop-y between 0 and 1")
     week = validate_week(week or current_week())
     if not url_prefix.startswith("/") or ".." in url_prefix or "?" in url_prefix or "#" in url_prefix:
         raise ValueError("The media URL prefix must be a local absolute URL path")
@@ -625,7 +693,7 @@ def prepare_video(input_path: Path, *, week: str | None = None, output_root: Pat
     observation = observation.strip() if observation and observation.strip() else None
     detector = detector or ChickenMaskDetector(model_path, confidence)
     source_hash = sha256_file(input_path)
-    options = {"pipeline": PIPELINE_VERSION, "source": source_hash, "week": week, "maxDuration": max_duration, "start": start_time, "detection": detector.metadata, "observation": observation, "font": sha256_file(font_path) if font_path else None, "urlPrefix": url_prefix.rstrip("/")}
+    options = {"pipeline": PIPELINE_VERSION, "source": source_hash, "week": week, "maxDuration": max_duration, "start": start_time, "detection": detector.metadata, "framing": framing, "cropY": crop_y, "observation": observation, "font": sha256_file(font_path) if font_path else None, "urlPrefix": url_prefix.rstrip("/")}
     digest = hashlib.sha256(json.dumps(options, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:12]
     version = f"{week}-{digest}"
     output_root = output_root.resolve()
@@ -642,13 +710,14 @@ def prepare_video(input_path: Path, *, week: str | None = None, output_root: Pat
     info = probe_video(input_path)
     if start_time is not None and start_time > info.duration - 1:
         raise ValueError("--start must leave at least one second of footage")
-    width, height = fit_dimensions(info.width, info.height)
-    start = start_time if start_time is not None else choose_clip_start(input_path, info, max_duration, detector)
+    framing_plan = build_framing(info, framing, crop_y)
+    width, height = framing_plan.width, framing_plan.height
+    start = start_time if start_time is not None else choose_clip_start(input_path, info, max_duration, detector, framing_plan)
     duration = min(max_duration, info.duration - start)
     with tempfile.TemporaryDirectory(prefix=".weekly-staging-", dir=output_root.parent) as temporary:
         staging = Path(temporary) / "release"
         staging.mkdir()
-        encode_original(input_path, staging / "farm.mp4", width, height, start, duration)
+        encode_original(input_path, staging / "farm.mp4", width, height, start, duration, framing_plan)
         analysis, visuals, poster_index = analyze_video(staging / "farm.mp4", observation, detector)
         width, height, moments = render_views(staging, analysis, visuals, poster_index, font_path, detector)
         manifest = {
@@ -663,7 +732,7 @@ def prepare_video(input_path: Path, *, week: str | None = None, output_root: Pat
             "moments": [{"time": moment["time"], "url": f"{release_url}/{moment['file']}"} for moment in moments],
             "observation": analysis["summary"]["observation"],
             "detection": detector.metadata,
-            "editing": {"sourceDuration": round(info.duration, 3), "start": start, "end": round(start + analysis["duration"], 3), "strategy": "reviewed-window" if start_time is not None else "full-video" if info.duration <= max_duration else "detected-chicken-movement-window"},
+            "editing": {"sourceDuration": round(info.duration, 3), "start": start, "end": round(start + analysis["duration"], 3), "strategy": "reviewed-window" if start_time is not None else "full-video" if info.duration <= max_duration else "detected-chicken-movement-window", **framing_plan.metadata()},
         }
         analysis.update(version=version, week=week, width=width, height=height, editing=manifest["editing"])
         atomic_json(staging / "analysis.json", analysis)
@@ -689,6 +758,8 @@ def main() -> int:
     parser.add_argument("--manifest", type=Path, default=ROOT / "configs" / "weekly_video.json")
     parser.add_argument("--max-duration", type=float, default=30)
     parser.add_argument("--start", type=float, help="Optional reviewed excerpt start in source-video seconds")
+    parser.add_argument("--framing", choices=("landscape", "source"), default="landscape", help="Crop to 16:9 by default, or keep the source framing")
+    parser.add_argument("--crop-y", type=float, default=0.68, help="Vertical landscape crop position, 0=top, 1=bottom (default: 0.68)")
     parser.add_argument("--model", type=Path, default=MODEL_PATH, help="Local pinned official segmentation weights")
     parser.add_argument("--confidence", type=float, default=0.4)
     parser.add_argument("--observation", help="Optional reviewed observation for this specific footage")
@@ -697,7 +768,7 @@ def main() -> int:
     parser.add_argument("--json", action="store_true", help="Print the completed public manifest as JSON")
     args = parser.parse_args()
     try:
-        result = prepare_video(args.input, week=args.week, output_root=args.output_root, manifest_path=args.manifest, max_duration=args.max_duration, observation=args.observation, font_path=args.font, url_prefix=args.url_prefix, start_time=args.start, model_path=args.model, confidence=args.confidence)
+        result = prepare_video(args.input, week=args.week, output_root=args.output_root, manifest_path=args.manifest, max_duration=args.max_duration, observation=args.observation, font_path=args.font, url_prefix=args.url_prefix, start_time=args.start, model_path=args.model, confidence=args.confidence, framing=args.framing, crop_y=args.crop_y)
     except (OSError, ValueError, RuntimeError, subprocess.SubprocessError, json.JSONDecodeError, cv2.error) as error:
         print(f"Weekly video preparation failed: {error}", file=sys.stderr)
         return 1
