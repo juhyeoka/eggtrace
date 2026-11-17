@@ -115,11 +115,12 @@ class WeeklyReportTests(unittest.TestCase):
         self.write_manifest()
         self.assertIn('2초 영상', report_page.render_report('EGG-0001', {}))
 
-    def test_full_portrait_media_uses_contain_inside_a_wide_player(self):
+    def test_full_source_media_uses_a_wide_player_without_padding(self):
         page = report_page.render_report('EGG-0001', {})
-        self.assertIn('class="video-frame has-backdrop"', page)
+        self.assertIn('class="video-frame"', page)
         self.assertIn('style="--video-aspect:16 / 9"', page)
-        self.assertIn('class="video-backdrop"', page)
+        self.assertNotIn('video-backdrop', page)
+        self.assertNotIn('video-viewing-tip', page)
         self.assertIn(self.manifest['videos']['farm'], page)
         self.assertNotIn('is-portrait', page)
 

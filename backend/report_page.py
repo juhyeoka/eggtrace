@@ -345,8 +345,6 @@ def render_report(code: str, analytics: dict) -> str:
         video_poster_url=html.escape(payload["posterUrl"], quote=True),
         video_duration=f"{int(duration + 0.5)}초 영상",
         video_aspect="16 / 9",
-        video_contained="has-backdrop" if weekly and abs(weekly["width"] / weekly["height"] - 16 / 9) > 0.02 else "",
-        video_tip_hidden="" if weekly and weekly["height"] > weekly["width"] else "hidden",
         video_guidance=_video_guidance(weekly),
         video_update=updated,
         video_update_hidden="" if updated else "hidden",
