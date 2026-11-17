@@ -9,7 +9,7 @@
   <link rel="icon" href="/assets/i4-company-logo-20261105.jpeg">
   <link rel="preload" as="image" href="/assets/i4-wordmark-20261111.webp">
   <link rel="preload" as="image" href="/assets/egg-hero-20261111.webp">
-  <link rel="stylesheet" href="/assets/jcr-app-v2-20261105.css?v=17-landscape-video">
+  <link rel="stylesheet" href="/assets/jcr-app-v2-20261105.css?v=18-full-frame-guide">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKZ6FWYZ9D"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XKZ6FWYZ9D');</script>
   <script id="report-data" type="application/json">$report_json</script>
@@ -78,12 +78,14 @@
       <h2 class="page-title" id="video-title" tabindex="-1">농장 영상</h2>
       <div class="video-meta"><span class="video-update" $video_update_hidden>$video_update</span><span class="video-length" id="video-duration">$video_duration</span></div>
     </div>
-    <div class="video-layout $video_portrait">
+    <div class="video-layout">
       <div class="video-column">
-        <div class="video-frame $video_portrait" style="--video-aspect:$video_aspect">
+        <div class="video-frame $video_contained" style="--video-aspect:$video_aspect">
+          <img class="video-backdrop" src="$video_poster_url" alt="" aria-hidden="true" width="960" height="540">
           <video id="farm-player" controls playsinline muted preload="metadata" poster="$video_poster_url" aria-label="농장 영상"><source src="$video_url" type="video/mp4"></video>
           <button class="video-play" type="button" id="video-play" aria-label="영상 재생"><svg class="icon fill"><use href="#i-play"/></svg></button>
         </div>
+        <p class="video-viewing-tip" $video_tip_hidden>전체 화면으로 보면 원본을 더 크게 볼 수 있어요.</p>
         <div class="video-caption" id="video-caption-block" hidden><h3 id="video-caption-title">농장 모습</h3><p id="video-caption">닭들이 지내는 모습을 담았어요.</p></div>
         <p class="video-error" id="video-error" hidden>영상을 불러오지 못했어요. <button type="button" id="retry-video">다시 시도</button></p>
       </div>
@@ -97,6 +99,10 @@
         </button>
       </aside>
     </div>
+    <section class="video-guide" aria-labelledby="video-guide-title">
+      <h3 id="video-guide-title">닭들은 이렇게 지내요</h3>
+      <div class="video-guide-list">$video_guidance</div>
+    </section>
     <div class="video-analysis" aria-label="영상 속 움직임">
       <p class="video-comparison" id="video-conclusion" hidden></p>
     <div class="video-tabs" role="tablist" aria-label="영상 보기 선택">

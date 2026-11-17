@@ -1,42 +1,42 @@
 {
   "schemaVersion": 1,
-  "version": "2026-11-16-a8090b0c1d4a",
+  "version": "2026-11-16-91ba7ed90760",
   "week": "2026-11-16",
-  "createdAt": "2026-11-16T02:18:39+00:00",
+  "createdAt": "2026-11-16T01:50:41+00:00",
   "sourceSha256": "01a0c825d256938a0386ac58fb0e26c37c19ff7f0e00ec1c997fcf6fbda043e9",
   "duration": 30.0,
-  "width": 960,
-  "height": 540,
-  "aspectRatio": "960 / 540",
-  "analysisUrl": "/weekly/2026-11-16-a8090b0c1d4a/analysis.json",
+  "width": 540,
+  "height": 960,
+  "aspectRatio": "540 / 960",
+  "analysisUrl": "/weekly/2026-11-16-91ba7ed90760/analysis.json",
   "videos": {
-    "farm": "/weekly/2026-11-16-a8090b0c1d4a/farm.mp4",
-    "activity": "/weekly/2026-11-16-a8090b0c1d4a/activity.mp4",
-    "density": "/weekly/2026-11-16-a8090b0c1d4a/density.mp4",
-    "pattern": "/weekly/2026-11-16-a8090b0c1d4a/pattern.mp4"
+    "farm": "/weekly/2026-11-16-91ba7ed90760/farm.mp4",
+    "activity": "/weekly/2026-11-16-91ba7ed90760/activity.mp4",
+    "density": "/weekly/2026-11-16-91ba7ed90760/density.mp4",
+    "pattern": "/weekly/2026-11-16-91ba7ed90760/pattern.mp4"
   },
   "posters": {
-    "farm": "/weekly/2026-11-16-a8090b0c1d4a/farm.webp",
-    "activity": "/weekly/2026-11-16-a8090b0c1d4a/activity.webp",
-    "density": "/weekly/2026-11-16-a8090b0c1d4a/density.webp",
-    "pattern": "/weekly/2026-11-16-a8090b0c1d4a/pattern.webp"
+    "farm": "/weekly/2026-11-16-91ba7ed90760/farm.webp",
+    "activity": "/weekly/2026-11-16-91ba7ed90760/activity.webp",
+    "density": "/weekly/2026-11-16-91ba7ed90760/density.webp",
+    "pattern": "/weekly/2026-11-16-91ba7ed90760/pattern.webp"
   },
-  "posterTime": 16.5,
+  "posterTime": 26.5,
   "moments": [
     {
       "time": 3.0,
-      "url": "/weekly/2026-11-16-a8090b0c1d4a/moment-1.webp"
+      "url": "/weekly/2026-11-16-91ba7ed90760/moment-1.webp"
     },
     {
       "time": 15.0,
-      "url": "/weekly/2026-11-16-a8090b0c1d4a/moment-2.webp"
+      "url": "/weekly/2026-11-16-91ba7ed90760/moment-2.webp"
     },
     {
       "time": 25.458,
-      "url": "/weekly/2026-11-16-a8090b0c1d4a/moment-3.webp"
+      "url": "/weekly/2026-11-16-91ba7ed90760/moment-3.webp"
     }
   ],
-  "observation": "닭들이 발판을 따라 오가며 주변 닭들 사이로 자리를 옮기고 있어요.",
+  "observation": "닭들이 가운데 발판을 따라 오가고, 주변 닭들 사이로 자리를 옮기는 모습이 보여요.",
   "detection": {
     "enabled": true,
     "model": "yolo11m-seg",
@@ -53,17 +53,6 @@
     "sourceDuration": 67.033,
     "start": 35.0,
     "end": 65.0,
-    "strategy": "reviewed-window",
-    "framing": "landscape",
-    "cropY": 0.68,
-    "crop": {
-      "x": 12,
-      "y": 902,
-      "width": 1056,
-      "height": 594,
-      "sourceWidth": 1080,
-      "sourceHeight": 1920
-    },
-    "outputAspectRatio": "16:9"
+    "strategy": "reviewed-window"
   }
 }

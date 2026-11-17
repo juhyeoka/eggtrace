@@ -20,6 +20,7 @@ EVENTS_FILE = BASE_DIR / "data" / "events.jsonl"
 STORE_FILE = BASE_DIR / "configs" / "store.json"
 TEMPLATE_FILE = BASE_DIR / "backend" / "templates" / "report.html"
 WEEKLY_MANIFEST_FILE = BASE_DIR / "configs" / "weekly_video.json"
+VIDEO_CONTEXT_FILE = BASE_DIR / "configs" / "video_context.json"
 WEEKLY_DIR = BASE_DIR / "static" / "weekly"
 KST = ZoneInfo("Asia/Seoul")
 VIDEO_MODES = ("farm", "activity", "density", "pattern")
@@ -268,6 +269,44 @@ def build_report_data(code: str) -> dict:
     }
 
 
+def _video_guidance(weekly: dict | None) -> str:
+    """Keep producer-supplied context tied to its video, apart from measured observations."""
+    indoor = {
+        "heading": "실내에서 지내기도 하나요?",
+        "body": "자연방사로 기르는 닭도 조류인플루엔자 예방을 위해 야외 방사를 잠시 쉬고 실내에서 지낼 수 있어요. 실내 장면 하나만으로 평소 사육 방식을 판단하기는 어려워요.",
+    }
+    try:
+        context = json.loads(VIDEO_CONTEXT_FILE.read_text(encoding="utf-8"))
+        if (isinstance(context, dict) and weekly
+                and isinstance(context.get("source_sha256"), str)
+                and re.fullmatch(r"[a-f0-9]{64}", context["source_sha256"])
+                and context["source_sha256"] == weekly.get("sourceSha256")):
+            notice = context.get("indoor_notice")
+            if isinstance(notice, dict) and all(isinstance(notice.get(key), str) and notice[key].strip() for key in ("heading", "body")):
+                indoor = notice
+    except (OSError, ValueError, TypeError):
+        pass
+    explanations = [
+        indoor,
+        {
+            "heading": "한쪽에 모여 있는 건 왜일까요?",
+            "body": "닭은 무리를 이루고, 다른 닭이 먹기 시작하면 곁에서 함께 먹기도 해요. 모였다 흩어지고 다른 곳으로 오가는 모습도 함께 살펴보세요.",
+        },
+        {
+            "heading": "부리로 자기 깃털을 고르는 건 왜일까요?",
+            "body": "깃털 사이를 부리로 훑고 정리하는 몸단장이에요. 걷고 먹이를 찾는 모습과 함께 닭의 자연스러운 일상이에요.",
+        },
+        {
+            "heading": "많이 움직여야 좋은 건가요?",
+            "body": "닭도 먹이를 찾다가 쉬고, 깃털을 다듬으며 지내요. 움직임이 많거나 적은 순간만으로 건강 상태를 판단하지는 않아요. 그래프는 같은 영상 안에서 움직임이 어떻게 달라졌는지 보는 데 써주세요.",
+        },
+    ]
+    return "".join(
+        f'<article class="video-guide-item"><h4>{html.escape(item["heading"])}</h4><p>{html.escape(item["body"])}</p></article>'
+        for item in explanations
+    )
+
+
 def render_report(code: str, analytics: dict) -> str:
     """Return page HTML; the legacy analytics argument is kept for route compatibility."""
     payload = build_report_data(code)
@@ -305,8 +344,10 @@ def render_report(code: str, analytics: dict) -> str:
         video_url=html.escape(payload["videoUrl"], quote=True),
         video_poster_url=html.escape(payload["posterUrl"], quote=True),
         video_duration=f"{int(duration + 0.5)}초 영상",
-        video_aspect=weekly["aspectRatio"] if weekly else "16 / 9",
-        video_portrait="is-portrait" if weekly and weekly["height"] > weekly["width"] else "",
+        video_aspect="16 / 9",
+        video_contained="has-backdrop" if weekly and abs(weekly["width"] / weekly["height"] - 16 / 9) > 0.02 else "",
+        video_tip_hidden="" if weekly and weekly["height"] > weekly["width"] else "hidden",
+        video_guidance=_video_guidance(weekly),
         video_update=updated,
         video_update_hidden="" if updated else "hidden",
         video_moments="".join(moments_html),

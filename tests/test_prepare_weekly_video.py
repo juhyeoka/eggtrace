@@ -1,6 +1,8 @@
 """Regression checks for weekly publication safety and motion measurements."""
 
 import importlib.util
+from contextlib import redirect_stdout
+from io import StringIO
 import json
 from pathlib import Path
 import shutil
@@ -31,21 +33,37 @@ class TestSubjects:
 
 
 class WeeklyVideoTests(unittest.TestCase):
+    def test_default_framing_keeps_every_source_edge(self):
+        for width, height in ((1080, 1920), (1920, 1080), (2560, 1080), (96, 160), (641, 481)):
+            info = weekly.VideoInfo(width, height, 30, 24)
+            plan = weekly.build_framing(info)
+            self.assertEqual(plan.mode, "source")
+            self.assertEqual((plan.x, plan.y, plan.crop_width, plan.crop_height), (0, 0, width, height))
+            frame = np.random.default_rng(14).integers(0, 255, (height, width, 3), dtype=np.uint8)
+            np.testing.assert_array_equal(plan.apply(frame), frame)
+
+    def test_command_line_without_framing_keeps_source_for_folder_updates(self):
+        with patch.object(sys, "argv", ["prepare_weekly_video.py", "--input", "weekly.mp4", "--json"]), \
+                patch.object(weekly, "prepare_video", return_value={"version": "test"}) as prepare, \
+                redirect_stdout(StringIO()):
+            self.assertEqual(weekly.main(), 0)
+        self.assertEqual(prepare.call_args.kwargs["framing"], "source")
+
     def test_landscape_framing_is_inside_source_and_has_exact_aspect(self):
-        portrait = weekly.build_framing(weekly.VideoInfo(1080, 1920, 67, 30))
+        portrait = weekly.build_framing(weekly.VideoInfo(1080, 1920, 67, 30), framing="landscape")
         self.assertEqual((portrait.x, portrait.y, portrait.crop_width, portrait.crop_height), (12, 902, 1056, 594))
         self.assertEqual((portrait.width, portrait.height), (960, 540))
         for width, height in ((1080, 1920), (1920, 1080), (2560, 1080), (96, 160), (641, 481)):
             info = weekly.VideoInfo(width, height, 30, 24)
             for anchor in (0, 0.68, 1):
-                plan = weekly.build_framing(info, crop_y=anchor)
+                plan = weekly.build_framing(info, framing="landscape", crop_y=anchor)
                 self.assertGreaterEqual(plan.x, 0); self.assertGreaterEqual(plan.y, 0)
                 self.assertLessEqual(plan.x + plan.crop_width, width)
                 self.assertLessEqual(plan.y + plan.crop_height, height)
                 self.assertEqual(plan.crop_width * 9, plan.crop_height * 16)
                 self.assertEqual(plan.width * 9, plan.height * 16)
                 self.assertTrue(all(value % 2 == 0 for value in (plan.x, plan.y, plan.crop_width, plan.crop_height, plan.width, plan.height)))
-        native = weekly.build_framing(weekly.VideoInfo(1920, 1080, 30, 24))
+        native = weekly.build_framing(weekly.VideoInfo(1920, 1080, 30, 24), framing="landscape")
         self.assertEqual((native.x, native.y, native.crop_width, native.crop_height), (0, 0, 1920, 1080))
         source = weekly.build_framing(weekly.VideoInfo(1080, 1920, 30, 24), framing="source")
         self.assertEqual((source.x, source.y, source.crop_width, source.crop_height), (0, 0, 1080, 1920))
@@ -67,7 +85,7 @@ class WeeklyVideoTests(unittest.TestCase):
 
     def test_automatic_excerpt_scores_only_the_visible_crop(self):
         info = weekly.VideoInfo(96, 160, 6, 24)
-        plan = weekly.build_framing(info)
+        plan = weekly.build_framing(info, framing="landscape")
         full = np.full((160, 96, 3), 240, np.uint8)
         full[plan.y:plan.y + plan.crop_height, plan.x:plan.x + plan.crop_width] = 70
         capture = SimpleNamespace(set=lambda *args: None, read=lambda: (True, full.copy()), release=lambda: None)
@@ -107,7 +125,7 @@ class WeeklyVideoTests(unittest.TestCase):
             self.assertEqual(list(directory.glob(".weekly-staging-*")), [])
 
     @unittest.skipUnless(shutil.which("ffmpeg") and shutil.which("ffprobe"), "ffmpeg tools are required")
-    def test_landscape_release_has_one_timeline_and_is_idempotent(self):
+    def test_default_full_source_release_has_one_timeline_and_is_idempotent(self):
         with tempfile.TemporaryDirectory() as temporary:
             directory = Path(temporary)
             source = directory / "private-owner-name.mp4"
@@ -122,10 +140,10 @@ class WeeklyVideoTests(unittest.TestCase):
             writer.release()
             active = directory / "active.json"
             manifest = weekly.prepare_video(source, week="2026-11-09", output_root=directory / "weekly", manifest_path=active, observation="닭들이 지내는 모습을 담았어요.", detector=TestSubjects())
-            self.assertEqual((manifest["width"], manifest["height"]), (96, 54))
-            self.assertEqual(manifest["editing"]["framing"], "landscape")
-            self.assertEqual(manifest["editing"]["outputAspectRatio"], "16:9")
-            self.assertEqual(manifest["editing"]["crop"], {"x": 0, "y": 72, "width": 96, "height": 54, "sourceWidth": 96, "sourceHeight": 160})
+            self.assertEqual((manifest["width"], manifest["height"]), (96, 160))
+            self.assertEqual(manifest["editing"]["framing"], "source")
+            self.assertEqual(manifest["editing"]["outputAspectRatio"], "3:5")
+            self.assertEqual(manifest["editing"]["crop"], {"x": 0, "y": 0, "width": 96, "height": 160, "sourceWidth": 96, "sourceHeight": 160})
             self.assertAlmostEqual(manifest["duration"], 2, places=2)
             self.assertNotIn(source.name, json.dumps(manifest))
             release = directory / "weekly" / manifest["version"]
@@ -137,7 +155,7 @@ class WeeklyVideoTests(unittest.TestCase):
             self.assertAlmostEqual(analysis["summary"]["averageMotionPercent"], round(float(np.mean([frame["motionPercent"] for frame in measured])), 2))
             for mode in weekly.MODES:
                 info = weekly.probe_video(release / f"{mode}.mp4")
-                self.assertEqual((info.width, info.height), (96, 54))
+                self.assertEqual((info.width, info.height), (96, 160))
                 self.assertAlmostEqual(info.duration, manifest["duration"], places=2)
             with patch.object(weekly, "encode_original", side_effect=AssertionError("immutable release should be reused")):
                 again = weekly.prepare_video(source, week="2026-11-09", output_root=directory / "weekly", manifest_path=active, max_duration=30.0, observation="닭들이 지내는 모습을 담았어요.", detector=TestSubjects())
@@ -148,7 +166,7 @@ class WeeklyVideoTests(unittest.TestCase):
             changed = TestSubjects()
             changed.metadata = {**changed.metadata, "confidence": 0.5, "modelSha256": "b" * 64}
             for options in [{"detector": changed}, {"detector": TestSubjects(), "start_time": 0.5},
-                            {"detector": TestSubjects(), "framing": "source"}, {"detector": TestSubjects(), "crop_y": 0.2}]:
+                            {"detector": TestSubjects(), "framing": "landscape"}, {"detector": TestSubjects(), "crop_y": 0.2}]:
                 with patch.object(weekly, "encode_original", side_effect=RuntimeError("new release required")):
                     with self.assertRaisesRegex(RuntimeError, "new release required"):
                         weekly.prepare_video(source, week="2026-11-09", output_root=directory / "weekly", manifest_path=active, observation="닭들이 지내는 모습을 담았어요.", **options)

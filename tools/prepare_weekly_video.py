@@ -32,7 +32,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FPS = 24
 SAMPLE_INTERVAL = 0.5
 SAMPLE_STEP = int(FPS * SAMPLE_INTERVAL)
-PIPELINE_VERSION = "weekly-video-v3-landscape-mask"
+PIPELINE_VERSION = "weekly-video-v4-fullframe-mask"
 MODEL_NAME = "yolo11m-seg"
 MODEL_SHA256 = "eb9a06f63e2206c35d68d839b08c362429ebecf933ad54c1ad68b2fd001c17cf"
 MODEL_URL = "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11m-seg.pt"
@@ -213,12 +213,12 @@ def fit_dimensions(width: int, height: int, max_side: int = 960) -> tuple[int, i
     return max(2, int(width * factor) // 2 * 2), max(2, int(height * factor) // 2 * 2)
 
 
-def build_framing(info: VideoInfo, framing: str = "landscape", crop_y: float = 0.68, max_side: int = 960) -> VideoFraming:
-    """Plan a genuine 16:9 crop in autorotated, square-pixel display coordinates.
+def build_framing(info: VideoInfo, framing: str = "source", crop_y: float = 0.68, max_side: int = 960) -> VideoFraming:
+    """Keep the complete source unless an explicit landscape crop is requested.
 
-    Crop sizes use an even multiple of 16x9, giving exact aspect and even H.264
-    dimensions without stretching. The horizontal crop is centered; crop_y
-    controls the vertical position from top (0) to bottom (1).
+    Explicit crop sizes use an even multiple of 16x9, giving exact aspect and
+    even H.264 dimensions without stretching. The horizontal crop is centered;
+    crop_y controls the vertical position from top (0) to bottom (1).
     """
     if framing not in ("landscape", "source"):
         raise ValueError("--framing must be landscape or source")
@@ -674,7 +674,7 @@ def validate_release(directory: Path, manifest: dict[str, Any]) -> None:
         check_image(directory / Path(moment["url"]).name)
 
 
-def prepare_video(input_path: Path, *, week: str | None = None, output_root: Path = ROOT / "static" / "weekly", manifest_path: Path = ROOT / "configs" / "weekly_video.json", max_duration: float = 30, observation: str | None = None, font_path: Path | None = None, url_prefix: str = "/weekly", start_time: float | None = None, model_path: Path = MODEL_PATH, confidence: float = 0.4, detector: ChickenMaskDetector | None = None, framing: str = "landscape", crop_y: float = 0.68) -> dict[str, Any]:
+def prepare_video(input_path: Path, *, week: str | None = None, output_root: Path = ROOT / "static" / "weekly", manifest_path: Path = ROOT / "configs" / "weekly_video.json", max_duration: float = 30, observation: str | None = None, font_path: Path | None = None, url_prefix: str = "/weekly", start_time: float | None = None, model_path: Path = MODEL_PATH, confidence: float = 0.4, detector: ChickenMaskDetector | None = None, framing: str = "source", crop_y: float = 0.68) -> dict[str, Any]:
     if not input_path.is_file():
         raise ValueError("The input video does not exist")
     if not math.isfinite(max_duration) or not 1 <= max_duration <= 300:
@@ -758,7 +758,7 @@ def main() -> int:
     parser.add_argument("--manifest", type=Path, default=ROOT / "configs" / "weekly_video.json")
     parser.add_argument("--max-duration", type=float, default=30)
     parser.add_argument("--start", type=float, help="Optional reviewed excerpt start in source-video seconds")
-    parser.add_argument("--framing", choices=("landscape", "source"), default="landscape", help="Crop to 16:9 by default, or keep the source framing")
+    parser.add_argument("--framing", choices=("landscape", "source"), default="source", help="Keep the complete source by default; landscape explicitly crops to 16:9")
     parser.add_argument("--crop-y", type=float, default=0.68, help="Vertical landscape crop position, 0=top, 1=bottom (default: 0.68)")
     parser.add_argument("--model", type=Path, default=MODEL_PATH, help="Local pinned official segmentation weights")
     parser.add_argument("--confidence", type=float, default=0.4)

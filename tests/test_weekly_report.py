@@ -19,6 +19,7 @@ class WeeklyReportTests(unittest.TestCase):
         self.release = self.weekly / self.version
         self.release.mkdir(parents=True)
         self.manifest_path = self.root / 'current.json'
+        self.context_path = self.root / 'context.json'
         self.url = f'/weekly/{self.version}'
         self.manifest = {
             'schemaVersion': 1, 'version': self.version, 'week': '2026-11-16',
@@ -44,7 +45,7 @@ class WeeklyReportTests(unittest.TestCase):
         }
         self.write_analysis()
         self.write_manifest()
-        self.patch = patch.multiple(report_page, WEEKLY_DIR=self.weekly, WEEKLY_MANIFEST_FILE=self.manifest_path)
+        self.patch = patch.multiple(report_page, WEEKLY_DIR=self.weekly, WEEKLY_MANIFEST_FILE=self.manifest_path, VIDEO_CONTEXT_FILE=self.context_path)
         self.patch.start()
         self.addCleanup(self.patch.stop)
 
@@ -113,6 +114,36 @@ class WeeklyReportTests(unittest.TestCase):
         self.manifest['duration'] = '2.0'
         self.write_manifest()
         self.assertIn('2초 영상', report_page.render_report('EGG-0001', {}))
+
+    def test_full_portrait_media_uses_contain_inside_a_wide_player(self):
+        page = report_page.render_report('EGG-0001', {})
+        self.assertIn('class="video-frame has-backdrop"', page)
+        self.assertIn('style="--video-aspect:16 / 9"', page)
+        self.assertIn('class="video-backdrop"', page)
+        self.assertIn(self.manifest['videos']['farm'], page)
+        self.assertNotIn('is-portrait', page)
+
+    def test_farm_notice_applies_only_to_the_video_it_describes(self):
+        self.manifest['sourceSha256'] = 'a' * 64
+        self.write_manifest()
+        self.context_path.write_text(json.dumps({
+            'source_sha256': 'a' * 64,
+            'indoor_notice': {'heading': '이 영상의 안내', 'body': '농장에서 확인한 이번 영상의 사육 이유'},
+        }))
+        page = report_page.render_report('EGG-0001', {})
+        self.assertIn('농장에서 확인한 이번 영상의 사육 이유', page)
+        self.manifest['sourceSha256'] = 'b' * 64
+        self.write_manifest()
+        page = report_page.render_report('EGG-0001', {})
+        self.assertNotIn('농장에서 확인한 이번 영상의 사육 이유', page)
+        self.assertIn('실내에서 지내기도 하나요?', page)
+
+    def test_unbound_or_malformed_notice_keeps_general_guidance(self):
+        for context in ({'indoor_notice': {'heading': '실내 단정', 'body': '이 영상에 적용하면 안 되는 설명'}}, ['wrong format']):
+            self.context_path.write_text(json.dumps(context))
+            page = report_page.render_report('EGG-0001', {})
+            self.assertNotIn('이 영상에 적용하면 안 되는 설명', page)
+            self.assertIn('실내에서 지내기도 하나요?', page)
 
 
 if __name__ == '__main__':
