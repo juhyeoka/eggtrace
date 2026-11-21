@@ -223,7 +223,7 @@ html.modal-open { overflow:hidden; }
 .purchase-details dd { margin:0; font-weight:500; }
 .purchase-bottom { flex-shrink:0; border-top:1px solid var(--line); padding:22px 24px max(24px,env(safe-area-inset-bottom)); }
 .button-unavailable { color:#818b96; background:#eef0f3; }
-.cert-dialog, .farm-info { width:430px; }
+.cert-dialog { width:430px; }
 @media(min-width:1440px) { .hero { margin-top:20px; border-radius:12px; max-width:1380px; } }
 @media(max-width:1000px) { .farm-layout,.cert-layout { gap:50px; } .hero h1 { font-size:47px; } .video-layout { grid-template-columns:1.35fr 1fr; gap:20px; } .analysis-panel { padding:22px; } }
 @media(max-width:700px) {
@@ -279,24 +279,34 @@ html.modal-open { overflow:hidden; }
 
 .shop-layout { display:grid; grid-template-columns:1.13fr 1fr; gap:80px; align-items:center; }
 .shop-image { border-radius:12px; overflow:hidden; }
+.shop-copy { min-width:0; container-type:inline-size; }
 .product-origin { margin-bottom:9px; font-size:13px; font-weight:500; color:var(--muted); }
 .shop-copy .page-title { font-size:36px; }
 .product-count { display:flex; align-items:center; gap:10px; margin-top:12px; font-size:21px; font-weight:400; letter-spacing:0; color:var(--ink); }
 .product-count>span { font-size:17px; color:#aaa9a3; }
 .shop-copy .page-description { max-width:420px; margin-top:23px; font-size:15px; line-height:1.85; }
-.shop-features { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:25px 0 28px; }
-.shop-features>span,.product-cert { display:inline-flex; align-items:center; justify-content:center; min-height:39px; font-size:12px; border:1px solid var(--line); border-radius:6px; padding:7px 11px; }
-.product-cert { gap:6px; background:white; }
+.shop-features { display:flex; flex-wrap:wrap; gap:7px; list-style:none; margin:22px 0 0; padding:0; }
+.shop-features li { display:flex; align-items:center; justify-content:center; padding:7px 11px; min-height:40px; border:1px solid var(--line); border-radius:7px; font-size:13px; }
+.shop-features li:has(button) { padding:0; }
+.product-cert { display:flex; align-items:center; justify-content:center; gap:6px; width:100%; min-height:40px; padding:6px 10px; border-radius:inherit; background:white; }
 .product-cert:hover { background:#f5f5f2; }
 .product-cert img { width:22px; height:22px; object-fit:contain; }
 .product-cert .icon { width:14px; height:14px; color:var(--muted); }
-.nutrition-facts { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:0 0 25px; padding:20px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-.nutrition-facts>div+div { border-left:1px solid var(--line); padding-left:22px; }
+.shop-features .nutrient-feature { flex-wrap:wrap; justify-content:flex-start; gap:2px 6px; background:#f7f5f1; border-color:#f7f5f1; }
+.nutrient-feature span,.nutrient-feature small,.nutrition-facts small { white-space:nowrap; }
+.nutrient-feature strong { font-weight:600; }
+.nutrient-feature small,.nutrition-facts small { color:var(--muted); font-size:12px; font-weight:400; letter-spacing:0; }
+.nutrition-source { margin-top:10px; color:var(--muted); font-size:12px; line-height:1.6; }
+.shop-copy .nutrition-source { margin-bottom:24px; }
+.nutrition-facts { display:grid; grid-template-columns:1fr 1fr; gap:10px; max-width:450px; margin:24px 0 0; padding:14px 0; border-block:1px solid var(--line); }
+.nutrition-facts>div+div { border-left:1px solid var(--line); padding-left:14px; }
 .nutrition-facts dt { font-size:12px; color:var(--muted); }
-.nutrition-facts dd { margin:7px 0 0; font-size:25px; font-weight:600; line-height:1.35; letter-spacing:-.6px; }
+.nutrition-facts dd { margin:5px 0 0; font-size:23px; font-weight:600; line-height:1.4; letter-spacing:-.6px; }
 .nutrition-facts dd>span { font-size:13px; font-weight:400; letter-spacing:0; }
-.farm-nutrition { max-width:390px; margin:28px 0 0; padding:17px 0; }
-.farm-nutrition dd { font-size:23px; }
+@container (max-width:380px) {
+  .shop-features { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .shop-features .nutrient-feature { flex-direction:column; align-items:flex-start; justify-content:center; }
+}
 .video-page { padding-top:60px; }
 @media(max-width:1000px) { .shop-layout { gap:45px; } }
 @media(max-width:700px) {
@@ -305,19 +315,12 @@ html.modal-open { overflow:hidden; }
   .video-page { padding-top:24px; }
   .shop-layout { display:flex; flex-direction:column; align-items:stretch; gap:30px; }
   .shop-image { width:100%; border-radius:12px; }
-  .shop-copy .page-title { font-size:30px; }
+  .shop-copy { width:100%; } .shop-copy .page-title { font-size:30px; }
   .product-origin { font-size:12px; }
   .product-count { margin-top:10px; font-size:20px; }
   .shop-copy .page-description { margin-top:18px; font-size:14px; line-height:1.8; }
-  .shop-features { margin:22px 0 24px; }
-  .nutrition-facts { gap:14px; padding:17px 0; margin-bottom:23px; }
-  .nutrition-facts>div+div { padding-left:16px; }
-  .nutrition-facts dd { font-size:24px; }
-  .farm-nutrition { margin:23px 0 0; }
 }
 
-.photo-help { position:absolute; top:16px; right:16px; background:#fffffff2; }
-.photo-help:hover { background:white; }
 .farm-overview figcaption { padding:13px 18px; color:var(--muted); font-size:13px; }
 .video-insight {
   padding:29px;
@@ -328,11 +331,12 @@ html.modal-open { overflow:hidden; }
 .video-insight h3 { font-size:23px; line-height:1.5; font-weight:600; letter-spacing:-.65px; }
 .video-insight>p { margin-top:13px; font-size:15px; line-height:1.75; color:var(--muted); }
 .video-insight .insight-reason { border-top:1px solid #dfdfd9; padding-top:14px; margin-top:16px; color:#4b4b46; }
-.video-guide { margin-top:32px; }
-.video-guide>h3 { font-size:21px; font-weight:600; letter-spacing:-.6px; margin-bottom:18px; }
-.video-guide-item { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.8fr); gap:28px; padding:20px 0; border-top:1px solid var(--line); }
-.video-guide-item h4 { font-size:16px; line-height:1.6; font-weight:600; }
-.video-guide-item p { font-size:14px; line-height:1.85; color:var(--muted); }
+.video-guide { margin-top:24px; padding:22px 26px; background:#faf8f4; border-radius:12px; }
+.video-guide>h3 { font-size:21px; font-weight:600; letter-spacing:-.6px; margin-bottom:15px; }
+.video-guide-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px 32px; }
+.video-guide-item { border-top:1px solid #e2ddd5; padding-top:12px; }
+.video-guide-item h4 { margin:0 0 5px; font-size:16px; line-height:1.5; font-weight:600; word-break:keep-all; }
+.video-guide-item p { font-size:14px; line-height:1.7; color:#59564f; }
 .insight-seek {
   display:inline-flex;
   align-items:center;
@@ -352,17 +356,16 @@ html.modal-open { overflow:hidden; }
 .video-comparison { padding:0 0 16px; color:var(--muted); font-size:15px; line-height:1.75; }
 .video-analysis .video-tabs { margin:0 0 18px; }
 .video-analysis .analysis-panel { margin:0; }
-.cert-dialog-content, .farm-info-content { padding:24px; }
+.cert-dialog-content { padding:24px; }
 .cert-dialog-mark { width:92px; height:92px; object-fit:contain; margin:0 auto 18px; }
-.cert-dialog-content p, .farm-info-content p { font-size:14px; line-height:1.8; color:#52606b; }
+.cert-dialog-content p { font-size:14px; line-height:1.8; color:#52606b; }
 .dialog-source { display:inline-flex; gap:4px; align-items:center; margin-top:15px; font-size:12px; font-weight:600; color:var(--ink); }
 .dialog-source .icon { width:14px; height:14px; }
 @media(max-width:700px) {
-  .video-guide { margin-top:28px; }
-  .video-guide>h3 { font-size:20px; margin-bottom:15px; }
-  .video-guide-item { display:block; padding:18px 0; }
-  .video-guide-item h4 { font-size:15px; margin-bottom:8px; }
-  .video-guide-item p { font-size:14px; line-height:1.75; }
+  .video-guide { margin-top:18px; padding:18px 16px; }
+  .video-guide>h3 { font-size:19px; margin-bottom:12px; }
+  .video-guide-list { grid-template-columns:1fr; gap:12px; }
+  .video-guide-item h4 { font-size:15px; }
   .video-insight { margin-top:16px; padding:18px; }
   .video-insight h3 { font-size:19px; }
   .video-insight>p { font-size:14px; line-height:1.65; }

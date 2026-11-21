@@ -93,8 +93,6 @@
     sourceLink.hidden = false;
     openDialog($('cert-dialog'));
   }));
-  $('farm-help').addEventListener('click', () => openDialog($('farm-info')));
-
   const notice = $('farm-notice');
   const noticeKey = 'eggtrace:farm-notice:20261105:hidden-until';
   let noticeOpened = false;

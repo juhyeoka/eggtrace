@@ -9,11 +9,11 @@
   <link rel="icon" href="/assets/i4-company-logo-20261105.jpeg">
   <link rel="preload" as="image" href="/assets/i4-wordmark-20261111.webp">
   <link rel="preload" as="image" href="/assets/egg-hero-20261111.webp">
-  <link rel="stylesheet" href="/assets/jcr-app-v2-20261105.css?v=19-wide-fill">
+  <link rel="stylesheet" href="/assets/jcr-app-v2-20261105.css?v=20-product-guide">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKZ6FWYZ9D"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XKZ6FWYZ9D');</script>
   <script id="report-data" type="application/json">$report_json</script>
-  <script src="/assets/jcr-app-v2-20261105.js?v=16-chicken-video" defer></script>
+  <script src="/assets/jcr-app-v2-20261105.js?v=17-product-guide" defer></script>
 </head>
 <body>
 <div class="brand-intro" id="brand-intro" aria-hidden="true">
@@ -58,15 +58,15 @@
         <h2 class="page-title" id="farm-title">클로렐라 배양액으로 키운<br>자연방사 1번 유정란</h2>
         <p class="page-description">자연방사로 키운 닭에게 클로렐라 배양액을 먹여요. 농장에서 지내는 모습도 영상으로 볼 수 있어요.</p>
         <dl class="nutrition-facts farm-nutrition" aria-label="영양 특징">
-          <div><dt>칼슘 함량</dt><dd>8% <span>증가 ↑</span></dd></div>
-          <div><dt>콜레스테롤</dt><dd>23% <span>감소 ↓</span></dd></div>
+          <div><dt>칼슘 함량</dt><dd>8% <span>증가</span> <small>(일반 계란 대비)</small></dd></div>
+          <div><dt>콜레스테롤</dt><dd>23% <span>감소</span> <small>(일반 계란 대비)</small></dd></div>
         </dl>
+        <p class="nutrition-source">수원여자대학교 식품 분석 기준</p>
         <div class="farm-links"><a class="farm-video-link" href="#farm-video">농장 영상 보기 <svg class="icon"><use href="#i-arrow"/></svg></a></div>
       </div>
       <figure class="farm-overview">
         <div class="farm-photo farm-process-photo">
           <img src="/assets/chlorella-process-reference-20261114.png" width="1098" height="394" alt="클로렐라를 기르는 배양기" loading="lazy">
-          <button class="icon-button photo-help" type="button" id="farm-help" aria-label="농장 정보 안내"><svg class="icon"><use href="#i-help"/></svg></button>
         </div>
         <figcaption>클로렐라 배양기</figcaption>
       </figure>
@@ -139,14 +139,15 @@
         <h2 class="page-title" id="shop-title">자연방사 유정란</h2>
         <p class="product-count">20구 <span aria-hidden="true">/</span> 30구</p>
         <p class="page-description">자연에서 자유롭게 자란 닭에게 클로렐라 배양액을 먹여요.<br>키우는 과정도 영상으로 함께 보여드려요.</p>
-        <div class="shop-features" aria-label="상품 특징">
-          <span>난각번호 1번</span><span>무항생제</span>
-          <button class="product-cert" type="button" data-cert="haccp" data-cert-image="/assets/haccp.png" data-cert-title="HACCP 안전관리 인증" aria-label="HACCP 인증 설명 보기"><img src="/assets/haccp.png" width="22" height="22" alt="">HACCP <svg class="icon"><use href="#i-help"/></svg></button>
-        </div>
-        <dl class="nutrition-facts" aria-label="영양 특징">
-          <div><dt>칼슘 함량</dt><dd>8% <span>증가 ↑</span></dd></div>
-          <div><dt>콜레스테롤</dt><dd>23% <span>감소 ↓</span></dd></div>
-        </dl>
+        <ul class="shop-features" aria-label="상품 특징">
+          <li>난각번호 1번</li>
+          <li>무항생제</li>
+          <li><button class="product-cert" type="button" data-cert="haccp" data-cert-image="/assets/haccp.png" data-cert-title="HACCP 안전관리 인증" aria-label="HACCP 인증 설명 보기"><img src="/assets/haccp.png" width="22" height="22" alt="">HACCP <svg class="icon"><use href="#i-help"/></svg></button></li>
+          <li><button class="product-cert" type="button" data-cert="naepo" data-cert-image="/assets/naepo.png" data-cert-title="내포천애" aria-label="내포천애 브랜드 설명 보기"><img src="/assets/naepo.png" width="22" height="22" alt="">내포천애 <svg class="icon"><use href="#i-help"/></svg></button></li>
+          <li class="nutrient-feature"><span>칼슘 <strong>8% 증가</strong></span> <small>(일반 계란 대비)</small></li>
+          <li class="nutrient-feature"><span>콜레스테롤 <strong>23% 감소</strong></span> <small>(일반 계란 대비)</small></li>
+        </ul>
+        <p class="nutrition-source">수원여자대학교 식품 분석 기준</p>
         <button class="button button-dark full-width" type="button" data-open-purchase><svg class="icon"><use href="#i-bag"/></svg> 상품 정보 보기 <svg class="icon end"><use href="#i-arrow"/></svg></button>
       </div>
     </div>
@@ -175,11 +176,5 @@
   <p id="cert-dialog-description"></p>
   <a class="dialog-source" id="cert-dialog-source" target="_blank" rel="noopener noreferrer" hidden>인증 안내 더 보기 <svg class="icon"><use href="#i-arrow"/></svg></a>
 </div></dialog>
-<dialog class="farm-info modal" id="farm-info" aria-labelledby="farm-info-title">
-  <div class="dialog-header"><h2 id="farm-info-title">농장 정보 안내</h2><button class="icon-button" type="button" data-close-dialog aria-label="농장 정보 닫기"><svg class="icon"><use href="#i-close"/></svg></button></div>
-  <div class="farm-info-content">
-    <p>영상은 충남 홍성의 월암농장에서 담았어요. 사진은 클로렐라를 기르는 배양기예요.</p>
-  </div>
-</dialog>
 </body>
 </html>
